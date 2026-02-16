@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>JCommerce — Digital Templates & Systems</title>
+<title>JCommerce & Tech — Online Systems for Jamaican Businesses</title>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1063,6 +1063,123 @@ body::after{
   .soc{width:48px;height:48px;font-size:1.05rem}
 }
 
+/* ======================== HERO SERVICE TILES ======================== */
+.hero-tiles{
+  display:grid;grid-template-columns:repeat(3,1fr);
+  gap:.7rem;
+  margin-top:2.4rem;
+}
+.htile{
+  background:var(--surface);
+  border:1.5px solid rgba(8,50,64,.08);
+  border-radius:var(--r-md);
+  padding:.9rem 1rem;
+  display:flex;align-items:center;gap:.75rem;
+  box-shadow:var(--sh-xs);
+  transition:all .26s var(--ease);
+  cursor:default;
+}
+.htile:hover{
+  border-color:var(--teal-300);
+  box-shadow:0 6px 20px rgba(26,143,168,.12);
+  transform:translateY(-3px);
+}
+.htile-icon{
+  width:40px;height:40px;border-radius:10px;
+  background:var(--teal-50);
+  border:1px solid rgba(26,143,168,.15);
+  display:flex;align-items:center;justify-content:center;
+  font-size:1rem;color:var(--teal-700);
+  flex-shrink:0;
+  transition:all .26s var(--ease-bounce);
+}
+.htile:hover .htile-icon{
+  background:var(--teal-900);color:var(--accent);
+  border-color:transparent;
+  transform:rotate(-8deg) scale(1.1);
+}
+.htile-text{
+  display:flex;flex-direction:column;gap:2px;
+  min-width:0;
+}
+.htile-title{
+  font-size:.75rem;font-weight:700;
+  color:var(--ink-900);letter-spacing:-.01em;
+  line-height:1.2;
+}
+.htile-sub{
+  font-size:.65rem;font-weight:500;
+  color:var(--ink-300);letter-spacing:.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+}
+
+/* ======================== WHATSAPP FLOAT ======================== */
+.wa-float{
+  position:fixed;
+  bottom:1.8rem;right:1.8rem;
+  z-index:8000;
+  display:flex;flex-direction:column;align-items:flex-end;gap:.55rem;
+}
+.wa-fab{
+  width:58px;height:58px;
+  background:linear-gradient(135deg,#25d366,#128c7e);
+  color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:1.55rem;
+  text-decoration:none;
+  box-shadow:0 8px 28px rgba(18,140,126,.42),0 2px 8px rgba(18,140,126,.22);
+  transition:all .28s var(--ease-bounce);
+  position:relative;
+}
+.wa-fab::before{
+  content:'';
+  position:absolute;inset:-4px;
+  border-radius:50%;
+  background:rgba(37,211,102,.18);
+  animation:wa-pulse 2.6s ease-in-out infinite;
+}
+@keyframes wa-pulse{
+  0%,100%{transform:scale(1);opacity:.8}
+  50%{transform:scale(1.35);opacity:0}
+}
+.wa-fab:hover{
+  transform:translateY(-5px) scale(1.08);
+  box-shadow:0 16px 40px rgba(18,140,126,.48),0 4px 12px rgba(18,140,126,.24);
+}
+.wa-fab i{position:relative;z-index:1}
+
+.wa-tooltip{
+  background:var(--teal-950);color:#fff;
+  padding:.55rem 1.1rem;
+  border-radius:var(--r-pill);
+  font-size:.75rem;font-weight:700;letter-spacing:.04em;
+  white-space:nowrap;
+  box-shadow:0 6px 24px rgba(8,50,64,.28);
+  opacity:0;pointer-events:none;
+  transform:translateX(10px);
+  transition:all .28s var(--ease);
+  border:1px solid rgba(255,255,255,.07);
+}
+.wa-float:hover .wa-tooltip{
+  opacity:1;transform:translateX(0);pointer-events:all;
+}
+
+/* hide toast when WA float is visible so they don't stack */
+@media(max-width:640px){
+  .wa-fab{width:52px;height:52px;font-size:1.4rem}
+  .wa-float{bottom:1.2rem;right:1.2rem}
+  /* shift toast left so it doesn't overlap fab */
+  #toast{right:5rem}
+}
+
+/* tile responsiveness */
+@media(max-width:900px){
+  .hero-tiles{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:640px){
+  .hero-tiles{grid-template-columns:1fr}
+  .htile{max-width:100%}
+}
 /* Tiny phones */
 @media(max-width:380px){
   .hero-h1{font-size:2.3rem}
@@ -1071,12 +1188,26 @@ body::after{
   .btn{padding:.8rem 1.5rem}
   .hero-stat{min-width:60px}
   .stat-num{font-size:1.5rem}
+  .htile{padding:.75rem .8rem}
+  .htile-title{font-size:.7rem}
 }
 </style>
 </head>
 <body>
 
+<!-- WHATSAPP FLOAT BUTTON -->
+<div class="wa-float" aria-label="Chat on WhatsApp">
+  <span class="wa-tooltip"><i class="fa-brands fa-whatsapp"></i> Book a free demo on WhatsApp</span>
+  <a class="wa-fab"
+     href="https://wa.me/18765551234?text=Hi%20JC%26T%2C%20I%20saw%20your%20site.%20I%20want%20a%20demo%20for%20(business%20type).%20My%20name%20is%20___.%20Location%3A%20___."
+     target="_blank" rel="noopener"
+     aria-label="Chat on WhatsApp to book a demo">
+    <i class="fa-brands fa-whatsapp"></i>
+  </a>
+</div>
+
 <!-- TOAST -->
+
 <div id="toast">
   <div id="toast-icon"><i class="fa-solid fa-check"></i></div>
   <span id="toast-msg">Done</span>
@@ -1172,6 +1303,10 @@ body::after{
     <a href="#products" class="mobile-nav-link"><i class="fa-solid fa-layer-group"></i>Templates</a>
     <a href="#social" class="mobile-nav-link"><i class="fa-solid fa-share-nodes"></i>Social</a>
     <div class="mobile-menu-divider"></div>
+    <a href="https://wa.me/18765551234?text=Hi%20JC%26T%2C%20I%20saw%20your%20site.%20I%20want%20a%20demo%20for%20(business%20type).%20My%20name%20is%20___.%20Location%3A%20___." target="_blank" rel="noopener" class="mobile-nav-link" style="color:#25d366;font-weight:700">
+      <i class="fa-brands fa-whatsapp"></i>Book a Demo (WhatsApp)
+    </a>
+    <div class="mobile-menu-divider"></div>
     <a href="#" class="mobile-nav-link mobile-menu-cta" id="mobile-project-btn">
       <i class="fa-solid fa-pen-to-square"></i>Start a Project
     </a>
@@ -1191,6 +1326,7 @@ body::after{
     <a href="#products" role="menuitem">Templates</a>
     <a href="#contact" role="menuitem">Contact</a>
     <a href="#social" role="menuitem">Social</a>
+    <a href="https://wa.me/18765551234?text=Hi%20JC%26T%2C%20I%20saw%20your%20site.%20I%20want%20a%20demo%20for%20(business%20type).%20My%20name%20is%20___.%20Location%3A%20___." target="_blank" rel="noopener" role="menuitem" style="color:#128c7e"><i class="fa-brands fa-whatsapp" style="font-size:.85rem"></i> WhatsApp</a>
   </div>
   <div class="nav-right">
     <a href="#" class="nav-pill" onclick="openProjectModal(); return false;" aria-label="Start a project">
@@ -1220,9 +1356,11 @@ body::after{
     <span class="ticker-item ticker-dot">·</span>
     <span class="ticker-item"><span class="hi">Railway</span></span>
     <span class="ticker-item ticker-dot">·</span>
-    <span class="ticker-item special">8 ready-to-deploy templates</span>
+    <span class="ticker-item special">Done-for-you systems</span>
     <span class="ticker-item ticker-dot">·</span>
     <span class="ticker-item special">Built in Kingston, Jamaica</span>
+    <span class="ticker-item ticker-dot">·</span>
+    <span class="ticker-item special">Online ordering · Delivery · Admin dashboards</span>
     <span class="ticker-item ticker-dot">·</span>
     <span class="ticker-item"><span class="hi">HTML</span></span>
     <span class="ticker-item ticker-dot">·</span>
@@ -1238,9 +1376,11 @@ body::after{
     <span class="ticker-item ticker-dot">·</span>
     <span class="ticker-item"><span class="hi">Railway</span></span>
     <span class="ticker-item ticker-dot">·</span>
-    <span class="ticker-item special">8 ready-to-deploy templates</span>
+    <span class="ticker-item special">Done-for-you systems</span>
     <span class="ticker-item ticker-dot">·</span>
     <span class="ticker-item special">Built in Kingston, Jamaica</span>
+    <span class="ticker-item ticker-dot">·</span>
+    <span class="ticker-item special">Online ordering · Delivery · Admin dashboards</span>
     <span class="ticker-item ticker-dot">·</span>
   </div>
 </div>
@@ -1253,18 +1393,44 @@ body::after{
     <div class="hero-content">
       <div class="hero-eyebrow">
         <span class="hero-eyebrow-dot" aria-hidden="true"></span>
-        Kingston, Jamaica · Digital Solutions
+        Kingston, Jamaica · Done-For-You Systems
       </div>
       <h1 class="hero-h1">
-        Real systems,<br>
-        <span class="it">built and</span><br>
-        <span class="hl">ready to deploy</span>
+        Systems that<br>
+        <span class="it">make you</span><br>
+        <span class="hl">more money</span>
       </h1>
-      <p class="hero-body">JCommerce builds and licenses production-ready web system templates. Every product was coded from scratch using HTML, CSS, JavaScript, PHP, Node.js, and MySQL — and is hosted live on Railway.</p>
+      <p class="hero-body">We build online ordering systems, delivery tracking, and admin dashboards for Jamaican businesses — fast. Done-for-you, deployed for you, working from day one.</p>
       <div class="hero-btns">
-        <a href="#products" class="btn btn-dark"><i class="fa-solid fa-layer-group"></i> Browse Templates</a>
-        <a href="#" class="btn btn-outline" onclick="openProjectModal(); return false;"><i class="fa-solid fa-comments"></i> Start a Project</a>
+        <a href="https://wa.me/18765551234?text=Hi%20JC%26T%2C%20I%20saw%20your%20site.%20I%20want%20a%20demo%20for%20(business%20type).%20My%20name%20is%20___.%20Location%3A%20___." target="_blank" rel="noopener" class="btn btn-dark"><i class="fa-brands fa-whatsapp"></i> Book a Demo</a>
+        <a href="#products" class="btn btn-outline"><i class="fa-solid fa-layer-group"></i> Browse Templates</a>
       </div>
+
+      <!-- SERVICE TILES -->
+      <div class="hero-tiles">
+        <div class="htile">
+          <div class="htile-icon"><i class="fa-solid fa-bag-shopping"></i></div>
+          <div class="htile-text">
+            <span class="htile-title">Online Ordering + Delivery</span>
+            <span class="htile-sub">Restaurants, shops &amp; more</span>
+          </div>
+        </div>
+        <div class="htile">
+          <div class="htile-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <div class="htile-text">
+            <span class="htile-title">Admin Dashboard + Inventory</span>
+            <span class="htile-sub">Track sales, stock &amp; staff</span>
+          </div>
+        </div>
+        <div class="htile">
+          <div class="htile-icon"><i class="fa-solid fa-building-columns"></i></div>
+          <div class="htile-text">
+            <span class="htile-title">Custom Systems</span>
+            <span class="htile-sub">Schools, clinics &amp; offices</span>
+          </div>
+        </div>
+      </div><!-- /hero-tiles -->
+
       <div class="hero-stats">
         <div class="hero-stat">
           <div class="stat-num">14</div>
@@ -1514,11 +1680,14 @@ body::after{
   <section id="contact" class="contact-section">
     <div class="contact-cta-card">
       <div class="sec-eye" style="justify-content:center">Ready to build?</div>
-      <h2 class="sec-title">Have a project in mind?</h2>
-      <p>Tell me about your idea and I'll help you bring it to life with a custom-built system tailored to your business.</p>
+      <h2 class="sec-title">Want more money &amp; less hassle?</h2>
+      <p>Tell us what you need and we'll build it — online ordering, dashboards, custom admin systems. Fast delivery, Jamaican prices, local support.</p>
       <div class="contact-btns">
+        <a href="https://wa.me/18765551234?text=Hi%20JC%26T%2C%20I%20saw%20your%20site.%20I%20want%20a%20demo%20for%20(business%20type).%20My%20name%20is%20___.%20Location%3A%20___." target="_blank" rel="noopener" class="btn btn-teal" style="font-size:.84rem;background:linear-gradient(135deg,#25d366,#128c7e);box-shadow:0 6px 20px rgba(18,140,126,.36)">
+          <i class="fa-brands fa-whatsapp"></i> Book a Demo on WhatsApp
+        </a>
         <a href="#" class="btn btn-teal" onclick="openProjectModal(); return false;" style="font-size:.84rem">
-          <i class="fa-solid fa-pen-to-square"></i> Start Your Project
+          <i class="fa-solid fa-pen-to-square"></i> Send Project Details
         </a>
         <a href="#products" class="btn btn-outline" style="color:rgba(255,255,255,.7);border-color:rgba(255,255,255,.18);font-size:.84rem">
           <i class="fa-solid fa-layer-group"></i> Browse Templates
@@ -1560,7 +1729,7 @@ body::after{
           </div>
           JCommerce
         </div>
-        <p class="footer-about">Production-ready web system templates built from scratch in Jamaica. Every product is real, deployed, and available for licensing or custom delivery.</p>
+        <p class="footer-about">Done-for-you online systems for Jamaican businesses. Online ordering, admin dashboards, custom builds — fast delivery, local support, Jamaican prices.</p>
       </div>
       <div class="footer-col">
         <h5>Templates</h5>
