@@ -146,6 +146,24 @@
       line-height: 1.6;
       overflow-x: hidden;
       -webkit-font-smoothing: antialiased;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== SUBTLE ICON BACKGROUND ===== */
+    #bg-icons {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      z-index: 0;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    #bg-icons .bg-icon {
+      position: absolute;
+      fill: #d8d2a8;
+      opacity: 0.5;
     }
 
     .container {
@@ -2157,9 +2175,279 @@
       .ai-title-line-2 { font-size: 1.3rem; }
       .ai-offer-actions { flex-direction: column; align-items: flex-start; gap: 1rem; }
     }
+
+    /* =====================================================
+       FIXES: SCROLL · ALIGNMENT · MOBILE RESPONSIVENESS
+       ===================================================== */
+
+    /* ----- Section heading alignment ----- */
+    /* Left-aligned headers stay left */
+    .section-header { text-align: left; }
+    /* Centred variant: all children centred */
+    .section-header.center {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .section-header.center .section-eyebrow { margin: 0 auto 0.8rem; }
+    .section-header.center .section-title   { text-align: center; max-width: 700px; }
+    .section-header.center .section-subtitle{ text-align: center; }
+
+    /* Contact card — always centred */
+    .contact-card .section-eyebrow,
+    .contact-card .section-title,
+    .contact-card .contact-description {
+      text-align: center;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Social section — always centred */
+    .social-section {
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .social-section .section-eyebrow { margin: 0 auto 0.5rem; }
+    .social-section .section-title   { text-align: center; }
+
+    /* Jamaica banner headings */
+    .jamaica-banner h2 { text-align: left; }
+
+    /* ----- Mobile: ≤ 480px ----- */
+    @media (max-width: 480px) {
+      :root {
+        --container-padding: 1rem;
+        --nav-height: 60px;
+      }
+
+      /* Nav: hide text labels on pills, show only icons */
+      .nav-pill span { display: none; }
+      .nav-pill { padding: 0.5rem 0.65rem; min-width: 36px; justify-content: center; }
+      .nav-right { gap: 0.4rem; }
+
+      /* Hero */
+      .hero {
+        grid-template-columns: 1fr;
+        text-align: center;
+        padding: var(--space-lg) 0 var(--space-md);
+        gap: 1.5rem;
+      }
+      .hero-visual { order: -1; }
+      .hero-eyebrow { margin: 0 auto; }
+      .hero-description { font-size: 0.92rem; margin: 0 auto; }
+      .hero-actions { flex-direction: column; align-items: stretch; }
+      .hero-actions .btn { width: 100%; justify-content: center; }
+      .hero-title { font-size: 2.1rem; }
+      .hero-tiles { grid-template-columns: 1fr; }
+      .hero-stats { flex-wrap: wrap; border-radius: var(--radius-lg); }
+      .stat-item { min-width: calc(50% - 1px); border-right: 1px solid var(--ink-100); }
+      .stat-item:nth-child(2n) { border-right: none; }
+      .stat-number { font-size: 1.7rem; }
+
+      /* Sections */
+      .section { padding: 2.5rem 0; }
+      .section-title { font-size: 1.6rem; }
+      .section-subtitle { font-size: 0.88rem; }
+      .section-header { margin-bottom: 1.75rem; }
+
+      /* Grids → single column */
+      .outcome-grid,
+      .how-it-works,
+      .benefits-grid,
+      .proof-grid,
+      .product-grid,
+      .faq-grid { grid-template-columns: 1fr; }
+      .packages-grid { grid-template-columns: 1fr; }
+      .packages-grid .package-card:last-child { grid-column: auto; max-width: 100%; margin: 0; }
+      .package-card.popular { transform: none; }
+      .package-card.popular:hover { transform: translateY(-5px); }
+
+      /* Step connectors hidden on single column */
+      .step:not(:last-child)::after { display: none; }
+
+      /* Jamaica banner */
+      .jamaica-banner { padding: 1.75rem 1.25rem; border-radius: var(--radius-xl); }
+      .jamaica-banner-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+      .jamaica-banner h2 { font-size: 1.5rem; text-align: center; }
+      .jamaica-banner p { text-align: center; }
+      .jamaica-banner-stats { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+      .jamaica-banner > div > div:first-child > div { justify-content: center; }
+
+      /* Delivery box */
+      .delivery-box { flex-direction: column; text-align: center; padding: 1.5rem 1.25rem; }
+      .delivery-list { justify-content: center; flex-wrap: wrap; }
+
+      /* AI offer */
+      .ai-offer-inner { grid-template-columns: 1fr; padding: 1.75rem 1.25rem; gap: 2rem; }
+      .ai-offer-right { order: -1; }
+      .ai-bot-visual { width: 180px; height: 180px; margin: 0 auto; }
+      .ai-ring-1 { width: 165px; height: 165px; }
+      .ai-ring-2 { width: 125px; height: 125px; }
+      .ai-ring-3 { width: 85px; height: 85px; }
+      .ai-bot-core { width: 64px; height: 64px; }
+      .ai-robot-icon { font-size: 1.6rem; }
+      .ai-bubble-3 { display: none; }
+      .ai-title-line-1 { font-size: 1.85rem; }
+      .ai-title-line-2 { font-size: 1.1rem; }
+      .ai-offer-actions { flex-direction: column; align-items: stretch; }
+      .ai-cta-btn { width: 100%; }
+      .ai-cta-inner { justify-content: center; }
+      .ai-specs { max-width: 100%; }
+
+      /* Contact actions */
+      .contact-actions { flex-direction: column; align-items: stretch; }
+      .contact-actions .btn { width: 100%; justify-content: center; }
+
+      /* Social */
+      .social-grid { gap: 0.6rem; }
+      .social-link { width: 46px; height: 46px; font-size: 1rem; }
+
+      /* Footer */
+      .footer { border-radius: 0; padding: 2rem 1rem 1.5rem; }
+      .footer-grid { grid-template-columns: 1fr; gap: 1.75rem; text-align: center; }
+      .footer-logo { justify-content: center; }
+      .footer-about { margin: 0 auto; text-align: center; }
+      .footer-col a { display: inline-block; margin: 0.2rem 0.4rem; }
+      .footer-bottom { flex-direction: column; text-align: center; gap: 0.75rem; }
+      .footer-tech { justify-content: center; }
+
+      /* Modals */
+      .modal { padding: 1.25rem; border-radius: var(--radius-xl); max-height: 95vh; }
+      .modal-title { font-size: 1.35rem; }
+
+      /* WA float */
+      .wa-float { bottom: 1rem; right: 1rem; }
+      .wa-button { width: 50px; height: 50px; font-size: 1.4rem; }
+    }
+
+    /* ----- Tablet: 481–768px ----- */
+    @media (min-width: 481px) and (max-width: 768px) {
+      :root { --container-padding: 1.25rem; }
+
+      .hero { grid-template-columns: 1fr; text-align: center; gap: 2rem; }
+      .hero-visual { order: -1; }
+      .hero-eyebrow { margin: 0 auto; }
+      .hero-description { margin: 0 auto; }
+      .hero-actions { justify-content: center; flex-wrap: wrap; }
+
+      .outcome-grid { grid-template-columns: 1fr; }
+      .packages-grid { grid-template-columns: 1fr; }
+      .packages-grid .package-card:last-child { grid-column: auto; max-width: 100%; margin: 0; }
+      .package-card.popular { transform: none; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .faq-grid { grid-template-columns: 1fr; }
+      .proof-grid { grid-template-columns: 1fr; }
+
+      .ai-offer-inner { grid-template-columns: 1fr; padding: 2.5rem 2rem; gap: 2rem; }
+      .ai-offer-right { order: -1; }
+
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .footer-grid > div:first-child { grid-column: 1 / -1; }
+    }
+
+    /* ----- Tablet: 769–1024px ----- */
+    @media (min-width: 769px) and (max-width: 1024px) {
+      :root { --container-padding: 1.5rem; }
+      .product-grid { grid-template-columns: repeat(2, 1fr); }
+      .packages-grid { grid-template-columns: repeat(2, 1fr); }
+      .packages-grid .package-card:last-child { grid-column: span 2; max-width: 52%; margin: 0 auto; }
+      .benefits-grid { grid-template-columns: repeat(2, 1fr); }
+      .proof-grid { grid-template-columns: repeat(2, 1fr); }
+      .jamaica-banner-inner { grid-template-columns: 1fr; gap: 2rem; }
+    }
+
+    /* ----- Ensure nav buttons collapse cleanly on mobile ----- */
+    @media (max-width: 900px) {
+      .nav-links { display: none !important; }
+      .hamburger { display: flex !important; }
+    }
+
+    /* ----- Prevent horizontal overflow everywhere ----- */
+    .hero-section, .section, .industries-strip,
+    .contact-section, .social-section { overflow-x: hidden; }
+
   </style>
 </head>
 <body>
+
+  <!-- Subtle icon background -->
+  <div id="bg-icons" aria-hidden="true"></div>
+  <script>
+  (function() {
+    // FA-style SVG paths for tech/business icons
+    const icons = [
+      // globe
+      'M12 2C6.477 2 2 6.477 2 12s4.477 10 10 10 10-4.477 10-10S17.523 2 12 2zm0 2c.93 0 1.966.703 2.916 2H9.084C10.034 4.703 11.07 4 12 4zm-4.29 2h8.58c.373.624.686 1.295.93 2H6.78c.244-.705.557-1.376.93-2zM4.1 10h15.8c.066.652.1 1.32.1 2s-.034 1.348-.1 2H4.1C4.034 13.348 4 12.68 4 12s.034-1.348.1-2zm2.68 6h10.44c-.244.705-.557 1.376-.93 2H7.71c-.373-.624-.686-1.295-.93-2zm1.304 4c.95 1.297 1.986 2 2.916 2s1.966-.703 2.916-2H8.084z',
+      // laptop/code
+      'M4 6a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H6zM2 19a1 1 0 0 1 1-1h18a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1zm6.293-8.707a1 1 0 0 1 1.414 0L12 12.586l2.293-2.293a1 1 0 0 1 1.414 1.414l-3 3a1 1 0 0 1-1.414 0l-3-3a1 1 0 0 1 0-1.414z',
+      // server
+      'M3 6a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V6zm0 8a3 3 0 0 1 3-3h12a3 3 0 0 1 3 3v2a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-2zm14-8a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-3 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm3 8a1 1 0 1 0 0 2 1 1 0 0 0 0-2zm-3 0a1 1 0 1 0 0 2 1 1 0 0 0 0-2z',
+      // rocket
+      'M13.13 22.19L11.5 18.36C13.07 17.78 14.54 17 15.9 16.09L13.13 22.19M5.64 12.5L1.81 10.87L7.91 8.1C7 9.46 6.22 10.93 5.64 12.5M19.22 4C19.5 4 19.75 4 20 4.05C20.55 9.87 17.68 15 13 17.93L6.07 10.93C9 6.25 14.13 3.38 19.22 4M8.54 16.11C9.15 16.45 9.77 16.75 10.37 17L9 19.5C8.33 18.66 7.5 17.5 6.5 16.5C5.5 15.5 4.34 14.67 3.5 14L6 12.63C6.25 13.23 6.55 13.85 6.89 14.46L8.54 16.11M17.71 8.29A1 1 0 0 0 16.3 9.7A1 1 0 0 0 17.71 8.29Z',
+      // chart-bar
+      'M3 3h2v18H3V3zm4 8h2v10H7V11zm4-5h2v15h-2V6zm4 3h2v12h-2V9zm4-5h2v17h-2V4z',
+      // smartphone
+      'M17 2H7a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4a2 2 0 0 0-2-2zM7 4h10v14H7V4zm4 15h2v1h-2v-1z',
+      // shopping cart
+      'M6 2H3a1 1 0 0 0 0 2h1.22l2.3 9.2A3 3 0 1 0 9 15h6a3 3 0 1 0 2.78-2H8.5l-.5-2H19a1 1 0 0 0 .97-.76l1.5-6A1 1 0 0 0 20.5 3H6.28L5.93 2H6zM9 17a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm8 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z',
+      // cpu/chip
+      'M9 3H7a4 4 0 0 0-4 4v2H1v2h2v2H1v2h2v2a4 4 0 0 0 4 4h2v2h2v-2h2v2h2v-2h2a4 4 0 0 0 4-4v-2h2v-2h-2v-2h2V9h-2V7a4 4 0 0 0-4-4h-2V1H9v2zm7 4v10H8V7h8zM10 9v6h4V9h-4z',
+      // wifi
+      'M1.41 8.41C3.93 5.89 7.28 4.25 11 4.03V2C6.72 2.23 2.84 4.07 0 7l1.41 1.41zM12 6c-3.87.11-7.35 1.73-9.9 4.31L3.51 11.7C5.72 9.41 8.7 8 12 8s6.28 1.41 8.49 3.7l1.41-1.39C19.35 7.73 15.87 6.11 12 6zm0 6c-2.54.07-4.84 1.08-6.54 2.76L6.87 16.17C8.23 14.8 10.01 14 12 14s3.77.8 5.13 2.17l1.41-1.41C16.84 13.08 14.54 12.07 12 12zm0 6a2 2 0 0 0 0 4 2 2 0 0 0 0-4z',
+      // database
+      'M12 2C8.13 2 5 3.57 5 5.5V18.5C5 20.43 8.13 22 12 22s7-1.57 7-3.5V5.5C19 3.57 15.87 2 12 2zm5 16.5c0 .83-2.24 1.5-5 1.5s-5-.67-5-1.5V15.1c1.35.57 3.08.9 5 .9s3.65-.33 5-.9v3.4zm0-5c0 .83-2.24 1.5-5 1.5s-5-.67-5-1.5V10.1c1.35.57 3.08.9 5 .9s3.65-.33 5-.9v3.4zm0-5c0 .83-2.24 1.5-5 1.5s-5-.67-5-1.5 2.24-1.5 5-1.5 5 .67 5 1.5z',
+      // lock/security
+      'M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z',
+      // trending up
+      'M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z',
+      // headset / support
+      'M12 2C6.48 2 2 6.48 2 12v3c0 1.1.9 2 2 2h1v-6H4v-1c0-4.42 3.58-8 8-8s8 3.58 8 8v1h-1v6h1c1.1 0 2-.9 2-2v-3c0-5.52-4.48-10-10-10z',
+      // star
+      'M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z',
+      // bolt/lightning
+      'M7 2v11h3v9l7-12h-4l4-8z',
+    ];
+
+    const container = document.getElementById('bg-icons');
+    if (!container) return;
+
+    const W = window.innerWidth;
+    const H = window.innerHeight;
+
+    // Fill the viewport with icons using golden-ratio scatter
+    const count = 36;
+    const sizes = [28, 36, 44, 52, 62, 72];
+    const opacities = [0.28, 0.35, 0.42, 0.48, 0.38, 0.30];
+    const rotations = [-45, -30, -20, -10, 0, 10, 20, 30, 45, 15, -15, 5];
+
+    for (let i = 0; i < count; i++) {
+      const icon = icons[i % icons.length];
+      const size = sizes[i % sizes.length];
+      const op   = opacities[i % opacities.length];
+      const rot  = rotations[i % rotations.length];
+
+      // Golden-ratio scatter: fills viewport evenly without clustering
+      const x = (((i * 137.508) % 100) / 100) * Math.max(0, W - size);
+      const y = (((i * 97.308) % 100) / 100) * Math.max(0, H - size);
+
+      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+      svg.setAttribute('viewBox', '0 0 24 24');
+      svg.setAttribute('width', size);
+      svg.setAttribute('height', size);
+      svg.classList.add('bg-icon');
+      svg.style.cssText = `left:${x}px;top:${y}px;opacity:${op};transform:rotate(${rot}deg);`;
+
+      const path = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+      path.setAttribute('d', icon);
+      svg.appendChild(path);
+      container.appendChild(svg);
+    }
+  })();
+  </script>
 
   <!-- Toast -->
   <div id="toast" class="toast" role="alert" aria-live="polite" aria-atomic="true">
@@ -2330,7 +2618,7 @@
       <span class="ticker-item ticker-dot">·</span>
       <span class="ticker-item"><span class="highlight">ONLINE REAL ESTATE</span></span>
       <span class="ticker-item ticker-dot">·</span>
-      <span class="ticker-item special">Built in Kingston, Jamaica</span>
+      <span class="ticker-item special">Built in Jamaica</span>
       <span class="ticker-item ticker-dot">·</span>
       <span class="ticker-item"><span class="highlight">ONLINE ORDERING</span></span>
       <span class="ticker-item ticker-dot">·</span>
@@ -2353,7 +2641,7 @@
       <span class="ticker-item ticker-dot">·</span>
       <span class="ticker-item"><span class="highlight">ONLINE REAL ESTATE</span></span>
       <span class="ticker-item ticker-dot">·</span>
-      <span class="ticker-item special">Built in Kingston, Jamaica</span>
+      <span class="ticker-item special">Built in Jamaica</span>
       <span class="ticker-item ticker-dot">·</span>
       <span class="ticker-item"><span class="highlight">ONLINE ORDERING</span></span>
       <span class="ticker-item ticker-dot">·</span>
@@ -2455,6 +2743,12 @@
             <div class="hero-blob-2" aria-hidden="true"></div>
             <div class="hero-bg-ring" aria-hidden="true"></div>
 
+            <!--
+              ====================================================
+              HERO LOGO / IMAGE PLACEHOLDER
+              Replace this entire .hero-logo-placeholder div with:
+                            ====================================================
+            -->
             <img src="images/logo.png" alt="JCommerce" 
                    style="width:300px;height:300px;object-fit:contain;border-radius:50%;position:relative;z-index:2;box-shadow:0 0 60px rgba(204,156,0,0.25);">
 
@@ -3079,6 +3373,8 @@
 
     <!-- FAQ -->
     <section class="section container">
+      <div class="section-header center">
+        <div class="section-eyebrow">Questions?</div>
         <h2 class="section-title">Frequently Asked</h2>
         <p class="section-subtitle">Everything you need to know about working with JCommerce.</p>
       </div>
