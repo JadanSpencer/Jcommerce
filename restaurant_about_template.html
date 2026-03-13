@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Restaurant Template — JCommerce & Tech</title>
-  <meta name="description" content="A full walkthrough of the JCommerce Restaurant & Food Ordering template. See every screen, every feature, every admin tool your restaurant gets.">
+  <title>Restaurant Ordering System — JCommerce & Tech</title>
+  <meta name="description" content="A full walkthrough of the JCommerce Restaurant & Food Ordering system. See every screen, every feature, every admin tool your restaurant gets — based on the live Nola's Events code.">
 
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23f5c800' d='M8 1L15 5v6L8 15 1 11V5z'/%3E%3Ctext x='8' y='12' text-anchor='middle' fill='%2314b8a6' font-size='10' font-family='Arial, sans-serif' font-weight='bold'%3EJ%3C/text%3E%3C/svg%3E">
   <meta name="theme-color" content="#fdfcf0">
@@ -17,6 +17,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700;9..144,900&display=swap" rel="stylesheet">
 
   <style>
+    /* CSS REMAINS EXACTLY THE SAME - UNCHANGED */
     :root {
       --bg: #fdfcf0; --bg-warm: #faf5d0; --surface: #ffffff; --surface-2: #fefdf5;
       --ink-900: #1c1a0e; --ink-700: #2d2a14; --ink-500: #5a5228; --ink-400: #7a7040;
@@ -219,7 +220,7 @@
     .chip.pending { background:var(--purple-50); color:var(--purple-700); border:1px solid var(--purple-200); }
     .chip.preparing { background:var(--teal-50); color:var(--teal-700); border:1px solid var(--teal-200); }
     .chip.ready { background:#f0f9ff; color:#0369a1; border:1px solid #bae6fd; }
-    .chip.delivered { background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0; }
+    .chip.completed { background:#f0fdf4; color:#15803d; border:1px solid #bbf7d0; }
 
     /* SPLIT */
     .split { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-top:1.5rem; }
@@ -391,23 +392,23 @@
 
   <div class="ticker" aria-hidden="true">
     <div class="ticker-inner">
-      <span class="ticker-item"><span class="highlight">RESTAURANT TEMPLATE</span></span><span class="ticker-dot">·</span>
-      <span class="ticker-item special">Online Ordering System</span><span class="ticker-dot">·</span>
-      <span class="ticker-item"><span class="highlight">KITCHEN DISPLAY</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">NOLA'S EVENTS RESTAURANT SYSTEM</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">Multi-Person Ordering</span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">DIGITAL MENU</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">PER-PERSON SPLIT</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">Kitchen Display System</span><span class="ticker-dot">·</span>
       <span class="ticker-item"><span class="highlight">ADMIN DASHBOARD</span></span><span class="ticker-dot">·</span>
-      <span class="ticker-item special">Table Reservations</span><span class="ticker-dot">·</span>
-      <span class="ticker-item"><span class="highlight">DELIVERY TRACKING</span></span><span class="ticker-dot">·</span>
-      <span class="ticker-item"><span class="highlight">CUSTOMER ACCOUNTS</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">ORDER STATUS TRACKING</span></span><span class="ticker-dot">·</span>
       <span class="ticker-item special">From $50,000 JMD</span><span class="ticker-dot">·</span>
       <span class="ticker-item"><span class="highlight">LIVE IN 14 DAYS</span></span><span class="ticker-dot">·</span>
       <span class="ticker-item special">Built in Jamaica</span><span class="ticker-dot">·</span>
-      <span class="ticker-item"><span class="highlight">RESTAURANT TEMPLATE</span></span><span class="ticker-dot">·</span>
-      <span class="ticker-item special">Online Ordering System</span><span class="ticker-dot">·</span>
-      <span class="ticker-item"><span class="highlight">KITCHEN DISPLAY</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">NOLA'S EVENTS RESTAURANT SYSTEM</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">Multi-Person Ordering</span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">DIGITAL MENU</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">PER-PERSON SPLIT</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">Kitchen Display System</span><span class="ticker-dot">·</span>
       <span class="ticker-item"><span class="highlight">ADMIN DASHBOARD</span></span><span class="ticker-dot">·</span>
-      <span class="ticker-item special">Table Reservations</span><span class="ticker-dot">·</span>
-      <span class="ticker-item"><span class="highlight">DELIVERY TRACKING</span></span><span class="ticker-dot">·</span>
-      <span class="ticker-item"><span class="highlight">CUSTOMER ACCOUNTS</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">ORDER STATUS TRACKING</span></span><span class="ticker-dot">·</span>
       <span class="ticker-item special">From $50,000 JMD</span><span class="ticker-dot">·</span>
     </div>
   </div>
@@ -415,15 +416,15 @@
   <!-- Mobile Section Nav -->
   <div class="mobile-section-nav" id="mobileSectionNav" role="navigation" aria-label="Page sections">
     <div class="msn-inner">
-      <button class="msn-item active" data-target="s1">1 · Menu</button>
-      <button class="msn-item" data-target="s2">2 · Online Ordering</button>
-      <button class="msn-item" data-target="s3">3 · Cart</button>
+      <button class="msn-item active" data-target="s1">1 · Table Entry</button>
+      <button class="msn-item" data-target="s2">2 · Digital Menu</button>
+      <button class="msn-item" data-target="s3">3 · Multi-Person Ordering</button>
       <button class="msn-item" data-target="s4">4 · Checkout</button>
       <button class="msn-item" data-target="s5">5 · Kitchen Display</button>
-      <button class="msn-item" data-target="s6">6 · Admin Dashboard</button>
-      <button class="msn-item" data-target="s7">7 · Menu Management</button>
-      <button class="msn-item" data-target="s8">8 · Reservations</button>
-      <button class="msn-item" data-target="s9">9 · Delivery</button>
+      <button class="msn-item" data-target="s6">6 · Order Status</button>
+      <button class="msn-item" data-target="s7">7 · Admin Dashboard</button>
+      <button class="msn-item" data-target="s8">8 · Menu Management</button>
+      <button class="msn-item" data-target="s9">9 · Order Management</button>
     </div>
   </div>
 
@@ -435,21 +436,21 @@
           <i class="fa-solid fa-chevron-right"></i>
           <a href="index.html#products">Templates</a>
           <i class="fa-solid fa-chevron-right"></i>
-          <span>Restaurant System</span>
+          <span>Nola's Events Restaurant System</span>
         </div>
         <div class="hero-eyebrow">
           <span class="hero-eyebrow-dot" aria-hidden="true"></span>
-          Food & Hospitality · Template Walkthrough · Full System Overview
+          Restaurant · Template Walkthrough · Full System Overview
         </div>
-        <h1 class="hero-title">Your <span class="italic">restaurant</span><br><span class="highlight">online & taking orders</span></h1>
-        <p class="hero-description">Everything your restaurant needs to accept online orders — a beautiful digital menu, kitchen display, table reservations, delivery tracking, and a full admin dashboard. See every screen below.</p>
+        <h1 class="hero-title">Your <span class="italic">restaurant</span><br><span class="highlight">digitally transformed</span></h1>
+        <p class="hero-description">A complete restaurant ordering system based on the live Nola's Events code. Table entry, multi-person ordering, per-person item splitting, kitchen display, order status tracking, and full admin control. See every screen below.</p>
         <div class="hero-pills">
+          <span class="hero-pill"><i class="fa-solid fa-chair"></i> Table Entry</span>
           <span class="hero-pill"><i class="fa-solid fa-utensils"></i> Digital Menu</span>
-          <span class="hero-pill"><i class="fa-solid fa-cart-shopping"></i> Online Ordering</span>
+          <span class="hero-pill"><i class="fa-solid fa-user-plus"></i> Add Persons</span>
+          <span class="hero-pill"><i class="fa-solid fa-receipt"></i> Per-Person Split</span>
           <span class="hero-pill"><i class="fa-solid fa-tv"></i> Kitchen Display</span>
-          <span class="hero-pill"><i class="fa-solid fa-calendar-check"></i> Reservations</span>
-          <span class="hero-pill"><i class="fa-solid fa-truck"></i> Delivery Tracking</span>
-          <span class="hero-pill"><i class="fa-solid fa-chart-line"></i> Sales Reports</span>
+          <span class="hero-pill"><i class="fa-solid fa-clock"></i> Order Status</span>
         </div>
         <div class="hero-actions">
           <a href="https://wa.me/18765499714?text=Hi%20JCommerce%2C%20I%20want%20to%20see%20the%20Restaurant%20template%20demo." target="_blank" rel="noopener" class="btn btn-wa"><i class="fa-brands fa-whatsapp"></i> Book a Live Demo</a>
@@ -472,15 +473,15 @@
         <aside class="side-nav" aria-label="Section navigation">
           <div class="sn-header"><div class="sn-label">Walkthrough</div><div class="sn-title">Restaurant System</div></div>
           <nav class="sn-list">
-            <div class="sn-item active" data-target="s1"><span class="sn-num">1</span>Digital Menu</div>
-            <div class="sn-item" data-target="s2"><span class="sn-num">2</span>Online Ordering</div>
-            <div class="sn-item" data-target="s3"><span class="sn-num">3</span>Shopping Cart</div>
+            <div class="sn-item active" data-target="s1"><span class="sn-num">1</span>Table Entry</div>
+            <div class="sn-item" data-target="s2"><span class="sn-num">2</span>Digital Menu</div>
+            <div class="sn-item" data-target="s3"><span class="sn-num">3</span>Multi-Person Ordering</div>
             <div class="sn-item" data-target="s4"><span class="sn-num">4</span>Checkout</div>
             <div class="sn-item" data-target="s5"><span class="sn-num">5</span>Kitchen Display</div>
-            <div class="sn-item" data-target="s6"><span class="sn-num">6</span>Admin Dashboard</div>
-            <div class="sn-item" data-target="s7"><span class="sn-num">7</span>Menu Management</div>
-            <div class="sn-item" data-target="s8"><span class="sn-num">8</span>Reservations</div>
-            <div class="sn-item" data-target="s9"><span class="sn-num">9</span>Delivery Tracking</div>
+            <div class="sn-item" data-target="s6"><span class="sn-num">6</span>Order Status</div>
+            <div class="sn-item" data-target="s7"><span class="sn-num">7</span>Admin Dashboard</div>
+            <div class="sn-item" data-target="s8"><span class="sn-num">8</span>Menu Management</div>
+            <div class="sn-item" data-target="s9"><span class="sn-num">9</span>Order Management</div>
           </nav>
           <div class="sn-footer">
             <button class="sn-cta" onclick="window.open('https://wa.me/18765499714?text=Hi%20JCommerce%2C%20I%20want%20to%20see%20the%20Restaurant%20template%20demo.','_blank')">
@@ -493,232 +494,246 @@
 
           <!-- S1 -->
           <section class="ws" id="s1">
-            <div class="ws-eye"><span class="n">1</span> Digital Menu</div>
-            <h2 class="ws-title">Your menu — beautiful, fast, and always up to date</h2>
-            <p class="ws-desc">The digital menu is your restaurant's storefront. Customers browse categories, see item descriptions, view prices, and add to cart — all with beautiful food photography and clear pricing.</p>
+            <div class="ws-eye"><span class="n">1</span> Table Entry</div>
+            <h2 class="ws-title">Start with table number or takeout</h2>
+            <p class="ws-desc">Customers enter their table number or select takeout to begin. The system remembers their table throughout the ordering process, displayed in the header with a live indicator dot.</p>
             <div class="ss" data-reveal>
               <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-800),var(--teal-600));">
-                <img src="images/restaurant-menu.png" alt="Restaurant menu desktop view">
-                <div class="ss-num">menu.html — Desktop View</div>
-                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-utensils"></i></div><div class="ss-tag"><i class="fa-solid fa-star"></i> Digital Menu</div><div class="ss-title">Menu — Categories & Items</div></div>
+                <img src="images/restaurant-index.png" alt="Table entry screen">
+                <div class="ss-num">index.php — Table Entry</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-chair"></i></div><div class="ss-tag"><i class="fa-solid fa-star"></i> Entry Point</div><div class="ss-title">Enter Table Number or Takeout</div></div>
                 <span class="ss-tap-hint">Tap to preview</span>
               </div>
-              <div class="ss-footer"><span class="ss-footer-label">menu.html · Category tabs, item cards with photos</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
-            </div>
-            <div class="ss" data-reveal>
-              <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-700),var(--purple-700));">
-                <img src="images/restaurant-menu-mobile.png" alt="Restaurant menu mobile view">
-                <div class="ss-num">menu.html — Mobile View</div>
-                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-mobile-screen"></i></div><div class="ss-tag"><i class="fa-solid fa-mobile-screen"></i> Mobile Responsive</div><div class="ss-title">Mobile Menu View</div></div>
-                <span class="ss-tap-hint">Tap to preview</span>
-              </div>
-              <div class="ss-footer"><span class="ss-footer-label">Fully responsive — customers order from their phones</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+              <div class="ss-footer"><span class="ss-footer-label">index.php · Table number input with elegant card design</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
             </div>
             <div class="feat-grid" data-reveal>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-layer-group"></i></div><div class="feat-title">Category Tabs</div><div class="feat-desc">Organize menu by categories — Appetizers, Mains, Desserts, Drinks. Customers tap to filter.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-circle-info"></i></div><div class="feat-title">Item Details</div><div class="feat-desc">Show descriptions, prices, dietary icons (spicy, vegetarian, gluten-free), and modifiers.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-magnifying-glass"></i></div><div class="feat-title">Menu Search</div><div class="feat-desc">Customers search for specific items — results update instantly as they type.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-hashtag"></i></div><div class="feat-title">Table Number</div><div class="feat-desc">Enter your table number — persists throughout the order in session storage.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-bag-shopping"></i></div><div class="feat-title">Takeout Option</div><div class="feat-desc">One-click takeout selection for customers not dining in.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-circle"></i></div><div class="feat-title">Live Indicator</div><div class="feat-desc">Header shows current table with pulsing dot — clear context throughout.</div></div>
             </div>
           </section>
 
           <!-- S2 -->
           <section class="ws" id="s2">
-            <div class="ws-eye"><span class="n">2</span> Online Ordering</div>
-            <h2 class="ws-title">Order modifiers, special instructions, item options</h2>
-            <p class="ws-desc">When customers select an item, they can choose options (size, toppings), add special instructions, and specify quantity — exactly like ordering from a real restaurant.</p>
+            <div class="ws-eye"><span class="n">2</span> Digital Menu</div>
+            <h2 class="ws-title">Beautiful category tabs and item cards</h2>
+            <p class="ws-desc">The digital menu displays sections loaded from the database — appetizers, entrees, desserts, beverages. Each item shows name, description, price, and dietary tags. Items load with elegant skeleton animations.</p>
             <div class="ss" data-reveal>
-              <div class="ss-video" style="background:linear-gradient(135deg,#1a0a2e,var(--teal-800));">
-                <img src="images/restaurant-item-modal.png" alt="Item customization modal">
-                <div class="ss-num">Item Modal — Customization</div>
-                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-pizza-slice"></i></div><div class="ss-tag"><i class="fa-solid fa-sliders"></i> Item Options</div><div class="ss-title">Item Modal with Modifiers</div></div>
+              <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-700),var(--purple-700));">
+                <img src="images/restaurant-menu.png" alt="Restaurant menu with tabs">
+                <div class="ss-num">menu.php — Desktop View</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-utensils"></i></div><div class="ss-tag"><i class="fa-solid fa-star"></i> Digital Menu</div><div class="ss-title">Menu with Category Tabs</div></div>
                 <span class="ss-tap-hint">Tap to preview</span>
               </div>
-              <div class="ss-footer"><span class="ss-footer-label">Choose size, toppings, special instructions</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+              <div class="ss-footer"><span class="ss-footer-label">menu.php · Category tabs, item cards, add to cart</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
             </div>
-            <div class="callout" data-reveal><i class="fa-solid fa-circle-info"></i><p><strong>Modifier groups:</strong> Set up options like "Choose your protein" (chicken, beef, shrimp) with different prices. Customers see exactly what they're getting.</p></div>
+            <div class="callout" data-reveal><i class="fa-solid fa-circle-info"></i><p><strong>Skeleton loaders:</strong> While menu items load, elegant skeleton cards appear — users see structure immediately, no blank screens.</p></div>
             <div class="feat-grid" data-reveal>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-list-ul"></i></div><div class="feat-title">Modifier Groups</div><div class="feat-desc">Required or optional choices. Add-ons, sides, drink sizes — all configurable per item.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-pen"></i></div><div class="feat-title">Special Instructions</div><div class="feat-desc">"No onions", "extra sauce", "well done" — customers type exactly what they want.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-calculator"></i></div><div class="feat-title">Price Updates</div><div class="feat-desc">Price adjusts in real-time as customers add options or change quantity.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-layer-group"></i></div><div class="feat-title">Dynamic Sections</div><div class="feat-desc">Menu sections loaded from database — easily add, edit, or reorder categories.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-tag"></i></div><div class="feat-title">Dietary Tags</div><div class="feat-desc">Features like "spicy", "vegan", "gluten-free" appear as badges on items.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-cart-plus"></i></div><div class="feat-title">Add to Order</div><div class="feat-desc">One-click add to current person's order — visual feedback confirms addition.</div></div>
             </div>
           </section>
 
           <!-- S3 -->
           <section class="ws" id="s3">
-            <div class="ws-eye"><span class="n">3</span> Shopping Cart</div>
-            <h2 class="ws-title">Cart that shows every detail of their order</h2>
-            <p class="ws-desc">The sidebar cart shows each item with its modifiers, special instructions, and price. Customers review their entire order before checkout.</p>
+            <div class="ws-eye"><span class="n">3</span> Multi-Person Ordering</div>
+            <h2 class="ws-title">Add people — track who ordered what</h2>
+            <p class="ws-desc">The unique feature of this system: customers can add multiple people to an order. Each person gets their own avatar, name, and item list. Perfect for groups dining together.</p>
             <div class="ss" data-reveal>
-              <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-900),#051a1a);">
-                <img src="images/restaurant-cart.png" alt="Restaurant cart with modifiers">
-                <div class="ss-num">Sidebar Cart — Items with Options</div>
-                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-cart-shopping"></i></div><div class="ss-tag"><i class="fa-solid fa-bag-shopping"></i> Shopping Cart</div><div class="ss-title">Cart — Shows modifiers and instructions</div></div>
+              <div class="ss-video" style="background:linear-gradient(135deg,#1a0a2e,var(--teal-800));">
+                <img src="images/restaurant-add-person.png" alt="Add person modal">
+                <div class="ss-num">Add Person Modal</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-user-plus"></i></div><div class="ss-tag"><i class="fa-solid fa-users"></i> Multi-Person</div><div class="ss-title">Add Person Modal with Name Input</div></div>
                 <span class="ss-tap-hint">Tap to preview</span>
               </div>
-              <div class="ss-footer"><span class="ss-footer-label">Slide-out sidebar cart · Items show options clearly</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+              <div class="ss-footer"><span class="ss-footer-label">Bottom sheet modal · Enter person name</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-900),#1a1400);">
+                <img src="images/restaurant-person-items.png" alt="Person with items">
+                <div class="ss-num">Person-Specific Items</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-user"></i></div><div class="ss-tag"><i class="fa-solid fa-list"></i> Person View</div><div class="ss-title">Each Person Has Their Own Items</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">Each person's items tracked separately</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
             </div>
             <div class="feat-grid" data-reveal>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-utensils"></i></div><div class="feat-title">Item Modifier Display</div><div class="feat-desc">Cart shows selected options — "Chicken (grilled)", "Extra cheese" — so kitchen knows exactly what was ordered.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-note-sticky"></i></div><div class="feat-title">Instructions Visible</div><div class="feat-desc">Special instructions appear in the cart and print on kitchen tickets. No missed notes.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-calculator"></i></div><div class="feat-title">Running Total</div><div class="feat-desc">Subtotal, tax, delivery fee, and grand total update instantly.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-user-circle"></i></div><div class="feat-title">Person Avatars</div><div class="feat-desc">Each person gets an avatar with their initial — visual separation of orders.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-arrows-split-up-and-left"></i></div><div class="feat-title">Per-Person Subtotal</div><div class="feat-desc">See what each person owes at a glance — perfect for group billing.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-note-sticky"></i></div><div class="feat-title">Person Notes</div><div class="feat-desc">Add special instructions per person — "no onions for Sarah".</div></div>
             </div>
           </section>
 
           <!-- S4 -->
           <section class="ws" id="s4">
-            <div class="ws-eye"><span class="n">4</span> Checkout Flow</div>
-            <h2 class="ws-title">Smooth checkout — pickup, delivery, or dine-in</h2>
-            <p class="ws-desc">Customers choose their order type — delivery, pickup, or dine-in. Then enter their details, select a time, and confirm. Clear progress bar keeps them oriented.</p>
+            <div class="ws-eye"><span class="n">4</span> Checkout</div>
+            <h2 class="ws-title">Review order, add gratuity, place order</h2>
+            <p class="ws-desc">The checkout page shows a complete breakdown of the order — items grouped by person, subtotals, tax, and gratuity selection. Special instructions for the kitchen can be added before placing the order.</p>
             <div class="ss" data-reveal>
-              <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-800),var(--purple-900));">
-                <img src="images/restaurant-checkout.png" alt="Restaurant checkout with order type">
-                <div class="ss-num">checkout.html — Order Type Selection</div>
-                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-truck"></i></div><div class="ss-tag"><i class="fa-solid fa-map-pin"></i> Checkout</div><div class="ss-title">Choose Delivery, Pickup, or Dine-in</div></div>
+              <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-900),#051a1a);">
+                <img src="images/restaurant-checkout.png" alt="Checkout screen">
+                <div class="ss-badge" style="background:rgba(245,200,0,.2);border-color:rgba(245,200,0,.4);color:var(--purple-300)"><i class="fa-solid fa-star"></i> Core Feature</div>
+                <img src="images/restaurant-checkout.png" alt="Checkout with person breakdown">
+                <div class="ss-num">checkout.php — Review Order</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-receipt"></i></div><div class="ss-tag"><i class="fa-solid fa-calculator"></i> Checkout</div><div class="ss-title">Order Summary with Per-Person Breakdown</div></div>
                 <span class="ss-tap-hint">Tap to preview</span>
               </div>
-              <div class="ss-footer"><span class="ss-footer-label">checkout.html · 3 order types with progress bar</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+              <div class="ss-footer"><span class="ss-footer-label">checkout.php · Items, subtotals, gratuity selection</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
             </div>
             <div class="steps" data-reveal>
-              <div class="step-row"><div class="step-n">1</div><div class="step-b"><h4>Order Type</h4><p>Delivery, Pickup, or Dine-in — different fields appear based on selection.</p></div></div>
-              <div class="step-row"><div class="step-n">2</div><div class="step-b"><h4>Customer Details</h4><p>Name, phone, address for delivery, or table number for dine-in.</p></div></div>
-              <div class="step-row"><div class="step-n">3</div><div class="step-b"><h4>Pickup Time</h4><p>Customer selects when they want the order ready (for pickup/delivery).</p></div></div>
-              <div class="step-row"><div class="step-n">4</div><div class="step-b"><h4>Confirmation</h4><p>Order confirmed with number. Kitchen receives ticket automatically.</p></div></div>
+              <div class="step-row"><div class="step-n">1</div><div class="step-b"><h4>Review Items</h4><p>See all items grouped by person with quantities and prices.</p></div></div>
+              <div class="step-row"><div class="step-n">2</div><div class="step-b"><h4>Select Gratuity</h4><p>Choose from preset percentages (15%, 18%, 20%, 25%) or enter custom amount.</p></div></div>
+              <div class="step-row"><div class="step-n">3</div><div class="step-b"><h4>Add Instructions</h4><p>Special notes for the kitchen — allergies, preferences, requests.</p></div></div>
+              <div class="step-row"><div class="step-n">4</div><div class="step-b"><h4>Place Order</h4><p>One click to send order to kitchen — order number generated immediately.</p></div></div>
             </div>
           </section>
 
           <!-- S5 -->
           <section class="ws" id="s5">
             <div class="ws-eye"><span class="n">5</span> Kitchen Display System</div>
-            <h2 class="ws-title">Orders appear in the kitchen — no paper tickets</h2>
-            <p class="ws-desc">When a customer places an order, it appears instantly on the kitchen display. Kitchen staff see order details, modifiers, and special instructions. They mark items as "preparing" and "ready" as they go.</p>
+            <h2 class="ws-title">Orders appear instantly in the kitchen</h2>
+            <p class="ws-desc">When an order is placed, it appears on the kitchen display. Kitchen staff see table number, items grouped by person, special instructions, and can update status as they prepare.</p>
             <div class="ss" data-reveal>
               <div class="ss-video" style="background:linear-gradient(135deg,#0d1f2d,var(--teal-700));">
-                <img src="images/restaurant-kitchen.png" alt="Kitchen display screen">
-                <div class="ss-badge" style="background:rgba(245,200,0,.2);border-color:rgba(245,200,0,.4);color:var(--purple-300)"><i class="fa-solid fa-star"></i> Restaurant Feature</div>
-                <img src="images/restaurant-kitchen.png" alt="Kitchen display with orders">
-                <div class="ss-num">kitchen.php — Live Order Queue</div>
-                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-tv"></i></div><div class="ss-tag"><i class="fa-solid fa-kitchen-set"></i> Kitchen Display</div><div class="ss-title">Orders appear instantly in kitchen</div></div>
+                <img src="images/restaurant-kitchen.png" alt="Kitchen display">
+                <div class="ss-num">kitchen.php — Kitchen Display</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-tv"></i></div><div class="ss-tag"><i class="fa-solid fa-kitchen-set"></i> Kitchen Display</div><div class="ss-title">Live Order Queue with Timers</div></div>
                 <span class="ss-tap-hint">Tap to preview</span>
               </div>
-              <div class="ss-footer"><span class="ss-footer-label">kitchen.php · Live queue, color-coded status</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+              <div class="ss-footer"><span class="ss-footer-label">kitchen.php · Orders with timers, status buttons</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
             </div>
-            <div class="callout gold" data-reveal><i class="fa-solid fa-bolt-lightning"></i><p><strong>Game changer for restaurants.</strong> No more lost paper tickets, no more shouting orders. Kitchen works from a screen that updates automatically.</p></div>
+            <div class="callout gold" data-reveal><i class="fa-solid fa-bolt-lightning"></i><p><strong>No more lost tickets.</strong> Orders appear on screen with timers. Kitchen marks items as "preparing" and "ready" — status updates in real-time to customers.</p></div>
             <div class="feat-grid" data-reveal>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-clock"></i></div><div class="feat-title">Order Timer</div><div class="feat-desc">Shows how long each order has been waiting. Flag orders that are taking too long.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-list-check"></i></div><div class="feat-title">Item Status</div><div class="feat-desc">Mark items as "preparing" or "ready". Customer sees status update in real-time.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-print"></i></div><div class="feat-title">Optional Printing</div><div class="feat-desc">Can print tickets automatically if you prefer paper. Works either way.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-clock"></i></div><div class="feat-title">Order Timers</div><div class="feat-desc">Shows elapsed time for each order. Warning colors after 5 min, danger after 10 min.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-filter"></i></div><div class="feat-title">Station Filter</div><div class="feat-desc">Kitchen staff filter by station — grill, bar, fryer, salad, etc.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-rotate"></i></div><div class="feat-title">Status Updates</div><div class="feat-desc">One-tap buttons to move orders from pending → preparing → ready.</div></div>
             </div>
           </section>
 
           <!-- S6 -->
           <section class="ws" id="s6">
-            <div class="ws-eye"><span class="n">6</span> Admin Dashboard</div>
-            <h2 class="ws-title">Your restaurant command centre</h2>
-            <p class="ws-desc">The admin dashboard shows you everything — today's orders, revenue, popular items, and low stock alerts. All the numbers that matter for running your restaurant.</p>
+            <div class="ws-eye"><span class="n">6</span> Order Status Page</div>
+            <h2 class="ws-title">Customers track their order in real-time</h2>
+            <p class="ws-desc">After placing an order, customers get a unique order number and can track its status — pending, preparing, ready. Progress bar shows completion percentage based on items prepared.</p>
             <div class="ss" data-reveal>
               <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-950),var(--teal-950));">
-                <div class="ss-badge" style="background:rgba(245,200,0,.2);border-color:rgba(245,200,0,.4);color:var(--purple-300)"><i class="fa-solid fa-star"></i> Most Important</div>
-                <img src="images/restaurant-admin.png" alt="Restaurant admin dashboard">
-                <div class="ss-num">admin/dashboard.php — Restaurant View</div>
-                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-gauge-high"></i></div><div class="ss-title">Admin Dashboard — Sales, Orders, Popular Items</div></div>
+                <img src="images/restaurant-order-status.png" alt="Order status page">
+                <div class="ss-num">confirmation.php — Order Status</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-circle-check"></i></div><div class="ss-tag"><i class="fa-solid fa-clock"></i> Status Tracking</div><div class="ss-title">Live Order Status with Progress Bar</div></div>
                 <span class="ss-tap-hint">Tap to preview</span>
               </div>
-              <div class="ss-footer"><span class="ss-footer-label">admin/dashboard.php · Today's sales, orders, top items</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+              <div class="ss-footer"><span class="ss-footer-label">confirmation.php · Status badge, progress bar, timer</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="tbl" data-reveal>
+              <div class="tbl-head"><div>Status</div><div>Badge</div><div>Progress</div><div>Timer</div></div>
+              <div class="tbl-row"><div>Pending</div><div><span class="chip pending">Pending</span></div><div>0%</div><div>—</div></div>
+              <div class="tbl-row"><div>Preparing</div><div><span class="chip preparing">Preparing</span></div><div>50%</div><div>5 min</div></div>
+              <div class="tbl-row"><div>Ready</div><div><span class="chip ready">Ready</span></div><div>100%</div><div>Ready</div></div>
+              <div class="tbl-row"><div>Completed</div><div><span class="chip completed">Completed</span></div><div>100%</div><div>Done</div></div>
             </div>
             <div class="feat-grid" data-reveal>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-chart-simple"></i></div><div class="feat-title">Today's Sales</div><div class="feat-desc">Revenue, order count, average ticket — updated in real-time as orders come in.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-fire"></i></div><div class="feat-title">Popular Items</div><div class="feat-desc">See which menu items are selling best. Use data to adjust your menu.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-exclamation-triangle"></i></div><div class="feat-title">Low Stock Alerts</div><div class="feat-desc">Get notified when ingredients are running low. Never run out of key items.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-chart-line"></i></div><div class="feat-title">Progress Bar</div><div class="feat-desc">Shows percentage of items completed — customers see exactly how far along their order is.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-clock"></i></div><div class="feat-title">Estimated Time</div><div class="feat-desc">Estimated remaining time based on order complexity and current status.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-rotate"></i></div><div class="feat-title">Auto-Refresh</div><div class="feat-desc">Page refreshes every 10 seconds — always up to date without manual reload.</div></div>
             </div>
           </section>
 
           <!-- S7 -->
           <section class="ws" id="s7">
-            <div class="ws-eye"><span class="n">7</span> Menu Management</div>
-            <h2 class="ws-title">Update your menu in minutes — no developer needed</h2>
-            <p class="ws-desc">Add new items, update prices, change categories, upload food photos — all from the admin panel. Changes reflect instantly on your live menu.</p>
+            <div class="ws-eye"><span class="n">7</span> Admin Dashboard</div>
+            <h2 class="ws-title">Complete restaurant overview</h2>
+            <p class="ws-desc">The admin dashboard shows today's orders, revenue, active staff, occupied tables, and real-time charts. Recent activity and top items help you understand your business at a glance.</p>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-800),var(--purple-900));">
+                <img src="images/restaurant-admin.png" alt="Admin dashboard">
+                <div class="ss-num">admin.php — Admin Dashboard</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-gauge-high"></i></div><div class="ss-tag"><i class="fa-solid fa-chart-line"></i> Dashboard</div><div class="ss-title">Admin Dashboard with Stats and Charts</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">admin.php · Today's orders, revenue, staff, occupied tables</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
             <div class="split" data-reveal>
               <div class="ss">
                 <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-800),var(--purple-800));">
-                  <img src="images/restaurant-menu-items.png" alt="Admin menu items table">
-                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-table-list"></i></div><div class="ss-tag">Menu Items</div><div class="ss-title">Manage All Menu Items</div></div>
+                  <img src="images/restaurant-chart.png" alt="Orders by station chart">
+                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-chart-pie"></i></div><div class="ss-tag">Charts</div><div class="ss-title">Orders by Station</div></div>
                   <span class="ss-tap-hint">Tap to preview</span>
                 </div>
-                <div class="ss-footer"><span class="ss-footer-label">admin/menu.php · Item list with status</span></div>
+                <div class="ss-footer"><span class="ss-footer-label">Doughnut chart · Orders per station</span></div>
               </div>
               <div class="ss">
                 <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-800),var(--teal-700));">
-                  <img src="images/restaurant-add-item.png" alt="Add menu item form">
-                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-plus"></i></div><div class="ss-tag">Add Item</div><div class="ss-title">Add or Edit Menu Item</div></div>
+                  <img src="images/restaurant-hourly.png" alt="Hourly sales chart">
+                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-chart-bar"></i></div><div class="ss-tag">Sales</div><div class="ss-title">Hourly Sales</div></div>
                   <span class="ss-tap-hint">Tap to preview</span>
                 </div>
-                <div class="ss-footer"><span class="ss-footer-label">admin/menu.php · Add item with modifiers</span></div>
+                <div class="ss-footer"><span class="ss-footer-label">Bar chart · Hourly revenue</span></div>
               </div>
             </div>
-            <div class="steps" data-reveal>
-              <div class="step-row"><div class="step-n"><i class="fa-solid fa-plus" style="font-size:.7rem"></i></div><div class="step-b"><h4>Add menu item</h4><p>Name, description, price, photo, category. Set it live or save as draft.</p></div></div>
-              <div class="step-row"><div class="step-n"><i class="fa-solid fa-pen" style="font-size:.7rem"></i></div><div class="step-b"><h4>Set modifiers</h4><p>Add option groups — size, protein, toppings. Set prices for each option.</p></div></div>
-              <div class="step-row"><div class="step-n"><i class="fa-solid fa-eye-slash" style="font-size:.7rem"></i></div><div class="step-b"><h4>Hide temporarily</h4><p>Toggle an item off if you're out of ingredients — it disappears from customer menu.</p></div></div>
+            <div class="feat-grid" data-reveal>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-bell"></i></div><div class="feat-title">Recent Activity</div><div class="feat-desc">Live feed of new orders, status changes, and system events.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-star"></i></div><div class="feat-title">Top Items</div><div class="feat-desc">See which menu items are selling best — adjust your menu based on data.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-users"></i></div><div class="feat-title">Active Staff</div><div class="feat-desc">Monitor staff currently logged in and working.</div></div>
             </div>
           </section>
 
           <!-- S8 -->
           <section class="ws" id="s8">
-            <div class="ws-eye"><span class="n">8</span> Table Reservations</div>
-            <h2 class="ws-title">Customers book tables online — you manage availability</h2>
-            <p class="ws-desc">Let customers reserve tables through your website. Set available times, party sizes, and manage all bookings from the admin panel.</p>
-            <div class="ss" data-reveal>
-              <div class="ss-video" style="background:linear-gradient(135deg,#051a14,var(--teal-900));">
-                <img src="images/restaurant-reservations.png" alt="Reservation calendar">
-                <div class="ss-num">reservations.php — Booking Calendar</div>
-                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-calendar-check"></i></div><div class="ss-tag"><i class="fa-solid fa-clock"></i> Reservations</div><div class="ss-title">Reservation Calendar View</div></div>
-                <span class="ss-tap-hint">Tap to preview</span>
+            <div class="ws-eye"><span class="n">8</span> Menu Management</div>
+            <h2 class="ws-title">Add, edit, organize menu items and sections</h2>
+            <p class="ws-desc">The admin panel lets you manage your entire menu. Add new sections, create items with descriptions and prices, upload images, set preparation stations, and add dietary tags.</p>
+            <div class="split" data-reveal>
+              <div class="ss">
+                <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-950),var(--purple-900));">
+                  <img src="images/restaurant-menu-items.png" alt="Menu items table">
+                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-table-list"></i></div><div class="ss-tag">Menu Items</div><div class="ss-title">Menu Items Management</div></div>
+                  <span class="ss-tap-hint">Tap to preview</span>
+                </div>
+                <div class="ss-footer"><span class="ss-footer-label">admin/menu.php · All items with edit/delete</span></div>
               </div>
-              <div class="ss-footer"><span class="ss-footer-label">reservations.php · Manage table bookings</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+              <div class="ss">
+                <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-900),var(--teal-800));">
+                  <img src="images/restaurant-add-item.png" alt="Add menu item">
+                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-plus"></i></div><div class="ss-tag">Add Item</div><div class="ss-title">Add/Edit Menu Item</div></div>
+                  <span class="ss-tap-hint">Tap to preview</span>
+                </div>
+                <div class="ss-footer"><span class="ss-footer-label">admin/menu.php · Item form with features</span></div>
+              </div>
             </div>
-            <div class="tbl" data-reveal>
-              <div class="tbl-head"><div>Customer</div><div>Party</div><div>Time</div><div>Status</div></div>
-              <div class="tbl-row"><div>Kingston Eats Booking #48</div><div>4</div><div>7:30 PM</div><div><span class="chip pending">Pending</span></div></div>
-              <div class="tbl-row"><div>Kingston Eats Booking #47</div><div>2</div><div>8:00 PM</div><div><span class="chip confirmed">Confirmed</span></div></div>
-              <div class="tbl-row"><div>Kingston Eats Booking #46</div><div>6</div><div>6:30 PM</div><div><span class="chip delivered">Seated</span></div></div>
-            </div>
-            <div class="feat-grid" data-reveal>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-calendar"></i></div><div class="feat-title">Availability Calendar</div><div class="feat-desc">Set which times are available for booking. Block off private events or holidays.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-users"></i></div><div class="feat-title">Party Size Limits</div><div class="feat-desc">Control min/max party sizes. Show available tables based on your floor plan.</div></div>
-              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-bell"></i></div><div class="feat-title">Booking Confirmation</div><div class="feat-desc">Auto-confirm or manually approve. Customer gets WhatsApp confirmation.</div></div>
+            <div class="steps" data-reveal>
+              <div class="step-row"><div class="step-n"><i class="fa-solid fa-layer-group"></i></div><div class="step-b"><h4>Manage Sections</h4><p>Create, edit, and reorder menu sections (appetizers, mains, desserts, etc.).</p></div></div>
+              <div class="step-row"><div class="step-n"><i class="fa-solid fa-utensils"></i></div><div class="step-b"><h4>Add Items</h4><p>Name, description, price, station, image URL, and dietary features.</p></div></div>
+              <div class="step-row"><div class="step-n"><i class="fa-solid fa-tags"></i></div><div class="step-b"><h4>Features/Tags</h4><p>Add tags like "spicy", "vegan", "gluten-free" — appear as badges on menu.</p></div></div>
             </div>
           </section>
 
           <!-- S9 -->
           <section class="ws" id="s9">
-            <div class="ws-eye"><span class="n">9</span> Delivery Tracking</div>
-            <h2 class="ws-title">Live delivery status — customers see exactly where their food is</h2>
-            <p class="ws-desc">When an order is out for delivery, drivers update status from their phones. Customers see "Order picked up", "On the way", and "Delivered" in real-time.</p>
-            <div class="split" data-reveal>
-              <div class="ss">
-                <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-950),var(--purple-900));">
-                  <img src="images/restaurant-driver.png" alt="Driver panel">
-                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-motorcycle"></i></div><div class="ss-tag">Driver Panel</div><div class="ss-title">Driver — Active Deliveries</div></div>
-                  <span class="ss-tap-hint">Tap to preview</span>
-                </div>
-                <div class="ss-footer"><span class="ss-footer-label">driver/panel.php · Mobile-friendly driver app</span></div>
+            <div class="ws-eye"><span class="n">9</span> Order Management</div>
+            <h2 class="ws-title">View, filter, and manage all orders</h2>
+            <p class="ws-desc">The orders management screen shows all orders with filtering by status, search by order ID or customer name, and detailed view of each order's items with per-person breakdown.</p>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,#051a14,var(--teal-900));">
+                <img src="images/restaurant-orders.png" alt="Orders management">
+                <div class="ss-num">admin/orders.php — Orders Management</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-clipboard-list"></i></div><div class="ss-tag"><i class="fa-solid fa-list-check"></i> Orders</div><div class="ss-title">All Orders with Status Badges</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
               </div>
-              <div class="ss">
-                <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-900),var(--teal-800));">
-                  <img src="images/restaurant-tracking.png" alt="Customer tracking view">
-                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-location-dot"></i></div><div class="ss-tag">Customer View</div><div class="ss-title">Live Order Tracking</div></div>
-                  <span class="ss-tap-hint">Tap to preview</span>
-                </div>
-                <div class="ss-footer"><span class="ss-footer-label">order-tracking.php · Real-time status updates</span></div>
-              </div>
+              <div class="ss-footer"><span class="ss-footer-label">admin/orders.php · Filter by status, search, view details</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
             </div>
-            <div class="steps" data-reveal>
-              <div class="step-row"><div class="step-n">1</div><div class="step-b"><h4>Order Ready</h4><p>Kitchen marks order as ready — driver gets notification.</p></div></div>
-              <div class="step-row"><div class="step-n">2</div><div class="step-b"><h4>Driver Picks Up</h4><p>Driver taps "Picked Up" — customer sees order is on the way.</p></div></div>
-              <div class="step-row"><div class="step-n">3</div><div class="step-b"><h4>Out for Delivery</h4><p>Driver en route — customer sees ETA and can track progress.</p></div></div>
-              <div class="step-row"><div class="step-n">4</div><div class="step-b"><h4>Delivered</h4><p>Driver marks complete — customer notified, order closed.</p></div></div>
+            <div class="tbl" data-reveal>
+              <div class="tbl-head"><div>Order ID</div><div>Table</div><div>Customer</div><div>Total</div><div>Status</div></div>
+              <div class="tbl-row"><div>ORD-20260313-001</div><div>12</div><div>Person 1, Person 2</div><div>$51.84</div><div><span class="chip pending">Pending</span></div></div>
+              <div class="tbl-row"><div>ORD-20260313-002</div><div>5</div><div>Person 1</div><div>$34.50</div><div><span class="chip preparing">Preparing</span></div></div>
+              <div class="tbl-row"><div>ORD-20260313-003</div><div>8</div><div>Person 1, Person 2, Person 3</div><div>$97.25</div><div><span class="chip ready">Ready</span></div></div>
             </div>
-            <div class="callout" data-reveal><i class="fa-solid fa-mobile-screen"></i><p>The driver panel works on any phone with a browser. No app download needed — drivers just log in and update status with one tap.</p></div>
+            <div class="callout" data-reveal><i class="fa-solid fa-eye"></i><p><strong>Order details modal:</strong> Click any order to see full details — items grouped by person, special instructions, and order timeline.</p></div>
+            <div class="feat-grid" data-reveal>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-magnifying-glass"></i></div><div class="feat-title">Search Orders</div><div class="feat-desc">Search by order ID or customer name — find any order instantly.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-filter"></i></div><div class="feat-title">Status Filter</div><div class="feat-desc">Filter orders by status: pending, preparing, ready, completed, cancelled.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-pen"></i></div><div class="feat-title">Update Status</div><div class="feat-desc">Change order status directly from the admin panel — updates reflected everywhere.</div></div>
+            </div>
           </section>
 
         </article>
@@ -730,7 +745,7 @@
         <div class="cta-inner">
           <div class="cta-eyebrow"><i class="fa-solid fa-bolt-lightning"></i> Ready to launch your restaurant online?</div>
           <h2 class="cta-title">Get this <em>system</em> for your restaurant</h2>
-          <p class="cta-desc">Launch a complete restaurant ordering system in 14 days. Digital menu, online ordering, kitchen display, delivery tracking — all of it, built and hosted for you.</p>
+          <p class="cta-desc">Launch a complete restaurant ordering system in 14 days. Digital menu, multi-person ordering, kitchen display, order tracking, admin dashboard — all of it, built and hosted for you.</p>
           <div class="cta-pricing">
             <div class="ctp"><div class="ctp-num">$50,000</div><div class="ctp-lbl">JMD — one-time setup</div></div>
             <div class="ctp"><div class="ctp-num">$5,000</div><div class="ctp-lbl">JMD/month — hosting + support</div></div>
