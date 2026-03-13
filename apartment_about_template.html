@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apartment Management Template — JCommerce & Tech</title>
+  <meta name="description" content="A full walkthrough of the JCommerce Apartment Management template. See every screen, every feature, every admin tool your property gets.">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23f5c800' d='M8 1L15 5v6L8 15 1 11V5z'/%3E%3Ctext x='8' y='12' text-anchor='middle' fill='%2314b8a6' font-size='10' font-family='Arial, sans-serif' font-weight='bold'%3EJ%3C/text%3E%3C/svg%3E">
+  <meta name="theme-color" content="#fdfcf0">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" media="print" onload="this.media='all'">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,700;9..144,900&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fdfcf0; --bg-warm: #faf5d0; --surface: #ffffff; --surface-2: #fefdf5;
+      --ink-900: #1c1a0e; --ink-700: #2d2a14; --ink-500: #5a5228; --ink-400: #7a7040;
+      --ink-300: #a89e6a; --ink-100: #e0d9b0;
+      --teal-950: #042b2b; --teal-900: #0a3d3d; --teal-800: #0d5555; --teal-700: #0e7070;
+      --teal-600: #0d9494; --teal-500: #14b8a6; --teal-400: #2dd4bf; --teal-300: #5eead4;
+      --teal-200: #99f6e4; --teal-100: #ccfbf1; --teal-50: #f0fdfa;
+      --purple-950: #1a1400; --purple-900: #332800; --purple-800: #664f00;
+      --purple-700: #997500; --purple-600: #cc9c00; --purple-500: #f5c800;
+      --purple-400: #f7d335; --purple-300: #f9de6a; --purple-200: #fce99f;
+      --purple-100: #fef4cf; --purple-50: #fffce8;
+      --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      --font-serif: 'Fraunces', Georgia, serif;
+      --radius-xs: 4px; --radius-sm: 8px; --radius-md: 12px; --radius-lg: 18px;
+      --radius-xl: 24px; --radius-2xl: 32px; --radius-pill: 9999px;
+      --shadow-xs: 0 1px 4px rgba(204,156,0,0.06); --shadow-sm: 0 2px 8px rgba(204,156,0,0.07);
+      --shadow-md: 0 4px 16px rgba(204,156,0,0.10); --shadow-lg: 0 8px 28px rgba(204,156,0,0.14);
+      --shadow-xl: 0 20px 48px rgba(204,156,0,0.18); --shadow-2xl: 0 32px 64px rgba(204,156,0,0.22);
+      --transition-fast: 150ms cubic-bezier(0.4,0,0.2,1);
+      --transition-base: 250ms cubic-bezier(0.4,0,0.2,1);
+      --transition-slow: 350ms cubic-bezier(0.4,0,0.2,1);
+      --transition-bounce: 400ms cubic-bezier(0.34,1.56,0.64,1);
+      --nav-height: 72px;
+      --container-width: 1380px;
+      --container-padding: 2rem;
+    }
+    *,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; scroll-padding-top:var(--nav-height); scrollbar-width:thin; scrollbar-color:var(--teal-300) var(--bg); }
+    body { font-family:var(--font-sans); background:var(--bg); color:var(--ink-700); line-height:1.6; overflow-x:hidden; -webkit-font-smoothing:antialiased; }
+    a { text-decoration:none; color:inherit; } button { font-family:var(--font-sans); cursor:pointer; border:none; background:none; }
+    img { max-width:100%; display:block; }
+    .container { max-width:var(--container-width); margin:0 auto; padding:0 var(--container-padding); width:100%; }
+    ::-webkit-scrollbar { width:6px; } ::-webkit-scrollbar-track { background:var(--bg); } ::-webkit-scrollbar-thumb { background:var(--purple-400); border-radius:var(--radius-pill); }
+    body::after { content:''; position:fixed; inset:0; pointer-events:none; z-index:9999; opacity:0.015; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='grain'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23grain)'/%3E%3C/svg%3E"); background-size:200px; }
+
+    @keyframes marquee { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    @keyframes pulse { 0%,100%{opacity:.5;transform:scale(1)} 50%{opacity:1;transform:scale(1.2)} }
+
+    [data-reveal] { opacity:0; transform:translateY(24px); transition:opacity .6s cubic-bezier(.4,0,.2,1), transform .6s cubic-bezier(.4,0,.2,1); }
+    [data-reveal].revealed { opacity:1; transform:translateY(0); }
+
+    /* NAV */
+    .nav { position:sticky; top:0; z-index:100; height:var(--nav-height); background:rgba(253,252,240,0.92); backdrop-filter:blur(20px) saturate(200%); -webkit-backdrop-filter:blur(20px) saturate(200%); border-bottom:1px solid rgba(204,156,0,0.12); transition:box-shadow var(--transition-fast),background var(--transition-fast); box-shadow:0 1px 0 rgba(204,156,0,0.06); }
+    .nav::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--teal-500),var(--purple-500),var(--teal-400)); }
+    .nav.scrolled { box-shadow:0 4px 24px rgba(204,156,0,0.12); background:rgba(253,252,240,0.98); }
+    .nav .container { display:flex; align-items:center; justify-content:space-between; height:100%; }
+    .nav-logo { display:flex; align-items:center; gap:.75rem; font-family:var(--font-serif); font-size:1.45rem; font-weight:700; color:var(--ink-900); letter-spacing:-.02em; transition:opacity var(--transition-fast); }
+    .nav-logo:hover { opacity:.8; }
+    .logo-placeholder { width:42px; height:42px; border-radius:var(--radius-md); background:linear-gradient(135deg,var(--purple-700),var(--teal-500)); display:flex; align-items:center; justify-content:center; font-family:var(--font-serif); font-size:1.1rem; font-weight:900; color:white; flex-shrink:0; box-shadow:var(--shadow-md); }
+    .nav-links { display:flex; align-items:center; gap:2.5rem; }
+    .nav-links a { font-size:.78rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-500); position:relative; padding:.25rem 0; transition:color var(--transition-fast); }
+    .nav-links a::after { content:''; position:absolute; bottom:0; left:0; width:0; height:2px; background:linear-gradient(90deg,var(--teal-500),var(--purple-500)); border-radius:2px; transition:width var(--transition-base); }
+    .nav-links a:hover { color:var(--ink-900); } .nav-links a:hover::after { width:100%; }
+    .nav-right { display:flex; align-items:center; gap:.75rem; }
+    .nav-pill { background:linear-gradient(135deg,var(--purple-600),var(--purple-500)); color:white; padding:.55rem 1.35rem; border-radius:var(--radius-pill); font-size:.76rem; font-weight:700; letter-spacing:.07em; text-transform:uppercase; display:inline-flex; align-items:center; gap:.45rem; transition:all var(--transition-base); cursor:pointer; }
+    .nav-pill:hover { transform:translateY(-1px); box-shadow:var(--shadow-md); }
+    .nav-pill.teal-pill { background:linear-gradient(135deg,var(--teal-600),var(--teal-500)); }
+    .hamburger { display:none; width:44px; height:44px; background:var(--surface); border:1.5px solid var(--ink-100); border-radius:var(--radius-sm); cursor:pointer; padding:10px; flex-direction:column; justify-content:center; gap:5px; transition:all var(--transition-fast); }
+    .hamburger span { display:block; width:100%; height:2px; background:var(--ink-700); border-radius:2px; transition:all var(--transition-base); }
+    .hamburger[aria-expanded="true"] span:nth-child(1) { transform:translateY(7px) rotate(45deg); }
+    .hamburger[aria-expanded="true"] span:nth-child(2) { opacity:0; transform:scaleX(0); }
+    .hamburger[aria-expanded="true"] span:nth-child(3) { transform:translateY(-7px) rotate(-45deg); }
+    .mobile-menu { position:fixed; top:var(--nav-height); left:0; right:0; background:var(--surface); border-bottom:1px solid var(--ink-100); z-index:90; max-height:0; overflow:hidden; transition:max-height var(--transition-slow),box-shadow var(--transition-slow); }
+    .mobile-menu[aria-hidden="false"] { max-height:400px; box-shadow:var(--shadow-lg); }
+    .mobile-menu-inner { padding:var(--container-padding); display:flex; flex-direction:column; gap:.25rem; }
+    .mobile-menu a { font-size:1rem; font-weight:600; color:var(--ink-700); padding:.8rem 1rem; border-radius:var(--radius-sm); display:flex; align-items:center; gap:.75rem; transition:all var(--transition-fast); }
+    .mobile-menu a i { width:20px; color:var(--teal-500); }
+    .mobile-menu a:hover { background:var(--purple-50); color:var(--purple-700); transform:translateX(4px); }
+    .mobile-menu-divider { height:1px; background:var(--ink-100); margin:.5rem 0; }
+    .mobile-menu-cta { background:linear-gradient(135deg,var(--purple-700),var(--purple-600))!important; color:white!important; border-radius:var(--radius-pill)!important; justify-content:center; margin-top:.5rem; }
+
+    /* TICKER */
+    .ticker { background:linear-gradient(90deg,var(--purple-950) 0%,var(--teal-950) 40%,var(--ink-900) 70%,var(--purple-950) 100%); padding:.7rem 0; overflow:hidden; border-bottom:1px solid rgba(255,255,255,0.04); position:relative; }
+    .ticker::before,.ticker::after { content:''; position:absolute; top:0; bottom:0; width:80px; z-index:2; pointer-events:none; }
+    .ticker::before { left:0; background:linear-gradient(to right,var(--purple-950),transparent); }
+    .ticker::after { right:0; background:linear-gradient(to left,var(--purple-950),transparent); }
+    .ticker-inner { display:flex; white-space:nowrap; animation:marquee 30s linear infinite; }
+    .ticker-item { display:inline-flex; align-items:center; gap:.6rem; font-size:.72rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:rgba(255,255,255,0.35); padding:0 1rem; }
+    .ticker-item .highlight { color:var(--purple-400); font-weight:800; }
+    .ticker-item.special { color:var(--teal-400); }
+    .ticker-dot { padding:0 .25rem; opacity:.2; }
+
+    /* BUTTONS */
+    .btn { display:inline-flex; align-items:center; gap:.6rem; padding:.85rem 1.75rem; border-radius:var(--radius-pill); font-family:var(--font-sans); font-size:.86rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; border:none; cursor:pointer; transition:all var(--transition-base); }
+    .btn-teal { background:linear-gradient(135deg,var(--teal-600),var(--teal-500)); color:white; box-shadow:0 4px 16px rgba(20,184,166,0.25); }
+    .btn-teal:hover { transform:translateY(-2px); box-shadow:0 8px 28px rgba(20,184,166,0.35); }
+    .btn-wa { background:#25d366; color:white; box-shadow:var(--shadow-md); }
+    .btn-wa:hover { background:#128c7e; transform:translateY(-2px); }
+    .btn-secondary { background:var(--surface); color:var(--purple-700); border:1.5px solid var(--purple-200); box-shadow:var(--shadow-sm); }
+    .btn-secondary:hover { background:var(--purple-50); border-color:var(--purple-400); transform:translateY(-2px); }
+    .btn-outline-light { background:transparent; color:rgba(255,255,255,0.8); border:1.5px solid rgba(255,255,255,0.2); }
+    .btn-outline-light:hover { background:rgba(255,255,255,0.08); color:white; border-color:rgba(255,255,255,0.4); }
+
+    /* HERO */
+    .hero-section { padding:3.5rem 0 4rem; position:relative; overflow:hidden; }
+    .hero-section::before { content:''; position:absolute; inset:0; pointer-events:none; background:radial-gradient(ellipse 70% 60% at 70% -10%,rgba(204,156,0,.07) 0%,transparent 70%),radial-gradient(ellipse 60% 50% at -10% 60%,rgba(20,184,166,.05) 0%,transparent 65%); }
+    .breadcrumb { display:inline-flex; align-items:center; gap:.5rem; font-size:.8rem; color:var(--ink-400); margin-bottom:2rem; background:var(--surface); border:1px solid var(--ink-100); border-radius:var(--radius-pill); padding:.35rem .9rem; box-shadow:var(--shadow-xs); }
+    .breadcrumb a { color:var(--teal-600); font-weight:600; }
+    .breadcrumb i { font-size:.6rem; color:var(--ink-300); }
+    .hero-eyebrow { display:inline-flex; align-items:center; gap:.5rem; font-size:.75rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--teal-600); background:linear-gradient(135deg,rgba(20,184,166,.08),rgba(204,156,0,.06)); border:1px solid rgba(20,184,166,.25); border-radius:var(--radius-pill); padding:.4rem 1rem; margin-bottom:1.5rem; }
+    .hero-eyebrow-dot { width:6px; height:6px; border-radius:50%; background:var(--teal-500); animation:pulse 2s ease-in-out infinite; flex-shrink:0; }
+    .hero-title { font-family:var(--font-serif); font-size:clamp(2.4rem,5vw,4.2rem); font-weight:900; color:var(--ink-900); line-height:1.08; letter-spacing:-.04em; margin-bottom:1.25rem; }
+    .hero-title .italic { font-style:italic; color:var(--purple-600); }
+    .hero-title .highlight { background:linear-gradient(135deg,var(--teal-600),var(--teal-400)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+    .hero-description { font-size:1.08rem; color:var(--ink-400); max-width:580px; line-height:1.75; margin-bottom:2rem; }
+    .hero-pills { display:flex; flex-wrap:wrap; gap:.6rem; margin-bottom:2.5rem; }
+    .hero-pill { display:inline-flex; align-items:center; gap:.5rem; padding:.4rem 1rem; border-radius:var(--radius-pill); background:var(--surface); border:1px solid var(--ink-100); font-size:.78rem; font-weight:600; color:var(--ink-500); box-shadow:var(--shadow-xs); transition:all var(--transition-base); }
+    .hero-pill i { color:var(--teal-500); font-size:.72rem; }
+    .hero-actions { display:flex; flex-wrap:wrap; gap:1rem; margin-bottom:2.5rem; }
+    .hero-stats { display:flex; gap:0; border:1px solid var(--ink-100); border-radius:var(--radius-xl); background:linear-gradient(135deg,var(--surface),var(--bg)); overflow:hidden; box-shadow:var(--shadow-md); }
+    .stat-item { flex:1; padding:1.1rem .5rem; text-align:center; border-right:1px solid var(--ink-100); transition:background var(--transition-fast); }
+    .stat-item:last-child { border-right:none; }
+    .stat-item:hover { background:var(--purple-50); }
+    .stat-number { font-family:var(--font-serif); font-size:2rem; font-weight:900; background:linear-gradient(135deg,var(--purple-700),var(--teal-600)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; line-height:1; }
+    .stat-label { font-size:.62rem; font-weight:700; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-300); margin-top:.25rem; display:block; }
+
+    .divider { background:linear-gradient(90deg,transparent,var(--ink-100),transparent); height:1px; margin:1rem 0; }
+
+    /* LAYOUT */
+    .wt-layout { display:grid; grid-template-columns:220px 1fr; gap:3rem; padding:3rem 0 6rem; align-items:start; }
+
+    /* SIDE NAV */
+    .side-nav { position:sticky; top:calc(var(--nav-height) + 1.5rem); background:var(--surface); border:1px solid var(--ink-100); border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--shadow-md); }
+    .sn-header { padding:1.25rem; border-bottom:1px solid var(--ink-100); background:linear-gradient(135deg,var(--bg),var(--surface)); }
+    .sn-label { font-size:.65rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--ink-300); }
+    .sn-title { font-family:var(--font-serif); font-size:.95rem; font-weight:700; color:var(--ink-900); margin-top:.2rem; }
+    .sn-list { padding:.5rem 0 1rem; }
+    .sn-item { display:flex; align-items:center; gap:.65rem; padding:.6rem 1.25rem; cursor:pointer; font-size:.82rem; font-weight:500; color:var(--ink-400); border-left:2px solid transparent; transition:all var(--transition-fast); }
+    .sn-item:hover { color:var(--ink-700); background:var(--bg); }
+    .sn-item.active { color:var(--teal-700); border-left-color:var(--teal-500); background:var(--teal-50); font-weight:700; }
+    .sn-num { width:20px; height:20px; border-radius:50%; flex-shrink:0; background:var(--bg); border:1px solid var(--ink-100); display:grid; place-items:center; font-size:.65rem; font-weight:700; color:var(--ink-300); transition:all var(--transition-fast); }
+    .sn-item.active .sn-num { background:linear-gradient(135deg,var(--teal-500),var(--purple-500)); border-color:var(--teal-500); color:white; }
+    .sn-footer { padding:1rem 1.25rem; border-top:1px solid var(--ink-100); background:var(--bg); }
+    .sn-cta { width:100%; padding:.65rem; background:linear-gradient(135deg,var(--teal-600),var(--teal-500)); color:white; border:none; border-radius:var(--radius-pill); font-size:.75rem; font-weight:700; letter-spacing:.06em; text-transform:uppercase; cursor:pointer; display:flex; align-items:center; justify-content:center; gap:.5rem; transition:all var(--transition-base); }
+    .sn-cta:hover { transform:translateY(-2px); box-shadow:var(--shadow-md); }
+
+    /* WALK SECTIONS */
+    .ws { padding:4rem 0; border-bottom:1px solid var(--ink-100); }
+    .ws:last-child { border-bottom:none; padding-bottom:2rem; }
+    .ws-eye { display:inline-flex; align-items:center; gap:.5rem; margin-bottom:.75rem; font-size:.68rem; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--purple-600); background:var(--purple-50); border:1px solid var(--purple-200); border-radius:var(--radius-pill); padding:.3rem .8rem; }
+    .ws-eye .n { width:20px; height:20px; border-radius:50%; background:linear-gradient(135deg,var(--purple-700),var(--teal-600)); color:white; font-size:.65rem; font-weight:800; display:grid; place-items:center; flex-shrink:0; }
+    .ws-title { font-family:var(--font-serif); font-size:1.75rem; font-weight:900; color:var(--ink-900); letter-spacing:-.025em; line-height:1.2; margin-bottom:.6rem; }
+    .ws-desc { font-size:.95rem; color:var(--ink-400); line-height:1.75; max-width:600px; margin-bottom:2rem; }
+
+    /* SCREENSHOTS */
+    .ss { border-radius:var(--radius-xl); overflow:hidden; margin:1.5rem 0; border:1px solid var(--ink-100); box-shadow:var(--shadow-md); transition:all var(--transition-base); background:var(--surface); }
+    .ss:hover { transform:translateY(-4px); box-shadow:var(--shadow-xl); border-color:var(--purple-200); }
+    .ss-video { position:relative; cursor:pointer; }
+    .ss-video img { width:100%; display:block; }
+    .ss-video .ss-overlay { position:absolute; inset:0; background:rgba(10,5,30,0.78); opacity:0; transition:opacity .3s ease; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; padding:2rem; text-align:center; }
+    .ss-video:hover .ss-overlay { opacity:1; }
+    .ss-video.overlay-open .ss-overlay { opacity:1 !important; }
+    .ss-tap-hint { position:absolute; bottom:.75rem; left:50%; transform:translateX(-50%); font-size:.65rem; font-weight:600; letter-spacing:.08em; text-transform:uppercase; color:rgba(255,255,255,.55); background:rgba(0,0,0,.3); border-radius:var(--radius-pill); padding:.25rem .75rem; pointer-events:none; white-space:nowrap; display:none; }
+    @media (hover:none) { .ss-tap-hint { display:block; } }
+    .ss-icon-wrap { width:72px; height:72px; border-radius:var(--radius-xl); background:rgba(255,255,255,0.15); border:1.5px solid rgba(255,255,255,0.25); display:flex; align-items:center; justify-content:center; font-size:1.8rem; color:rgba(255,255,255,0.8); backdrop-filter:blur(4px); }
+    .ss-tag { display:inline-flex; align-items:center; gap:.4rem; font-size:.7rem; font-weight:700; letter-spacing:.1em; text-transform:uppercase; background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); border-radius:var(--radius-pill); padding:.3rem .9rem; color:rgba(255,255,255,0.85); backdrop-filter:blur(4px); }
+    .ss-title { font-family:var(--font-serif); font-size:1.1rem; font-weight:700; color:white; }
+    .ss-badge { position:absolute; top:1rem; left:1rem; display:inline-flex; align-items:center; gap:.4rem; padding:.3rem .85rem; border-radius:var(--radius-pill); background:rgba(255,255,255,0.15); border:1px solid rgba(255,255,255,0.25); font-size:.68rem; font-weight:700; color:rgba(255,255,255,.9); backdrop-filter:blur(4px); z-index:2; }
+    .ss-num { position:absolute; top:1rem; right:1rem; background:var(--surface); border-radius:var(--radius-pill); padding:.3rem .85rem; font-size:.7rem; font-weight:700; color:var(--ink-500); border:1px solid var(--ink-100); box-shadow:var(--shadow-xs); z-index:2; max-width:48%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    .ss-footer { padding:1rem 1.5rem; border-top:1px solid var(--ink-100); background:linear-gradient(135deg,var(--bg),var(--surface)); display:flex; align-items:center; justify-content:space-between; gap:.5rem; flex-wrap:wrap; }
+    .ss-footer-label { font-size:.78rem; color:var(--ink-400); font-weight:500; }
+    .ss-footer-action { font-size:.72rem; font-weight:700; color:var(--teal-600); display:flex; align-items:center; gap:.3rem; transition:color var(--transition-fast); flex-shrink:0; }
+    .ss-footer-action:hover { color:var(--teal-700); }
+
+    /* FEATURE CARDS */
+    .feat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.25rem; margin-top:1.5rem; }
+    .feat-card { background:var(--surface); border-radius:var(--radius-xl); border:1px solid var(--ink-100); padding:1.75rem 1.5rem; box-shadow:var(--shadow-sm); transition:all var(--transition-base); position:relative; overflow:hidden; }
+    .feat-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--purple-500),var(--teal-500)); opacity:.6; transition:opacity var(--transition-base); }
+    .feat-card:hover { transform:translateY(-6px); box-shadow:var(--shadow-xl); border-color:var(--purple-200); }
+    .feat-card:hover::before { opacity:1; }
+    .feat-icon { width:48px; height:48px; border-radius:16px; background:linear-gradient(135deg,var(--purple-50),var(--teal-50)); border:1px solid var(--purple-100); display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:var(--purple-600); margin-bottom:1.1rem; transition:all var(--transition-bounce); }
+    .feat-card:hover .feat-icon { background:linear-gradient(135deg,var(--purple-600),var(--teal-500)); color:white; transform:rotate(-5deg) scale(1.12); box-shadow:var(--shadow-md); border-color:transparent; }
+    .feat-title { font-family:var(--font-serif); font-size:1rem; font-weight:700; color:var(--ink-900); margin-bottom:.4rem; }
+    .feat-desc { font-size:.82rem; color:var(--ink-400); line-height:1.65; }
+
+    /* STEPS */
+    .steps { margin-top:1.5rem; background:var(--surface); border:1px solid var(--ink-100); border-radius:var(--radius-xl); overflow:hidden; box-shadow:var(--shadow-sm); }
+    .step-row { display:flex; gap:1.25rem; padding:1.25rem 1.5rem; border-bottom:1px solid var(--ink-100); transition:background var(--transition-fast); }
+    .step-row:last-child { border-bottom:none; }
+    .step-row:hover { background:var(--bg); }
+    .step-n { width:40px; height:40px; border-radius:50%; flex-shrink:0; background:linear-gradient(135deg,var(--teal-500),var(--purple-500)); color:white; font-family:var(--font-serif); font-weight:700; font-size:.95rem; display:grid; place-items:center; box-shadow:var(--shadow-sm); }
+    .step-b h4 { font-family:var(--font-serif); font-size:.95rem; font-weight:700; color:var(--ink-900); margin-bottom:.25rem; }
+    .step-b p { font-size:.84rem; color:var(--ink-400); line-height:1.65; }
+
+    /* CALLOUT */
+    .callout { padding:1.25rem 1.5rem; border-radius:var(--radius-lg); margin-top:1.5rem; background:var(--teal-50); border:1px solid var(--teal-200); display:flex; gap:1rem; align-items:flex-start; }
+    .callout i { color:var(--teal-600); font-size:1rem; margin-top:.2rem; flex-shrink:0; }
+    .callout p { font-size:.88rem; color:var(--ink-700); line-height:1.65; }
+    .callout strong { color:var(--teal-700); }
+    .callout.gold { background:var(--purple-50); border-color:var(--purple-200); }
+    .callout.gold i { color:var(--purple-600); }
+    .callout.gold strong { color:var(--purple-700); }
+
+    /* LEASE TABLE */
+    .tbl { border-radius:var(--radius-lg); overflow:hidden; border:1px solid var(--ink-100); margin-top:1.25rem; box-shadow:var(--shadow-sm); }
+    .tbl-head { display:grid; grid-template-columns:2fr 1fr 1fr 1.2fr; background:var(--bg-warm); padding:.75rem 1.25rem; font-size:.68rem; font-weight:700; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-300); }
+    .tbl-row { display:grid; grid-template-columns:2fr 1fr 1fr 1.2fr; padding:.9rem 1.25rem; border-bottom:1px solid var(--bg); font-size:.84rem; color:var(--ink-700); transition:background var(--transition-fast); }
+    .tbl-row:hover { background:var(--bg-warm); } .tbl-row:last-child { border-bottom:none; }
+    .chip { display:inline-flex; padding:.2rem .7rem; border-radius:var(--radius-pill); font-size:.7rem; font-weight:700; }
+    .chip.active { background:var(--teal-50); color:var(--teal-700); border:1px solid var(--teal-200); }
+    .chip.expiring { background:var(--purple-50); color:var(--purple-700); border:1px solid var(--purple-200); }
+    .chip.expired { background:#fee2e2; color:#b91c1c; border:1px solid #fecaca; }
+
+    /* SPLIT */
+    .split { display:grid; grid-template-columns:1fr 1fr; gap:1.25rem; margin-top:1.5rem; }
+
+    /* CTA */
+    .cta-band { background:linear-gradient(145deg,var(--teal-950) 0%,var(--purple-950) 40%,var(--teal-900) 100%); border-radius:var(--radius-2xl); padding:4rem 3rem; position:relative; overflow:hidden; text-align:center; border:1px solid rgba(255,255,255,0.06); box-shadow:var(--shadow-2xl); }
+    .cta-band::before { content:''; position:absolute; top:-100px; left:50%; transform:translateX(-50%); width:600px; height:400px; background:radial-gradient(ellipse,rgba(204,156,0,.1) 0%,transparent 65%); pointer-events:none; }
+    .cta-inner { position:relative; z-index:1; }
+    .cta-eyebrow { display:inline-flex; align-items:center; gap:.4rem; margin-bottom:1rem; font-size:.7rem; font-weight:700; letter-spacing:.16em; text-transform:uppercase; color:var(--teal-300); background:rgba(20,184,166,.12); border:1px solid rgba(20,184,166,.25); border-radius:var(--radius-pill); padding:.35rem 1rem; }
+    .cta-title { font-family:var(--font-serif); font-size:clamp(1.8rem,3.5vw,2.8rem); font-weight:900; color:white; line-height:1.15; letter-spacing:-.025em; margin-bottom:1rem; }
+    .cta-title em { font-style:italic; color:var(--teal-400); }
+    .cta-desc { color:rgba(255,255,255,.55); line-height:1.75; max-width:520px; margin:0 auto 2rem; font-size:1.05rem; }
+    .cta-pricing { display:flex; flex-wrap:wrap; gap:2rem; justify-content:center; margin-bottom:2.5rem; }
+    .ctp { text-align:center; padding:1rem 1.5rem; background:rgba(255,255,255,.05); border:1px solid rgba(255,255,255,.08); border-radius:var(--radius-lg); }
+    .ctp-num { font-family:var(--font-serif); font-size:1.9rem; font-weight:900; color:white; line-height:1; }
+    .ctp-lbl { font-size:.72rem; color:rgba(255,255,255,.45); margin-top:.25rem; letter-spacing:.06em; text-transform:uppercase; }
+    .cta-btns { display:flex; flex-wrap:wrap; gap:1rem; justify-content:center; }
+
+    /* WA FLOAT */
+    .wa-float { position:fixed; bottom:2rem; right:2rem; z-index:500; }
+    .wa-tooltip { position:absolute; right:calc(100% + .75rem); top:50%; transform:translateY(-50%); background:var(--ink-900); color:white; font-size:.78rem; font-weight:600; padding:.5rem .9rem; border-radius:var(--radius-pill); white-space:nowrap; pointer-events:none; opacity:0; transition:opacity var(--transition-base); border:1px solid rgba(255,255,255,.08); }
+    .wa-float:hover .wa-tooltip { opacity:1; }
+    .wa-button { width:58px; height:58px; background:#25d366; border-radius:50%; display:flex; align-items:center; justify-content:center; color:white; font-size:1.6rem; box-shadow:0 6px 24px rgba(37,211,102,.45); transition:all var(--transition-bounce); }
+    .wa-button:hover { transform:scale(1.1) rotate(-10deg); }
+
+    /* FOOTER */
+    .footer { background:linear-gradient(160deg,var(--purple-950) 0%,var(--ink-900) 45%,var(--teal-950) 100%); border-top:3px solid transparent; border-image:linear-gradient(90deg,var(--teal-600),var(--purple-500),var(--teal-400)) 1; padding:4rem 0 2.5rem; position:relative; overflow:hidden; }
+    .footer::before { content:''; position:absolute; top:-150px; left:50%; transform:translateX(-50%); width:700px; height:350px; background:radial-gradient(ellipse,rgba(204,156,0,.06) 0%,transparent 65%); pointer-events:none; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:2.5rem; margin-bottom:2.5rem; position:relative; z-index:1; }
+    .footer-logo { font-family:var(--font-serif); font-size:1.45rem; font-weight:700; color:white; display:flex; align-items:center; gap:.75rem; }
+    .footer-logo-badge { width:38px; height:38px; border-radius:var(--radius-md); background:linear-gradient(135deg,var(--purple-600),var(--teal-500)); display:flex; align-items:center; justify-content:center; font-family:var(--font-serif); font-size:.95rem; font-weight:900; color:white; flex-shrink:0; }
+    .footer-about { font-size:.86rem; color:rgba(255,255,255,.38); margin-top:.75rem; line-height:1.8; max-width:300px; }
+    .footer h5 { font-size:.68rem; font-weight:700; letter-spacing:.18em; text-transform:uppercase; color:rgba(255,255,255,.18); margin-bottom:1.25rem; }
+    .footer-col a { display:block; font-size:.86rem; color:rgba(255,255,255,.35); margin-bottom:.6rem; transition:all var(--transition-fast); }
+    .footer-col a:hover { color:var(--teal-300); padding-left:6px; }
+    .footer-bottom { border-top:1px solid rgba(255,255,255,.06); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:1rem; position:relative; z-index:1; }
+    .footer-bottom p { font-size:.76rem; color:rgba(255,255,255,.18); display:flex; align-items:center; gap:.4rem; }
+    .footer-bottom p::before { content:'◆'; font-size:.4rem; color:var(--teal-500); opacity:.6; }
+    .footer-tech { display:flex; gap:.4rem; flex-wrap:wrap; }
+    .tech-badge { font-size:.65rem; font-weight:600; letter-spacing:.05em; text-transform:uppercase; background:rgba(255,255,255,.03); color:rgba(255,255,255,.22); padding:.2rem .6rem; border-radius:var(--radius-pill); border:1px solid rgba(255,255,255,.05); transition:all var(--transition-fast); }
+    .tech-badge:hover { background:rgba(204,156,0,.12); color:var(--purple-300); border-color:rgba(204,156,0,.2); }
+
+    .progress-bar { position:fixed; top:var(--nav-height); left:0; height:3px; background:linear-gradient(90deg,var(--teal-500),var(--purple-500)); z-index:99; width:0%; transition:width .1s; }
+
+    /* MOBILE SECTION NAV */
+    .mobile-section-nav { display:none; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 1024px) {
+      .wt-layout { grid-template-columns:180px 1fr; gap:2rem; }
+    }
+
+    @media (max-width: 900px) {
+      :root { --nav-height:60px; --container-padding:1.25rem; }
+      .nav-links { display:none !important; }
+      .hamburger { display:flex !important; }
+      .nav-pill.teal-pill { display:none; }
+      .wt-layout { grid-template-columns:1fr; padding:1.5rem 0 4rem; }
+      .side-nav { display:none; }
+      .mobile-section-nav {
+        display:block; position:sticky; top:var(--nav-height); z-index:80;
+        background:rgba(253,252,240,0.96); backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px);
+        border-bottom:1px solid var(--ink-100); box-shadow:0 2px 10px rgba(204,156,0,.07);
+      }
+      .msn-inner { display:flex; gap:.45rem; padding:.55rem var(--container-padding); overflow-x:auto; -webkit-overflow-scrolling:touch; scrollbar-width:none; scroll-snap-type:x proximity; }
+      .msn-inner::-webkit-scrollbar { display:none; }
+      .msn-item { flex-shrink:0; padding:.3rem .8rem; border-radius:var(--radius-pill); font-size:.7rem; font-weight:700; letter-spacing:.04em; text-transform:uppercase; background:var(--surface); border:1px solid var(--ink-100); color:var(--ink-400); cursor:pointer; transition:all var(--transition-fast); white-space:nowrap; scroll-snap-align:start; }
+      .msn-item.active { background:linear-gradient(135deg,var(--teal-600),var(--teal-500)); color:white; border-color:var(--teal-500); box-shadow:0 2px 8px rgba(20,184,166,.3); }
+      .split { grid-template-columns:1fr; }
+      .feat-grid { grid-template-columns:1fr 1fr; gap:1rem; }
+      .hero-section { padding:2rem 0 2.5rem; }
+      .ws { padding:2.5rem 0; }
+      .ws-title { font-size:1.5rem; }
+      .cta-band { padding:2.5rem 1.75rem; border-radius:var(--radius-xl); }
+      .ss:hover { transform:none; }
+    }
+
+    @media (max-width: 640px) {
+      :root { --container-padding:1rem; }
+      .nav-pill { display:none !important; }
+      .hero-title { font-size:clamp(1.8rem,9vw,2.4rem); }
+      .hero-stats { display:grid; grid-template-columns:repeat(2,1fr); }
+      .stat-item { border-right:none; border-bottom:1px solid var(--ink-100); }
+      .stat-item:nth-child(odd) { border-right:1px solid var(--ink-100); }
+      .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom:none; }
+      .stat-number { font-size:1.6rem; }
+      .hero-actions { flex-direction:column; align-items:stretch; }
+      .hero-actions .btn { justify-content:center; }
+      .feat-grid { grid-template-columns:1fr; }
+      .feat-card { padding:1.4rem 1.25rem; }
+      .ss-num { font-size:.62rem; padding:.25rem .65rem; }
+      .ss-footer { padding:.85rem 1.1rem; }
+      .step-n { width:34px; height:34px; font-size:.82rem; }
+      .step-row { padding:1rem 1.1rem; gap:1rem; }
+      .step-b h4 { font-size:.88rem; }
+      .step-b p { font-size:.78rem; }
+      .cta-band { padding:2rem 1.25rem; }
+      .cta-pricing { flex-direction:column; align-items:center; }
+      .cta-btns { flex-direction:column; align-items:stretch; }
+      .cta-btns .btn { justify-content:center; }
+      .tbl-head, .tbl-row { grid-template-columns:2fr 1fr 1fr; font-size:.75rem; }
+      .tbl-head > *:nth-child(4), .tbl-row > *:nth-child(4) { display:none; }
+      .tbl-head { padding:.6rem 1rem; } .tbl-row { padding:.75rem 1rem; }
+      .callout { padding:1rem 1.1rem; gap:.75rem; }
+      .callout p { font-size:.82rem; }
+      .footer-grid { grid-template-columns:1fr; text-align:center; }
+      .footer-about { margin:0 auto; }
+      .footer-logo { justify-content:center; }
+      .footer-col a { display:inline-block; margin:.2rem .4rem; }
+      .footer-bottom { flex-direction:column; text-align:center; }
+      .footer-tech { justify-content:center; }
+      .wa-float { bottom:1.25rem; right:1.25rem; }
+      .wa-button { width:52px; height:52px; font-size:1.4rem; }
+    }
+
+    @media (max-width: 380px) {
+      :root { --container-padding:.85rem; }
+      .hero-title { font-size:1.75rem; }
+      .ws-title { font-size:1.3rem; }
+      .nav-logo { font-size:1.2rem; }
+      .logo-placeholder, .nav-logo img { width:36px; height:36px; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="progress-bar" id="progressBar"></div>
+
+  <div class="wa-float">
+    <span class="wa-tooltip">Book a free demo</span>
+    <a href="https://wa.me/18765499714?text=Hi%20JCommerce%2C%20I%20want%20to%20see%20the%20Apartment%20Management%20template%20demo." class="wa-button" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+      <i class="fa-brands fa-whatsapp"></i>
+    </a>
+  </div>
+
+  <div id="mobileMenu" class="mobile-menu" role="navigation" aria-label="Mobile navigation" aria-hidden="true">
+    <div class="mobile-menu-inner">
+      <a href="index.html"><i class="fa-solid fa-house"></i>Home</a>
+      <a href="index.html#products"><i class="fa-solid fa-layer-group"></i>All Templates</a>
+      <a href="index.html#packages"><i class="fa-solid fa-tag"></i>Packages</a>
+      <a href="index.html#contact"><i class="fa-solid fa-envelope"></i>Contact</a>
+      <div class="mobile-menu-divider"></div>
+      <a href="https://wa.me/18765499714?text=Hi%20JCommerce%2C%20I%20want%20to%20see%20the%20Apartment%20Management%20template%20demo." target="_blank" rel="noopener" style="color:#25d366;font-weight:700"><i class="fa-brands fa-whatsapp"></i>Book a Demo</a>
+      <div class="mobile-menu-divider"></div>
+      <a href="index.html#packages" class="mobile-menu-cta"><i class="fa-solid fa-rocket"></i>Get This Template</a>
+    </div>
+  </div>
+
+  <nav class="nav" id="mainNav">
+    <div class="container">
+      <a href="index.html" class="nav-logo">
+        <img src="images/logo.png" alt="JCommerce" width="42" height="42" style="border-radius:10px;object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+        <div class="logo-placeholder" style="display:none">J</div>
+        JCommerce
+      </a>
+      <div class="nav-links" role="menubar">
+        <a href="index.html">Home</a>
+        <a href="index.html#products">Templates</a>
+        <a href="index.html#packages">Packages</a>
+        <a href="index.html#contact">Contact</a>
+      </div>
+      <div class="nav-right">
+        <a href="index.html#products" class="nav-pill teal-pill"><i class="fa-solid fa-layer-group"></i><span>All Templates</span></a>
+        <a href="https://wa.me/18765499714?text=Hi%20JCommerce%2C%20I%20want%20to%20see%20the%20Apartment%20Management%20template%20demo." target="_blank" rel="noopener" class="nav-pill"><i class="fa-brands fa-whatsapp"></i><span>Book Demo</span></a>
+        <button class="hamburger" id="hamburgerBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span><span></span></button>
+      </div>
+    </div>
+  </nav>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-inner">
+      <span class="ticker-item"><span class="highlight">APARTMENT MANAGEMENT TEMPLATE</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">Property Management System</span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">RENT COLLECTION</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">TENANT PORTAL</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">Maintenance Requests</span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">LEASE MANAGEMENT</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">PAYMENT TRACKING</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">From $50,000 JMD</span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">LIVE IN 14 DAYS</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">Built in Jamaica</span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">APARTMENT MANAGEMENT TEMPLATE</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">Property Management System</span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">RENT COLLECTION</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">TENANT PORTAL</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">Maintenance Requests</span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">LEASE MANAGEMENT</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item"><span class="highlight">PAYMENT TRACKING</span></span><span class="ticker-dot">·</span>
+      <span class="ticker-item special">From $50,000 JMD</span><span class="ticker-dot">·</span>
+    </div>
+  </div>
+
+  <!-- Mobile Section Nav -->
+  <div class="mobile-section-nav" id="mobileSectionNav" role="navigation" aria-label="Page sections">
+    <div class="msn-inner">
+      <button class="msn-item active" data-target="s1">1 · Property Overview</button>
+      <button class="msn-item" data-target="s2">2 · Tenant Portal</button>
+      <button class="msn-item" data-target="s3">3 · Rent Collection</button>
+      <button class="msn-item" data-target="s4">4 · Lease Management</button>
+      <button class="msn-item" data-target="s5">5 · Maintenance</button>
+      <button class="msn-item" data-target="s6">6 · Admin Dashboard</button>
+      <button class="msn-item" data-target="s7">7 · Unit Management</button>
+      <button class="msn-item" data-target="s8">8 · Tenant Applications</button>
+      <button class="msn-item" data-target="s9">9 · Reports</button>
+    </div>
+  </div>
+
+  <main>
+    <section class="hero-section">
+      <div class="container">
+        <div class="breadcrumb">
+          <a href="index.html">JCommerce</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <a href="index.html#products">Templates</a>
+          <i class="fa-solid fa-chevron-right"></i>
+          <span>Apartment Management System</span>
+        </div>
+        <div class="hero-eyebrow">
+          <span class="hero-eyebrow-dot" aria-hidden="true"></span>
+          Property Management · Template Walkthrough · Full System Overview
+        </div>
+        <h1 class="hero-title">Your <span class="italic">property</span><br><span class="highlight">fully managed</span></h1>
+        <p class="hero-description">Everything a landlord needs to manage rental properties — tenant portal, rent collection, lease tracking, maintenance requests, and a complete admin dashboard. See every screen below.</p>
+        <div class="hero-pills">
+          <span class="hero-pill"><i class="fa-solid fa-building"></i> Property Overview</span>
+          <span class="hero-pill"><i class="fa-solid fa-users"></i> Tenant Portal</span>
+          <span class="hero-pill"><i class="fa-solid fa-money-bill-wave"></i> Rent Collection</span>
+          <span class="hero-pill"><i class="fa-solid fa-file-signature"></i> Lease Management</span>
+          <span class="hero-pill"><i class="fa-solid fa-tools"></i> Maintenance</span>
+          <span class="hero-pill"><i class="fa-solid fa-chart-pie"></i> Reports</span>
+        </div>
+        <div class="hero-actions">
+          <a href="https://wa.me/18765499714?text=Hi%20JCommerce%2C%20I%20want%20to%20see%20the%20Apartment%20Management%20template%20demo." target="_blank" rel="noopener" class="btn btn-wa"><i class="fa-brands fa-whatsapp"></i> Book a Live Demo</a>
+          <a href="index.html#packages" class="btn btn-secondary"><i class="fa-solid fa-tag"></i> See Pricing</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat-item"><div class="stat-number">14</div><div class="stat-label">Day Launch</div></div>
+          <div class="stat-item"><div class="stat-number">9</div><div class="stat-label">Screens</div></div>
+          <div class="stat-item"><div class="stat-number">20+</div><div class="stat-label">Features</div></div>
+          <div class="stat-item"><div class="stat-number">24/7</div><div class="stat-label">Tenant Access</div></div>
+        </div>
+      </div>
+    </section>
+
+    <div class="divider"></div>
+
+    <div class="container">
+      <div class="wt-layout">
+
+        <aside class="side-nav" aria-label="Section navigation">
+          <div class="sn-header"><div class="sn-label">Walkthrough</div><div class="sn-title">Apartment Management</div></div>
+          <nav class="sn-list">
+            <div class="sn-item active" data-target="s1"><span class="sn-num">1</span>Property Overview</div>
+            <div class="sn-item" data-target="s2"><span class="sn-num">2</span>Tenant Portal</div>
+            <div class="sn-item" data-target="s3"><span class="sn-num">3</span>Rent Collection</div>
+            <div class="sn-item" data-target="s4"><span class="sn-num">4</span>Lease Management</div>
+            <div class="sn-item" data-target="s5"><span class="sn-num">5</span>Maintenance Requests</div>
+            <div class="sn-item" data-target="s6"><span class="sn-num">6</span>Admin Dashboard</div>
+            <div class="sn-item" data-target="s7"><span class="sn-num">7</span>Unit Management</div>
+            <div class="sn-item" data-target="s8"><span class="sn-num">8</span>Tenant Applications</div>
+            <div class="sn-item" data-target="s9"><span class="sn-num">9</span>Reports & Analytics</div>
+          </nav>
+          <div class="sn-footer">
+            <button class="sn-cta" onclick="window.open('https://wa.me/18765499714?text=Hi%20JCommerce%2C%20I%20want%20to%20see%20the%20Apartment%20Management%20template%20demo.','_blank')">
+              <i class="fa-brands fa-whatsapp"></i> Book Demo
+            </button>
+          </div>
+        </aside>
+
+        <article>
+
+          <!-- S1 -->
+          <section class="ws" id="s1">
+            <div class="ws-eye"><span class="n">1</span> Property Overview</div>
+            <h2 class="ws-title">See your entire property at a glance</h2>
+            <p class="ws-desc">The property overview dashboard shows all your buildings, units, and tenants in one place. Occupancy rates, upcoming lease renewals, and recent activity — all visible immediately.</p>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-800),var(--teal-600));">
+                <img src="images/apartment-overview.png" alt="Property overview dashboard">
+                <div class="ss-num">property/overview.php — Desktop View</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-building"></i></div><div class="ss-tag"><i class="fa-solid fa-star"></i> Property Overview</div><div class="ss-title">Dashboard — All Properties</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">property/overview.php · Occupancy, units, recent activity</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-700),var(--purple-700));">
+                <img src="images/apartment-mobile.png" alt="Property overview mobile view">
+                <div class="ss-num">property/overview.php — Mobile View</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-mobile-screen"></i></div><div class="ss-tag"><i class="fa-solid fa-mobile-screen"></i> Mobile Responsive</div><div class="ss-title">Mobile Overview</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">Fully responsive — manage properties from anywhere</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="feat-grid" data-reveal>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-chart-pie"></i></div><div class="feat-title">Occupancy Rate</div><div class="feat-desc">See exactly which units are occupied, vacant, or reserved. Track occupancy trends over time.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-calendar-alt"></i></div><div class="feat-title">Upcoming Renewals</div><div class="feat-desc">List of leases expiring in the next 30, 60, 90 days. Never miss a renewal date.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-activity"></i></div><div class="feat-title">Recent Activity</div><div class="feat-desc">New payments, maintenance requests, and tenant messages — all in one timeline.</div></div>
+            </div>
+          </section>
+
+          <!-- S2 -->
+          <section class="ws" id="s2">
+            <div class="ws-eye"><span class="n">2</span> Tenant Portal</div>
+            <h2 class="ws-title">Give tenants self-service access 24/7</h2>
+            <p class="ws-desc">Each tenant gets their own portal where they can view lease details, make payments, submit maintenance requests, and communicate with management — all without calling you.</p>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,#1a0a2e,var(--teal-800));">
+                <img src="images/tenant-portal.png" alt="Tenant portal dashboard">
+                <div class="ss-num">tenant/dashboard.php — Tenant View</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-user"></i></div><div class="ss-tag"><i class="fa-solid fa-users"></i> Tenant Portal</div><div class="ss-title">Tenant Dashboard</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">tenant/dashboard.php · Lease info, payments, requests</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-900),#1a1400);">
+                <img src="images/tenant-documents.png" alt="Tenant documents">
+                <div class="ss-num">tenant/documents.php — Lease Documents</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-file-pdf"></i></div><div class="ss-tag"><i class="fa-solid fa-file"></i> Document Access</div><div class="ss-title">Lease & Document View</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">tenant/documents.php · View and download lease agreements</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="callout" data-reveal><i class="fa-solid fa-circle-info"></i><p><strong>Self-service reduces calls.</strong> Tenants can check balance, pay rent, and submit requests without contacting you. Management overhead drops significantly.</p></div>
+            <div class="feat-grid" data-reveal>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-file-invoice"></i></div><div class="feat-title">Lease Details</div><div class="feat-desc">Tenants see their lease terms, rent amount, due date, and can download signed agreements.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-credit-card"></i></div><div class="feat-title">Online Payments</div><div class="feat-desc">Pay rent via card, bank transfer, or cash. Payment history and receipts available.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-tools"></i></div><div class="feat-title">Maintenance Requests</div><div class="feat-desc">Submit and track maintenance issues. See status updates from management.</div></div>
+            </div>
+          </section>
+
+          <!-- S3 -->
+          <section class="ws" id="s3">
+            <div class="ws-eye"><span class="n">3</span> Rent Collection</div>
+            <h2 class="ws-title">Track payments, send reminders, get paid faster</h2>
+            <p class="ws-desc">Complete rent collection system with multiple payment methods, automated reminders, and real-time payment tracking. See who's paid and who's overdue at a glance.</p>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-900),#051a1a);">
+                <img src="images/rent-collection.png" alt="Rent collection dashboard">
+                <div class="ss-badge" style="background:rgba(245,200,0,.2);border-color:rgba(245,200,0,.4);color:var(--purple-300)"><i class="fa-solid fa-star"></i> Key Feature</div>
+                <img src="images/rent-collection.png" alt="Rent collection table">
+                <div class="ss-num">admin/rent.php — Rent Collection</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-money-bill-wave"></i></div><div class="ss-tag"><i class="fa-solid fa-hand-holding-usd"></i> Rent Collection</div><div class="ss-title">Payment Tracking Dashboard</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">admin/rent.php · See who's paid, who's overdue</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="tbl" data-reveal>
+              <div class="tbl-head"><div>Unit</div><div>Tenant</div><div>Amount</div><div>Status</div></div>
+              <div class="tbl-row"><div>#101 - Ocean View</div><div>M. Brown</div><div>$85,000</div><div><span class="chip active">Paid</span></div></div>
+              <div class="tbl-row"><div>#102 - Garden Suite</div><div>J. Williams</div><div>$85,000</div><div><span class="chip expiring">Pending</span></div></div>
+              <div class="tbl-row"><div>#103 - Studio</div><div>S. Johnson</div><div>$65,000</div><div><span class="chip expired">Overdue</span></div></div>
+            </div>
+            <div class="feat-grid" data-reveal>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-bell"></i></div><div class="feat-title">Auto-Reminders</div><div class="feat-desc">SMS and email reminders sent automatically before rent is due and when overdue.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-chart-line"></i></div><div class="feat-title">Payment History</div><div class="feat-desc">Complete payment records for each tenant. Export for accounting.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-receipt"></i></div><div class="feat-title">Digital Receipts</div><div class="feat-desc">Automatic receipts generated and emailed when payment is confirmed.</div></div>
+            </div>
+          </section>
+
+          <!-- S4 -->
+          <section class="ws" id="s4">
+            <div class="ws-eye"><span class="n">4</span> Lease Management</div>
+            <h2 class="ws-title">Track leases, renewals, and documents</h2>
+            <p class="ws-desc">Manage all lease agreements in one place. Store signed documents, track renewal dates, handle security deposits, and manage lease terms — all organized digitally.</p>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-800),var(--purple-900));">
+                <img src="images/leases.png" alt="Lease management screen">
+                <div class="ss-num">admin/leases.php — Lease List</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-file-signature"></i></div><div class="ss-tag"><i class="fa-solid fa-file"></i> Lease Management</div><div class="ss-title">Active Leases Overview</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">admin/leases.php · All active leases with renewal dates</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="steps" data-reveal>
+              <div class="step-row"><div class="step-n">1</div><div class="step-b"><h4>Create Lease</h4><p>Enter tenant details, rent amount, deposit, start/end dates. Upload signed PDF.</p></div></div>
+              <div class="step-row"><div class="step-n">2</div><div class="step-b"><h4>Track Throughout Term</h4><p>System tracks rent payments, sends renewal reminders, logs all communications.</p></div></div>
+              <div class="step-row"><div class="step-n">3</div><div class="step-b"><h4>Renew or Close</h4><p>When lease ends, renew with new terms or close out and process deposit return.</p></div></div>
+            </div>
+            <div class="feat-grid" data-reveal>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-clock"></i></div><div class="feat-title">Renewal Alerts</div><div class="feat-desc">Get notified 30, 60, 90 days before leases expire. Never miss a renewal.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-dollar-sign"></i></div><div class="feat-title">Security Deposits</div><div class="feat-desc">Track deposits held, deductions made, and amounts returned at move-out.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-file-pdf"></i></div><div class="feat-title">Document Storage</div><div class="feat-desc">All signed leases, addendums, and correspondence stored per tenant.</div></div>
+            </div>
+          </section>
+
+          <!-- S5 -->
+          <section class="ws" id="s5">
+            <div class="ws-eye"><span class="n">5</span> Maintenance Requests</div>
+            <h2 class="ws-title">From tenant request to completion — tracked</h2>
+            <p class="ws-desc">Tenants submit maintenance issues through their portal. You assign vendors, track progress, and communicate status — all in one system with full history.</p>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,#0d1f2d,var(--teal-700));">
+                <img src="images/maintenance-requests.png" alt="Maintenance requests dashboard">
+                <div class="ss-num">admin/maintenance.php — Request List</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-tools"></i></div><div class="ss-tag"><i class="fa-solid fa-clipboard-list"></i> Maintenance</div><div class="ss-title">All Maintenance Requests</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">admin/maintenance.php · Track all open requests</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="callout gold" data-reveal><i class="fa-solid fa-bolt-lightning"></i><p><strong>Complete communication history.</strong> Every note, update, and status change is logged. No more "who said what" or lost paper requests.</p></div>
+            <div class="feat-grid" data-reveal>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-priority"></i></div><div class="feat-title">Priority Levels</div><div class="feat-desc">Emergency, urgent, routine. Color-coded so critical issues get immediate attention.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-truck"></i></div><div class="feat-title">Vendor Management</div><div class="feat-desc">Assign work to contractors, track costs, and maintain vendor history.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-camera"></i></div><div class="feat-title">Photo Uploads</div><div class="feat-desc">Tenants can upload photos of issues. Attach to work orders for vendors.</div></div>
+            </div>
+          </section>
+
+          <!-- S6 -->
+          <section class="ws" id="s6">
+            <div class="ws-eye"><span class="n">6</span> Admin Dashboard</div>
+            <h2 class="ws-title">Complete property overview in one screen</h2>
+            <p class="ws-desc">The admin dashboard gives you real-time insights — total rent collected, occupancy rate, pending maintenance, upcoming renewals, and recent activity. All the numbers that matter.</p>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-950),var(--teal-950));">
+                <div class="ss-badge" style="background:rgba(245,200,0,.2);border-color:rgba(245,200,0,.4);color:var(--purple-300)"><i class="fa-solid fa-star"></i> Most Important</div>
+                <img src="images/apartment-admin.png" alt="Admin dashboard main view">
+                <div class="ss-num">admin/dashboard.php — Main View</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-gauge-high"></i></div><div class="ss-title">Admin Dashboard — Key Metrics</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">admin/dashboard.php · Revenue, occupancy, requests</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="feat-grid" data-reveal>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-dollar-sign"></i></div><div class="feat-title">Revenue Summary</div><div class="feat-desc">Monthly, quarterly, annual rent collection. Compare to previous periods.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-door-open"></i></div><div class="feat-title">Occupancy Stats</div><div class="feat-desc">Current occupancy rate, vacancy trends, units available for rent.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-calendar-check"></i></div><div class="feat-title">Renewal Forecast</div><div class="feat-desc">See which leases are ending soon. Plan ahead for turnovers.</div></div>
+            </div>
+          </section>
+
+          <!-- S7 -->
+          <section class="ws" id="s7">
+            <div class="ws-eye"><span class="n">7</span> Unit Management</div>
+            <h2 class="ws-title">Manage every unit — details, status, history</h2>
+            <p class="ws-desc">Complete database of all units with details like square footage, bedrooms/bathrooms, amenities, rent amount, and current tenant. Track maintenance history per unit.</p>
+            <div class="split" data-reveal>
+              <div class="ss">
+                <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-800),var(--purple-800));">
+                  <img src="images/units.png" alt="Units management table">
+                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-table-list"></i></div><div class="ss-tag">Units List</div><div class="ss-title">All Units Overview</div></div>
+                  <span class="ss-tap-hint">Tap to preview</span>
+                </div>
+                <div class="ss-footer"><span class="ss-footer-label">admin/units.php · Unit list with status</span></div>
+              </div>
+              <div class="ss">
+                <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-800),var(--teal-700));">
+                  <img src="images/unit-details.png" alt="Unit details view">
+                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-door-open"></i></div><div class="ss-tag">Unit Details</div><div class="ss-title">Single Unit View</div></div>
+                  <span class="ss-tap-hint">Tap to preview</span>
+                </div>
+                <div class="ss-footer"><span class="ss-footer-label">admin/units.php · Unit details with history</span></div>
+              </div>
+            </div>
+            <div class="steps" data-reveal>
+              <div class="step-row"><div class="step-n"><i class="fa-solid fa-plus" style="font-size:.7rem"></i></div><div class="step-b"><h4>Add new unit</h4><p>Enter unit number, specs, photos, rent amount, amenities. Set as available or occupied.</p></div></div>
+              <div class="step-row"><div class="step-n"><i class="fa-solid fa-pen" style="font-size:.7rem"></i></div><div class="step-b"><h4>Update details</h4><p>Change rent, update photos, mark for renovation, add notes for future reference.</p></div></div>
+              <div class="step-row"><div class="step-n"><i class="fa-solid fa-clock-rotate-left"></i></div><div class="step-b"><h4>View history</h4><p>See all past tenants, maintenance requests, and rent changes for the unit.</p></div></div>
+            </div>
+          </section>
+
+          <!-- S8 -->
+          <section class="ws" id="s8">
+            <div class="ws-eye"><span class="n">8</span> Tenant Applications</div>
+            <h2 class="ws-title">Screen applicants, manage waitlists, fill vacancies faster</h2>
+            <p class="ws-desc">Accept applications online, collect screening fees, run background checks, and manage the entire tenant selection process from one dashboard.</p>
+            <div class="ss" data-reveal>
+              <div class="ss-video" style="background:linear-gradient(135deg,#051a14,var(--teal-900));">
+                <img src="images/applications.png" alt="Applications management">
+                <div class="ss-num">admin/applications.php — Applications</div>
+                <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-file"></i></div><div class="ss-tag"><i class="fa-solid fa-users"></i> Applications</div><div class="ss-title">Application Queue</div></div>
+                <span class="ss-tap-hint">Tap to preview</span>
+              </div>
+              <div class="ss-footer"><span class="ss-footer-label">admin/applications.php · Manage applicant pipeline</span><span class="ss-footer-action"><i class="fa-solid fa-arrow-up-right-from-square"></i> View Live</span></div>
+            </div>
+            <div class="tbl" data-reveal>
+              <div class="tbl-head"><div>Applicant</div><div>Unit</div><div>Status</div><div>Date</div></div>
+              <div class="tbl-row"><div>K. Thompson</div><div>#205</div><div><span class="chip pending">Pending</span></div><div>Today</div></div>
+              <div class="tbl-row"><div>R. Davis</div><div>#110</div><div><span class="chip active">Approved</span></div><div>Yesterday</div></div>
+              <div class="tbl-row"><div>L. Campbell</div><div>#308</div><div><span class="chip expired">Rejected</span></div><div>2 days ago</div></div>
+            </div>
+            <div class="feat-grid" data-reveal>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-check-double"></i></div><div class="feat-title">Screening Workflow</div><div class="feat-desc">Move applicants through stages: new → screening → approved → leased → moved in.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-clock"></i></div><div class="feat-title">Waitlist Management</div><div class="feat-desc">Maintain waitlist for units, notify applicants when units become available.</div></div>
+              <div class="feat-card"><div class="feat-icon"><i class="fa-solid fa-file-export"></i></div><div class="feat-title">Document Collection</div><div class="feat-desc">Applicants upload ID, proof of income, references. All stored securely.</div></div>
+            </div>
+          </section>
+
+          <!-- S9 -->
+          <section class="ws" id="s9">
+            <div class="ws-eye"><span class="n">9</span> Reports & Analytics</div>
+            <h2 class="ws-title">Data-driven property management</h2>
+            <p class="ws-desc">Generate professional reports for owners, investors, or your own records. Financial summaries, occupancy reports, maintenance costs, and more — exportable to PDF or Excel.</p>
+            <div class="split" data-reveal>
+              <div class="ss">
+                <div class="ss-video" style="background:linear-gradient(135deg,var(--teal-950),var(--purple-900));">
+                  <img src="images/financial-report.png" alt="Financial report">
+                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-chart-line"></i></div><div class="ss-tag">Financial Report</div><div class="ss-title">Income Statement</div></div>
+                  <span class="ss-tap-hint">Tap to preview</span>
+                </div>
+                <div class="ss-footer"><span class="ss-footer-label">reports/financial.php · P&L by property</span></div>
+              </div>
+              <div class="ss">
+                <div class="ss-video" style="background:linear-gradient(135deg,var(--purple-900),var(--teal-800));">
+                  <img src="images/occupancy-report.png" alt="Occupancy report">
+                  <div class="ss-overlay"><div class="ss-icon-wrap"><i class="fa-solid fa-chart-bar"></i></div><div class="ss-tag">Occupancy Report</div><div class="ss-title">Occupancy Analytics</div></div>
+                  <span class="ss-tap-hint">Tap to preview</span>
+                </div>
+                <div class="ss-footer"><span class="ss-footer-label">reports/occupancy.php · Occupancy trends</span></div>
+              </div>
+            </div>
+            <div class="steps" data-reveal>
+              <div class="step-row"><div class="step-n"><i class="fa-solid fa-file-pdf"></i></div><div class="step-b"><h4>Generate Reports</h4><p>Select report type, date range, properties. Preview then export to PDF or Excel.</p></div></div>
+              <div class="step-row"><div class="step-n"><i class="fa-solid fa-chart-pie"></i></div><div class="step-b"><h4>Visual Analytics</h4><p>Charts and graphs show trends in rent collection, occupancy, and expenses.</p></div></div>
+              <div class="step-row"><div class="step-n"><i class="fa-solid fa-envelope"></i></div><div class="step-b"><h4>Share with Owners</h4><p>Email reports directly to property owners or investors with one click.</p></div></div>
+            </div>
+            <div class="callout" data-reveal><i class="fa-solid fa-chart-simple"></i><p><strong>Professional reporting.</strong> Impress property owners with clean, professional reports showing exactly how their investment is performing.</p></div>
+          </section>
+
+        </article>
+      </div>
+    </div>
+
+    <section class="section container">
+      <div class="cta-band">
+        <div class="cta-inner">
+          <div class="cta-eyebrow"><i class="fa-solid fa-bolt-lightning"></i> Ready to streamline your property management?</div>
+          <h2 class="cta-title">Get this <em>system</em> for your apartments</h2>
+          <p class="cta-desc">Launch a complete apartment management system in 14 days. Tenant portal, rent collection, maintenance tracking, lease management — all of it, built and hosted for you.</p>
+          <div class="cta-pricing">
+            <div class="ctp"><div class="ctp-num">$50,000</div><div class="ctp-lbl">JMD — one-time setup</div></div>
+            <div class="ctp"><div class="ctp-num">$5,000</div><div class="ctp-lbl">JMD/month — hosting + support</div></div>
+            <div class="ctp"><div class="ctp-num">14</div><div class="ctp-lbl">Days to go live</div></div>
+          </div>
+          <div class="cta-btns">
+            <a href="https://wa.me/18765499714?text=Hi%20JCommerce%2C%20I%20want%20to%20get%20the%20Apartment%20Management%20template%20for%20my%20property." target="_blank" rel="noopener" class="btn btn-wa"><i class="fa-brands fa-whatsapp"></i> Book a Demo on WhatsApp</a>
+            <a href="index.html#packages" class="btn btn-teal"><i class="fa-solid fa-tag"></i> See All Packages</a>
+            <a href="index.html#products" class="btn btn-outline-light"><i class="fa-solid fa-layer-group"></i> Browse All Templates</a>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-logo">
+            <img src="images/logo.png" alt="JCommerce" width="38" height="38" style="border-radius:var(--radius-md);object-fit:contain;" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">
+            <div class="footer-logo-badge" style="display:none">J</div>
+            JCommerce
+          </div>
+          <p class="footer-about">We put Jamaican businesses online. Online ordering, admin dashboards, custom builds — fast delivery, local support, Jamaican prices.</p>
+        </div>
+        <div class="footer-col"><h5>Templates</h5><a href="index.html#products">Online Store</a><a href="index.html#products">Learning Management</a><a href="index.html#products">Apartment Management</a><a href="index.html#products">School System</a></div>
+        <div class="footer-col"><h5>More Templates</h5><a href="index.html#products">Clinic System</a><a href="index.html#products">Restaurant System</a><a href="index.html#products">Job Board</a><a href="index.html#products">Inventory POS</a></div>
+        <div class="footer-col"><h5>Company</h5><a href="index.html#packages">Packages & Pricing</a><a href="index.html#contact">Contact Us</a><a href="index.html#social">Social Media</a><a href="index.html">Back to Home</a></div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2026 JCommerce · Kingston, Jamaica · Putting Jamaica Online</p>
+        <div class="footer-tech"><span class="tech-badge">HTML</span><span class="tech-badge">CSS</span><span class="tech-badge">JS</span><span class="tech-badge">PHP</span><span class="tech-badge">MySQL</span><span class="tech-badge">Railway</span></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const mainNav = document.getElementById('mainNav');
+    window.addEventListener('scroll', () => { mainNav.classList.toggle('scrolled', window.scrollY > 20); }, { passive:true });
+
+    const progressBar = document.getElementById('progressBar');
+    window.addEventListener('scroll', () => {
+      const total = document.documentElement.scrollHeight - window.innerHeight;
+      progressBar.style.width = (window.scrollY / total * 100) + '%';
+    }, { passive:true });
+
+    const hamburgerBtn = document.getElementById('hamburgerBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburgerBtn.addEventListener('click', () => {
+      const expanded = hamburgerBtn.getAttribute('aria-expanded') === 'true';
+      hamburgerBtn.setAttribute('aria-expanded', String(!expanded));
+      mobileMenu.setAttribute('aria-hidden', String(expanded));
+    });
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => { hamburgerBtn.setAttribute('aria-expanded','false'); mobileMenu.setAttribute('aria-hidden','true'); });
+    });
+
+    const wsSections = document.querySelectorAll('.ws');
+    const snItems = document.querySelectorAll('.sn-item');
+    snItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const t = document.getElementById(item.dataset.target);
+        if (t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+      });
+    });
+    const sectionObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          snItems.forEach(i => { i.classList.remove('active'); if (i.dataset.target === entry.target.id) i.classList.add('active'); });
+        }
+      });
+    }, { rootMargin:'-30% 0px -60% 0px' });
+    wsSections.forEach(s => sectionObserver.observe(s));
+
+    const msnItems = document.querySelectorAll('.msn-item');
+    msnItems.forEach(item => {
+      item.addEventListener('click', () => {
+        const t = document.getElementById(item.dataset.target);
+        if (t) t.scrollIntoView({ behavior:'smooth', block:'start' });
+      });
+    });
+    const msnObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          msnItems.forEach(i => {
+            i.classList.remove('active');
+            if (i.dataset.target === entry.target.id) {
+              i.classList.add('active');
+              i.scrollIntoView({ behavior:'smooth', block:'nearest', inline:'center' });
+            }
+          });
+        }
+      });
+    }, { rootMargin:'-20% 0px -70% 0px' });
+    wsSections.forEach(s => msnObserver.observe(s));
+
+    document.querySelectorAll('.ss-video').forEach(video => {
+      video.addEventListener('click', () => {
+        const isOpen = video.classList.contains('overlay-open');
+        document.querySelectorAll('.ss-video.overlay-open').forEach(v => v.classList.remove('overlay-open'));
+        if (!isOpen) video.classList.add('overlay-open');
+      });
+    });
+
+    const revealEls = document.querySelectorAll('[data-reveal]');
+    if (revealEls.length) {
+      const ro = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); ro.unobserve(e.target); } });
+      }, { threshold:0.1 });
+      revealEls.forEach(el => ro.observe(el));
+    }
+
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      document.querySelector('.ticker-inner').style.animation = 'none';
+    }
+  </script>
+</body>
+</html>
