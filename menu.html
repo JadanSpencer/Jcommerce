@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menu Template | JCommerce Demo</title>
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* ===== DESIGN SYSTEM ===== */
+        :root {
+            --gray-50: #fafafa;
+            --gray-100: #f5f5f5;
+            --gray-200: #e5e5e5;
+            --gray-300: #d4d4d4;
+            --gray-400: #a3a3a3;
+            --gray-500: #737373;
+            --gray-600: #525252;
+            --gray-700: #404040;
+            --gray-800: #262626;
+            --gray-900: #171717;
+            
+            --accent-light: #eef2f6;
+            --accent: #64748b;
+            --accent-dark: #334155;
+            
+            --white: #ffffff;
+            --off-white: #fcfcfc;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.1);
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.05), 0 2px 4px -1px rgba(0,0,0,0.03);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.05), 0 4px 6px -2px rgba(0,0,0,0.02);
+            
+            --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-serif: 'Playfair Display', Georgia, serif;
+            
+            --container: 1280px;
+            --nav-height: 70px;
+            --footer-height: 80px;
+            --radius: 8px;
+            --radius-lg: 12px;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-sans);
+            background: var(--gray-50);
+            color: var(--gray-800);
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: var(--container);
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        /* ===== WATERMARK ===== */
+        .watermark {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            opacity: 0.15;
+            z-index: 1000;
+            pointer-events: none;
+            font-size: 0.8rem;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gray-600);
+            background: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            border: 1px solid var(--gray-200);
+            backdrop-filter: blur(4px);
+        }
+        
+        .watermark i {
+            margin-right: 0.4rem;
+            opacity: 0.5;
+        }
+        
+        .menu-watermark {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.3rem 1rem;
+            background: var(--gray-100);
+            border-radius: 40px;
+            font-size: 0.7rem;
+            color: var(--gray-500);
+            border: 1px solid var(--gray-200);
+            margin-left: 1rem;
+        }
+        
+        /* ===== NAVIGATION ===== */
+        .navbar {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--gray-200);
+            height: var(--nav-height);
+        }
+        
+        .navbar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 100%;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-family: var(--font-serif);
+            font-size: 1.4rem;
+            font-weight: 500;
+            color: var(--gray-900);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            width: 38px;
+            height: 38px;
+            background: var(--gray-200);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-600);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--gray-600);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+        
+        .nav-links a.active {
+            color: var(--gray-900);
+            border-bottom: 2px solid var(--gray-900);
+            padding-bottom: 0.25rem;
+        }
+        
+        .table-badge {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--gray-100);
+            padding: 0.4rem 1rem;
+            border-radius: 40px;
+            font-size: 0.85rem;
+            color: var(--gray-700);
+            border: 1px solid var(--gray-200);
+        }
+        
+        /* ===== MENU HEADER ===== */
+        .menu-header {
+            padding: 2rem 0 1rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        
+        .menu-header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .menu-title h1 {
+            font-family: var(--font-serif);
+            font-size: 2.2rem;
+            font-weight: 500;
+            color: var(--gray-900);
+        }
+        
+        .menu-title p {
+            color: var(--gray-500);
+            margin-top: 0.25rem;
+        }
+        
+        .item-count {
+            background: var(--gray-100);
+            padding: 0.5rem 1.2rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+            color: var(--gray-600);
+            border: 1px solid var(--gray-200);
+        }
+        
+        /* ===== CATEGORY TABS ===== */
+        .category-tabs {
+            display: flex;
+            gap: 0.5rem;
+            padding: 1.5rem 0;
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .category-tabs::-webkit-scrollbar {
+            display: none;
+        }
+        
+        .category-tab {
+            padding: 0.6rem 1.5rem;
+            border-radius: 40px;
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            color: var(--gray-600);
+            font-weight: 500;
+            font-size: 0.9rem;
+            white-space: nowrap;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .category-tab:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-300);
+        }
+        
+        .category-tab.active {
+            background: var(--gray-900);
+            border-color: var(--gray-900);
+            color: white;
+        }
+        
+        /* ===== MENU GRID ===== */
+        .menu-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            padding: 2rem 0;
+        }
+        
+        .menu-item {
+            background: var(--white);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: all 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .menu-item:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
+            border-color: var(--gray-300);
+        }
+        
+        .item-image {
+            height: 160px;
+            background: linear-gradient(135deg, var(--gray-200), var(--gray-300));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-500);
+            font-size: 2rem;
+        }
+        
+        .item-content {
+            padding: 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.5rem;
+        }
+        
+        .item-name {
+            font-family: var(--font-serif);
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--gray-800);
+        }
+        
+        .item-price {
+            font-weight: 700;
+            color: var(--gray-900);
+            background: var(--gray-100);
+            padding: 0.3rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.9rem;
+        }
+        
+        .item-description {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            flex: 1;
+        }
+        
+        .item-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .tag {
+            background: var(--gray-100);
+            color: var(--gray-600);
+            font-size: 0.7rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 40px;
+            border: 1px solid var(--gray-200);
+        }
+        
+        .add-btn {
+            background: var(--gray-900);
+            color: white;
+            border: none;
+            padding: 0.8rem;
+            border-radius: var(--radius);
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-top: auto;
+        }
+        
+        .add-btn:hover {
+            background: var(--gray-800);
+        }
+        
+        /* ===== BOTTOM BAR ===== */
+        .bottom-bar {
+            position: sticky;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-top: 1px solid var(--gray-200);
+            padding: 1rem 0;
+            margin-top: 2rem;
+        }
+        
+        .bottom-bar .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+        
+        .order-total {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .order-count {
+            background: var(--gray-900);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        
+        .view-order-btn {
+            background: var(--gray-900);
+            color: white;
+            border: none;
+            padding: 0.8rem 2rem;
+            border-radius: 40px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .view-order-btn:hover {
+            background: var(--gray-800);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+        
+        .add-person-btn {
+            background: var(--white);
+            border: 1.5px solid var(--gray-200);
+            padding: 0.8rem 1.5rem;
+            border-radius: 40px;
+            font-weight: 500;
+            color: var(--gray-700);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .add-person-btn:hover {
+            background: var(--gray-100);
+            border-color: var(--gray-300);
+        }
+        
+        /* ===== DEMO MESSAGE ===== */
+        .demo-message {
+            background: var(--gray-100);
+            border: 1px solid var(--gray-200);
+            border-radius: var(--radius);
+            padding: 1.5rem;
+            margin: 2rem 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .demo-message-content {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .demo-message i {
+            font-size: 1.5rem;
+            color: var(--gray-400);
+        }
+        
+        .demo-message h4 {
+            font-weight: 600;
+            margin-bottom: 0.2rem;
+            color: var(--gray-800);
+        }
+        
+        .demo-message p {
+            color: var(--gray-500);
+            font-size: 0.9rem;
+        }
+        
+        .demo-badge {
+            background: var(--white);
+            border: 1px solid var(--gray-300);
+            border-radius: 40px;
+            padding: 0.5rem 1.2rem;
+            font-size: 0.85rem;
+            color: var(--gray-600);
+        }
+        
+        /* ===== FOOTER ===== */
+        .footer {
+            background: var(--gray-900);
+            color: var(--gray-400);
+            padding: 2rem 0;
+            margin-top: 3rem;
+        }
+        
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .menu-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .bottom-bar .container {
+                flex-direction: column;
+            }
+            
+            .demo-message {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Subtle Watermark -->
+    <div class="watermark">
+        <i class="fa-regular fa-circle"></i> JCommerce Template Demo
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <a href="index2.html" class="logo">
+                <span class="logo-icon"><i class="fa-regular fa-building"></i></span>
+                Restaurant Name
+            </a>
+            <div class="nav-links">
+                <a href="index2.html">Home</a>
+                <a href="menu.html" class="active">Menu</a>
+                <a href="#">About</a>
+                <a href="#">Contact</a>
+            </div>
+            <div class="table-badge">
+                <i class="fa-regular fa-chair"></i>
+                <span>Table 12</span>
+                <span class="menu-watermark">
+                    <i class="fa-regular fa-pen"></i> Demo
+                </span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Menu Header -->
+    <div class="menu-header">
+        <div class="container">
+            <div class="menu-header-content">
+                <div class="menu-title">
+                    <h1>Our Menu</h1>
+                    <p>Placeholder items — ready for your actual dishes</p>
+                </div>
+                <div class="item-count">
+                    <i class="fa-regular fa-utensils"></i> 24 items
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Tabs -->
+    <div class="container">
+        <div class="category-tabs">
+            <button class="category-tab active">All</button>
+            <button class="category-tab">Appetizers</button>
+            <button class="category-tab">Mains</button>
+            <button class="category-tab">Seafood</button>
+            <button class="category-tab">Desserts</button>
+            <button class="category-tab">Beverages</button>
+            <button class="category-tab">Specials</button>
+        </div>
+    </div>
+
+    <!-- Menu Grid -->
+    <div class="container">
+        <div class="menu-grid">
+            <!-- Menu Item 1 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <i class="fa-regular fa-image"></i>
+                </div>
+                <div class="item-content">
+                    <div class="item-header">
+                        <span class="item-name">Grilled Salmon</span>
+                        <span class="item-price">$24.99</span>
+                    </div>
+                    <p class="item-description">Fresh Atlantic salmon fillet, grilled to perfection, served with seasonal vegetables and lemon butter sauce.</p>
+                    <div class="item-tags">
+                        <span class="tag">Gluten-free</span>
+                        <span class="tag">Popular</span>
+                    </div>
+                    <button class="add-btn" onclick="alert('✨ Demo mode: This item would be added to your order. Your customized version will have live ordering functionality.')">
+                        <i class="fa-regular fa-plus"></i> Add to Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Item 2 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <i class="fa-regular fa-image"></i>
+                </div>
+                <div class="item-content">
+                    <div class="item-header">
+                        <span class="item-name">Ribeye Steak</span>
+                        <span class="item-price">$34.99</span>
+                    </div>
+                    <p class="item-description">12oz prime ribeye, cooked to your liking, topped with garlic herb butter, served with mashed potatoes.</p>
+                    <div class="item-tags">
+                        <span class="tag">Chef's special</span>
+                    </div>
+                    <button class="add-btn" onclick="alert('✨ Demo mode: This item would be added to your order. Your customized version will have live ordering functionality.')">
+                        <i class="fa-regular fa-plus"></i> Add to Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Item 3 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <i class="fa-regular fa-image"></i>
+                </div>
+                <div class="item-content">
+                    <div class="item-header">
+                        <span class="item-name">Lobster Ravioli</span>
+                        <span class="item-price">$28.99</span>
+                    </div>
+                    <p class="item-description">Handmade pasta filled with lobster, served in a creamy tomato sauce with fresh herbs.</p>
+                    <div class="item-tags">
+                        <span class="tag">Premium</span>
+                    </div>
+                    <button class="add-btn" onclick="alert('✨ Demo mode: This item would be added to your order. Your customized version will have live ordering functionality.')">
+                        <i class="fa-regular fa-plus"></i> Add to Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Item 4 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <i class="fa-regular fa-image"></i>
+                </div>
+                <div class="item-content">
+                    <div class="item-header">
+                        <span class="item-name">Caesar Salad</span>
+                        <span class="item-price">$12.99</span>
+                    </div>
+                    <p class="item-description">Crisp romaine lettuce, parmesan cheese, croutons, and our house-made Caesar dressing.</p>
+                    <div class="item-tags">
+                        <span class="tag">Vegetarian</span>
+                    </div>
+                    <button class="add-btn" onclick="alert('✨ Demo mode: This item would be added to your order. Your customized version will have live ordering functionality.')">
+                        <i class="fa-regular fa-plus"></i> Add to Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Item 5 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <i class="fa-regular fa-image"></i>
+                </div>
+                <div class="item-content">
+                    <div class="item-header">
+                        <span class="item-name">Mushroom Risotto</span>
+                        <span class="item-price">$18.99</span>
+                    </div>
+                    <p class="item-description">Creamy arborio rice with wild mushrooms, parmesan cheese, and truffle oil.</p>
+                    <div class="item-tags">
+                        <span class="tag">Vegetarian</span>
+                        <span class="tag">Gluten-free</span>
+                    </div>
+                    <button class="add-btn" onclick="alert('✨ Demo mode: This item would be added to your order. Your customized version will have live ordering functionality.')">
+                        <i class="fa-regular fa-plus"></i> Add to Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Item 6 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <i class="fa-regular fa-image"></i>
+                </div>
+                <div class="item-content">
+                    <div class="item-header">
+                        <span class="item-name">Tiramisu</span>
+                        <span class="item-price">$9.99</span>
+                    </div>
+                    <p class="item-description">Classic Italian dessert with espresso-soaked ladyfingers and mascarpone cream.</p>
+                    <div class="item-tags">
+                        <span class="tag">Dessert</span>
+                    </div>
+                    <button class="add-btn" onclick="alert('✨ Demo mode: This item would be added to your order. Your customized version will have live ordering functionality.')">
+                        <i class="fa-regular fa-plus"></i> Add to Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Item 7 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <i class="fa-regular fa-image"></i>
+                </div>
+                <div class="item-content">
+                    <div class="item-header">
+                        <span class="item-name">Espresso Martini</span>
+                        <span class="item-price">$11.99</span>
+                    </div>
+                    <p class="item-description">Vodka, fresh espresso, coffee liqueur, and simple syrup. Shaken and strained.</p>
+                    <div class="item-tags">
+                        <span class="tag">Cocktail</span>
+                    </div>
+                    <button class="add-btn" onclick="alert('✨ Demo mode: This item would be added to your order. Your customized version will have live ordering functionality.')">
+                        <i class="fa-regular fa-plus"></i> Add to Order
+                    </button>
+                </div>
+            </div>
+
+            <!-- Menu Item 8 -->
+            <div class="menu-item">
+                <div class="item-image">
+                    <i class="fa-regular fa-image"></i>
+                </div>
+                <div class="item-content">
+                    <div class="item-header">
+                        <span class="item-name">Seafood Platter</span>
+                        <span class="item-price">$45.99</span>
+                    </div>
+                    <p class="item-description">Selection of oysters, shrimp, lobster, and crab. Served with cocktail sauce and lemon.</p>
+                    <div class="item-tags">
+                        <span class="tag">Shareable</span>
+                        <span class="tag">Premium</span>
+                    </div>
+                    <button class="add-btn" onclick="alert('✨ Demo mode: This item would be added to your order. Your customized version will have live ordering functionality.')">
+                        <i class="fa-regular fa-plus"></i> Add to Order
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demo Message -->
+    <div class="container">
+        <div class="demo-message">
+            <div class="demo-message-content">
+                <i class="fa-regular fa-lightbulb"></i>
+                <div>
+                    <h4>This is a generic menu demo</h4>
+                    <p>All items, prices, and descriptions are placeholders. Your customized system will have your actual menu, branding, and live ordering functionality.</p>
+                </div>
+            </div>
+            <div class="demo-badge">
+                <i class="fa-regular fa-paint-brush"></i> Customize Me
+            </div>
+        </div>
+    </div>
+
+    <!-- Bottom Action Bar -->
+    <div class="bottom-bar">
+        <div class="container">
+            <div class="order-total">
+                <span class="order-count">3</span>
+                <span>Items in order • <strong>$52.97</strong></span>
+            </div>
+            <div style="display: flex; gap: 1rem;">
+                <button class="add-person-btn" onclick="alert('✨ Demo feature: Add multiple people to split orders. Your customized version will have full multi-person ordering.')">
+                    <i class="fa-regular fa-user-plus"></i> Add Person
+                </button>
+                <button class="view-order-btn" onclick="alert('✨ Demo mode: This would take you to checkout. Your customized version will have complete checkout flow with tax, gratuity, and order placement.')">
+                    View Order <i class="fa-regular fa-arrow-right"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div style="text-align: center; opacity: 0.6; font-size: 0.9rem;">
+                <i class="fa-regular fa-crown"></i> JCommerce Template — Ready for Your Brand
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Demo interactions
+        document.querySelectorAll('.category-tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.category-tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+                alert('✨ Demo: Categories would filter your actual menu items. Your customized version will have this functionality with your real menu categories.');
+            });
+        });
+    </script>
+</body>
+</html>
