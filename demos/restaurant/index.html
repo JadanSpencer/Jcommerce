@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>JC-Eatery — Contemporary Coastal Dining</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { display:flex; flex-direction:column; min-height:100dvh; }
+
+    /* ── HERO SPLIT ── */
+    .index-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100dvh - 62px);
+    }
+
+    /* ── LEFT PANEL ── */
+    .hero-panel {
+      background: var(--green);
+      padding: 4rem 3.5rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Coastal wave decoration */
+    .hero-wave {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .hero-dots {
+      position: absolute;
+      top: -40px;
+      right: -60px;
+      width: 300px;
+      height: 300px;
+      background-image: radial-gradient(circle, rgba(255,255,255,.1) 1.5px, transparent 1.5px);
+      background-size: 22px 22px;
+      pointer-events: none;
+    }
+
+    .hero-glow {
+      position: absolute;
+      bottom: -80px;
+      left: -60px;
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(ellipse at center, rgba(244,162,97,.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+
+    .hero-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      margin-bottom: 3rem;
+    }
+
+    .hero-brand-mark {
+      width: 44px;
+      height: 44px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 13px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: rgba(255,255,255,.9);
+      letter-spacing: 0.02em;
+      flex-shrink: 0;
+    }
+
+    .hero-brand-text { display: flex; flex-direction: column; }
+    .hero-brand-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.92);
+      letter-spacing: 0.04em;
+    }
+    .hero-brand-sub {
+      font-size: 0.6rem;
+      font-weight: 600;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(244,162,97,.8);
+      margin-top: 1px;
+    }
+
+    .hero-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(244,162,97,.15);
+      border: 1px solid rgba(244,162,97,.3);
+      border-radius: 100px;
+      padding: 0.3rem 0.9rem;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--terra);
+      margin-bottom: 1.5rem;
+    }
+    .hero-kicker-dot {
+      width: 6px; height: 6px;
+      background: var(--terra);
+      border-radius: 50%;
+      animation: pulse-dot 1.8s ease-in-out infinite;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(2.4rem, 4.5vw, 3.6rem);
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.08;
+      margin-bottom: 1.25rem;
+      letter-spacing: -0.01em;
+    }
+    .hero-title em {
+      font-style: italic;
+      color: rgba(255,255,255,.6);
+    }
+
+    .hero-sub {
+      font-size: 0.925rem;
+      color: rgba(255,255,255,.58);
+      line-height: 1.75;
+      max-width: 400px;
+      margin-bottom: 2.5rem;
+    }
+
+    .hero-features {
+      display: flex;
+      flex-direction: column;
+      gap: 0.7rem;
+      margin-bottom: 3rem;
+    }
+    .hero-feature {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      color: rgba(255,255,255,.72);
+      font-size: 0.875rem;
+    }
+    .hero-feature-check {
+      width: 20px; height: 20px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      padding-top: 1.75rem;
+      border-top: 1px solid rgba(255,255,255,.1);
+    }
+    .hero-stat-num {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+    .hero-stat-label {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,.4);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-top: 0.15rem;
+    }
+
+    /* ── RIGHT PANEL ── */
+    .action-panel {
+      background: var(--surface);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 4rem 3.5rem;
+      overflow-y: auto;
+    }
+
+    .action-inner { width: 100%; max-width: 360px; }
+
+    .action-header { margin-bottom: 2rem; }
+    .action-header h2 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 0.35rem;
+    }
+    .action-header p { font-size: 0.875rem; color: var(--ink-3); }
+
+    /* ── TABLE INPUT ── */
+    .table-input-wrap { position: relative; margin-bottom: 0.75rem; }
+    .table-input-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-4);
+      pointer-events: none;
+    }
+
+    #table-input {
+      width: 100%;
+      height: 56px;
+      padding: 0 1rem 0 3rem;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: var(--r-lg);
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--ink);
+      transition: all 0.2s;
+      font-family: inherit;
+      -moz-appearance: textfield;
+    }
+    #table-input::-webkit-inner-spin-button,
+    #table-input::-webkit-outer-spin-button { -webkit-appearance: none; }
+    #table-input::placeholder { color: var(--ink-4); font-weight: 400; font-size: 0.95rem; }
+    #table-input:focus {
+      outline: none;
+      border-color: var(--green);
+      background: var(--surface);
+      box-shadow: 0 0 0 4px rgba(26,106,91,.1);
+    }
+    #table-input.error {
+      border-color: var(--red);
+      box-shadow: 0 0 0 4px rgba(217,79,79,.08);
+      animation: shake 0.4s ease;
+    }
+    @keyframes shake {
+      0%,100% { transform: translateX(0); }
+      25%      { transform: translateX(-6px); }
+      75%      { transform: translateX(6px); }
+    }
+
+    #continue-btn {
+      width: 100%; height: 52px;
+      font-size: 0.925rem;
+      border-radius: var(--r-lg);
+      margin-bottom: 0.75rem;
+    }
+    #takeout-btn { width: 100%; height: 48px; border-radius: var(--r-lg); }
+
+    .action-note {
+      display: flex;
+      gap: 0.75rem;
+      align-items: flex-start;
+      margin-top: 1.5rem;
+      padding: 0.9rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      font-size: 0.78rem;
+      color: var(--ink-3);
+      line-height: 1.55;
+    }
+    .action-note-icon { color: var(--terra); flex-shrink: 0; margin-top: 1px; }
+
+    .action-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.25rem;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .action-link {
+      padding: 0.4rem 0.75rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: var(--ink-4);
+      border-radius: var(--r-sm);
+      transition: all 0.18s;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+      min-height: 36px;
+    }
+    .action-link:hover { color: var(--green); background: var(--green-pale); }
+    .action-link-sep { width: 3px; height: 3px; background: var(--border-2); border-radius: 50%; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .index-layout { grid-template-columns: 1fr; }
+      .hero-panel { padding: 2.5rem 2rem; min-height: auto; }
+      .hero-stats { gap: 1.5rem; }
+      .action-panel { padding: 2.5rem 2rem; }
+    }
+
+    @media (max-width: 640px) {
+      .hero-panel { padding: 2rem 1.25rem; }
+      .hero-brand { margin-bottom: 2rem; }
+      .hero-features { gap: 0.55rem; }
+      .hero-stats { gap: 1.25rem; }
+      .action-panel { padding: 2rem 1.25rem; }
+      .action-inner { max-width: 100%; }
+      .action-links { gap: 0.1rem; }
+    }
+
+    @media (max-width: 400px) {
+      .hero-title { font-size: 2.2rem; }
+      .action-header h2 { font-size: 1.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="app-nav">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo"></div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-main">JC-Eatery</span>
+      <span class="nav-brand-sub">Coastal Dining</span>
+    </div>
+  </a>
+  <div class="nav-spacer"></div>
+  <div class="nav-links">
+    <a href="admin.html" class="nav-link">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Admin
+    </a>
+    <a href="kitchen.html" class="nav-link">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+      Kitchen
+    </a>
+  </div>
+</nav>
+
+<!-- LAYOUT -->
+<div class="index-layout">
+
+  <!-- LEFT: Hero -->
+  <section class="hero-panel">
+    <div class="hero-dots"></div>
+    <div class="hero-glow"></div>
+
+    <!-- Coastal wave SVG -->
+    <svg class="hero-wave" viewBox="0 0 1200 120" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C150,100 350,0 600,60 C850,120 1050,20 1200,60 L1200,120 L0,120 Z" fill="white"/>
+    </svg>
+
+    <div class="hero-content">
+      <div class="hero-brand">
+        <div class="hero-brand-mark">JC</div>
+        <div class="hero-brand-text">
+          <span class="hero-brand-name">JC-Eatery</span>
+          <span class="hero-brand-sub">Kingston · Jamaica</span>
+        </div>
+      </div>
+
+      <div class="hero-kicker">
+        <span class="hero-kicker-dot"></span>
+        Contactless Ordering System
+      </div>
+
+      <h1 class="hero-title">
+        Your table,<br>
+        <em>your order,</em><br>
+        your pace.
+      </h1>
+
+      <p class="hero-sub">
+        A premium digital ordering experience. Browse our menu, place your order, and sit back — no app, no sign-up, no waiting.
+      </p>
+
+      <div class="hero-features">
+        <div class="hero-feature">
+          <div class="hero-feature-check">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          Order directly from your phone
+        </div>
+        <div class="hero-feature">
+          <div class="hero-feature-check">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          Reaches the kitchen in real time
+        </div>
+        <div class="hero-feature">
+          <div class="hero-feature-check">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          Split bills across multiple guests
+        </div>
+        <div class="hero-feature">
+          <div class="hero-feature-check">
+            <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.8)" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>
+          </div>
+          Full admin dashboard for managers
+        </div>
+      </div>
+
+      <div class="hero-stats">
+        <div>
+          <div class="hero-stat-num">0s</div>
+          <div class="hero-stat-label">Wait to order</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">∞</div>
+          <div class="hero-stat-label">Menu items</div>
+        </div>
+        <div>
+          <div class="hero-stat-num">3</div>
+          <div class="hero-stat-label">Taps to checkout</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RIGHT: Action -->
+  <section class="action-panel">
+    <div class="action-inner">
+
+      <div class="action-header">
+        <div class="eyebrow" style="margin-bottom:0.5rem">Welcome, Guest</div>
+        <h2>Begin your experience</h2>
+        <p>Enter your table number to browse our menu and place your order.</p>
+      </div>
+
+      <div class="table-input-wrap">
+        <div class="table-input-icon">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M16 4v16M3 10h18"/></svg>
+        </div>
+        <input
+          type="number"
+          id="table-input"
+          placeholder="Table number (e.g. 5)"
+          min="1" max="99"
+          autocomplete="off"
+          inputmode="numeric"
+          aria-label="Table number"
+        >
+      </div>
+
+      <button id="continue-btn" class="btn btn-primary">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        View Menu
+      </button>
+
+      <div class="divider">or</div>
+
+      <button id="takeout-btn" class="btn btn-outline">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Takeout Order
+      </button>
+
+      <div class="action-note">
+        <div class="action-note-icon">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        </div>
+        <p>This is a live interactive demo. Use any table number (1–99) to explore the full guest experience.</p>
+      </div>
+
+      <div class="action-links">
+        <a href="admin.html" class="action-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87L18.18 21 12 17.77 5.82 21 7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Admin Panel
+        </a>
+        <span class="action-link-sep"></span>
+        <a href="kitchen.html" class="action-link">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Kitchen View
+        </a>
+        <span class="action-link-sep"></span>
+        <button class="action-link" id="reset-btn">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 109-9M3 3v6h6"/></svg>
+          Reset Demo
+        </button>
+      </div>
+
+    </div>
+  </section>
+
+</div>
+
+<div id="toast-container"></div>
+
+<script src="app.js"></script>
+<script src="tour.js"></script>
+<script>
+  Store.load();
+
+  const tableInput  = document.getElementById('table-input');
+  const continueBtn = document.getElementById('continue-btn');
+  const takeoutBtn  = document.getElementById('takeout-btn');
+
+  continueBtn.addEventListener('click', goToMenu);
+  tableInput.addEventListener('keydown', e => { if (e.key === 'Enter') goToMenu(); });
+
+  takeoutBtn.addEventListener('click', () => {
+    Store.setTable('Takeout');
+    Store.setOrderType('takeout');
+    window.location.href = 'menu.html';
+  });
+
+  function goToMenu() {
+    const v = tableInput.value.trim();
+    if (!v || isNaN(v) || +v < 1 || +v > 99) {
+      tableInput.classList.add('error');
+      tableInput.focus();
+      setTimeout(() => tableInput.classList.remove('error'), 1800);
+      showToast('Please enter a valid table number (1–99)', 'error');
+      return;
+    }
+    Store.setTable(v);
+    Store.setOrderType('dine-in');
+    window.location.href = 'menu.html';
+  }
+
+  document.getElementById('reset-btn').addEventListener('click', () => {
+    if (confirm('Reset all demo data? This will clear orders and restore the original menu.')) {
+      Store.resetDemo();
+      showToast('Demo reset successfully', 'success');
+      setTimeout(() => window.location.reload(), 800);
+    }
+  });
+
+  // ── Guided Tour ──────────────────────────────────────────
+  Tour.init('index');
+
+  const replayBtn = document.createElement('button');
+  replayBtn.className = 'action-link';
+  replayBtn.innerHTML = `
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    Take a Tour
+  `;
+  replayBtn.addEventListener('click', () => Tour.restart('index'));
+  const links = document.querySelector('.action-links');
+  if (links) {
+    const sep = document.createElement('span');
+    sep.className = 'action-link-sep';
+    links.appendChild(sep);
+    links.appendChild(replayBtn);
+  }
+</script>
+</body>
+</html>

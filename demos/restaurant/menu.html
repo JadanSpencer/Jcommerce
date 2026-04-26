@@ -1,0 +1,897 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>JC-Eatery — Menu</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { display:flex; flex-direction:column; min-height:100dvh; background:var(--bg); }
+
+    /* ── BANNER ── */
+    .menu-banner {
+      background: var(--green);
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+    .menu-banner-left h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: #fff;
+      letter-spacing: 0.02em;
+    }
+    .menu-banner-left p { font-size: 0.75rem; color: rgba(255,255,255,.5); margin-top: 0.05rem; }
+    .table-chip {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      padding: 0.4rem 0.9rem;
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: #fff;
+      white-space: nowrap;
+    }
+    .table-chip-dot {
+      width: 6px; height: 6px;
+      background: #4ade80;
+      border-radius: 50%;
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    /* ── CATEGORY TABS ── */
+    .category-rail {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 0 1.5rem;
+      position: sticky;
+      top: 62px;
+      z-index: 70;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .category-rail::-webkit-scrollbar { display: none; }
+    #cat-tabs { display: flex; gap: 0.2rem; padding: 0.55rem 0; min-width: max-content; }
+    .cat-tab {
+      padding: 0.45rem 1rem;
+      border: 1.5px solid transparent;
+      border-radius: var(--r-sm);
+      font-size: 0.82rem; font-weight: 600;
+      color: var(--ink-3); cursor: pointer;
+      white-space: nowrap; background: transparent;
+      font-family: inherit; transition: all 0.18s;
+      min-height: 36px;
+    }
+    .cat-tab:hover { color: var(--green); background: var(--green-pale); }
+    .cat-tab.active {
+      color: var(--green); background: var(--green-lt);
+      border-color: rgba(26,106,91,.18);
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .menu-layout {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 340px;
+      gap: 1.5rem;
+      max-width: 1200px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 1.5rem;
+      padding-bottom: 100px;
+      align-items: start;
+    }
+
+    /* ── MENU SECTION ── */
+    .menu-section { min-width: 0; }
+    .section-header { display: flex; align-items: center; gap: 0.6rem; margin-bottom: 1rem; }
+    .section-name {
+      font-size: 0.68rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.16em;
+      color: var(--ink-3);
+    }
+    .section-count {
+      background: var(--bg2); border-radius: 100px;
+      padding: 0.12rem 0.5rem; font-size: 0.65rem;
+      font-weight: 600; color: var(--ink-4);
+    }
+
+    #menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 0.875rem;
+    }
+
+    /* ── MENU CARD ── */
+    .menu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      display: flex; flex-direction: column;
+      transition: all 0.22s var(--ease);
+      position: relative; overflow: hidden;
+    }
+    .menu-card:hover {
+      box-shadow: var(--sh);
+      transform: translateY(-3px);
+      border-color: var(--border-2);
+    }
+    .menu-card.unavailable { opacity: 0.5; pointer-events: none; }
+
+    .card-image {
+      height: 88px;
+      background: linear-gradient(135deg, var(--bg2) 0%, var(--bg) 100%);
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; flex-shrink: 0;
+    }
+    .card-image-icon {
+      width: 48px; height: 48px;
+      background: var(--surface);
+      border-radius: 12px;
+      display: grid; place-items: center;
+      box-shadow: var(--sh-sm);
+      color: var(--green);
+    }
+    .card-image::after {
+      content: '';
+      position: absolute; bottom: 0; inset-inline: 0;
+      height: 28px;
+      background: linear-gradient(transparent, var(--surface));
+    }
+
+    .featured-tag {
+      position: absolute; top: 0.5rem; left: 0.5rem;
+      display: flex; align-items: center; gap: 0.3rem;
+      padding: 0.18rem 0.55rem;
+      background: var(--gold); color: #fff;
+      border-radius: 100px; font-size: 0.62rem;
+      font-weight: 700; text-transform: uppercase;
+      letter-spacing: 0.08em; z-index: 1;
+    }
+
+    .card-body { padding: 0.75rem 1rem 1rem; display: flex; flex-direction: column; flex: 1; }
+    .card-tags { display: flex; flex-wrap: wrap; gap: 0.25rem; margin-bottom: 0.4rem; }
+    .card-tag {
+      padding: 0.12rem 0.5rem;
+      background: var(--green-lt); color: var(--green-2);
+      border-radius: 100px; font-size: 0.6rem; font-weight: 700; letter-spacing: 0.04em;
+    }
+    .card-name { font-size: 0.925rem; font-weight: 700; color: var(--ink); line-height: 1.35; margin-bottom: 0.25rem; }
+    .card-desc {
+      font-size: 0.78rem; color: var(--ink-3); line-height: 1.55; flex: 1;
+      display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+    }
+    .card-footer {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-top: 0.85rem; padding-top: 0.75rem;
+      border-top: 1px solid var(--border);
+    }
+    .card-price {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.25rem; font-weight: 600; color: var(--green);
+    }
+
+    /* ADD / QTY CONTROL */
+    .qty-control { display: flex; align-items: center; gap: 0.4rem; }
+    .btn-qty {
+      width: 30px; height: 30px; border: none; border-radius: 50%;
+      font-size: 1rem; font-weight: 600; cursor: pointer;
+      display: grid; place-items: center; transition: all 0.18s; line-height: 1;
+    }
+    .btn-qty-dec { background: var(--bg2); color: var(--ink-3); }
+    .btn-qty-dec:hover { background: var(--border-2); color: var(--ink); }
+    .btn-qty-inc { background: var(--green); color: #fff; }
+    .btn-qty-inc:hover { background: var(--green-2); }
+    .btn-add {
+      height: 32px; padding: 0 0.875rem;
+      border-radius: 100px; font-size: 0.8rem; font-weight: 600;
+      background: var(--green); color: #fff; border: none; cursor: pointer;
+      transition: all 0.2s; display: flex; align-items: center; gap: 0.3rem;
+    }
+    .btn-add:hover { background: var(--green-2); transform: scale(1.04); }
+    .qty-num { font-size: 0.875rem; font-weight: 700; color: var(--ink); min-width: 18px; text-align: center; }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      position: sticky;
+      top: calc(62px + 52px + 1.5rem);
+      max-height: calc(100dvh - 62px - 52px - 3rem);
+      overflow-y: auto; display: flex; flex-direction: column;
+    }
+    .sidebar-head {
+      padding: 1rem 1.25rem 0.875rem;
+      border-bottom: 1px solid var(--border);
+      position: sticky; top: 0; background: var(--surface); z-index: 1;
+    }
+    .sidebar-title {
+      font-size: 0.9rem; font-weight: 700; color: var(--ink);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .sidebar-count { font-size: 0.72rem; font-weight: 600; color: var(--ink-4); }
+
+    .person-tabs {
+      display: flex; gap: 0.35rem;
+      padding: 0.75rem 1.25rem;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+    .person-tab {
+      display: flex; align-items: center; gap: 0.4rem;
+      padding: 0.35rem 0.7rem;
+      border: 1.5px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.75rem; font-weight: 600;
+      color: var(--ink-3); background: transparent;
+      cursor: pointer; transition: all 0.18s; font-family: inherit;
+      min-height: 36px;
+    }
+    .person-tab.active { border-color: var(--green); color: var(--green); background: var(--green-pale); }
+    .person-tab:hover:not(.active) { border-color: var(--border-2); color: var(--ink); }
+    .person-avatar {
+      width: 18px; height: 18px; border-radius: 50%;
+      background: var(--green-lt); color: var(--green);
+      font-size: 0.6rem; font-weight: 700; display: grid; place-items: center;
+    }
+    .btn-add-person {
+      display: flex; align-items: center; gap: 0.35rem;
+      padding: 0.35rem 0.7rem;
+      border: 1.5px dashed var(--border-2);
+      border-radius: 100px;
+      font-size: 0.72rem; font-weight: 600;
+      color: var(--ink-4); background: transparent;
+      cursor: pointer; transition: all 0.18s; font-family: inherit;
+      min-height: 36px;
+    }
+    .btn-add-person:hover { border-color: var(--green); color: var(--green); }
+
+    .sidebar-items { flex: 1; padding: 0.75rem 1.25rem; }
+    .sidebar-empty { text-align: center; padding: 2.5rem 1rem; color: var(--ink-4); }
+    .sidebar-empty-icon {
+      width: 44px; height: 44px; background: var(--bg2);
+      border-radius: 12px; display: grid; place-items: center;
+      margin: 0 auto 0.75rem; color: var(--ink-4);
+    }
+    .sidebar-empty h4 { font-size: 0.875rem; color: var(--ink-3); margin-bottom: 0.2rem; }
+    .sidebar-empty p  { font-size: 0.75rem; }
+
+    .sb-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.6rem 0; border-bottom: 1px solid var(--border); }
+    .sb-item:last-child { border-bottom: none; }
+    .sb-item-icon { width: 34px; height: 34px; background: var(--bg2); border-radius: var(--r-sm); display: grid; place-items: center; flex-shrink: 0; color: var(--green); }
+    .sb-item-info { flex: 1; min-width: 0; }
+    .sb-item-name  { font-size: 0.8rem; font-weight: 600; color: var(--ink); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .sb-item-price { font-size: 0.72rem; color: var(--ink-4); margin-top: 0.05rem; }
+    .sb-item-qty { display: flex; align-items: center; gap: 0.35rem; }
+    .sb-qty-btn {
+      width: 24px; height: 24px;
+      border: 1.5px solid var(--border-2);
+      border-radius: 50%; background: transparent; cursor: pointer;
+      font-size: 0.85rem; display: grid; place-items: center;
+      transition: all 0.15s; color: var(--ink-3); line-height: 1;
+    }
+    .sb-qty-btn:hover { border-color: var(--green); color: var(--green); }
+    .sb-qty-num { font-size: 0.8rem; font-weight: 700; min-width: 16px; text-align: center; }
+
+    .sidebar-totals { padding: 0.875rem 1.25rem; border-top: 1px solid var(--border); background: var(--bg); }
+    .total-row { display: flex; justify-content: space-between; align-items: center; font-size: 0.8rem; color: var(--ink-3); margin-bottom: 0.35rem; }
+    .total-row.grand { font-size: 0.925rem; font-weight: 700; color: var(--ink); margin-top: 0.5rem; padding-top: 0.5rem; border-top: 1px solid var(--border); margin-bottom: 0; }
+    .total-row.grand span:last-child { color: var(--green); }
+
+    .sidebar-notes { padding: 0.75rem 1.25rem; border-top: 1px solid var(--border); }
+    .sidebar-notes label { font-size: 0.72rem; font-weight: 600; color: var(--ink-3); display: block; margin-bottom: 0.35rem; }
+    #order-notes { width: 100%; padding: 0.6rem 0.8rem; background: var(--surface); border: 1.5px solid var(--border); border-radius: var(--r-sm); font-size: 0.8rem; font-family: inherit; color: var(--ink); resize: none; min-height: 60px; }
+    #order-notes:focus { outline: none; border-color: var(--green-3); box-shadow: 0 0 0 3px rgba(26,106,91,.08); }
+
+    .sidebar-cta { padding: 1rem 1.25rem; border-top: 1px solid var(--border); }
+    #checkout-btn { width: 100%; height: 48px; }
+    #checkout-btn:disabled { opacity: 0.45; cursor: not-allowed; transform: none !important; }
+
+    /* ── MOBILE CART BAR ── */
+    .cart-bar {
+      display: none;
+      position: fixed;
+      bottom: max(1rem, env(safe-area-inset-bottom));
+      left: 1rem; right: 1rem;
+      z-index: 100;
+      background: var(--green);
+      border-radius: var(--r-lg);
+      padding: 0.9rem 1.25rem;
+      box-shadow: var(--sh-lg);
+      cursor: pointer; transition: transform 0.2s;
+      align-items: center; justify-content: space-between;
+      gap: 1rem; border: none;
+      min-height: 56px;
+    }
+    .cart-bar:hover { transform: translateY(-2px); }
+    .cart-bar.visible { display: flex; }
+    .cart-bar-left { display: flex; align-items: center; gap: 0.6rem; }
+    .cart-bar-count {
+      background: rgba(255,255,255,.2); color: #fff;
+      width: 26px; height: 26px; border-radius: 50%;
+      display: grid; place-items: center;
+      font-size: 0.75rem; font-weight: 700;
+    }
+    .cart-bar-label { font-size: 0.875rem; font-weight: 600; color: #fff; }
+    .cart-bar-price { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 600; color: rgba(255,255,255,.9); }
+
+    /* ── MOBILE CART DRAWER ── */
+    .drawer-backdrop {
+      position: fixed; inset: 0; z-index: 200;
+      background: rgba(27,40,36,.5); backdrop-filter: blur(6px);
+      opacity: 0; pointer-events: none; transition: opacity 0.25s;
+    }
+    .drawer-backdrop.open { opacity: 1; pointer-events: all; }
+
+    .cart-drawer {
+      position: fixed; bottom: 0; left: 0; right: 0; z-index: 201;
+      background: var(--surface);
+      border-radius: var(--r-xl) var(--r-xl) 0 0;
+      box-shadow: var(--sh-xl);
+      transform: translateY(100%);
+      transition: transform 0.35s var(--ease);
+      max-height: 88dvh; overflow-y: auto;
+    }
+    .cart-drawer.open { transform: translateY(0); }
+    .drawer-handle { width: 40px; height: 4px; background: var(--border-2); border-radius: 2px; margin: 0.75rem auto 0; }
+    .drawer-header {
+      padding: 1rem 1.25rem 0.875rem;
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .drawer-body { padding: 1rem 1.25rem; }
+    .drawer-person-header {
+      font-size: 0.72rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.12em;
+      color: var(--ink-4); margin: 0.75rem 0 0.4rem;
+    }
+    .drawer-person-header:first-child { margin-top: 0; }
+    .drawer-item { display: flex; align-items: center; gap: 0.75rem; padding: 0.5rem 0; border-bottom: 1px solid var(--border); font-size: 0.85rem; }
+    .drawer-item-name { flex: 1; font-weight: 500; color: var(--ink); }
+    .drawer-item-qty  { color: var(--ink-3); }
+    .drawer-item-price { font-weight: 600; color: var(--ink); }
+    .drawer-totals { margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
+    .drawer-footer { padding: 1rem 1.25rem; border-top: 1px solid var(--border); padding-bottom: max(1rem, env(safe-area-inset-bottom)); }
+    .drawer-footer textarea {
+      width: 100%; padding: 0.6rem 0.875rem; background: var(--bg);
+      border: 1.5px solid var(--border); border-radius: var(--r-sm);
+      font-size: 0.83rem; font-family: inherit; color: var(--ink);
+      resize: none; min-height: 56px; margin-bottom: 0.875rem;
+    }
+    .drawer-footer textarea:focus { outline: none; border-color: var(--green-3); box-shadow: 0 0 0 3px rgba(26,106,91,.08); }
+    #place-order-btn { width: 100%; height: 52px; font-size: 0.95rem; }
+
+    /* ── SUCCESS OVERLAY ── */
+    .success-overlay {
+      position: fixed; inset: 0; z-index: 600;
+      background: rgba(27,40,36,.6); backdrop-filter: blur(10px);
+      display: flex; align-items: center; justify-content: center;
+      padding: 1.5rem; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+    }
+    .success-overlay.show { opacity: 1; pointer-events: all; }
+    .success-card {
+      background: var(--surface); border-radius: var(--r-xl);
+      max-width: 400px; width: 100%;
+      padding: 2.5rem 2rem; text-align: center;
+      box-shadow: var(--sh-xl); border: 1px solid var(--border);
+      transform: scale(0.9); transition: transform 0.35s var(--ease);
+    }
+    .success-overlay.show .success-card { transform: scale(1); }
+    .success-icon {
+      width: 64px; height: 64px; background: var(--green-lt);
+      border-radius: 50%; display: grid; place-items: center;
+      margin: 0 auto 1.25rem; color: var(--green);
+    }
+    .success-order-num {
+      display: inline-block; background: var(--bg2); border-radius: var(--r-sm);
+      padding: 0.3rem 0.85rem; font-size: 0.8rem; font-weight: 700;
+      color: var(--ink-3); letter-spacing: 0.08em;
+      margin-top: 0.5rem; margin-bottom: 1.25rem;
+    }
+    .success-btns { display: flex; gap: 0.75rem; justify-content: center; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      .menu-layout { grid-template-columns: 1fr; padding-bottom: 90px; }
+      .sidebar { display: none; }
+      .cart-bar.visible { display: flex; }
+    }
+    @media (max-width: 600px) {
+      #menu-grid { grid-template-columns: 1fr; }
+      .menu-layout { padding: 1rem; padding-bottom: 90px; }
+      .category-rail { padding: 0 1rem; }
+      .menu-banner { padding: 0.875rem 1rem; }
+      .menu-banner-left h1 { font-size: 1.3rem; }
+    }
+    @media (max-width: 480px) {
+      .menu-layout { padding: 0.75rem; padding-bottom: 88px; }
+    }
+    @media (min-width: 901px) {
+      .cart-bar { display: none !important; }
+    }
+
+    .category-rail {
+  /* existing */
+  width: 100%;
+  max-width: 100vw;
+  box-sizing: border-box;
+  overflow-x: auto;
+}
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="app-nav">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo"></div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-main">JC-Eatery</span>
+      <span class="nav-brand-sub">Coastal Dining</span>
+    </div>
+  </a>
+  <div class="nav-spacer"></div>
+  <div class="nav-links">
+    <a href="index.html" class="nav-link">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+      Change Table
+    </a>
+  </div>
+</nav>
+
+<!-- BANNER -->
+<div class="menu-banner">
+  <div class="menu-banner-left">
+    <h1>Our Menu</h1>
+    <p id="banner-subtitle">Contemporary Coastal Dining</p>
+  </div>
+  <div class="table-chip" id="table-chip">
+    <span class="table-chip-dot"></span>
+    <span id="table-chip-label">Table —</span>
+  </div>
+</div>
+
+<!-- CATEGORY TABS -->
+<div class="category-rail">
+  <div id="cat-tabs"></div>
+</div>
+
+<!-- MAIN LAYOUT -->
+<div class="menu-layout">
+
+  <div class="menu-section">
+    <div class="section-header">
+      <span class="section-name" id="section-name">All Items</span>
+      <span class="section-count" id="section-count">0</span>
+    </div>
+    <div id="menu-grid"></div>
+  </div>
+
+  <!-- SIDEBAR (desktop) -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-head">
+      <div class="sidebar-title">
+        Your Order
+        <span class="sidebar-count" id="sidebar-count">0 items</span>
+      </div>
+    </div>
+    <div class="person-tabs" id="person-tabs">
+      <button class="btn-add-person" id="add-person-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+        Add Person
+      </button>
+    </div>
+    <div class="sidebar-items" id="sidebar-items"></div>
+    <div class="sidebar-totals" id="sidebar-totals" style="display:none">
+      <div class="total-row"><span>Subtotal</span><span id="sb-subtotal">$0.00</span></div>
+      <div class="total-row"><span>Tax (8.5%)</span><span id="sb-tax">$0.00</span></div>
+      <div class="total-row grand"><span>Total</span><span id="sb-total">$0.00</span></div>
+    </div>
+    <div class="sidebar-notes">
+      <label for="order-notes">Special requests or allergies</label>
+      <textarea id="order-notes" placeholder="e.g. No onions, extra hot sauce…" rows="2"></textarea>
+    </div>
+    <div class="sidebar-cta">
+      <button id="checkout-btn" class="btn btn-primary" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Place Order
+      </button>
+    </div>
+  </aside>
+
+</div>
+
+<!-- MOBILE CART BAR -->
+<button class="cart-bar" id="cart-bar" aria-label="View cart">
+  <div class="cart-bar-left">
+    <div class="cart-bar-count" id="cart-bar-count">0</div>
+    <div class="cart-bar-label">View Order</div>
+  </div>
+  <div class="cart-bar-price" id="cart-bar-price">$0.00</div>
+</button>
+
+<!-- MOBILE CART DRAWER -->
+<div class="drawer-backdrop" id="drawer-backdrop"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="drawer-handle"></div>
+  <div class="drawer-header">
+    <h3 style="font-size:1rem">Your Order</h3>
+    <button class="btn-close" id="drawer-close">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+    </button>
+  </div>
+  <div class="drawer-body" id="drawer-body"></div>
+  <div class="drawer-footer">
+    <textarea id="drawer-notes" placeholder="Special requests or allergies…" rows="2"></textarea>
+    <button id="place-order-btn" class="btn btn-primary">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      Place Order
+    </button>
+  </div>
+</div>
+
+<!-- ADD PERSON MODAL -->
+<div class="modal-overlay" id="person-modal">
+  <div class="modal" style="max-width:360px">
+    <div class="modal-header">
+      <span class="modal-title">Add Person to Order</span>
+      <button class="btn-close" id="person-modal-close">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6L6 18M6 6l12 12"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="input-group">
+        <label class="input-label" for="person-name">Name</label>
+        <input type="text" id="person-name" class="input" placeholder="e.g. Sarah">
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-ghost btn-sm" id="person-modal-cancel">Cancel</button>
+      <button class="btn btn-primary btn-sm" id="person-modal-confirm">Add Person</button>
+    </div>
+  </div>
+</div>
+
+<!-- SUCCESS OVERLAY -->
+<div class="success-overlay" id="success-overlay">
+  <div class="success-card">
+    <div class="success-icon">
+      <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
+    </div>
+    <h2 style="font-size:1.4rem;margin-bottom:0.4rem">Order Placed!</h2>
+    <p style="color:var(--ink-3);font-size:0.875rem">Your order is being prepared. We'll bring it right out.</p>
+    <div class="success-order-num" id="success-order-id">ORD-0000</div>
+    <div class="success-btns">
+      <button class="btn btn-outline btn-sm" id="success-continue">Add More</button>
+      <a href="index.html" class="btn btn-ghost btn-sm">Home</a>
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="app.js"></script>
+<script src="tour.js"></script>
+<script>
+  'use strict';
+  Store.load();
+
+  let activePerson = 0;
+  let activeCategory = 'all';
+
+  const table = Store.cart.tableNumber;
+  document.getElementById('table-chip-label').textContent =
+    table ? (table === 'Takeout' ? 'Takeout' : `Table ${table}`) : 'No Table';
+  document.getElementById('banner-subtitle').textContent =
+    table === 'Takeout' ? 'Takeout Order' : 'Contemporary Coastal Dining';
+
+  if (!table) window.location.href = 'index.html';
+
+  if (!Store.cart.persons.length) {
+    Store.cart.persons = [{ name: 'Guest 1', items: [] }];
+    Store.saveCart();
+  }
+
+  function buildCategoryTabs() {
+    const container = document.getElementById('cat-tabs');
+    container.innerHTML = '';
+    const all = document.createElement('button');
+    all.className = 'cat-tab' + (activeCategory === 'all' ? ' active' : '');
+    all.textContent = 'All Items';
+    all.dataset.cat = 'all';
+    all.addEventListener('click', () => switchCategory('all'));
+    container.appendChild(all);
+    Store.categories.forEach(cat => {
+      const btn = document.createElement('button');
+      btn.className = 'cat-tab' + (activeCategory === cat.id ? ' active' : '');
+      btn.textContent = cat.name;
+      btn.dataset.cat = cat.id;
+      btn.addEventListener('click', () => switchCategory(cat.id));
+      container.appendChild(btn);
+    });
+  }
+
+  function switchCategory(catId) {
+    activeCategory = catId;
+    buildCategoryTabs();
+    renderMenu();
+  }
+
+  function renderMenu() {
+    const items = Store.getItemsByCategory(activeCategory);
+    const grid  = document.getElementById('menu-grid');
+    const cat   = Store.categories.find(c => c.id === activeCategory);
+    document.getElementById('section-name').textContent = cat ? cat.name : 'All Items';
+    document.getElementById('section-count').textContent = items.length;
+    grid.innerHTML = '';
+    items.forEach(item => grid.appendChild(buildMenuCard(item)));
+  }
+
+  function buildMenuCard(item) {
+    const qty = Store.getPersonQuantity(item.id, activePerson);
+    const card = document.createElement('div');
+    card.className = 'menu-card' + (item.available ? '' : ' unavailable');
+    card.innerHTML = `
+      <div class="card-image">
+        ${item.featured ? `<div class="featured-tag">Chef's Pick</div>` : ''}
+        <div class="card-image-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+        </div>
+      </div>
+      <div class="card-body">
+        ${item.tags.length ? `<div class="card-tags">${item.tags.map(t=>`<span class="card-tag">${escapeHtml(t)}</span>`).join('')}</div>` : ''}
+        <div class="card-name">${escapeHtml(item.name)}</div>
+        <div class="card-desc">${escapeHtml(item.description)}</div>
+        <div class="card-footer">
+          <div class="card-price">${formatPrice(item.price)}</div>
+          ${item.available
+            ? qty > 0
+              ? `<div class="qty-control">
+                   <button class="btn-qty btn-qty-dec" data-id="${item.id}">−</button>
+                   <span class="qty-num">${qty}</span>
+                   <button class="btn-qty btn-qty-inc" data-id="${item.id}">+</button>
+                 </div>`
+              : `<button class="btn-add" data-id="${item.id}">
+                   <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M12 5v14M5 12h14"/></svg>
+                   Add
+                 </button>`
+            : `<span style="font-size:0.72rem;color:var(--ink-4)">Unavailable</span>`
+          }
+        </div>
+      </div>
+    `;
+    if (item.available) {
+      const addBtn = card.querySelector('.btn-add');
+      if (addBtn) addBtn.addEventListener('click', () => handleAdd(item.id, addBtn));
+      card.querySelectorAll('.btn-qty').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.classList.contains('btn-qty-inc')) Store.addToCart(item.id, activePerson);
+          else Store.removeFromCart(item.id, activePerson);
+          renderMenu(); renderSidebar(); updateCartBar();
+        });
+      });
+    }
+    return card;
+  }
+
+  function handleAdd(itemId, btn) {
+    Store.addToCart(itemId, activePerson);
+    if (btn) { btn.classList.add('added'); setTimeout(() => btn.classList.remove('added'), 600); }
+    renderMenu(); renderSidebar(); updateCartBar();
+    const item = Store.menu.find(i => i.id === itemId);
+    if (item) showToast(`${item.name} added`, 'success', 1800);
+  }
+
+  function renderSidebar() {
+    renderPersonTabs(); renderSidebarItems(); renderTotals();
+    const count = Store.cartCount();
+    document.getElementById('sidebar-count').textContent = `${count} item${count !== 1 ? 's' : ''}`;
+    document.getElementById('checkout-btn').disabled = count === 0;
+  }
+
+  function renderPersonTabs() {
+    const container = document.getElementById('person-tabs');
+    const addBtn    = document.getElementById('add-person-btn');
+    container.querySelectorAll('.person-tab').forEach(t => t.remove());
+    Store.cart.persons.forEach((p, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'person-tab' + (i === activePerson ? ' active' : '');
+      const itemCount = p.items.reduce((s, x) => s + x.quantity, 0);
+      btn.innerHTML = `
+        <span class="person-avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</span>
+        ${escapeHtml(p.name)}
+        ${itemCount > 0 ? `<span style="font-size:0.62rem;background:var(--green-lt);color:var(--green);border-radius:100px;padding:0 5px">${itemCount}</span>` : ''}
+      `;
+      btn.addEventListener('click', () => { activePerson = i; renderSidebar(); renderMenu(); });
+      container.insertBefore(btn, addBtn);
+    });
+  }
+
+  function renderSidebarItems() {
+    const container = document.getElementById('sidebar-items');
+    const person    = Store.cart.persons[activePerson];
+    const totalsEl  = document.getElementById('sidebar-totals');
+    if (!person || !person.items.length) {
+      container.innerHTML = `
+        <div class="sidebar-empty">
+          <div class="sidebar-empty-icon">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+          </div>
+          <h4>Nothing here yet</h4>
+          <p>Browse the menu and tap Add</p>
+        </div>`;
+      totalsEl.style.display = 'none';
+      return;
+    }
+    totalsEl.style.display = 'block';
+    container.innerHTML = '';
+    person.items.forEach(item => {
+      const el = document.createElement('div');
+      el.className = 'sb-item';
+      el.innerHTML = `
+        <div class="sb-item-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+        </div>
+        <div class="sb-item-info">
+          <div class="sb-item-name">${escapeHtml(item.name)}</div>
+          <div class="sb-item-price">${formatPrice(item.price)} each</div>
+        </div>
+        <div class="sb-item-qty">
+          <button class="sb-qty-btn" data-action="dec" data-id="${item.id}">−</button>
+          <span class="sb-qty-num">${item.quantity}</span>
+          <button class="sb-qty-btn" data-action="inc" data-id="${item.id}">+</button>
+        </div>
+      `;
+      el.querySelectorAll('.sb-qty-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.dataset.action === 'inc') Store.addToCart(item.id, activePerson);
+          else Store.removeFromCart(item.id, activePerson);
+          renderSidebar(); renderMenu(); updateCartBar();
+        });
+      });
+      container.appendChild(el);
+    });
+  }
+
+  function renderTotals() {
+    const sub = Store.cartSubtotal();
+    const tax = sub * TAX_RATE;
+    document.getElementById('sb-subtotal').textContent = formatPrice(sub);
+    document.getElementById('sb-tax').textContent      = formatPrice(tax);
+    document.getElementById('sb-total').textContent    = formatPrice(sub + tax);
+  }
+
+  function updateCartBar() {
+    const count = Store.cartCount();
+    const sub   = Store.cartSubtotal();
+    document.getElementById('cart-bar-count').textContent = count;
+    document.getElementById('cart-bar-price').textContent = formatPrice(sub + sub * TAX_RATE);
+    const bar = document.getElementById('cart-bar');
+    if (count > 0) bar.classList.add('visible'); else bar.classList.remove('visible');
+  }
+
+  // Person Modal
+  const personModal = document.getElementById('person-modal');
+  const personNameInput = document.getElementById('person-name');
+  document.getElementById('add-person-btn').addEventListener('click', () => {
+    personNameInput.value = `Person ${Store.cart.persons.length + 1}`;
+    personModal.classList.add('open');
+    setTimeout(() => { personNameInput.select(); personNameInput.focus(); }, 80);
+  });
+  function closePersonModal() { personModal.classList.remove('open'); }
+  document.getElementById('person-modal-close').addEventListener('click', closePersonModal);
+  document.getElementById('person-modal-cancel').addEventListener('click', closePersonModal);
+  personModal.addEventListener('click', e => { if (e.target === personModal) closePersonModal(); });
+  document.getElementById('person-modal-confirm').addEventListener('click', confirmAddPerson);
+  personNameInput.addEventListener('keydown', e => { if (e.key === 'Enter') confirmAddPerson(); });
+  function confirmAddPerson() {
+    const name = personNameInput.value.trim() || `Person ${Store.cart.persons.length + 1}`;
+    Store.cart.persons.push({ name, items: [] });
+    Store.saveCart();
+    activePerson = Store.cart.persons.length - 1;
+    closePersonModal(); renderSidebar(); renderMenu();
+    showToast(`${name} added`, 'success', 1800);
+  }
+
+  // Drawer
+  const drawer   = document.getElementById('cart-drawer');
+  const backdrop = document.getElementById('drawer-backdrop');
+  function openDrawer() {
+    if (Store.cartCount() === 0) { showToast('Add some items first', 'error', 1800); return; }
+    renderDrawer();
+    drawer.classList.add('open'); backdrop.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeDrawer() {
+    drawer.classList.remove('open'); backdrop.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  document.getElementById('cart-bar').addEventListener('click', openDrawer);
+  document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+  backdrop.addEventListener('click', closeDrawer);
+
+  function renderDrawer() {
+    const body = document.getElementById('drawer-body');
+    body.innerHTML = '';
+    Store.cart.persons.forEach(person => {
+      if (!person.items.length) return;
+      const header = document.createElement('div');
+      header.className = 'drawer-person-header';
+      header.textContent = person.name;
+      body.appendChild(header);
+      person.items.forEach(item => {
+        const el = document.createElement('div');
+        el.className = 'drawer-item';
+        el.innerHTML = `
+          <span class="drawer-item-name">${escapeHtml(item.name)}</span>
+          <span class="drawer-item-qty">×${item.quantity}</span>
+          <span class="drawer-item-price">${formatPrice(item.price * item.quantity)}</span>
+        `;
+        body.appendChild(el);
+      });
+    });
+
+       // at the end of renderDrawer, before rendering totals
+    const addPersonRow = document.createElement('div');
+    addPersonRow.className = 'drawer-person-header';
+    addPersonRow.style.cursor = 'pointer';
+    addPersonRow.style.display = 'flex';
+    addPersonRow.style.alignItems = 'center';
+    addPersonRow.style.gap = '0.5rem';
+    addPersonRow.innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 5v14M5 12h14"/></svg>
+      <span>Add Person</span>`;
+    addPersonRow.id = 'add-person-mobile';
+    addPersonRow.addEventListener('click', () => {
+      closeDrawer();  // optional – close drawer then open modal
+      personNameInput.value = `Person ${Store.cart.persons.length + 1}`;
+      personModal.classList.add('open');
+      setTimeout(() => { personNameInput.select(); personNameInput.focus(); }, 80);
+    });
+    body.appendChild(addPersonRow);
+    const sub = Store.cartSubtotal();
+    const tax = sub * TAX_RATE;
+    const totals = document.createElement('div');
+    totals.className = 'drawer-totals';
+    totals.innerHTML = `
+      <div class="total-row"><span>Subtotal</span><span>${formatPrice(sub)}</span></div>
+      <div class="total-row"><span>Tax (8.5%)</span><span>${formatPrice(tax)}</span></div>
+      <div class="total-row grand"><span>Total</span><span>${formatPrice(sub + tax)}</span></div>
+    `;
+    body.appendChild(totals);
+  }
+
+  function placeOrder() {
+    const notes = document.getElementById('order-notes').value ||
+                  document.getElementById('drawer-notes').value || '';
+    Store.cart.notes = notes; Store.saveCart();
+    const order = Store.placeOrder();
+    closeDrawer();
+    document.getElementById('success-order-id').textContent = order.id;
+    document.getElementById('success-overlay').classList.add('show');
+    renderSidebar(); renderMenu(); updateCartBar();
+  }
+
+  document.getElementById('checkout-btn').addEventListener('click', placeOrder);
+  document.getElementById('place-order-btn').addEventListener('click', placeOrder);
+  document.getElementById('success-continue').addEventListener('click', () => {
+    document.getElementById('success-overlay').classList.remove('show');
+  });
+
+  buildCategoryTabs(); renderMenu(); renderSidebar(); updateCartBar(); window.openDrawer = openDrawer;
+
+  Tour.init('menu');
+  const tourNavBtn = document.createElement('button');
+  tourNavBtn.className = 'nav-link';
+  tourNavBtn.innerHTML = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> Tour`;
+  tourNavBtn.addEventListener('click', () => Tour.restart('menu'));
+  document.querySelector('.nav-links')?.prepend(tourNavBtn);
+</script>
+</body>
+</html>
