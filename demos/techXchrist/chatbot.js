@@ -19,7 +19,7 @@ SERVICES & APPROXIMATE PRICING (JMD):
 SERVICE AREA: Kingston, St. Andrew, Spanish Town, Portmore. Remote support island-wide.
 TURNAROUND: Standard 24–72 hours. Complex 5–7 days. Same-day urgent available.
 HOURS: Monday–Saturday, 8am–7pm.
-CONTACT: Booking form or WhatsApp +1 (876) 555-0142.
+CONTACT: Booking form or WhatsApp +1 (876) 773-7421.
 PAYMENT: Cash (JMD/USD), bank transfer, mobile money (NCB, Scotiabank).
 CERTIFICATIONS: CompTIA A+, Network+, Security+. Microsoft MCP. Google IT Support.
 FAITH: Operates with Christian values. Welcomes prayer requests.
