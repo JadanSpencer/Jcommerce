@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scripture Gallery | Jevon Clarke — Technician & Minister</title>
+    <meta name="description" content="A collection of encouraging scriptures from the heart of Jevon Clarke's ministry. Find hope, strength, and guidance in God's Word.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+        <a href="index.html" class="nav-brand">
+            <span class="nav-brand-name">Jevon Clarke</span>
+            <span class="nav-brand-sub">Technician &amp; Minister</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="scripture.html" class="active">Scriptures</a></li>
+            <li><a href="blog.html">Resources</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+            <a href="contact.html#prayer" class="btn btn-outline btn-sm">Request Prayer</a>
+            <a href="booking.html" class="btn btn-primary btn-sm">Book a Repair</a>
+        </div>
+        <button class="nav-burger" id="navBurger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="scripture.html">Scriptures</a></li>
+        <li><a href="blog.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="mobile-menu-ctas">
+        <a href="contact.html#prayer" class="btn btn-outline">Request Prayer</a>
+        <a href="booking.html" class="btn btn-primary">Book a Repair</a>
+    </div>
+</div>
+
+<main>
+    <!-- PAGE HERO -->
+    <section class="page-hero">
+        <div class="container">
+            <span class="section-label">The Word</span>
+            <h1>Scripture Gallery</h1>
+            <p>Verses that anchor this ministry. Let these words encourage, strengthen, and guide you today.</p>
+        </div>
+    </section>
+
+    <!-- SCRIPTURE GALLERY -->
+    <section class="scripture-page">
+        <div class="container">
+            <div class="scripture-filters" id="filterBar">
+                <button class="filter-pill active" data-filter="all">All</button>
+                <button class="filter-pill" data-filter="faith">Faith</button>
+                <button class="filter-pill" data-filter="work">Work & Diligence</button>
+                <button class="filter-pill" data-filter="hope">Hope</button>
+                <button class="filter-pill" data-filter="strength">Strength</button>
+                <button class="filter-pill" data-filter="peace">Peace</button>
+                <button class="filter-pill" data-filter="love">Love & Service</button>
+            </div>
+            <div class="scripture-grid" id="scriptureGrid"></div>
+        </div>
+    </section>
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-brand-name">Jevon Clarke</div>
+                <div class="footer-brand-sub">Technician &amp; Minister</div>
+                <p class="footer-desc">Serving Kingston and surrounding parishes with expert IT repair and a commitment to honest, integrity-driven service since 2012. Member of Grace Covenant Church.</p>
+                <div class="footer-proverb">"Do you see someone skilled in their work? They will serve before kings." — Proverbs 22:29</div>
+            </div>
+            <div class="footer-col">
+                <div class="footer-heading">Services</div>
+                <ul class="footer-links">
+                    <li><a href="booking.html">Computer Repair</a></li>
+                    <li><a href="booking.html">Mobile Device Repair</a></li>
+                    <li><a href="booking.html">Network Setup</a></li>
+                    <li><a href="booking.html">IT Consulting</a></li>
+                    <li><a href="booking.html">Data Recovery</a></li>
+                    <li><a href="booking.html">Virus Removal</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-heading">Navigate</div>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="booking.html">Book a Repair</a></li>
+                    <li><a href="scripture.html">Scripture Gallery</a></li>
+                    <li><a href="blog.html">Resources &amp; Blog</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="contact.html#prayer">Prayer Request</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-heading">Contact</div>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.92z"/></svg>
+                    <span>+1 (876) 555-0142<br>WhatsApp preferred</span>
+                </div>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                    <span>Jevonclarke@techministry.jm</span>
+                </div>
+                <div class="footer-contact-item">
+                    <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                    <span>Kingston &amp; St. Andrew<br>Spanish Town · Portmore</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy">&copy; 2024 Jevon Clarke Tech Services. All rights reserved.</p>
+            <p class="footer-verse">"Proverbs 22:29" — Skill in service is its own testimony.</p>
+        </div>
+    </div>
+</footer>
+
+<!-- FLOATING WHATSAPP -->
+<div class="wa-float" id="waFloat">
+    <a href="https://wa.me/18765550142?text=Hello%20Jevon%2C%20I%20found%20your%20website%20and%20I%27d%20like%20to%20inquire%20about%20your%20tech%20services." class="wa-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" fill="white"/></svg>
+    </a>
+</div>
+
+<!-- AI CHATBOT FAB -->
+<div class="chat-fab" id="chatFabWrap">
+    <button class="chat-fab-btn" id="chatFab" aria-label="Open AI assistant">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 9c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+    </button>
+</div>
+
+<!-- CHAT WINDOW -->
+<div class="chat-window" id="chatWindow" role="dialog" aria-label="TechAssist AI Chat">
+    <div class="chat-head">
+        <div class="chat-head-avatar">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 9c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <div class="chat-head-info">
+            <strong>TechAssist AI</strong>
+            <span>Ask me anything about services</span>
+        </div>
+        <button class="chat-head-close" id="chatClose" aria-label="Close chat">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-quick-replies" id="quickReplies"></div>
+    <div class="chat-footer">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Ask about services, pricing…" autocomplete="off" aria-label="Type your message">
+        <button class="chat-send" id="chatSend" aria-label="Send message">
+            <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        </button>
+    </div>
+</div>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav" aria-label="Mobile navigation">
+    <ul class="bottom-nav-list">
+        <li><a href="index.html" aria-label="Home">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            Home
+        </a></li>
+        <li><a href="index.html#services" aria-label="Services">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+            Services
+        </a></li>
+        <li><a href="booking.html" aria-label="Book a Repair">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+            Book
+        </a></li>
+        <li><a href="scripture.html" class="active" aria-label="Scriptures">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            Word
+        </a></li>
+        <li><a href="contact.html" aria-label="Contact">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            Contact
+        </a></li>
+    </ul>
+</nav>
+
+<script src="chatbot.js"></script>
+<script>
+    /* ---- NAVBAR SCROLL ---- */
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 20);
+    }, { passive: true });
+
+    /* ---- MOBILE BURGER ---- */
+    const burger = document.getElementById('navBurger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    burger.addEventListener('click', () => {
+        burger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+    });
+    document.addEventListener('click', e => {
+        if (!burger.contains(e.target) && !mobileMenu.contains(e.target)) {
+            burger.classList.remove('open');
+            mobileMenu.classList.remove('open');
+        }
+    });
+
+    /* ---- SCRIPTURE DATA ---- */
+    const scriptureData = [
+        { verse: "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.", ref: "Colossians 3:23", cat: "work" },
+        { verse: "Commit your work to the Lord, and your plans will be established.", ref: "Proverbs 16:3", cat: "work" },
+        { verse: "Do you see someone skilled in their work? They will serve before kings; they will not serve before officials of low rank.", ref: "Proverbs 22:29", cat: "work" },
+        { verse: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.", ref: "Proverbs 3:5-6", cat: "faith" },
+        { verse: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.", ref: "Jeremiah 29:11", cat: "hope" },
+        { verse: "I can do all this through him who gives me strength.", ref: "Philippians 4:13", cat: "strength" },
+        { verse: "Let your light shine before others, that they may see your good deeds and glorify your Father in heaven.", ref: "Matthew 5:16", cat: "love" },
+        { verse: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.", ref: "Romans 8:28", cat: "hope" },
+        { verse: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", ref: "Joshua 1:9", cat: "strength" },
+        { verse: "The plans of the diligent lead surely to abundance.", ref: "Proverbs 21:5", cat: "work" },
+        { verse: "And whatever you do, whether in word or deed, do it all in the name of the Lord Jesus.", ref: "Colossians 3:17", cat: "faith" },
+        { verse: "For God has not given us a spirit of fear, but of power and of love and of a sound mind.", ref: "2 Timothy 1:7", cat: "strength" },
+        { verse: "The Lord bless you and keep you; the Lord make his face shine on you and be gracious to you.", ref: "Numbers 6:24-25", cat: "peace" },
+        { verse: "Cast all your anxiety on him because he cares for you.", ref: "1 Peter 5:7", cat: "peace" },
+        { verse: "Give, and it will be given to you — pressed down, shaken together, and running over.", ref: "Luke 6:38", cat: "love" },
+        { verse: "He restores my soul. He leads me in paths of righteousness for his name's sake.", ref: "Psalm 23:3", cat: "peace" },
+        { verse: "The Lord is my rock, my fortress and my deliverer; in whom I take refuge.", ref: "Psalm 18:2", cat: "strength" },
+        { verse: "The way of the wise is to understand and gain knowledge.", ref: "Proverbs 4:7", cat: "work" },
+        { verse: "Plans succeed through good counsel; don't go to war without wise advisers.", ref: "Proverbs 20:18", cat: "work" },
+        { verse: "A new command I give you: Love one another. As I have loved you, so you must love one another.", ref: "John 13:34", cat: "love" },
+        { verse: "Now faith is confidence in what we hope for and assurance about what we do not see.", ref: "Hebrews 11:1", cat: "faith" },
+        { verse: "But those who hope in the Lord will renew their strength. They will soar on wings like eagles.", ref: "Isaiah 40:31", cat: "hope" },
+        { verse: "The steadfast love of the Lord never ceases; his mercies never come to an end; they are new every morning.", ref: "Lamentations 3:22-23", cat: "hope" },
+        { verse: "For where your treasure is, there your heart will be also.", ref: "Matthew 6:21", cat: "faith" }
+    ];
+
+    /* ---- RENDER SCRIPTURES ---- */
+    function renderScriptures(filter = 'all') {
+        const grid = document.getElementById('scriptureGrid');
+        const filtered = filter === 'all' ? scriptureData : scriptureData.filter(s => s.cat === filter);
+
+        if (filtered.length === 0) {
+            grid.innerHTML = '<div class="no-results">No scriptures found for this category. Try another filter.</div>';
+            return;
+        }
+
+        grid.innerHTML = filtered.map(s => `
+            <div class="scripture-card fade-in">
+                <span class="card-category">${s.cat.charAt(0).toUpperCase() + s.cat.slice(1)}</span>
+                <p class="card-verse">${s.verse}</p>
+                <cite class="card-ref">${s.ref}</cite>
+            </div>
+        `).join('');
+
+        // Trigger fade-in animations
+        requestAnimationFrame(() => {
+            document.querySelectorAll('.scripture-card.fade-in').forEach(el => {
+                el.classList.add('visible');
+            });
+        });
+    }
+
+    /* ---- FILTER CLICK HANDLER ---- */
+    document.getElementById('filterBar').addEventListener('click', e => {
+        if (e.target.classList.contains('filter-pill')) {
+            document.querySelectorAll('.filter-pill').forEach(p => p.classList.remove('active'));
+            e.target.classList.add('active');
+            renderScriptures(e.target.dataset.filter);
+        }
+    });
+
+    /* ---- INITIAL RENDER ---- */
+    renderScriptures();
+</script>
+</body>
+</html>

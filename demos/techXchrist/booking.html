@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Repair | Jevon Clarke Tech Services</title>
+    <meta name="description" content="Book your computer repair, phone fix, or IT service with Jevon Clarke in Kingston, Jamaica. Fast, honest service.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .booking-page {
+            padding: 5rem 0;
+            background: var(--off-white);
+            min-height: calc(100vh - 72px);
+        }
+        .booking-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.1fr;
+            gap: 3rem;
+            align-items: start;
+        }
+        .booking-info-card {
+            background: var(--white);
+            border-radius: var(--r-xl);
+            padding: 2.5rem;
+            border: 1px solid var(--border-l);
+            box-shadow: var(--sh-md);
+            position: sticky;
+            top: 100px;
+        }
+        .booking-info-card .info-header {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--navy);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 2px solid var(--gold-pale);
+        }
+        .info-row {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.25rem;
+            align-items: flex-start;
+        }
+        .info-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--navy-pale);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+        .info-icon svg {
+            width: 18px;
+            height: 18px;
+            stroke: var(--navy);
+            fill: none;
+            stroke-width: 1.8;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+        }
+        .info-text strong {
+            display: block;
+            font-size: .85rem;
+            font-weight: 600;
+            color: var(--text-p);
+            margin-bottom: .15rem;
+        }
+        .info-text span {
+            font-size: .78rem;
+            color: var(--text-m);
+            line-height: 1.5;
+        }
+        .booking-form-card {
+            background: var(--white);
+            border-radius: var(--r-xl);
+            padding: 2.5rem;
+            border: 1px solid var(--border-l);
+            box-shadow: var(--sh-lg);
+        }
+        .booking-form-card h2 {
+            font-size: 1.4rem;
+            margin-bottom: .5rem;
+        }
+        .booking-form-card .form-subtitle {
+            font-size: .85rem;
+            color: var(--text-m);
+            margin-bottom: 2rem;
+        }
+        .form-section-label {
+            font-size: .7rem;
+            font-weight: 700;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin: 1.75rem 0 .75rem;
+            padding-top: 1.25rem;
+            border-top: 1px solid var(--border-l);
+            display: block;
+        }
+        .form-section-label:first-of-type {
+            border-top: none;
+            padding-top: 0;
+            margin-top: 0;
+        }
+        .urgency-options {
+            display: flex;
+            gap: .5rem;
+            flex-wrap: wrap;
+        }
+        .urgency-pill {
+            flex: 1;
+            min-width: 80px;
+            text-align: center;
+            padding: .7rem .5rem;
+            border-radius: var(--r-md);
+            border: 2px solid var(--border);
+            cursor: pointer;
+            transition: var(--tr);
+            font-size: .8rem;
+            font-weight: 500;
+            background: var(--white);
+            color: var(--text-s);
+        }
+        .urgency-pill:hover {
+            border-color: var(--navy-light);
+            background: var(--navy-xpale);
+        }
+        .urgency-pill.selected {
+            border-color: var(--navy);
+            background: var(--navy);
+            color: var(--white);
+            font-weight: 600;
+        }
+        .urgency-pill input {
+            display: none;
+        }
+        .btn-submit-booking {
+            width: 100%;
+            justify-content: center;
+            padding: 1rem;
+            font-size: .95rem;
+            margin-top: 1.5rem;
+            gap: .75rem;
+        }
+        .btn-submit-booking svg {
+            width: 20px;
+            height: 20px;
+        }
+        .prayer-check-wrap {
+            background: var(--gold-pale);
+            border-radius: var(--r-md);
+            padding: 1rem 1.25rem;
+            border: 1px solid rgba(201, 168, 76, .2);
+            margin-top: .75rem;
+        }
+        .prayer-verse {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: .75rem;
+            color: var(--text-m);
+            margin-top: .5rem;
+            padding-left: 1.75rem;
+            line-height: 1.6;
+        }
+        @media (max-width: 900px) {
+            .booking-grid {
+                grid-template-columns: 1fr;
+            }
+            .booking-info-card {
+                position: static;
+                order: -1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar" id="navbar">
+    <div class="navbar-inner">
+        <a href="index.html" class="nav-brand">
+            <span class="nav-brand-name">Jevon Clarke</span>
+            <span class="nav-brand-sub">Technician &amp; Minister</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html#services">Services</a></li>
+            <li><a href="index.html#about">About</a></li>
+            <li><a href="scripture.html">Scriptures</a></li>
+            <li><a href="blog.html">Resources</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <div class="nav-cta">
+            <a href="contact.html#prayer" class="btn btn-outline btn-sm">Request Prayer</a>
+            <a href="booking.html" class="btn btn-primary btn-sm">Book a Repair</a>
+        </div>
+        <button class="nav-burger" id="navBurger" aria-label="Open menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    <ul class="mobile-menu-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#about">About</a></li>
+        <li><a href="scripture.html">Scriptures</a></li>
+        <li><a href="blog.html">Resources</a></li>
+        <li><a href="contact.html">Contact</a></li>
+    </ul>
+    <div class="mobile-menu-ctas">
+        <a href="contact.html#prayer" class="btn btn-outline">Request Prayer</a>
+        <a href="booking.html" class="btn btn-primary">Book a Repair</a>
+    </div>
+</div>
+
+<main>
+    <section class="page-hero">
+        <div class="container">
+            <span class="section-label">Get Started</span>
+            <h1>Book a Repair</h1>
+            <p>Fill out the form below and Jevon will respond via WhatsApp within 2–4 hours on weekdays with a transparent quote.</p>
+        </div>
+    </section>
+
+    <section class="booking-page">
+        <div class="container">
+            <div class="booking-grid">
+
+                <!-- Info Sidebar -->
+                <div class="booking-info-card fade-in">
+                    <div class="info-header">What to Expect</div>
+
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        </div>
+                        <div class="info-text">
+                            <strong>Fast Response</strong>
+                            <span>Jevon replies within 2–4 hours on weekdays. Urgent requests are prioritised.</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        </div>
+                        <div class="info-text">
+                            <strong>Transparent Quote</strong>
+                            <span>You'll receive an honest estimate before any work begins. No hidden fees.</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg>
+                        </div>
+                        <div class="info-text">
+                            <strong>24–72 Hour Turnaround</strong>
+                            <span>Most repairs completed within 3 days. Same-day urgent service available.</span>
+                        </div>
+                    </div>
+
+                    <div class="info-row">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                        </div>
+                        <div class="info-text">
+                            <strong>WhatsApp Communication</strong>
+                            <span>All quotes and updates sent via WhatsApp for convenience and speed.</span>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:1.5rem;padding-top:1.25rem;border-top:1px solid var(--border-l);">
+                        <div style="font-family:'Playfair Display',serif;font-style:italic;font-size:.82rem;color:var(--text-m);line-height:1.7;">
+                            "Commit your work to the Lord, and your plans will be established."
+                            <cite style="display:block;font-style:normal;font-size:.68rem;font-weight:600;color:var(--gold);margin-top:.3rem;letter-spacing:.1em;">— Proverbs 16:3</cite>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Booking Form -->
+                <div class="booking-form-card fade-in delay-2" id="bookingFormWrap">
+                    <h2>Tell Us About Your Device</h2>
+                    <p class="form-subtitle">The more detail you provide, the more accurate your quote will be.</p>
+
+                    <form id="bookingForm" novalidate>
+                        <span class="form-section-label">Your Information</span>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="bfName">Full Name <span class="req">*</span></label>
+                                <input type="text" class="form-input" id="bfName" placeholder="e.g. Keneisha Morgan" required>
+                                <div class="form-error" id="errName">Please enter your full name.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="bfPhone">WhatsApp Number <span class="req">*</span></label>
+                                <input type="tel" class="form-input" id="bfPhone" placeholder="+1 (876) 555-0142" required>
+                                <div class="form-error" id="errPhone">Enter a valid WhatsApp number so Jevon can reach you.</div>
+                                <div class="form-hint">This is where Jevon will send your quote.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="bfEmail">Email Address</label>
+                            <input type="email" class="form-input" id="bfEmail" placeholder="optional@email.com">
+                            <div class="form-hint">Optional — for follow-up communication.</div>
+                        </div>
+
+                        <span class="form-section-label">Device & Issue</span>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="bfDevice">Device Type <span class="req">*</span></label>
+                                <select class="form-select" id="bfDevice" required>
+                                    <option value="">Select device…</option>
+                                    <option value="Laptop (Windows)">Laptop (Windows)</option>
+                                    <option value="Laptop (MacBook)">Laptop (MacBook)</option>
+                                    <option value="Desktop PC">Desktop PC</option>
+                                    <option value="Smartphone (Android)">Smartphone (Android)</option>
+                                    <option value="Smartphone (iPhone)">Smartphone (iPhone)</option>
+                                    <option value="Tablet">Tablet</option>
+                                    <option value="Network Equipment">Network Equipment</option>
+                                    <option value="External Hard Drive">External Hard Drive</option>
+                                    <option value="Other">Other</option>
+                                </select>
+                                <div class="form-error" id="errDevice">Please select your device type.</div>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="bfBrand">Brand / Model</label>
+                                <input type="text" class="form-input" id="bfBrand" placeholder="e.g. Dell Inspiron 15, Samsung S23">
+                                <div class="form-hint">Helps Jevon prepare the right tools.</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="bfIssue">Describe the Problem <span class="req">*</span></label>
+                            <textarea class="form-textarea" id="bfIssue" rows="5" placeholder="Tell Jevon what's going on — when did it start? What have you tried? Any error messages? The more detail, the better…" required></textarea>
+                            <div class="form-error" id="errIssue">Please describe the issue so Jevon can prepare.</div>
+                        </div>
+
+                        <span class="form-section-label">Preferences</span>
+
+                        <div class="form-group">
+                            <label class="form-label">Urgency Level</label>
+                            <div class="urgency-options" id="urgencyGroup">
+                                <label class="urgency-pill" data-value="Standard">
+                                    <input type="radio" name="urgency" value="Standard" checked>
+                                    Standard<br><small style="font-size:.65rem;opacity:.7;">24–72 hrs</small>
+                                </label>
+                                <label class="urgency-pill" data-value="Priority">
+                                    <input type="radio" name="urgency" value="Priority">
+                                    Priority<br><small style="font-size:.65rem;opacity:.7;">Same day</small>
+                                </label>
+                                <label class="urgency-pill" data-value="Urgent">
+                                    <input type="radio" name="urgency" value="Urgent">
+                                    Urgent<br><small style="font-size:.65rem;opacity:.7;">ASAP</small>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Service Location</label>
+                            <div class="radio-group">
+                                <label class="radio-label">
+                                    <input type="radio" name="location" value="Drop-off at Kingston" checked>
+                                    I'll drop off my device
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="location" value="On-site visit needed">
+                                    On-site visit needed
+                                </label>
+                                <label class="radio-label">
+                                    <input type="radio" name="location" value="Remote support">
+                                    Remote support
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Prayer Request -->
+                        <div class="prayer-check-wrap">
+                            <label class="checkbox-label" style="margin:0;">
+                                <input type="checkbox" id="bfPrayer">
+                                <span>I'd like Jevon to pray for me regarding this situation</span>
+                            </label>
+                            <div class="prayer-verse">
+                                "Cast all your anxiety on Him because He cares for you." — 1 Peter 5:7
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary btn-submit-booking">
+                            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" fill="currentColor"/>
+                            </svg>
+                            Send via WhatsApp
+                        </button>
+                    </form>
+
+                    <!-- Success State -->
+                    <div class="form-success" id="bookingSuccess">
+                        <div class="success-icon">
+                            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                        </div>
+                        <h3 style="color:var(--navy);margin-bottom:.5rem;">Booking Sent!</h3>
+                        <p style="color:var(--text-s);">Jevon will review your request and respond via WhatsApp within 2–4 hours on weekdays. Thank you for trusting him with your device.</p>
+                        <div class="success-verse">
+                            "The Lord bless you and keep you; the Lord make His face shine on you."
+                            <cite>— Numbers 6:24-25</cite>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-brand-name">Jevon Clarke</div>
+                <div class="footer-brand-sub">Technician &amp; Minister</div>
+                <p class="footer-desc">Serving Kingston and surrounding parishes with expert IT repair and a commitment to honest, integrity-driven service since 2012.</p>
+            </div>
+            <div class="footer-col">
+                <div class="footer-heading">Services</div>
+                <ul class="footer-links">
+                    <li><a href="booking.html">Computer Repair</a></li>
+                    <li><a href="booking.html">Mobile Device Repair</a></li>
+                    <li><a href="booking.html">Network Setup</a></li>
+                    <li><a href="booking.html">IT Consulting</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-heading">Navigate</div>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="booking.html">Book a Repair</a></li>
+                    <li><a href="scripture.html">Scripture Gallery</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-heading">Contact</div>
+                <div class="footer-contact-item">
+                    <span>WhatsApp: +1 (876) 555-0142</span>
+                </div>
+                <div class="footer-contact-item">
+                    <span>Kingston &amp; St. Andrew, Jamaica</span>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p class="footer-copy">&copy; 2024 Jevon Clarke Tech Services.</p>
+        </div>
+    </div>
+</footer>
+
+<div class="wa-float" id="waFloat">
+    <a href="https://wa.me/18765550142?text=Hello%20Jevon%2C%20I%20found%20your%20website%20and%20I%27d%20like%20to%20inquire%20about%20your%20tech%20services." class="wa-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347" fill="white"/></svg>
+    </a>
+</div>
+
+<div class="chat-fab" id="chatFabWrap">
+    <button class="chat-fab-btn" id="chatFab" aria-label="Open AI assistant">
+        <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 9c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+    </button>
+</div>
+
+<div class="chat-window" id="chatWindow" role="dialog" aria-label="TechAssist AI Chat">
+    <div class="chat-head">
+        <div class="chat-head-avatar">
+            <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 9c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+        </div>
+        <div class="chat-head-info">
+            <strong>TechAssist AI</strong>
+            <span>Ask me anything about services</span>
+        </div>
+        <button class="chat-head-close" id="chatClose" aria-label="Close chat">
+            <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+    </div>
+    <div class="chat-body" id="chatBody"></div>
+    <div class="chat-quick-replies" id="quickReplies"></div>
+    <div class="chat-footer">
+        <input type="text" class="chat-input" id="chatInput" placeholder="Ask about services, pricing…" autocomplete="off" aria-label="Type your message">
+        <button class="chat-send" id="chatSend" aria-label="Send message">
+            <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+        </button>
+    </div>
+</div>
+
+<nav class="bottom-nav" aria-label="Mobile navigation">
+    <ul class="bottom-nav-list">
+        <li><a href="index.html" aria-label="Home"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>Home</a></li>
+        <li><a href="booking.html" class="active" aria-label="Book"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/></svg>Book</a></li>
+        <li><a href="scripture.html" aria-label="Scriptures"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/></svg>Word</a></li>
+        <li><a href="contact.html" aria-label="Contact"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Contact</a></li>
+    </ul>
+</nav>
+
+<script src="chatbot.js"></script>
+<script>
+    // Navbar scroll
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', window.scrollY > 20), { passive: true });
+
+    // Mobile burger
+    const burger = document.getElementById('navBurger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    burger.addEventListener('click', () => {
+        burger.classList.toggle('open');
+        mobileMenu.classList.toggle('open');
+    });
+    document.addEventListener('click', e => {
+        if (!burger.contains(e.target) && !mobileMenu.contains(e.target)) {
+            burger.classList.remove('open');
+            mobileMenu.classList.remove('open');
+        }
+    });
+
+    // Fade-in observer
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Urgency pill selection
+    document.querySelectorAll('.urgency-pill').forEach(pill => {
+        pill.addEventListener('click', function() {
+            document.querySelectorAll('.urgency-pill').forEach(p => p.classList.remove('selected'));
+            this.classList.add('selected');
+            this.querySelector('input').checked = true;
+        });
+    });
+    // Init selected state
+    const checkedPill = document.querySelector('.urgency-pill input:checked');
+    if (checkedPill) checkedPill.closest('.urgency-pill').classList.add('selected');
+
+    // Booking form submit → WhatsApp
+    const bookingForm = document.getElementById('bookingForm');
+    const bookingSuccess = document.getElementById('bookingSuccess');
+    const bookingFormWrap = document.getElementById('bookingFormWrap');
+
+    bookingForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+
+        // Clear errors
+        document.querySelectorAll('.form-error').forEach(el => el.classList.remove('show'));
+        document.querySelectorAll('.form-input, .form-select, .form-textarea').forEach(el => el.classList.remove('error'));
+
+        let valid = true;
+        const name = document.getElementById('bfName').value.trim();
+        const phone = document.getElementById('bfPhone').value.trim();
+        const device = document.getElementById('bfDevice').value;
+        const issue = document.getElementById('bfIssue').value.trim();
+
+        if (!name) {
+            document.getElementById('errName').classList.add('show');
+            document.getElementById('bfName').classList.add('error');
+            valid = false;
+        }
+        if (!phone || phone.length < 7) {
+            document.getElementById('errPhone').classList.add('show');
+            document.getElementById('bfPhone').classList.add('error');
+            valid = false;
+        }
+        if (!device) {
+            document.getElementById('errDevice').classList.add('show');
+            document.getElementById('bfDevice').classList.add('error');
+            valid = false;
+        }
+        if (!issue || issue.length < 5) {
+            document.getElementById('errIssue').classList.add('show');
+            document.getElementById('bfIssue').classList.add('error');
+            valid = false;
+        }
+
+        if (!valid) return;
+
+        const brand = document.getElementById('bfBrand').value.trim();
+        const email = document.getElementById('bfEmail').value.trim();
+        const urgency = document.querySelector('input[name="urgency"]:checked')?.value || 'Standard';
+        const location = document.querySelector('input[name="location"]:checked')?.value || 'Drop-off at Kingston';
+        const prayer = document.getElementById('bfPrayer').checked;
+
+        // Build WhatsApp message
+        let message = `Hello Jevon, I'd like to book a repair:%0A%0A`;
+        message += `👤 Name: ${encodeURIComponent(name)}%0A`;
+        message += `📱 Phone: ${encodeURIComponent(phone)}%0A`;
+        if (email) message += `📧 Email: ${encodeURIComponent(email)}%0A`;
+        message += `💻 Device: ${encodeURIComponent(device)}%0A`;
+        if (brand) message += `🏷️ Brand/Model: ${encodeURIComponent(brand)}%0A`;
+        message += `⚠️ Issue: ${encodeURIComponent(issue)}%0A`;
+        message += `⏰ Urgency: ${encodeURIComponent(urgency)}%0A`;
+        message += `📍 Location: ${encodeURIComponent(location)}%0A`;
+        if (prayer) message += `🙏 Prayer Request: Yes, please pray with me.%0A`;
+        message += `%0A(This booking was sent via the website.)`;
+
+        const waNumber = '18765550142';
+        const waURL = `https://wa.me/${waNumber}?text=${message}`;
+
+        // Show success & redirect
+        bookingForm.style.display = 'none';
+        bookingSuccess.classList.add('show');
+        window.open(waURL, '_blank');
+    });
+</script>
+</body>
+</html>

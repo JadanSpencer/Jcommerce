@@ -1,0 +1,1425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Jevon Clarke | Tech Repair & IT Services | Kingston, Jamaica</title>
+  <meta name="description" content="Professional computer repair, mobile device fixes, network setup and IT consulting in Kingston, Jamaica. Serving with integrity, guided by faith. Book online or WhatsApp today.">
+  <meta name="keywords" content="computer repair Kingston Jamaica, IT support Jamaica, phone repair Kingston, network setup Jamaica, Christian technician, IT consulting Jamaica">
+  <meta property="og:title" content="Jevon Clarke — Technician & Minister">
+  <meta property="og:description" content="Serving Through Technology, Guided by Faith. Expert IT repair in Kingston, Jamaica.">
+  <meta property="og:type" content="website">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ========================
+       HOME-PAGE SPECIFIC STYLES
+    ======================== */
+
+    /* HERO */
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 4rem;
+      padding: 4rem 1.5rem 4rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .hero-eyebrow {
+      display: inline-flex; align-items: center; gap: .5rem;
+      background: var(--gold-pale); border: 1px solid rgba(201,168,76,.3);
+      padding: .375rem 1rem; border-radius: 100px;
+      font-size: .72rem; font-weight: 600; letter-spacing: .1em;
+      text-transform: uppercase; color: #8a6d20; margin-bottom: 1.5rem;
+    }
+    .hero-eyebrow::before {
+      content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--gold);
+    }
+
+    .hero-name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 700; color: var(--navy-dark); line-height: 1.1;
+      margin-bottom: .375rem;
+    }
+    .hero-name span { color: var(--navy); }
+
+    .hero-role {
+      font-size: .78rem; font-weight: 600; letter-spacing: .2em;
+      text-transform: uppercase; color: var(--gold);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-tagline {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+      font-style: italic; color: var(--navy-mid);
+      margin-bottom: 1rem; line-height: 1.5;
+    }
+
+    .hero-desc {
+      font-size: .95rem; color: var(--text-s);
+      line-height: 1.8; margin-bottom: 2rem; max-width: 480px;
+    }
+
+    .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2.5rem; }
+
+    .hero-trust {
+      padding-top: 2rem; border-top: 1px solid var(--border-l);
+      display: flex; align-items: center; gap: 2rem;
+    }
+
+    .trust-stat { text-align: center; }
+    .trust-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.75rem; font-weight: 700;
+      color: var(--navy); display: block;
+    }
+    .trust-label { font-size: .68rem; font-weight: 500; letter-spacing: .05em; color: var(--text-m); }
+
+    .trust-divider {
+      width: 1px; height: 40px; background: var(--border); flex-shrink: 0;
+    }
+
+    /* Hero visual */
+    .hero-visual { display: flex; flex-direction: column; align-items: center; gap: 1.5rem; }
+
+    .portrait-wrap {
+      position: relative; width: min(340px, 90vw);
+    }
+
+    .portrait-frame {
+      width: 100%; aspect-ratio: 3/4;
+      background: var(--navy-pale); border-radius: var(--r-xl);
+      overflow: hidden; position: relative;
+      box-shadow: var(--sh-xl);
+    }
+
+    /* Professional person illustration in SVG */
+    .portrait-frame svg { width: 100%; height: 100%; }
+
+    .portrait-badge {
+      position: absolute; bottom: -1.25rem; right: -1.25rem;
+      background: var(--white); border-radius: var(--r-lg);
+      padding: 1rem 1.25rem; box-shadow: var(--sh-xl);
+      display: flex; align-items: center; gap: .75rem;
+      border: 1px solid var(--border-l);
+    }
+    .badge-icon {
+      width: 42px; height: 42px; background: var(--navy);
+      border-radius: 10px; display: flex; align-items: center;
+      justify-content: center; flex-shrink: 0;
+    }
+    .badge-icon svg { width: 22px; height: 22px; fill: var(--white); }
+    .badge-text strong { display: block; font-size: .85rem; font-weight: 700; color: var(--text-p); }
+    .badge-text span { font-size: .7rem; color: var(--text-m); }
+
+    .portrait-cert {
+      position: absolute; top: -1rem; left: -1rem;
+      background: var(--navy); border-radius: var(--r-md);
+      padding: .75rem 1rem; box-shadow: var(--sh-lg);
+      color: var(--white); text-align: center;
+    }
+    .portrait-cert strong { display: block; font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--gold); line-height: 1; }
+    .portrait-cert span { font-size: .65rem; color: rgba(255,255,255,.6); white-space: nowrap; }
+
+    /* SERVICES */
+    .section-services { padding: 5rem 0; background: var(--off-white); }
+
+    .services-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem; margin-top: 3rem;
+    }
+
+    .service-card {
+      background: var(--white); border-radius: var(--r-lg);
+      padding: 2rem; border: 1px solid var(--border-l);
+      transition: var(--tr); position: relative; overflow: hidden;
+    }
+    .service-card::after {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 3px;
+      background: linear-gradient(90deg, var(--navy), var(--navy-light));
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .4s var(--ease);
+    }
+    .service-card:hover {
+      transform: translateY(-5px); box-shadow: var(--sh-lg); border-color: transparent;
+    }
+    .service-card:hover::after { transform: scaleX(1); }
+
+    .svc-icon {
+      width: 54px; height: 54px; background: var(--navy-pale);
+      border-radius: var(--r-md); display: flex;
+      align-items: center; justify-content: center; margin-bottom: 1.25rem;
+    }
+    .svc-icon svg {
+      width: 26px; height: 26px; stroke: var(--navy); fill: none;
+      stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    .service-card h3 { font-size: 1.05rem; margin-bottom: .625rem; }
+    .service-card > p { font-size: .875rem; line-height: 1.7; margin-bottom: 1.25rem; }
+
+    .svc-scripture {
+      padding-top: 1rem; border-top: 1px solid var(--border-l);
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: .78rem; color: var(--text-m); line-height: 1.65;
+    }
+    .svc-scripture cite {
+      display: block; font-style: normal; font-family: 'Poppins', sans-serif;
+      font-size: .68rem; font-weight: 600; color: var(--gold);
+      margin-top: .3rem; letter-spacing: .07em; text-transform: uppercase;
+    }
+
+    /* SCRIPTURE WIDGET */
+    .section-scripture { padding: 5rem 0; background: var(--white); }
+
+    .scripture-widget {
+      max-width: 780px; margin: 0 auto;
+      background: var(--white); border-radius: var(--r-xl);
+      padding: 3rem; box-shadow: var(--sh-lg);
+      border: 1px solid var(--border-l);
+      border-left: 5px solid var(--gold);
+      position: relative; overflow: hidden;
+    }
+    .scripture-widget::before {
+      content: '\201C';
+      position: absolute; top: -1.5rem; right: 2rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 14rem; color: var(--navy-pale);
+      line-height: 1; pointer-events: none; user-select: none;
+    }
+
+    .sw-header {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 2rem; position: relative; z-index: 1;
+    }
+
+    .sw-progress { display: flex; gap: 4px; }
+    .sw-dot {
+      width: 6px; height: 6px; border-radius: 3px;
+      background: var(--border); transition: var(--tr);
+    }
+    .sw-dot.active { width: 20px; background: var(--gold); }
+
+    .sw-controls { display: flex; align-items: center; gap: .5rem; }
+
+    .sw-btn {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 1.5px solid var(--border); background: none;
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      transition: var(--tr); color: var(--text-m);
+    }
+    .sw-btn:hover { border-color: var(--navy); color: var(--navy); background: var(--navy-pale); }
+    .sw-btn svg { width: 13px; height: 13px; stroke: currentColor; fill: none; stroke-width: 2; }
+
+    .sw-body {
+      min-height: 140px; display: flex; align-items: flex-start;
+      position: relative; z-index: 1;
+    }
+
+    .sw-verse-wrap {
+      position: absolute; inset: 0;
+      opacity: 0; transition: opacity .8s ease; pointer-events: none;
+    }
+    .sw-verse-wrap.active { opacity: 1; pointer-events: auto; position: static; }
+
+    .sw-verse {
+      font-family: 'Playfair Display', serif; font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      font-style: italic; line-height: 1.7; color: var(--navy-dark);
+      margin-bottom: .875rem;
+    }
+    .sw-ref {
+      font-size: .78rem; font-weight: 600; letter-spacing: .12em;
+      text-transform: uppercase; color: var(--gold);
+    }
+
+    /* PROCESS SECTION */
+    .section-process { padding: 5rem 0; background: var(--navy); color: var(--white); }
+    .section-process .section-label { color: var(--gold); }
+    .section-process .section-title { color: var(--white); }
+    .section-process .section-subtitle { color: rgba(255,255,255,.6); }
+
+    .process-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 2rem; margin-top: 3rem; position: relative;
+    }
+    .process-grid::after {
+      content: ''; position: absolute; top: 28px; left: calc(12.5% + 28px);
+      right: calc(12.5% + 28px); height: 1px;
+      background: repeating-linear-gradient(90deg, rgba(255,255,255,.2) 0, rgba(255,255,255,.2) 6px, transparent 6px, transparent 12px);
+    }
+    .process-step { text-align: center; position: relative; z-index: 1; }
+    .step-num {
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 2px solid rgba(255,255,255,.2);
+      background: rgba(255,255,255,.06);
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.25rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem; font-weight: 700; color: var(--gold);
+    }
+    .process-step h3 { font-size: .95rem; color: var(--white); margin-bottom: .5rem; }
+    .process-step p { font-size: .82rem; color: rgba(255,255,255,.55); line-height: 1.65; }
+
+    /* TESTIMONIALS */
+    .section-testi { padding: 5rem 0; background: var(--off-white); }
+
+    .testi-track-wrap { overflow: hidden; margin-top: 3rem; }
+    .testi-track { display: flex; gap: 1.5rem; transition: transform .5s var(--ease); }
+
+    .testi-card {
+      flex: 0 0 calc(33.333% - 1rem);
+      background: var(--white); border-radius: var(--r-lg);
+      padding: 2rem; border: 1px solid var(--border-l);
+      transition: var(--tr); box-shadow: var(--sh-sm);
+    }
+    .testi-card:hover { box-shadow: var(--sh-md); transform: translateY(-2px); }
+
+    .testi-stars { display: flex; gap: 3px; margin-bottom: 1rem; }
+    .testi-stars svg { width: 16px; height: 16px; fill: var(--gold); stroke: none; }
+
+    .testi-text {
+      font-family: 'Playfair Display', serif; font-style: italic;
+      font-size: .94rem; line-height: 1.75; color: var(--text-s); margin-bottom: 1.5rem;
+    }
+
+    .testi-author { display: flex; align-items: center; gap: .75rem; }
+    .testi-avatar {
+      width: 42px; height: 42px; border-radius: 50%;
+      background: var(--navy); display: flex; align-items: center;
+      justify-content: center; font-weight: 700; font-size: .88rem;
+      color: var(--white); flex-shrink: 0;
+    }
+    .testi-info strong { display: block; font-size: .875rem; font-weight: 600; color: var(--text-p); }
+    .testi-info span { font-size: .73rem; color: var(--text-m); }
+
+    .testi-nav {
+      display: flex; justify-content: center; gap: .75rem; margin-top: 2.5rem;
+    }
+    .testi-nav-btn {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 1.5px solid var(--border); background: var(--white);
+      cursor: pointer; display: flex; align-items: center; justify-content: center;
+      color: var(--text-s); transition: var(--tr);
+    }
+    .testi-nav-btn:hover { border-color: var(--navy); color: var(--navy); background: var(--navy-pale); }
+    .testi-nav-btn svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2; stroke-linecap: round; }
+
+    /* ABOUT */
+    .section-about { padding: 5rem 0; background: var(--white); }
+
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 5rem; align-items: center;
+    }
+
+    .about-visual { position: relative; }
+
+    .about-frame {
+      width: 100%; aspect-ratio: 4/5;
+      background: var(--navy-pale); border-radius: var(--r-xl);
+      overflow: hidden; position: relative;
+      box-shadow: var(--sh-xl);
+    }
+
+    .about-frame svg { width: 100%; height: 100%; }
+
+    .about-accent {
+      position: absolute; top: 2rem; right: -2rem;
+      background: var(--navy); color: var(--white);
+      padding: 1.25rem 1.5rem; border-radius: var(--r-lg);
+      box-shadow: var(--sh-xl); min-width: 160px;
+    }
+    .accent-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 700; color: var(--gold); line-height: 1;
+    }
+    .accent-lbl { font-size: .7rem; color: rgba(255,255,255,.6); margin-top: .25rem; line-height: 1.4; }
+
+    .about-certs {
+      display: flex; flex-wrap: wrap; gap: .5rem; margin-top: 2rem;
+    }
+    .cert-pill {
+      display: inline-flex; align-items: center; gap: .375rem;
+      padding: .375rem .875rem; background: var(--navy-pale);
+      border-radius: 100px; font-size: .75rem; font-weight: 500; color: var(--navy);
+    }
+    .cert-pill::before {
+      content: ''; width: 7px; height: 7px; border-radius: 50%; background: var(--gold); flex-shrink: 0;
+    }
+
+    .about-content p { margin-bottom: 1rem; }
+
+    .about-values {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 1rem; margin-top: 2rem;
+    }
+    .val-item {
+      padding: 1.25rem; background: var(--off-white);
+      border-radius: var(--r-md); border-left: 3px solid var(--gold);
+    }
+    .val-item strong { display: block; font-size: .88rem; font-weight: 600; color: var(--text-p); margin-bottom: .25rem; }
+    .val-item p { font-size: .8rem; color: var(--text-m); margin: 0; line-height: 1.5; }
+
+    /* FAQ */
+    .section-faq { padding: 5rem 0; background: var(--off-white); }
+
+    .faq-list {
+      max-width: 820px; margin: 3rem auto 0;
+      display: flex; flex-direction: column; gap: .75rem;
+    }
+
+    .faq-item {
+      background: var(--white); border-radius: var(--r-md);
+      border: 1px solid var(--border-l); overflow: hidden; transition: var(--tr);
+    }
+    .faq-item.open { box-shadow: var(--sh-md); border-color: transparent; }
+
+    .faq-q {
+      display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+      width: 100%; padding: 1.25rem 1.5rem;
+      background: none; border: none; cursor: pointer; text-align: left;
+      font-family: 'Poppins', sans-serif; font-size: .9rem; font-weight: 600;
+      color: var(--text-p); transition: var(--tr);
+    }
+    .faq-q:hover { color: var(--navy); }
+
+    .faq-icon {
+      width: 28px; height: 28px; border-radius: 50%;
+      background: var(--navy-pale); display: flex;
+      align-items: center; justify-content: center; flex-shrink: 0;
+      transition: var(--tr);
+    }
+    .faq-item.open .faq-icon { background: var(--navy); transform: rotate(45deg); }
+    .faq-icon svg { width: 13px; height: 13px; stroke: var(--navy); fill: none; stroke-width: 2.5; stroke-linecap: round; transition: var(--tr); }
+    .faq-item.open .faq-icon svg { stroke: var(--white); }
+
+    .faq-a { max-height: 0; overflow: hidden; transition: max-height .4s var(--ease); }
+    .faq-item.open .faq-a { max-height: 400px; }
+    .faq-a-inner {
+      padding: 0 1.5rem 1.5rem;
+      font-size: .875rem; color: var(--text-s); line-height: 1.8;
+    }
+
+    /* CTA BANNER */
+    .section-cta {
+      padding: 5rem 0; background: var(--navy);
+      text-align: center;
+    }
+    .cta-inner { max-width: 680px; margin: 0 auto; }
+    .cta-inner h2 { color: var(--white); margin-bottom: 1rem; }
+    .cta-inner p { color: rgba(255,255,255,.65); font-size: 1rem; margin-bottom: 2rem; }
+    .cta-actions { display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap; }
+
+    /* ========================
+       RESPONSIVE HOME
+    ======================== */
+    @media (max-width: 1024px) {
+      .hero { grid-template-columns: 1fr; text-align: center; min-height: auto; padding: 3rem 1.5rem 4rem; }
+      .hero-desc { max-width: 100%; }
+      .hero-actions { justify-content: center; }
+      .hero-trust { justify-content: center; }
+      .hero-visual { order: -1; }
+      .portrait-wrap { width: min(260px, 80vw); }
+      .portrait-badge { right: -0.5rem; }
+      .portrait-cert { left: -0.5rem; }
+      .services-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid { grid-template-columns: repeat(2, 1fr); }
+      .process-grid::after { display: none; }
+      .testi-card { flex: 0 0 calc(50% - .75rem); }
+      .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+      .about-accent { right: 1rem; }
+    }
+
+    @media (max-width: 768px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .testi-card { flex: 0 0 100%; }
+      .about-values { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ======================== NAVBAR ======================== -->
+<nav class="navbar" id="navbar">
+  <div class="navbar-inner">
+    <a href="index.html" class="nav-brand">
+      <span class="nav-brand-name">Jevon Clarke</span>
+      <span class="nav-brand-sub">Technician &amp; Minister</span>
+    </a>
+
+    <ul class="nav-links">
+      <li><a href="index.html" class="active">Home</a></li>
+      <li><a href="index.html#services">Services</a></li>
+      <li><a href="index.html#about">About</a></li>
+      <li><a href="scripture.html">Scriptures</a></li>
+      <li><a href="blog.html">Resources</a></li>
+      <li><a href="contact.html">Contact</a></li>
+    </ul>
+
+    <div class="nav-cta">
+      <a href="contact.html#prayer" class="btn btn-outline btn-sm">Request Prayer</a>
+      <a href="booking.html" class="btn btn-primary btn-sm">Book a Repair</a>
+    </div>
+
+    <button class="nav-burger" id="navBurger" aria-label="Open menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobileMenu">
+  <ul class="mobile-menu-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="index.html#services">Services</a></li>
+    <li><a href="index.html#about">About</a></li>
+    <li><a href="scripture.html">Scriptures</a></li>
+    <li><a href="blog.html">Resources</a></li>
+    <li><a href="contact.html">Contact</a></li>
+  </ul>
+  <div class="mobile-menu-ctas">
+    <a href="contact.html#prayer" class="btn btn-outline">Request Prayer</a>
+    <a href="booking.html" class="btn btn-primary">Book a Repair</a>
+  </div>
+</div>
+
+<!-- ======================== MAIN ======================== -->
+<main>
+
+  <!-- HERO -->
+  <section class="hero container" id="home">
+    <div class="hero-content fade-in">
+      <span class="hero-eyebrow">Kingston, Jamaica · Est. 2012</span>
+      <h1 class="hero-name">Jevon <span>Clarke</span></h1>
+      <p class="hero-role">Technician &amp; Minister of the Gospel</p>
+      <p class="hero-tagline">"Serving Through Technology,<br>Guided by Faith."</p>
+      <p class="hero-desc">
+        With over 12 years of hands-on experience and a calling to serve, Jevon brings both technical excellence and genuine care to every repair. From crashed hard drives to slow computers — your problems are handled with honesty, skill, and prayer.
+      </p>
+
+      <div class="hero-actions">
+        <a href="booking.html" class="btn btn-primary">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8m-4-4v4"/></svg>
+          Book a Repair
+        </a>
+        <a href="contact.html#prayer" class="btn btn-outline">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M12 8v4l3 3"/></svg>
+          Request Prayer
+        </a>
+      </div>
+
+      <div class="hero-trust fade-in delay-2">
+        <div class="trust-stat">
+          <span class="trust-num">12+</span>
+          <span class="trust-label">Years of Service</span>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-stat">
+          <span class="trust-num">600+</span>
+          <span class="trust-label">Devices Repaired</span>
+        </div>
+        <div class="trust-divider"></div>
+        <div class="trust-stat">
+          <span class="trust-num">98%</span>
+          <span class="trust-label">Client Satisfaction</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Portrait -->
+    <div class="hero-visual fade-in delay-2">
+      <div class="portrait-wrap">
+
+        <div class="portrait-cert">
+          <strong>CompTIA</strong>
+          <span>A+ · Net+ · Sec+</span>
+        </div>
+
+        <div class="portrait-frame" aria-label="Jevon Clarke — Professional Technician & Minister">
+          <!-- Professional portrait illustration -->
+          <svg viewBox="0 0 340 450" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <!-- Background gradient -->
+            <defs>
+              <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#c5cae9"/>
+                <stop offset="100%" stop-color="#9fa8da"/>
+              </linearGradient>
+              <linearGradient id="suitGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#1a237e"/>
+                <stop offset="100%" stop-color="#0d1642"/>
+              </linearGradient>
+              <linearGradient id="skinGrad" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0%" stop-color="#8D5524"/>
+                <stop offset="100%" stop-color="#6B3F12"/>
+              </linearGradient>
+            </defs>
+            <rect width="340" height="450" fill="url(#bgGrad)"/>
+            <!-- Subtle geometric accent -->
+            <circle cx="280" cy="60" r="80" fill="rgba(255,255,255,0.07)"/>
+            <circle cx="60" cy="380" r="60" fill="rgba(255,255,255,0.05)"/>
+            <!-- Suit body -->
+            <ellipse cx="170" cy="470" rx="130" ry="90" fill="url(#suitGrad)"/>
+            <rect x="40" y="340" width="260" height="130" fill="url(#suitGrad)"/>
+            <!-- Shirt collar area -->
+            <rect x="140" y="305" width="60" height="80" rx="4" fill="#f5f5f5"/>
+            <!-- Tie -->
+            <polygon points="162,310 170,390 178,310 175,305 165,305" fill="#c9a84c"/>
+            <polygon points="165,385 170,400 175,385" fill="#a8872e"/>
+            <!-- Suit lapels -->
+            <polygon points="140,310 80,280 110,250 145,305" fill="#283593"/>
+            <polygon points="200,310 260,280 230,250 195,305" fill="#283593"/>
+            <!-- Pocket square -->
+            <rect x="86" y="285" width="22" height="3" rx="1" fill="#c9a84c"/>
+            <rect x="88" y="282" width="18" height="6" rx="1" fill="rgba(201,168,76,0.6)"/>
+            <!-- Neck -->
+            <rect x="152" y="258" width="36" height="55" rx="18" fill="url(#skinGrad)"/>
+            <!-- Head -->
+            <ellipse cx="170" cy="205" rx="68" ry="78" fill="url(#skinGrad)"/>
+            <!-- Hair -->
+            <ellipse cx="170" cy="140" rx="70" ry="52" fill="#1a0800"/>
+            <rect x="100" y="140" width="140" height="45" fill="#1a0800"/>
+            <!-- Ear left -->
+            <ellipse cx="102" cy="205" rx="13" ry="18" fill="#7B4A1A"/>
+            <ellipse cx="105" cy="205" rx="8" ry="12" fill="url(#skinGrad)"/>
+            <!-- Ear right -->
+            <ellipse cx="238" cy="205" rx="13" ry="18" fill="#7B4A1A"/>
+            <ellipse cx="235" cy="205" rx="8" ry="12" fill="url(#skinGrad)"/>
+            <!-- Eyes -->
+            <ellipse cx="148" cy="200" rx="8" ry="9" fill="#1a0800"/>
+            <ellipse cx="192" cy="200" rx="8" ry="9" fill="#1a0800"/>
+            <ellipse cx="150" cy="197" rx="3" ry="3" fill="white" opacity=".9"/>
+            <ellipse cx="194" cy="197" rx="3" ry="3" fill="white" opacity=".9"/>
+            <!-- Eyebrows -->
+            <path d="M138 188 Q148 183 158 186" stroke="#1a0800" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <path d="M182 186 Q192 183 202 188" stroke="#1a0800" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- Nose -->
+            <path d="M164 212 Q170 222 176 212" stroke="#6B3F12" stroke-width="1.5" fill="none" stroke-linecap="round"/>
+            <circle cx="162" cy="218" r="3" fill="#6B3F12" opacity=".5"/>
+            <circle cx="178" cy="218" r="3" fill="#6B3F12" opacity=".5"/>
+            <!-- Warm smile -->
+            <path d="M155 232 Q170 244 185 232" stroke="#5c2e00" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+            <!-- Chin accent -->
+            <ellipse cx="170" cy="265" rx="20" ry="8" fill="#6B3F12" opacity=".3"/>
+          </svg>
+        </div>
+
+        <div class="portrait-badge">
+          <div class="badge-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/></svg>
+          </div>
+          <div class="badge-text">
+            <strong>5.0 Rating</strong>
+            <span>180+ Reviews</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES -->
+  <section class="section-services" id="services">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">What We Do</span>
+        <h2 class="section-title">Expert Tech Services,<br>Delivered with Integrity</h2>
+        <p class="section-subtitle">Every repair comes with transparent pricing, honest assessment, and a technician who genuinely cares about getting it right.</p>
+      </div>
+
+      <div class="services-grid">
+
+        <div class="service-card fade-in delay-1">
+          <div class="svc-icon">
+            <!-- Computer icon -->
+            <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          </div>
+          <h3>Computer Repair</h3>
+          <p>Hardware diagnostics, motherboard issues, RAM upgrades, operating system recovery, slow PC tune-ups, and everything in between. From JMD $3,500.</p>
+          <div class="svc-scripture">
+            "Whatever you do, work at it with all your heart, as working for the Lord."
+            <cite>— Colossians 3:23</cite>
+          </div>
+        </div>
+
+        <div class="service-card fade-in delay-2">
+          <div class="svc-icon">
+            <!-- Phone icon -->
+            <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+          </div>
+          <h3>Mobile Device Repair</h3>
+          <p>Cracked screens, dead batteries, water damage, charging port repairs, and software resets for all major phone brands. From JMD $2,000.</p>
+          <div class="svc-scripture">
+            "Do you see someone skilled in their work? They will serve before kings."
+            <cite>— Proverbs 22:29</cite>
+          </div>
+        </div>
+
+        <div class="service-card fade-in delay-3">
+          <div class="svc-icon">
+            <!-- Network icon -->
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4M12 11l-5.5 6M12 11l5.5 6"/></svg>
+          </div>
+          <h3>Network Setup</h3>
+          <p>Home and small business WiFi configuration, router setup, network cabling, access point installation, and troubleshooting dead zones. From JMD $6,000.</p>
+          <div class="svc-scripture">
+            "Plans succeed through good counsel; don't go to war without wise advisers."
+            <cite>— Proverbs 20:18</cite>
+          </div>
+        </div>
+
+        <div class="service-card fade-in delay-1">
+          <div class="svc-icon">
+            <!-- Consulting icon -->
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+          </div>
+          <h3>IT Consulting</h3>
+          <p>Strategic technology guidance for small businesses and individuals. Software recommendations, security audits, and remote support sessions. JMD $4,000/hr.</p>
+          <div class="svc-scripture">
+            "The way of the wise is to understand and gain knowledge."
+            <cite>— Proverbs 4:7</cite>
+          </div>
+        </div>
+
+        <div class="service-card fade-in delay-2">
+          <div class="svc-icon">
+            <!-- Data recovery icon -->
+            <svg viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/></svg>
+          </div>
+          <h3>Data Recovery</h3>
+          <p>Retrieving lost files from crashed drives, corrupted storage, and accidentally formatted devices. Confidential and handled with the utmost care. From JMD $5,000.</p>
+          <div class="svc-scripture">
+            "He restores my soul. He leads me in paths of righteousness."
+            <cite>— Psalm 23:3</cite>
+          </div>
+        </div>
+
+        <div class="service-card fade-in delay-3">
+          <div class="svc-icon">
+            <!-- Security icon -->
+            <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          </div>
+          <h3>Virus &amp; Security</h3>
+          <p>Complete malware removal, ransomware recovery, antivirus setup, and digital security hardening to keep you protected and your data safe. From JMD $2,500.</p>
+          <div class="svc-scripture">
+            "The Lord is my rock, my fortress and my deliverer; in whom I take refuge."
+            <cite>— Psalm 18:2</cite>
+          </div>
+        </div>
+
+      </div>
+
+      <div style="text-align:center;margin-top:2.5rem;">
+        <a href="booking.html" class="btn btn-primary">Get a Free Quote</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPTURE WIDGET -->
+  <section class="section-scripture" id="scriptures">
+    <div class="container">
+      <div class="section-header fade-in" style="text-align:center;max-width:600px;margin-left:auto;margin-right:auto;">
+        <span class="section-label">The Word</span>
+        <h2 class="section-title">Daily Encouragement</h2>
+        <p class="section-subtitle">Rooted in faith, serving with purpose. A verse to carry with you today.</p>
+      </div>
+
+      <div class="scripture-widget fade-in">
+        <div class="sw-header">
+          <span class="section-label" style="margin-bottom:0;">Word for Today</span>
+          <div class="sw-controls">
+            <div class="sw-progress" id="swProgress"></div>
+            <button class="sw-btn" id="swPrev" title="Previous verse" aria-label="Previous verse">
+              <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <button class="sw-btn" id="swPausePlay" title="Pause auto-rotation" aria-label="Pause">
+              <svg id="pauseIcon" viewBox="0 0 24 24"><rect x="6" y="4" width="4" height="16"/><rect x="14" y="4" width="4" height="16"/></svg>
+              <svg id="playIcon" viewBox="0 0 24 24" style="display:none"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+            </button>
+            <button class="sw-btn" id="swNext" title="Next verse" aria-label="Next verse">
+              <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="sw-body" id="swBody">
+          <!-- Verses injected by JS -->
+        </div>
+      </div>
+
+      <div style="text-align:center;margin-top:2rem;">
+        <a href="scripture.html" class="btn btn-outline btn-sm">View Full Scripture Gallery</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS / HOW IT WORKS -->
+  <section class="section-process" id="process">
+    <div class="container">
+      <div class="section-header fade-in" style="text-align:center;max-width:600px;margin-left:auto;margin-right:auto;">
+        <span class="section-label">How It Works</span>
+        <h2 class="section-title">Simple, Transparent, Faithful</h2>
+        <p class="section-subtitle">No hidden fees. No guesswork. Just honest tech repair from someone who treats your property like their own.</p>
+      </div>
+
+      <div class="process-grid">
+        <div class="process-step fade-in delay-1">
+          <div class="step-num">1</div>
+          <h3>Describe Your Issue</h3>
+          <p>Fill in the booking form with details about your device and problem. Photos welcome — the more context, the better.</p>
+        </div>
+        <div class="process-step fade-in delay-2">
+          <div class="step-num">2</div>
+          <h3>Receive a Quote</h3>
+          <p>Jevon will assess and respond via WhatsApp within 2–4 hours on weekdays with a transparent, honest estimate.</p>
+        </div>
+        <div class="process-step fade-in delay-3">
+          <div class="step-num">3</div>
+          <h3>Drop Off or Remote</h3>
+          <p>Bring your device to Kingston, arrange a pick-up, or connect remotely for software issues — your choice.</p>
+        </div>
+        <div class="process-step fade-in delay-4">
+          <div class="step-num">4</div>
+          <h3>Repaired &amp; Returned</h3>
+          <p>Most jobs done in 24–72 hours. You'll receive your device fully tested, with a brief report of what was done.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="section-testi" id="testimonials">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-label">Client Stories</span>
+        <h2 class="section-title">What People Are Saying</h2>
+        <p class="section-subtitle">Real feedback from real clients across Kingston and beyond. Integrity leaves an impression.</p>
+      </div>
+
+      <div class="testi-track-wrap">
+        <div class="testi-track" id="testiTrack">
+
+          <div class="testi-card">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="testi-text">"My laptop crashed two days before an important presentation and I panicked. Jevon had it running the very next morning. He also took the time to pray with me before I left — I was not expecting that, but it truly settled my nerves. Top-class in every way."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background:#2e7d32;">KM</div>
+              <div class="testi-info">
+                <strong>Keneisha Morgan</strong>
+                <span>Small Business Owner, Kingston</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testi-card">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="testi-text">"I've used several repair shops and Jevon is in a different category entirely. He recovered three years of photos from my water-damaged phone that I thought were gone forever. His pricing was fair and he explained everything clearly. I trust no one else with my devices."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background:#1565c0;">DT</div>
+              <div class="testi-info">
+                <strong>Delroy Thompson</strong>
+                <span>Educator, Spanish Town</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testi-card">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="testi-text">"Our small church office was completely overrun with malware and we were locked out of everything. Jevon came in, handled it professionally, set up proper security, and also encouraged our team during what was a very stressful situation. A blessing, truly."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background:#6a1b9a;">PR</div>
+              <div class="testi-info">
+                <strong>Pastor Raymond Reid</strong>
+                <span>Ministry Leader, Portmore</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="testi-card">
+            <div class="testi-stars">
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+            </div>
+            <p class="testi-text">"The remote support session was seamless. My accounting software was crashing daily and Jevon had it resolved within an hour — without me leaving my desk. What impressed me most was his patience in explaining what went wrong so I could prevent it in the future."</p>
+            <div class="testi-author">
+              <div class="testi-avatar" style="background:#bf360c;">SB</div>
+              <div class="testi-info">
+                <strong>Sandra Brown</strong>
+                <span>Accountant, New Kingston</span>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="testi-nav">
+        <button class="testi-nav-btn" id="testiPrev" aria-label="Previous testimonial">
+          <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+        </button>
+        <button class="testi-nav-btn" id="testiNext" aria-label="Next testimonial">
+          <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section class="section-about" id="about">
+    <div class="container">
+      <div class="about-grid">
+
+        <!-- Visual side -->
+        <div class="about-visual fade-in">
+          <div class="about-frame" aria-label="Jevon Clarke in his workspace">
+            <!-- Workspace illustration -->
+            <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="roomBg" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="0%" stop-color="#e8eaf6"/>
+                  <stop offset="100%" stop-color="#c5cae9"/>
+                </linearGradient>
+              </defs>
+              <rect width="400" height="500" fill="url(#roomBg)"/>
+              <!-- Desk -->
+              <rect x="40" y="320" width="320" height="20" rx="4" fill="#5d4037"/>
+              <rect x="60" y="340" width="16" height="80" rx="2" fill="#4e342e"/>
+              <rect x="324" y="340" width="16" height="80" rx="2" fill="#4e342e"/>
+              <!-- Monitor -->
+              <rect x="130" y="200" width="180" height="120" rx="8" fill="#1a237e"/>
+              <rect x="136" y="206" width="168" height="108" rx="5" fill="#0d47a1"/>
+              <!-- Screen content lines -->
+              <rect x="148" y="220" width="80" height="6" rx="2" fill="rgba(255,255,255,0.6)"/>
+              <rect x="148" y="234" width="120" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
+              <rect x="148" y="244" width="100" height="4" rx="2" fill="rgba(255,255,255,0.3)"/>
+              <rect x="148" y="262" width="60" height="20" rx="3" fill="#c9a84c"/>
+              <rect x="155" y="268" width="46" height="8" rx="2" fill="#1a237e"/>
+              <!-- Monitor stand -->
+              <rect x="210" y="320" width="20" height="0" rx="2" fill="#3e2723"/>
+              <rect x="200" y="317" width="40" height="6" rx="2" fill="#5d4037"/>
+              <!-- Keyboard -->
+              <rect x="140" y="334" width="160" height="28" rx="5" fill="#e0e0e0"/>
+              <rect x="148" y="340" width="10" height="6" rx="1" fill="#bdbdbd"/>
+              <rect x="162" y="340" width="10" height="6" rx="1" fill="#bdbdbd"/>
+              <rect x="176" y="340" width="10" height="6" rx="1" fill="#bdbdbd"/>
+              <rect x="190" y="340" width="10" height="6" rx="1" fill="#bdbdbd"/>
+              <rect x="204" y="340" width="10" height="6" rx="1" fill="#bdbdbd"/>
+              <rect x="218" y="340" width="10" height="6" rx="1" fill="#bdbdbd"/>
+              <rect x="232" y="340" width="10" height="6" rx="1" fill="#bdbdbd"/>
+              <rect x="246" y="340" width="10" height="6" rx="1" fill="#bdbdbd"/>
+              <rect x="155" y="352" width="130" height="6" rx="1" fill="#bdbdbd"/>
+              <!-- Tools on desk -->
+              <rect x="60" y="295" width="50" height="32" rx="4" fill="#37474f"/>
+              <rect x="64" y="299" width="42" height="24" rx="3" fill="#546e7a"/>
+              <!-- Small open Bible on left -->
+              <rect x="58" y="298" width="44" height="30" rx="3" fill="#f5f5dc"/>
+              <line x1="80" y1="298" x2="80" y2="328" stroke="#d4a276" stroke-width="1"/>
+              <rect x="62" y="304" width="16" height="2" rx="1" fill="#c9a84c" opacity=".6"/>
+              <rect x="62" y="310" width="14" height="2" rx="1" fill="#c9a84c" opacity=".6"/>
+              <rect x="84" y="304" width="16" height="2" rx="1" fill="#c9a84c" opacity=".6"/>
+              <rect x="84" y="310" width="14" height="2" rx="1" fill="#c9a84c" opacity=".6"/>
+              <!-- Jevon at desk (seated) -->
+              <!-- Chair -->
+              <rect x="152" y="390" width="96" height="60" rx="8" fill="#283593"/>
+              <rect x="145" y="440" width="110" height="10" rx="4" fill="#1a237e"/>
+              <!-- Body seated -->
+              <ellipse cx="200" cy="380" rx="55" ry="45" fill="#1a237e"/>
+              <!-- Arms -->
+              <rect x="150" y="355" width="25" height="12" rx="6" fill="#283593"/>
+              <rect x="225" y="355" width="25" height="12" rx="6" fill="#283593"/>
+              <!-- Hands on keyboard area -->
+              <ellipse cx="168" cy="368" rx="12" ry="8" fill="#8D5524"/>
+              <ellipse cx="232" cy="368" rx="12" ry="8" fill="#8D5524"/>
+              <!-- Head -->
+              <ellipse cx="200" cy="295" rx="42" ry="48" fill="#8D5524"/>
+              <!-- Hair -->
+              <ellipse cx="200" cy="258" rx="44" ry="32" fill="#1a0800"/>
+              <rect x="158" y="258" width="84" height="28" fill="#1a0800"/>
+              <!-- Face -->
+              <ellipse cx="184" cy="292" rx="5" ry="6" fill="#1a0800"/>
+              <ellipse cx="216" cy="292" rx="5" ry="6" fill="#1a0800"/>
+              <path d="M192 308 Q200 315 208 308" stroke="#5c2e00" stroke-width="2" fill="none" stroke-linecap="round"/>
+              <!-- Neck -->
+              <rect x="184" y="335" width="32" height="30" rx="12" fill="#8D5524"/>
+              <!-- Collar/shirt -->
+              <polygon points="190,340 200,355 210,340 207,336 193,336" fill="white"/>
+              <!-- Accent light from screen on face -->
+              <ellipse cx="200" cy="280" rx="25" ry="20" fill="rgba(100,140,255,0.08)"/>
+            </svg>
+          </div>
+
+          <div class="about-accent">
+            <div class="accent-num">12+</div>
+            <div class="accent-lbl">Years serving clients with excellence</div>
+          </div>
+
+          <div class="about-certs">
+            <span class="cert-pill">CompTIA A+</span>
+            <span class="cert-pill">Network+</span>
+            <span class="cert-pill">Security+</span>
+            <span class="cert-pill">Microsoft MCP</span>
+            <span class="cert-pill">Google IT Support</span>
+            <span class="cert-pill">Ordained Minister</span>
+          </div>
+        </div>
+
+        <!-- Content side -->
+        <div class="about-content fade-in delay-2">
+          <span class="section-label">About Jevon</span>
+          <h2 class="section-title">Called to Serve — In Ministry and Technology</h2>
+
+          <p>Jevon Clarke is not your typical technician. With a CompTIA triple-certified background, a Microsoft professional qualification, and over 12 years of hands-on experience, he brings a depth of technical knowledge that inspires confidence from the first conversation.</p>
+
+          <p>What makes Jevon different is the spirit he carries into every job. As an ordained minister at Grace Covenant Church in Kingston, Jevon sees his work not merely as a vocation but as a calling — to serve faithfully, deal honestly, and care genuinely for every person who trusts him with their technology.</p>
+
+          <p>Whether he's recovering a client's precious family photos, setting up a small business network, or simply talking someone through a scary computer error, Jevon brings the same commitment: do excellent work, charge fair prices, and treat people the way the Lord intends.</p>
+
+          <div class="about-values">
+            <div class="val-item">
+              <strong>Honesty First</strong>
+              <p>No unnecessary repairs, no inflated quotes. You get the truth about your device, always.</p>
+            </div>
+            <div class="val-item">
+              <strong>Transparent Pricing</strong>
+              <p>Clear estimates before work begins. You approve every step. No surprise charges.</p>
+            </div>
+            <div class="val-item">
+              <strong>Genuine Care</strong>
+              <p>Your deadline is taken seriously. Your stress is understood. Your satisfaction matters.</p>
+            </div>
+            <div class="val-item">
+              <strong>Faith-Grounded</strong>
+              <p>Every interaction is guided by integrity, patience, and a heart to genuinely help.</p>
+            </div>
+          </div>
+
+          <div style="margin-top:2rem;">
+            <a href="contact.html" class="btn btn-primary" style="margin-right:1rem;">Get in Touch</a>
+            <a href="booking.html" class="btn btn-outline">Book a Repair</a>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section-faq" id="faq">
+    <div class="container">
+      <div class="section-header fade-in" style="text-align:center;max-width:600px;margin-left:auto;margin-right:auto;">
+        <span class="section-label">Got Questions?</span>
+        <h2 class="section-title">Frequently Asked Questions</h2>
+        <p class="section-subtitle">Everything you need to know before booking. Still have questions? WhatsApp Jevon directly.</p>
+      </div>
+
+      <div class="faq-list">
+
+        <div class="faq-item">
+          <button class="faq-q">
+            What areas do you serve?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Jevon currently serves Kingston, St. Andrew, Spanish Town, and Portmore for on-site visits and device drop-offs. Remote support — software fixes, virus removal, IT consulting — is available island-wide across Jamaica via secure screen-sharing tools. If you're outside these areas and have a hardware issue, contact Jevon via WhatsApp and he'll advise the best option.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            How is pricing determined?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Pricing is based on the type of repair, parts required, and estimated labour time. Jevon provides a transparent written estimate before any work begins — you will never be charged for something you didn't approve. Partial deposits are required for major repairs. Cash (JMD and USD), bank transfer, and NCB/Scotiabank mobile money are all accepted.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            How long will my repair take?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Most standard repairs — virus removal, screen replacements, software resets — are completed within 24 to 72 hours. Data recovery and complex hardware issues may take 5–7 business days depending on the severity. Same-day urgent service is available at a premium rate. Jevon will give you an accurate timeframe before work begins and keeps you updated throughout.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            Can you come to my location?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. On-site visits to homes and businesses are available in Kingston, St. Andrew, Spanish Town, and Portmore. An additional call-out fee applies depending on distance. For software-only issues, remote support via AnyDesk is available anywhere in Jamaica and is often faster and more convenient than an in-person visit.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            What does the faith-based approach mean in practice?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">It means you will always be treated with respect, honesty, and genuine care. Jevon will never recommend a repair that isn't needed, never overcharge, and never leave a job unfinished without communication. Clients are welcome to request prayer — many do, especially when anxious about losing important data. Jevon sees his technical skill as a gift to be used in service of others, and that shapes everything about how he works.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            Do you offer a warranty on repairs?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">Yes. All hardware repairs carry a 30-day warranty on parts and labour. If the same issue recurs within that period due to the repair itself, Jevon will fix it at no additional cost. Software issues are warranted for 14 days. This warranty does not cover new physical damage or unrelated issues that develop after the repair.</div></div>
+        </div>
+
+        <div class="faq-item">
+          <button class="faq-q">
+            How do I get in touch for an urgent repair?
+            <span class="faq-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+          </button>
+          <div class="faq-a"><div class="faq-a-inner">For urgent matters, WhatsApp is the fastest channel: +1 (876) 555-0142. You can also use the booking form on this site and select "Urgent" as your priority — Jevon monitors these closely. Standard response time is within 2–4 hours on weekdays and within the same day on Saturdays.</div></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA BANNER -->
+  <section class="section-cta">
+    <div class="container">
+      <div class="cta-inner fade-in">
+        <span class="section-label" style="display:block;text-align:center;margin-bottom:.75rem;">Ready to Get Started?</span>
+        <h2>"Commit your work to the Lord, and your plans will be established."</h2>
+        <p style="font-family:'Playfair Display',serif;font-style:italic;color:rgba(255,255,255,.5);font-size:.85rem;margin-top:.25rem;margin-bottom:1.5rem;">— Proverbs 16:3</p>
+        <p>Book your repair, request a quote, or simply reach out — Jevon will respond with honesty, expertise, and a spirit of genuine service.</p>
+        <div class="cta-actions">
+          <a href="booking.html" class="btn btn-gold">Book a Repair Now</a>
+          <a href="contact.html#prayer" class="btn btn-outline-white">Request Prayer</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+
+      <div class="footer-col">
+        <div class="footer-brand-name">Jevon Clarke</div>
+        <div class="footer-brand-sub">Technician &amp; Minister</div>
+        <p class="footer-desc">Serving Kingston and surrounding parishes with expert IT repair and a commitment to honest, integrity-driven service since 2012. Member of Grace Covenant Church.</p>
+        <div class="footer-proverb">"Do you see someone skilled in their work? They will serve before kings." — Proverbs 22:29</div>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-heading">Services</div>
+        <ul class="footer-links">
+          <li><a href="booking.html">Computer Repair</a></li>
+          <li><a href="booking.html">Mobile Device Repair</a></li>
+          <li><a href="booking.html">Network Setup</a></li>
+          <li><a href="booking.html">IT Consulting</a></li>
+          <li><a href="booking.html">Data Recovery</a></li>
+          <li><a href="booking.html">Virus Removal</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-heading">Navigate</div>
+        <ul class="footer-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="booking.html">Book a Repair</a></li>
+          <li><a href="scripture.html">Scripture Gallery</a></li>
+          <li><a href="blog.html">Resources &amp; Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+          <li><a href="contact.html#prayer">Prayer Request</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <div class="footer-heading">Contact</div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.4 2 2 0 0 1 3.6 1.21h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 9a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 15.92z"/></svg>
+          <span>+1 (876) 555-0142<br>WhatsApp preferred</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+          <span>Jevonclarke@techministry.jm</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>Kingston &amp; St. Andrew<br>Spanish Town · Portmore</span>
+        </div>
+        <div class="footer-contact-item">
+          <svg viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <span>Mon – Sat: 8am – 7pm<br>Church: Grace Covenant, Kingston</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="footer-bottom">
+      <p class="footer-copy">&copy; 2024 Jevon Clarke Tech Services. All rights reserved.</p>
+      <p class="footer-verse">"Proverbs 22:29" — Skill in service is its own testimony.</p>
+    </div>
+  </div>
+</footer>
+
+<!-- MOBILE BOTTOM NAV -->
+<nav class="bottom-nav" aria-label="Mobile navigation">
+  <ul class="bottom-nav-list">
+    <li>
+      <a href="index.html" class="active" aria-label="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+        Home
+      </a>
+    </li>
+    <li>
+      <a href="index.html#services" aria-label="Services">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        Services
+      </a>
+    </li>
+    <li>
+      <a href="booking.html" aria-label="Book a Repair">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+        Book
+      </a>
+    </li>
+    <li>
+      <a href="scripture.html" aria-label="Scriptures">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        Word
+      </a>
+    </li>
+    <li>
+      <a href="contact.html" aria-label="Contact">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Contact
+      </a>
+    </li>
+  </ul>
+</nav>
+
+<!-- FLOATING WHATSAPP -->
+<div class="wa-float">
+  <a href="https://wa.me/18765550142?text=Hello%20Jevon%2C%20I%20found%20your%20website%20and%20I%27d%20like%20to%20inquire%20about%20your%20tech%20services." class="wa-btn" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413z"/></svg>
+  </a>
+</div>
+
+<!-- AI CHATBOT -->
+<div class="chat-fab">
+  <button class="chat-fab-btn" id="chatFab" aria-label="Open AI assistant">
+    <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 9c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+  </button>
+</div>
+
+<div class="chat-window" id="chatWindow" role="dialog" aria-label="TechAssist AI Chat">
+  <div class="chat-head">
+    <div class="chat-head-avatar">
+      <svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12 6.48 2 12 2zm0 4a4 4 0 1 0 0 8 4 4 0 0 0 0-8zm0 9c-2.67 0-8 1.34-8 4v1h16v-1c0-2.66-5.33-4-8-4z"/></svg>
+    </div>
+    <div class="chat-head-info">
+      <strong>TechAssist AI</strong>
+      <span>Ask me anything about services</span>
+    </div>
+    <button class="chat-head-close" id="chatClose" aria-label="Close chat">
+      <svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+    </button>
+  </div>
+  <div class="chat-body" id="chatBody"></div>
+  <div class="chat-quick-replies" id="quickReplies"></div>
+  <div class="chat-footer">
+    <input type="text" class="chat-input" id="chatInput" placeholder="Ask about services, pricing…" autocomplete="off" aria-label="Type your message">
+    <button class="chat-send" id="chatSend" aria-label="Send message">
+      <svg viewBox="0 0 24 24"><path d="M22 2L11 13M22 2L15 22l-4-9-9-4 20-7z"/></svg>
+    </button>
+  </div>
+</div>
+
+<!-- ===================== SCRIPTS ===================== -->
+<script>
+  /* ---- NAVBAR SCROLL ---- */
+  const navbar = document.getElementById('navbar');
+  window.addEventListener('scroll', () => {
+    navbar.classList.toggle('scrolled', window.scrollY > 20);
+  }, { passive: true });
+
+  /* ---- MOBILE BURGER ---- */
+  const burger = document.getElementById('navBurger');
+  const mobileMenu = document.getElementById('mobileMenu');
+  burger.addEventListener('click', () => {
+    burger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+  document.addEventListener('click', e => {
+    if (!burger.contains(e.target) && !mobileMenu.contains(e.target)) {
+      burger.classList.remove('open');
+      mobileMenu.classList.remove('open');
+    }
+  });
+
+  /* ---- FADE IN ON SCROLL ---- */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  /* ---- SCRIPTURE WIDGET ---- */
+  const scriptures = [
+    { verse: "Whatever you do, work at it with all your heart, as working for the Lord, not for human masters.", reference: "Colossians 3:23" },
+    { verse: "Commit your work to the Lord, and your plans will be established.", reference: "Proverbs 16:3" },
+    { verse: "Do you see someone skilled in their work? They will serve before kings; they will not serve before officials of low rank.", reference: "Proverbs 22:29" },
+    { verse: "Trust in the Lord with all your heart and lean not on your own understanding; in all your ways submit to him, and he will make your paths straight.", reference: "Proverbs 3:5-6" },
+    { verse: "For I know the plans I have for you, declares the Lord, plans to prosper you and not to harm you, plans to give you hope and a future.", reference: "Jeremiah 29:11" },
+    { verse: "I can do all this through him who gives me strength.", reference: "Philippians 4:13" },
+    { verse: "Let your light shine before others, that they may see your good deeds and glorify your Father in heaven.", reference: "Matthew 5:16" },
+    { verse: "And we know that in all things God works for the good of those who love him, who have been called according to his purpose.", reference: "Romans 8:28" },
+    { verse: "Be strong and courageous. Do not be afraid; do not be discouraged, for the Lord your God will be with you wherever you go.", reference: "Joshua 1:9" },
+    { verse: "The plans of the diligent lead surely to abundance.", reference: "Proverbs 21:5" },
+    { verse: "And whatever you do, whether in word or deed, do it all in the name of the Lord Jesus.", reference: "Colossians 3:17" },
+    { verse: "For God has not given us a spirit of fear, but of power and of love and of a sound mind.", reference: "2 Timothy 1:7" },
+    { verse: "The Lord bless you and keep you; the Lord make his face shine on you and be gracious to you.", reference: "Numbers 6:24-25" },
+    { verse: "Cast all your anxiety on him because he cares for you.", reference: "1 Peter 5:7" },
+    { verse: "Give, and it will be given to you — pressed down, shaken together, and running over.", reference: "Luke 6:38" }
+  ];
+
+  let swIndex = 0;
+  let swPaused = false;
+  let swTimer = null;
+
+  function initScriptureWidget() {
+    const body = document.getElementById('swBody');
+    const progress = document.getElementById('swProgress');
+    if (!body || !progress) return;
+
+    // Build progress dots (show 5)
+    const dotsCount = Math.min(scriptures.length, 8);
+    for (let i = 0; i < dotsCount; i++) {
+      const dot = document.createElement('div');
+      dot.className = 'sw-dot';
+      dot.id = `dot-${i}`;
+      progress.appendChild(dot);
+    }
+
+    // Build all verse elements
+    scriptures.forEach((s, i) => {
+      const div = document.createElement('div');
+      div.className = 'sw-verse-wrap';
+      div.id = `sw-${i}`;
+      div.innerHTML = `<div class="sw-verse">${s.verse}</div><div class="sw-ref">${s.reference}</div>`;
+      body.appendChild(div);
+    });
+
+    showVerse(0);
+  }
+
+  function showVerse(idx) {
+    // Hide all
+    document.querySelectorAll('.sw-verse-wrap').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.sw-dot').forEach(el => el.classList.remove('active'));
+
+    // Show target
+    const target = document.getElementById(`sw-${idx}`);
+    if (target) target.classList.add('active');
+
+    // Update dot (wrap dots around 8 visible)
+    const dotIdx = idx % 8;
+    const dot = document.getElementById(`dot-${dotIdx}`);
+    if (dot) dot.classList.add('active');
+
+    swIndex = idx;
+  }
+
+  function nextVerse() {
+    const next = (swIndex + 1) % scriptures.length;
+    showVerse(next);
+  }
+
+  function prevVerse() {
+    const prev = (swIndex - 1 + scriptures.length) % scriptures.length;
+    showVerse(prev);
+  }
+
+  function startTimer() {
+    clearInterval(swTimer);
+    swTimer = setInterval(() => {
+      if (!swPaused) nextVerse();
+    }, 60000);
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    initScriptureWidget();
+    startTimer();
+
+    document.getElementById('swNext')?.addEventListener('click', () => { nextVerse(); if (!swPaused) startTimer(); });
+    document.getElementById('swPrev')?.addEventListener('click', () => { prevVerse(); if (!swPaused) startTimer(); });
+    document.getElementById('swPausePlay')?.addEventListener('click', () => {
+      swPaused = !swPaused;
+      document.getElementById('pauseIcon').style.display = swPaused ? 'none' : 'block';
+      document.getElementById('playIcon').style.display = swPaused ? 'block' : 'none';
+    });
+  });
+
+  /* ---- TESTIMONIALS SLIDER ---- */
+  let testiIndex = 0;
+  const track = document.getElementById('testiTrack');
+
+  function getVisibleCards() {
+    const w = window.innerWidth;
+    if (w > 1024) return 3;
+    if (w > 768) return 2;
+    return 1;
+  }
+
+  function slideTesti(dir) {
+    const cards = track.querySelectorAll('.testi-card');
+    const visible = getVisibleCards();
+    const max = cards.length - visible;
+    testiIndex = Math.max(0, Math.min(max, testiIndex + dir));
+    const cardWidth = track.querySelector('.testi-card').offsetWidth + 24;
+    track.style.transform = `translateX(-${testiIndex * cardWidth}px)`;
+  }
+
+  document.getElementById('testiPrev')?.addEventListener('click', () => slideTesti(-1));
+  document.getElementById('testiNext')?.addEventListener('click', () => slideTesti(1));
+
+  /* ---- FAQ ACCORDION ---- */
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+</script>
+<script src="chatbot.js"></script>
+</body>
+</html>
