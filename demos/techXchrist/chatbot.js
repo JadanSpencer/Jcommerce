@@ -5,7 +5,7 @@
    const CHAT_CONFIG = {
     API_KEY: 'YOUR_ANTHROPIC_API_KEY_HERE',
     MODEL: 'claude-sonnet-4-20250514',
-    SYSTEM_PROMPT: `You are TechAssist, the helpful AI assistant for Jevon Parchement's technology repair and IT services business in Kingston, Jamaica. Jevon is both a certified IT professional with 12+ years of experience and an ordained minister at Grace Covenant Church.
+    SYSTEM_PROMPT: `You are TechAssist, the helpful AI assistant for Jevaughn Parchment's technology repair and IT services business in Kingston, Jamaica. Jevaughn is both a certified IT professional with 12+ years of experience and an ordained minister at Grace Covenant Church.
 
 SERVICES & APPROXIMATE PRICING (JMD):
 - Computer Repair: from $3,500
@@ -30,7 +30,7 @@ YOUR BEHAVIOR:
 - If someone is anxious, offer a brief word of encouragement
 - For prayer requests or faith questions, respond warmly
 - Never overpromise; be honest about limitations
-- If asked something completely outside your knowledge or services, respond with: "Apologies, but I cannot accommodate said query. However, I'd be happy to help with questions about Jevon's tech services, pricing, or availability. Is there anything tech-related I can assist with?"
+- If asked something completely outside your knowledge or services, respond with: "Apologies, but I cannot accommodate said query. However, I'd be happy to help with questions about Jevaughn's tech services, pricing, or availability. Is there anything tech-related I can assist with?"
 - Suggest the booking form or WhatsApp for specific issues`
 };
 
@@ -45,7 +45,7 @@ const QUICK_REPLIES = [
     'Can I get remote support?'
 ];
 
-const GREETING = `Hello! I'm TechAssist, Jevon's AI helper. I can answer questions about services, pricing, and more. How can I help you today?`;
+const GREETING = `Hello! I'm TechAssist, Jevaughn's AI helper. I can answer questions about services, pricing, and more. How can I help you today?`;
 
 /* ============================================================
    INTERCHANGE LOGIC — WhatsApp ↔ Chatbot every 10 seconds
@@ -212,7 +212,7 @@ async function handleSend() {
         });
 
         const data = await res.json();
-        const reply = data.content?.[0]?.text || 'Apologies, but I cannot accommodate said query. I\'d be happy to help with questions about Jevon\'s tech services.';
+        const reply = data.content?.[0]?.text || 'Apologies, but I cannot accommodate said query. I\'d be happy to help with questions about Jevaughn\'s tech services.';
 
         chatHistory.push({ role: 'assistant', content: reply });
         hideTyping();
@@ -221,7 +221,7 @@ async function handleSend() {
     } catch (err) {
         console.error('Chat error:', err);
         hideTyping();
-        appendBotMessage('Apologies, but I cannot accommodate said query. Please use the booking form or contact Jevon directly on WhatsApp for assistance.');
+        appendBotMessage('Apologies, but I cannot accommodate said query. Please use the booking form or contact Jevaughn directly on WhatsApp for assistance.');
     } finally {
         isBotTyping = false;
     }
@@ -306,37 +306,37 @@ function getDemoResponse(text) {
         return 'Prices start from JMD $2,000 for mobile repairs, $3,500 for computer repairs, and $6,000 for network setup. Use the booking form for an exact quote tailored to your issue!';
     }
     if (t.includes('area') || t.includes('location') || t.includes('come to')) {
-        return 'Jevon serves Kingston, St. Andrew, Spanish Town, and Portmore. Remote support is available island-wide via secure screen sharing.';
+        return 'Jevaughn serves Kingston, St. Andrew, Spanish Town, and Portmore. Remote support is available island-wide via secure screen sharing.';
     }
     if (t.includes('how long') || t.includes('turnaround') || t.includes('time')) {
         return 'Most standard repairs are completed within 24–72 hours. Complex jobs like data recovery may take 5–7 days. Same-day urgent service is also available.';
     }
     if (t.includes('remote') || t.includes('online') || t.includes('anydesk')) {
-        return 'Yes! Jevon provides remote support island-wide using secure tools like AnyDesk. Perfect for software issues, virus removal, and IT consulting.';
+        return 'Yes! Jevaughn provides remote support island-wide using secure tools like AnyDesk. Perfect for software issues, virus removal, and IT consulting.';
     }
     if (t.includes('data') || t.includes('recovery') || t.includes('lost files')) {
-        return 'Data recovery starts from JMD $5,000. Jevon has a strong track record with crashed drives and accidentally deleted files. Book a consultation today.';
+        return 'Data recovery starts from JMD $5,000. Jevaughn has a strong track record with crashed drives and accidentally deleted files. Book a consultation today.';
     }
     if (t.includes('prayer') || t.includes('pray') || t.includes('faith') || t.includes('god')) {
-        return 'Jevon would be honoured to pray with you. You can include a prayer request when filling out the booking form. "Cast all your anxiety on Him because He cares for you." — 1 Peter 5:7';
+        return 'Jevaughn would be honoured to pray with you. You can include a prayer request when filling out the booking form. "Cast all your anxiety on Him because He cares for you." — 1 Peter 5:7';
     }
     if (t.includes('phone') || t.includes('mobile') || t.includes('screen') || t.includes('battery')) {
-        return 'Mobile device repairs start from JMD $2,000. Screen replacements, battery swaps, charging port repairs — Jevon handles them all. Book online today.';
+        return 'Mobile device repairs start from JMD $2,000. Screen replacements, battery swaps, charging port repairs — Jevaughn handles them all. Book online today.';
     }
     if (t.includes('network') || t.includes('wifi') || t.includes('internet') || t.includes('router')) {
         return 'Network setup and WiFi configuration starts from JMD $6,000. Small business networking, router setup, and cable runs are also available.';
     }
     if (t.includes('virus') || t.includes('malware') || t.includes('hack') || t.includes('security')) {
-        return 'Virus and malware removal starts from JMD $2,500. Jevon is CompTIA Security+ certified and will make sure your system is fully protected.';
+        return 'Virus and malware removal starts from JMD $2,500. Jevaughn is CompTIA Security+ certified and will make sure your system is fully protected.';
     }
     if (t.includes('book') || t.includes('appointment') || t.includes('schedule')) {
-        return 'Head to the Book a Repair page to fill out the form — Jevon typically responds within 2–4 hours on weekdays. You can also WhatsApp him directly!';
+        return 'Head to the Book a Repair page to fill out the form — Jevaughn typically responds within 2–4 hours on weekdays. You can also WhatsApp him directly!';
     }
     if (t.includes('payment') || t.includes('pay') || t.includes('cash')) {
-        return 'Jevon accepts cash (JMD and USD), bank transfer, and mobile money via NCB or Scotiabank. A deposit is required before major repair work begins.';
+        return 'Jevaughn accepts cash (JMD and USD), bank transfer, and mobile money via NCB or Scotiabank. A deposit is required before major repair work begins.';
     }
     if (t.includes('weather') || t.includes('sport') || t.includes('recipe') || t.includes('movie') || t.includes('music') || t.includes('news') || t.includes('politics')) {
-        return 'Apologies, but I cannot accommodate said query. I\'m specifically here to help with questions about Jevon\'s tech services, pricing, and availability. Is there anything tech-related I can assist with?';
+        return 'Apologies, but I cannot accommodate said query. I\'m specifically here to help with questions about Jevaughn\'s tech services, pricing, and availability. Is there anything tech-related I can assist with?';
     }
-    return 'Great question! For the most accurate information, I\'d recommend using the booking form or WhatsApp Jevon directly. He responds quickly and will give you a personalised answer. Is there anything else I can help clarify?';
+    return 'Great question! For the most accurate information, I\'d recommend using the booking form or WhatsApp Jevaughn directly. He responds quickly and will give you a personalised answer. Is there anything else I can help clarify?';
 }
