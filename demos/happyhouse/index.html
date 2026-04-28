@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Happy House — Good Food. Good Vibes. Real Jamaican Flavor. Sligoville, Jamaica.">
+  <title>Happy House — Real Jamaican Flavor</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body { display:flex; flex-direction:column; min-height:100dvh; }
+
+    /* ── HERO ── */
+    .hero {
+      background: var(--pink);
+      position: relative;
+      overflow: hidden;
+      min-height: calc(100dvh - 64px);
+      display: flex;
+      align-items: center;
+    }
+    .hero-pattern {
+      position:absolute; inset:0;
+      background-image:
+        radial-gradient(circle at 20% 80%, rgba(255,255,255,.06) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(232,162,46,.14) 0%, transparent 50%),
+        radial-gradient(circle at 50% 50%, rgba(0,0,0,.04) 0%, transparent 70%);
+      pointer-events:none;
+    }
+    .hero-dots {
+      position:absolute; top:0; right:0;
+      width:420px; height:420px;
+      background-image:radial-gradient(circle,rgba(255,255,255,.08) 1.5px,transparent 1.5px);
+      background-size:24px 24px;
+      pointer-events:none; opacity:.6;
+    }
+    .hero-wave {
+      position:absolute; bottom:-1px; left:0; right:0;
+      pointer-events:none;
+    }
+    .hero-blob {
+      position:absolute; border-radius:50%; pointer-events:none;
+    }
+    .hero-blob-1 { width:380px;height:380px;background:rgba(255,255,255,.04);bottom:-90px;left:-90px; }
+    .hero-blob-2 { width:220px;height:220px;background:rgba(232,162,46,.09);top:12%;right:6%;animation:float 6s ease-in-out infinite; }
+
+    .hero-inner {
+      position:relative; z-index:2;
+      max-width:1100px; margin:0 auto;
+      padding:5rem 2rem 7rem;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:4rem;
+      align-items:center;
+      width:100%;
+    }
+
+    .hero-kicker {
+      display:inline-flex; align-items:center; gap:.55rem;
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.22);
+      border-radius:100px;
+      padding:.35rem 1rem;
+      font-size:.68rem; font-weight:700;
+      letter-spacing:.18em; text-transform:uppercase;
+      color:rgba(255,255,255,.9);
+      margin-bottom:1.75rem;
+    }
+    .hero-kicker-dot {
+      width:6px;height:6px;background:var(--gold);
+      border-radius:50%;animation:pulse-dot 1.8s ease-in-out infinite;
+      flex-shrink:0;
+    }
+
+    .hero-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.4rem,5.5vw,4rem);
+      font-weight:800; color:#fff;
+      line-height:1.06; margin-bottom:.5rem;
+    }
+    .hero-title-accent { color:var(--gold); font-style:italic; }
+
+    .hero-slogan {
+      font-size:1.05rem; color:rgba(255,255,255,.72);
+      line-height:1.7; margin-bottom:2.75rem; max-width:440px;
+    }
+
+    .hero-actions {
+      display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:3.5rem;
+    }
+
+    .hero-stats {
+      display:flex; gap:2.5rem;
+      padding-top:2rem;
+      border-top:1px solid rgba(255,255,255,.14);
+    }
+    .hero-stat-num {
+      font-family:'Playfair Display',serif;
+      font-size:2rem; font-weight:800; color:#fff; line-height:1;
+    }
+    .hero-stat-num span { font-size:1.1rem; color:var(--gold); }
+    .hero-stat-label {
+      font-size:.68rem; color:rgba(255,255,255,.46);
+      text-transform:uppercase; letter-spacing:.12em; margin-top:.2rem;
+    }
+
+    /* ── ORDER CARD (right column) ── */
+    .hero-order-card {
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:var(--r-xl);
+      backdrop-filter:blur(16px);
+      -webkit-backdrop-filter:blur(16px);
+      padding:2rem;
+    }
+    .order-card-title {
+      font-family:'Playfair Display',serif;
+      font-size:1.3rem; font-weight:700;
+      color:#fff; margin-bottom:.4rem;
+    }
+    .order-card-sub { font-size:.82rem; color:rgba(255,255,255,.6); margin-bottom:1.75rem; }
+
+    .table-input-wrap {
+      position:relative; margin-bottom:1rem;
+    }
+    .table-input {
+      width:100%; padding:1rem 1.25rem;
+      background:rgba(255,255,255,.14);
+      border:1.5px solid rgba(255,255,255,.24);
+      border-radius:var(--r);
+      font-size:1rem; font-weight:600; color:#fff;
+      transition:all .2s;
+    }
+    .table-input::placeholder { color:rgba(255,255,255,.5); }
+    .table-input:focus {
+      outline:none;
+      border-color:var(--gold);
+      background:rgba(255,255,255,.2);
+      box-shadow:0 0 0 3px rgba(232,162,46,.25);
+    }
+
+    .btn-view-menu {
+      width:100%;
+      background:#fff;
+      color:var(--pink);
+      border:none;
+      border-radius:var(--r);
+      padding:1rem;
+      font-size:.95rem; font-weight:700;
+      cursor:pointer; font-family:inherit;
+      transition:all .2s;
+      display:flex; align-items:center; justify-content:center; gap:.5rem;
+      margin-bottom:.75rem;
+      box-shadow:0 4px 20px rgba(0,0,0,.15);
+    }
+    .btn-view-menu:hover { background:var(--cream); transform:translateY(-1px); box-shadow:0 8px 28px rgba(0,0,0,.2); }
+
+    .btn-takeout {
+      width:100%;
+      background:transparent;
+      color:#fff;
+      border:1.5px solid rgba(255,255,255,.3);
+      border-radius:var(--r);
+      padding:.85rem;
+      font-size:.875rem; font-weight:600;
+      cursor:pointer; font-family:inherit;
+      transition:all .2s;
+      display:flex; align-items:center; justify-content:center; gap:.5rem;
+    }
+    .btn-takeout:hover { background:rgba(255,255,255,.1); border-color:rgba(255,255,255,.5); }
+
+    .or-divider {
+      display:flex; align-items:center; gap:.75rem;
+      color:rgba(255,255,255,.35); font-size:.72rem; font-weight:600;
+      letter-spacing:.1em; text-transform:uppercase; margin:.75rem 0;
+    }
+    .or-divider::before, .or-divider::after {
+      content:''; flex:1; height:1px; background:rgba(255,255,255,.15);
+    }
+
+    /* Popular items in card */
+    .popular-pills {
+      margin-top:1.5rem; padding-top:1.25rem;
+      border-top:1px solid rgba(255,255,255,.12);
+    }
+    .popular-pills-label {
+      font-size:.62rem; font-weight:700;
+      letter-spacing:.16em; text-transform:uppercase;
+      color:rgba(255,255,255,.45); margin-bottom:.75rem;
+    }
+    .popular-pills-list {
+      display:flex; flex-wrap:wrap; gap:.5rem;
+    }
+    .popular-pill {
+      background:rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.18);
+      border-radius:100px;
+      padding:.28rem .85rem;
+      font-size:.75rem; font-weight:600; color:rgba(255,255,255,.85);
+    }
+
+    /* ── SECTIONS ── */
+    .section { padding:5rem 0; }
+    .section-sm { padding:3rem 0; }
+    .container { max-width:1100px; margin:0 auto; padding:0 2rem; }
+
+    .section-header { text-align:center; margin-bottom:3rem; }
+    .section-label {
+      display:flex; align-items:center; justify-content:center; gap:.75rem;
+      margin-bottom:.75rem;
+    }
+    .section-label-line {
+      width:28px; height:2px; background:var(--pink); border-radius:1px;
+    }
+    .section-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.8rem,3.5vw,2.6rem); font-weight:800;
+      color:var(--ink); margin-bottom:.5rem;
+    }
+    .section-title em { color:var(--pink); font-style:italic; }
+    .section-sub { font-size:1rem; color:var(--ink-3); max-width:480px; margin:0 auto; line-height:1.7; }
+
+    /* ── POPULAR ITEMS ── */
+    .popular-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.5rem;
+    }
+    .popular-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      overflow:hidden;
+      box-shadow:var(--sh-sm);
+      transition:all .25s var(--ease);
+    }
+    .popular-card:hover {
+      transform:translateY(-6px);
+      box-shadow:var(--sh-lg);
+      border-color:var(--pink-lt);
+    }
+    .popular-card-img {
+      width:100%; aspect-ratio:3/2; object-fit:cover;
+      background:var(--pink-pale);
+    }
+    .popular-card-body { padding:1.25rem; }
+    .popular-card-name {
+      font-family:'Playfair Display',serif;
+      font-size:1.1rem; font-weight:700;
+      color:var(--ink); margin-bottom:.3rem;
+    }
+    .popular-card-desc { font-size:.82rem; color:var(--ink-3); line-height:1.6; margin-bottom:1rem; }
+    .popular-card-foot {
+      display:flex; align-items:center; justify-content:space-between;
+      gap:.5rem;
+    }
+    .popular-card-price {
+      font-family:'Playfair Display',serif;
+      font-size:1.15rem; font-weight:700; color:var(--pink);
+    }
+    .btn-order-mini {
+      background:var(--pink-pale); color:var(--pink);
+      border:1.5px solid var(--pink-lt);
+      border-radius:var(--r-sm);
+      padding:.35rem .85rem;
+      font-size:.75rem; font-weight:700;
+      cursor:pointer; font-family:inherit;
+      text-decoration:none;
+      display:inline-flex; align-items:center; gap:.35rem;
+      transition:all .18s;
+    }
+    .btn-order-mini:hover { background:var(--pink); color:#fff; border-color:var(--pink); }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem;
+    }
+    .service-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      padding:2rem;
+      text-align:center;
+      box-shadow:var(--sh-sm);
+      transition:all .25s var(--ease);
+    }
+    .service-card:hover { transform:translateY(-4px); box-shadow:var(--sh); }
+    .service-icon {
+      width:64px;height:64px;
+      background:var(--pink-pale);
+      border-radius:var(--r-lg);
+      display:grid;place-items:center;
+      color:var(--pink);
+      margin:0 auto 1.25rem;
+    }
+
+    /* ── REVIEWS ── */
+    .rating-banner {
+      background:linear-gradient(135deg,var(--pink) 0%,var(--pink-2) 100%);
+      border-radius:var(--r-xl);
+      padding:1.75rem 2rem;
+      display:flex; align-items:center; gap:1.5rem;
+      flex-wrap:wrap;
+      margin-bottom:3rem;
+      box-shadow:var(--sh-lg);
+    }
+    .rating-banner-score {
+      font-family:'Playfair Display',serif;
+      font-size:3.5rem; font-weight:800; color:#fff;
+      line-height:1; flex-shrink:0;
+    }
+    .rating-banner-stars { font-size:1.2rem; margin-bottom:.25rem; }
+    .rating-banner-label { font-size:.78rem; color:rgba(255,255,255,.6); }
+
+    .reviews-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.5rem; }
+    .review-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      padding:1.75rem;
+      box-shadow:var(--sh-sm);
+      transition:all .25s var(--ease);
+      position:relative;
+    }
+    .review-card::before {
+      content:'"';
+      font-family:'Playfair Display',serif;
+      font-size:5rem; line-height:.7;
+      color:var(--pink-lt);
+      position:absolute; top:1.25rem; right:1.5rem;
+    }
+    .review-card:hover { transform:translateY(-4px); box-shadow:var(--sh); }
+    .review-stars { display:flex; gap:2px; margin-bottom:.75rem; }
+    .review-star { color:var(--gold); font-size:.9rem; }
+    .review-text { font-size:.875rem; color:var(--ink-2); line-height:1.7; margin-bottom:1.25rem; font-style:italic; }
+    .review-author { display:flex; align-items:center; gap:.75rem; }
+    .review-avatar {
+      width:36px;height:36px;
+      background:var(--pink);
+      color:#fff;
+      border-radius:50%;
+      display:grid;place-items:center;
+      font-size:.78rem;font-weight:700;
+      font-family:'Playfair Display',serif;
+      flex-shrink:0;
+    }
+    .review-name { font-size:.875rem; font-weight:700; color:var(--ink); }
+    .review-date { font-size:.72rem; color:var(--ink-4); }
+
+    /* ── CTA BANNER ── */
+    .cta-banner {
+      background:var(--ink);
+      border-radius:var(--r-xl);
+      padding:3.5rem 2.5rem;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .cta-banner::before {
+      content:'';
+      position:absolute;
+      width:300px;height:300px;
+      background:rgba(200,81,106,.12);
+      border-radius:50%;
+      top:-80px;right:-60px;
+      pointer-events:none;
+    }
+    .cta-banner h2 {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.6rem,3vw,2.4rem);
+      font-weight:800; color:#fff;
+      margin-bottom:.75rem;
+    }
+    .cta-banner p { color:rgba(255,255,255,.55); font-size:.95rem; margin-bottom:2rem; max-width:440px; margin-left:auto; margin-right:auto; }
+    .cta-banner-actions { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width:900px) {
+      .hero-inner { grid-template-columns:1fr; gap:2.5rem; padding:3rem 1.5rem 5rem; }
+      .hero-slogan { max-width:100%; }
+      .hero-stats { gap:1.75rem; }
+      .popular-grid, .services-grid, .reviews-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:640px) {
+      .hero-inner { padding:2.5rem 1.25rem 4.5rem; }
+      .popular-grid, .reviews-grid { grid-template-columns:1fr; }
+      .services-grid { grid-template-columns:1fr; }
+      .hero-stats { gap:1.5rem; flex-wrap:wrap; }
+      .rating-banner { flex-direction:column; text-align:center; }
+      .section { padding:3.5rem 0; }
+      .container { padding:0 1.25rem; }
+      .cta-banner { padding:2.5rem 1.25rem; }
+      .cta-banner-actions { flex-direction:column; align-items:center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ════════════════════════════════════════════════ -->
+<nav class="app-nav">
+  <a href="index.html" class="nav-brand">
+    <div class="nav-logo"></div>
+    <div class="nav-brand-text">
+      <span class="nav-brand-main">Happy House</span>
+      <span class="nav-brand-sub">Sligoville · Jamaica</span>
+    </div>
+  </a>
+  <div class="nav-spacer"></div>
+  <div class="nav-links">
+    <a href="menu.html" class="nav-link">Menu</a>
+    <a href="admin.html" class="nav-link">Admin</a>
+    <a href="kitchen.html" class="nav-link">Kitchen</a>
+  </div>
+</nav>
+
+<!-- ══ HERO ═══════════════════════════════════════════════ -->
+<section class="hero">
+  <div class="hero-pattern"></div>
+  <div class="hero-dots"></div>
+  <div class="hero-blob hero-blob-1"></div>
+  <div class="hero-blob hero-blob-2"></div>
+
+  <div class="hero-inner">
+    <!-- Left: Content -->
+    <div class="hero-content">
+      <div class="hero-kicker">
+        <span class="hero-kicker-dot"></span>
+        Open Now · Sligoville, Jamaica
+      </div>
+
+      <h1 class="hero-title">
+        Happy<br>
+        <span class="hero-title-accent">House</span>
+      </h1>
+
+      <p class="hero-slogan">Good Food. Good Vibes. Real Jamaican Flavor. Come taste why we're Sligoville's most loved spot.</p>
+
+      <div class="hero-actions">
+        <a href="menu.html" class="btn btn-xl" style="background:#fff;color:var(--pink);box-shadow:0 4px 20px rgba(0,0,0,.15);">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+          View Menu
+        </a>
+        <a href="https://wa.me/18767899423?text=Hi%20Happy%20House!%20I'd%20like%20to%20place%20an%20order." target="_blank" class="btn btn-cream btn-xl">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Order on WhatsApp
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="hero-stat">
+          <div class="hero-stat-num">4.9<span>⭐</span></div>
+          <div class="hero-stat-label">Customer Rating</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">8<span>+</span></div>
+          <div class="hero-stat-label">Verified Reviews</div>
+        </div>
+        <div class="hero-stat">
+          <div class="hero-stat-num">11<span>AM</span></div>
+          <div class="hero-stat-label">Opens Daily</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right: Order Card -->
+    <div class="hero-order-card">
+      <div class="order-card-title">Order In-House</div>
+      <div class="order-card-sub">Enter your table number to browse our full menu and place your order.</div>
+
+      <div class="table-input-wrap">
+        <input
+          type="number"
+          id="table-input"
+          class="table-input"
+          placeholder="Table number (e.g. 4)"
+          min="1" max="99"
+        >
+      </div>
+
+      <button id="continue-btn" class="btn-view-menu">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+        View Menu & Order
+      </button>
+
+      <div class="or-divider">or</div>
+
+      <button id="takeout-btn" class="btn-takeout">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Order for Takeout / Delivery
+      </button>
+
+      <div class="popular-pills">
+        <div class="popular-pills-label">Popular right now</div>
+        <div class="popular-pills-list">
+          <span class="popular-pill">🥪 Chicken Sandwich</span>
+          <span class="popular-pill">🌯 Baddest Wrap</span>
+          <span class="popular-pill">🍟 French Fries</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <svg class="hero-wave" viewBox="0 0 1440 80" fill="none" preserveAspectRatio="none">
+    <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="var(--bg)"/>
+  </svg>
+</section>
+
+<!-- ══ POPULAR ITEMS ═══════════════════════════════════════ -->
+<section class="section" style="background:var(--bg);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span class="eyebrow">Most Loved</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="section-title">Customer <em>Favourites</em></h2>
+      <p class="section-sub">Our most ordered items — made fresh every day with real Jamaican love.</p>
+    </div>
+
+    <div class="popular-grid">
+      <!-- Chicken Sandwich -->
+      <div class="popular-card">
+        <img src="https://placehold.co/600x400/C8516A/FFF9F4?text=Chicken+Sandwich" alt="Chicken Sandwich" class="popular-card-img">
+        <div class="popular-card-body">
+          <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
+            <span class="badge badge-pink">Popular</span>
+            <span class="badge badge-gold">Chef's Pick</span>
+          </div>
+          <div class="popular-card-name">Chicken Sandwich</div>
+          <div class="popular-card-desc">Juicy seasoned chicken breast, crisp lettuce, fresh tomatoes, and our signature house sauce on a toasted bun.</div>
+          <div class="popular-card-foot">
+            <div class="popular-card-price">J$850</div>
+            <a href="https://wa.me/18767899423?text=Hi%20Happy%20House!%20I'd%20like%20to%20order%20a%20Chicken%20Sandwich%20please." target="_blank" class="btn-order-mini">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Order Now
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Baddest Wrap -->
+      <div class="popular-card">
+        <img src="https://placehold.co/600x400/E8A22E/2D1F1A?text=Baddest+Wrap" alt="Baddest Wrap" class="popular-card-img">
+        <div class="popular-card-body">
+          <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
+            <span class="badge badge-pink">Popular</span>
+            <span class="badge badge-gold">Must Try</span>
+          </div>
+          <div class="popular-card-name">Baddest Wrap</div>
+          <div class="popular-card-desc">Our legendary wrap — jerk chicken, fresh vegetables, cheddar, avocado, and our signature sauce in a flour tortilla.</div>
+          <div class="popular-card-foot">
+            <div class="popular-card-price">J$950</div>
+            <a href="https://wa.me/18767899423?text=Hi%20Happy%20House!%20I'd%20like%20to%20order%20the%20Baddest%20Wrap%20please." target="_blank" class="btn-order-mini">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Order Now
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- French Fries -->
+      <div class="popular-card">
+        <img src="https://placehold.co/600x400/F5EDE0/C8516A?text=French+Fries" alt="French Fries" class="popular-card-img">
+        <div class="popular-card-body">
+          <div style="display:flex;gap:.4rem;margin-bottom:.5rem;">
+            <span class="badge badge-pink">Popular</span>
+          </div>
+          <div class="popular-card-name">French Fries</div>
+          <div class="popular-card-desc">Golden crispy fries seasoned with our special house blend, served hot with ketchup. The perfect side.</div>
+          <div class="popular-card-foot">
+            <div class="popular-card-price">J$450</div>
+            <a href="https://wa.me/18767899423?text=Hi%20Happy%20House!%20I'd%20like%20to%20order%20French%20Fries%20please." target="_blank" class="btn-order-mini">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Order Now
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="menu.html" class="btn btn-outline btn-lg">See the Full Menu →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ════════════════════════════════════════════ -->
+<section class="section" style="background:var(--bg2);">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span class="eyebrow">How We Serve You</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="section-title">Your Way, <em>Every Time</em></h2>
+    </div>
+
+    <div class="services-grid">
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:.5rem;color:var(--ink);">Dine-In</h3>
+        <p style="font-size:.875rem;color:var(--ink-3);line-height:1.7;">Sit back, relax, and enjoy the Happy House atmosphere. Order right from your table — no waiting in line.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:.5rem;color:var(--ink);">Takeaway</h3>
+        <p style="font-size:.875rem;color:var(--ink-3);line-height:1.7;">Order on WhatsApp and pick up fresh food at your convenience. Quick, easy, and just as delicious.</p>
+      </div>
+
+      <div class="service-card">
+        <div class="service-icon">
+          <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        </div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:1.2rem;margin-bottom:.5rem;color:var(--ink);">Delivery</h3>
+        <p style="font-size:.875rem;color:var(--ink-3);line-height:1.7;">Happy House comes to you. Place your order on WhatsApp and we'll bring the flavor straight to your door.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ REVIEWS ═════════════════════════════════════════════ -->
+<section class="section" style="background:var(--bg);">
+  <div class="container">
+    <div class="rating-banner">
+      <div class="rating-banner-score">4.9</div>
+      <div class="rating-banner-info">
+        <div class="rating-banner-stars">⭐⭐⭐⭐⭐</div>
+        <div style="font-size:1.05rem;font-weight:700;color:#fff;margin-bottom:.2rem;">Exceptional Rating</div>
+        <div class="rating-banner-label">Based on 8 customer reviews · Sligoville, Jamaica</div>
+      </div>
+      <div style="margin-left:auto;flex-shrink:0;">
+        <a href="https://wa.me/18767899423?text=Hi%20Happy%20House!%20I'd%20like%20to%20place%20an%20order." target="_blank" class="btn btn-cream btn-lg">
+          Order & Experience It
+        </a>
+      </div>
+    </div>
+
+    <div class="section-header">
+      <div class="section-label">
+        <div class="section-label-line"></div>
+        <span class="eyebrow">Customer Love</span>
+        <div class="section-label-line"></div>
+      </div>
+      <h2 class="section-title">What our guests <em>say</em></h2>
+    </div>
+
+    <div class="reviews-grid">
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"The absolute best chicken sandwich I've had! Fresh, flavorful, and the house sauce is out of this world. I drive all the way from Kingston just for this."</p>
+        <div class="review-author">
+          <div class="review-avatar">R</div>
+          <div>
+            <div class="review-name">Renee</div>
+            <div class="review-date">Verified Customer</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Baddest Wrap 🔥🔥 — nuff said. This thing is packed with everything you want. The seasoning alone is worth the trip. Happy House never disappoints!"</p>
+        <div class="review-author">
+          <div class="review-avatar">G</div>
+          <div>
+            <div class="review-name">Garfield</div>
+            <div class="review-date">Verified Customer</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="review-card">
+        <div class="review-stars">
+          <span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span><span class="review-star">★</span>
+        </div>
+        <p class="review-text">"Best spot in town, always fresh vegetables! You can taste the difference — nothing processed here. Great people, great food, great prices. Will always come back!"</p>
+        <div class="review-author">
+          <div class="review-avatar">F</div>
+          <div>
+            <div class="review-name">Fedrick</div>
+            <div class="review-date">Verified Customer</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ CTA ═════════════════════════════════════════════════ -->
+<section class="section-sm">
+  <div class="container">
+    <div class="cta-banner">
+      <p class="eyebrow" style="color:rgba(255,255,255,.35);margin-bottom:.75rem;">Ready to Eat?</p>
+      <h2>Order now on WhatsApp</h2>
+      <p>It's quick, it's easy, and your food will be made fresh just for you.</p>
+      <div class="cta-banner-actions">
+        <a href="https://wa.me/18767899423?text=Hi%20Happy%20House!%20I'd%20like%20to%20place%20an%20order." target="_blank" class="btn btn-whatsapp btn-xl">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chat on WhatsApp
+        </a>
+        <a href="menu.html" class="btn btn-lg" style="background:rgba(255,255,255,.08);color:#fff;border:1.5px solid rgba(255,255,255,.2);">
+          Browse Menu First
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══════════════════════════════════════════════ -->
+<footer class="app-footer">
+  <div class="footer-top">
+    <div class="footer-brand">
+      <div class="footer-brand-row">
+        <div class="footer-mark">HH</div>
+        <div>
+          <div class="footer-name">Happy House</div>
+          <div style="font-size:.62rem;letter-spacing:.18em;text-transform:uppercase;color:var(--gold);margin-top:1px;">Sligoville · Jamaica</div>
+        </div>
+      </div>
+      <p class="footer-tagline">Good Food. Good Vibes. Real Jamaican Flavor. Serving Sligoville with love and fresh ingredients every single day.</p>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Find Us</div>
+      <ul class="footer-info-list">
+        <li class="footer-info-item">
+          <svg class="footer-info-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          <span>P.O., Sligoville Dist,<br>Sligoville, Jamaica</span>
+        </li>
+        <li class="footer-info-item">
+          <svg class="footer-info-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 9.8a19.79 19.79 0 01-3.07-8.7A2 2 0 012 1h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 8.09a16 16 0 006 6l1.27-1.27a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 15z"/></svg>
+          <a href="tel:8767899423" style="color:inherit;">(876) 789-9423</a>
+        </li>
+        <li class="footer-info-item">
+          <svg class="footer-info-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <span>Mon–Sun: 11AM – 9PM</span>
+        </li>
+      </ul>
+    </div>
+
+    <div>
+      <div class="footer-col-title">Quick Links</div>
+      <ul class="footer-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="menu.html">Our Menu</a></li>
+        <li><a href="https://wa.me/18767899423?text=Hi%20Happy%20House!%20I'd%20like%20to%20place%20an%20order." target="_blank">Order on WhatsApp</a></li>
+        <li><a href="tel:8767899423">Call Us</a></li>
+        <li><a href="admin.html">Admin Panel</a></li>
+        <li><a href="kitchen.html">Kitchen Display</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <span>© 2025 Happy House. All rights reserved.</span>
+    <span>Made with ❤️ in Jamaica</span>
+  </div>
+</footer>
+
+<!-- ══ WHATSAPP FLOAT ══════════════════════════════════════ -->
+<a href="https://wa.me/18767899423?text=Hi%20Happy%20House!%20I'd%20like%20to%20place%20an%20order." target="_blank" class="wa-float" aria-label="Order on WhatsApp">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  <span>Order on WhatsApp</span>
+</a>
+
+<div id="toast-container"></div>
+
+<script src="app.js"></script>
+<script src="tour.js"></script>
+<script>
+'use strict';
+Store.load();
+
+const tableInput = document.getElementById('table-input');
+const continueBtn = document.getElementById('continue-btn');
+const takeoutBtn = document.getElementById('takeout-btn');
+
+/* Pre-fill if saved */
+if (Store.cart.tableNumber && Store.cart.orderType === 'dine-in') {
+  tableInput.value = Store.cart.tableNumber;
+}
+
+continueBtn.addEventListener('click', () => {
+  const t = tableInput.value.trim();
+  if (!t || isNaN(t) || +t < 1 || +t > 99) {
+    showToast('Please enter a table number between 1 and 99', 'error');
+    tableInput.focus();
+    return;
+  }
+  Store.setTable(t);
+  Store.setOrderType('dine-in');
+  window.location.href = 'menu.html';
+});
+
+tableInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter') continueBtn.click();
+});
+
+takeoutBtn.addEventListener('click', () => {
+  Store.setOrderType('takeout');
+  Store.setTable('Takeout');
+  window.location.href = 'menu.html';
+});
+
+Tour.init('index');
+</script>
+</body>
+</html>

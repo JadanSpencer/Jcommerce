@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Happy House — Kitchen Display</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── KITCHEN THEME OVERRIDES ── */
+    body {
+      display: flex;
+      flex-direction: column;
+      min-height: 100dvh;
+      background: #1A0F0A;
+      color: #E8E4DC;
+    }
+
+    /* ── TOP BAR ── */
+    .kitchen-bar {
+      background: #0A0806;
+      border-bottom: 1px solid rgba(255,255,255,.07);
+      height: 62px;
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      gap: 1rem;
+      position: sticky;
+      top: 0;
+      z-index: 80;
+    }
+
+    .kitchen-brand {
+      display: flex;
+      align-items: center;
+      gap: .65rem;
+      font-weight: 700;
+      font-size: .95rem;
+      color: #E8E4DC;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+
+    .kitchen-brand-mark {
+      width: 32px;
+      height: 32px;
+      background: var(--pink);
+      border-radius: 9px;
+      display: grid;
+      place-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .kitchen-clock {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 600;
+      color: rgba(255,255,255,.85);
+      letter-spacing: .04em;
+    }
+
+    .kitchen-bar-spacer { flex: 1; }
+
+    .kitchen-bar-links {
+      display: flex;
+      align-items: center;
+      gap: .25rem;
+    }
+
+    .kitchen-bar-link {
+      padding: .4rem .85rem;
+      border-radius: 8px;
+      font-size: .8rem;
+      font-weight: 500;
+      color: rgba(255,255,255,.45);
+      text-decoration: none;
+      transition: all .18s;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-family: inherit;
+      white-space: nowrap;
+    }
+    .kitchen-bar-link:hover { color: rgba(255,255,255,.85); background: rgba(255,255,255,.07); }
+
+    /* ── STATUS BANNER ── */
+    .kitchen-status {
+      background: #110A07;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+      padding: .75rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .ks-badge {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .35rem .85rem;
+      border-radius: 100px;
+      font-size: .75rem;
+      font-weight: 600;
+      border: 1.5px solid transparent;
+    }
+    .ks-badge-dot { width: 7px; height: 7px; border-radius: 50%; }
+    .ks-badge.pending  { background: rgba(232,162,46,.12); border-color: rgba(232,162,46,.25); color: #E8B44A; }
+    .ks-badge.pending  .ks-badge-dot { background: #E8B44A; animation: pulse-dot 1.4s ease-in-out infinite; }
+    .ks-badge.preparing{ background: rgba(44,95,212,.12);  border-color: rgba(44,95,212,.25);  color: #6B9EFF; }
+    .ks-badge.preparing .ks-badge-dot { background: #6B9EFF; animation: pulse-dot 1.2s ease-in-out infinite; }
+    .ks-badge.ready    { background: rgba(46,125,82,.18);   border-color: rgba(46,125,82,.35);   color: #4ADE80; }
+    .ks-badge.ready    .ks-badge-dot { background: #4ADE80; }
+    .ks-badge.completed{ background: rgba(255,255,255,.05); border-color: rgba(255,255,255,.1); color: rgba(255,255,255,.4); }
+    .ks-badge.completed .ks-badge-dot { background: rgba(255,255,255,.3); }
+
+    .kitchen-status-spacer { flex: 1; }
+
+    /* ── FILTER RAIL ── */
+    .kitchen-filter-wrap {
+      background: #110A07;
+      border-bottom: 1px solid rgba(255,255,255,.05);
+      padding: .6rem 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .kitchen-filter-wrap::-webkit-scrollbar { display: none; }
+
+    #kitchen-filter {
+      display: flex;
+      gap: .35rem;
+      min-width: max-content;
+    }
+
+    .kf-btn {
+      padding: .38rem .95rem;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,.1);
+      background: transparent;
+      color: rgba(255,255,255,.45);
+      font-size: .78rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .18s;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+    }
+    .kf-btn:hover   { color: rgba(255,255,255,.8); border-color: rgba(255,255,255,.2); }
+    .kf-btn.active  { background: var(--pink); border-color: var(--pink); color: #fff; }
+
+    .kf-count {
+      background: rgba(255,255,255,.15);
+      border-radius: 100px;
+      padding: 0 6px;
+      font-size: .65rem;
+      min-width: 18px;
+      text-align: center;
+    }
+    .kf-btn.active .kf-count { background: rgba(255,255,255,.25); }
+
+    /* ── GRID ── */
+    .kitchen-main {
+      flex: 1;
+      padding: 1.25rem 1.5rem 2rem;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .kitchen-empty {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 320px;
+      gap: 1rem;
+      color: rgba(255,255,255,.25);
+      text-align: center;
+    }
+    .kitchen-empty-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.07);
+      display: grid;
+      place-items: center;
+    }
+    .kitchen-empty h3 { font-size: 1rem; color: rgba(255,255,255,.3); font-weight: 600; }
+    .kitchen-empty p  { font-size: .82rem; }
+
+    #orders-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      align-items: start;
+    }
+
+    /* ── ORDER CARD ── */
+    .korder-card {
+      background: #1F1210;
+      border: 1.5px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: border-color .2s, box-shadow .2s;
+      display: flex;
+      flex-direction: column;
+    }
+    .korder-card:hover { border-color: rgba(255,255,255,.14); }
+
+    /* Urgent: older than 15 min and still pending */
+    .korder-card.urgent {
+      border-color: rgba(232,162,46,.4);
+      box-shadow: 0 0 0 1px rgba(232,162,46,.15), 0 4px 20px rgba(232,162,46,.08);
+    }
+
+    .korder-card.status-preparing {
+      border-color: rgba(44,95,212,.3);
+    }
+    .korder-card.status-ready {
+      border-color: rgba(74,222,128,.3);
+    }
+    .korder-card.status-completed {
+      opacity: .45;
+    }
+
+    /* Card header */
+    .kc-head {
+      padding: .9rem 1rem .75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .kc-table-badge {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+    }
+
+    .kc-table-num {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #fff;
+      line-height: 1;
+    }
+
+    .kc-table-label {
+      font-size: .65rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: rgba(255,255,255,.3);
+    }
+
+    .kc-head-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: .2rem;
+    }
+
+    .kc-status-pill {
+      display: flex;
+      align-items: center;
+      gap: .35rem;
+      padding: .22rem .65rem;
+      border-radius: 100px;
+      font-size: .65rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+    .kc-status-pill.pending   { background: rgba(232,162,46,.2);  color: #E8B44A; }
+    .kc-status-pill.preparing { background: rgba(44,95,212,.2);   color: #6B9EFF; }
+    .kc-status-pill.ready     { background: rgba(46,125,82,.15);  color: #4ADE80; }
+    .kc-status-pill.completed { background: rgba(255,255,255,.06); color: rgba(255,255,255,.3); }
+
+    .kc-status-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+    }
+    .pending   .kc-status-dot { background: #E8B44A; animation: pulse-dot 1.4s infinite; }
+    .preparing .kc-status-dot { background: #6B9EFF; animation: pulse-dot 1.2s infinite; }
+    .ready     .kc-status-dot { background: #4ADE80; }
+    .completed .kc-status-dot { background: rgba(255,255,255,.25); }
+
+    .kc-time {
+      font-size: .68rem;
+      color: rgba(255,255,255,.25);
+    }
+    .kc-time.urgent-time { color: #E8B44A; }
+
+    /* Order ID */
+    .kc-order-id {
+      font-size: .62rem;
+      color: rgba(255,255,255,.2);
+      letter-spacing: .08em;
+      margin-top: .05rem;
+    }
+
+    /* Items list */
+    .kc-items {
+      padding: .75rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: .4rem;
+      flex: 1;
+    }
+
+    .kc-person-label {
+      font-size: .6rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .14em;
+      color: rgba(255,255,255,.25);
+      margin-top: .35rem;
+      margin-bottom: .15rem;
+    }
+    .kc-person-label:first-child { margin-top: 0; }
+
+    .kc-item {
+      display: flex;
+      align-items: baseline;
+      gap: .6rem;
+    }
+
+    .kc-item-qty {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--gold);
+      min-width: 22px;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+
+    .kc-item-name {
+      font-size: .875rem;
+      font-weight: 600;
+      color: #E8E4DC;
+      line-height: 1.35;
+    }
+
+    /* Notes */
+    .kc-notes {
+      margin: 0 1rem .75rem;
+      padding: .5rem .75rem;
+      background: rgba(232,162,46,.07);
+      border: 1px solid rgba(232,162,46,.15);
+      border-radius: 8px;
+      font-size: .75rem;
+      color: rgba(232,162,46,.85);
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: .45rem;
+    }
+    .kc-notes-icon { flex-shrink: 0; margin-top: 1px; opacity: .7; }
+
+    /* Action zone */
+    .kitchen-action-zone {
+      padding: .75rem 1rem;
+      border-top: 1px solid rgba(255,255,255,.06);
+      background: rgba(0,0,0,.15);
+      display: flex;
+      gap: .5rem;
+      align-items: center;
+    }
+
+    .kc-action-btn {
+      flex: 1;
+      height: 40px;
+      border: none;
+      border-radius: 10px;
+      font-size: .78rem;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .18s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: .4rem;
+      letter-spacing: .02em;
+    }
+
+    .kc-action-pending   { background: rgba(232,162,46,.2);  color: #E8B44A; border: 1.5px solid rgba(232,162,46,.3); }
+    .kc-action-pending:hover   { background: rgba(232,162,46,.35); }
+
+    .kc-action-preparing { background: rgba(44,95,212,.18); color: #6B9EFF; border: 1.5px solid rgba(44,95,212,.3); }
+    .kc-action-preparing:hover { background: rgba(44,95,212,.32); }
+
+    .kc-action-ready     { background: rgba(46,125,82,.12); color: #4ADE80; border: 1.5px solid rgba(46,125,82,.25); }
+    .kc-action-ready:hover     { background: rgba(46,125,82,.25); }
+
+    .kc-action-complete  { background: rgba(255,255,255,.05); color: rgba(255,255,255,.4); border: 1.5px solid rgba(255,255,255,.08); }
+    .kc-action-complete:hover  { background: rgba(255,255,255,.1); }
+
+    /* Dark mode toggle */
+    .dark-toggle {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      padding: .35rem .85rem;
+      border-radius: 100px;
+      border: 1.5px solid rgba(255,255,255,.1);
+      background: transparent;
+      color: rgba(255,255,255,.4);
+      font-size: .75rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: inherit;
+      transition: all .18s;
+    }
+    .dark-toggle:hover { color: rgba(255,255,255,.75); border-color: rgba(255,255,255,.2); }
+
+    /* Auto-refresh indicator */
+    .refresh-indicator {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .72rem;
+      color: rgba(255,255,255,.25);
+    }
+    .refresh-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: #4ADE80;
+    }
+    .refresh-dot.ticking { animation: pulse-dot 2s ease-in-out infinite; }
+
+    /* ── LIGHT MODE ── */
+    body.kitchen-light {
+      background: var(--bg);
+      color: var(--ink);
+    }
+    body.kitchen-light .kitchen-bar { background: var(--surface); border-color: var(--border); }
+    body.kitchen-light .kitchen-bar-link { color: var(--ink-3); }
+    body.kitchen-light .kitchen-bar-link:hover { color: var(--ink); background: var(--bg2); }
+    body.kitchen-light .kitchen-brand { color: var(--pink); }
+    body.kitchen-light .kitchen-clock { color: var(--ink); }
+    body.kitchen-light .kitchen-status { background: var(--surface); border-color: var(--border); }
+    body.kitchen-light .kitchen-filter-wrap { background: var(--bg); border-color: var(--border); }
+    body.kitchen-light .kf-btn { color: var(--ink-3); border-color: var(--border); }
+    body.kitchen-light .kf-btn:hover { color: var(--ink); }
+    body.kitchen-light .korder-card { background: var(--surface); border-color: var(--border); }
+    body.kitchen-light .kc-table-num { color: var(--ink); }
+    body.kitchen-light .kc-table-label { color: var(--ink-4); }
+    body.kitchen-light .kc-item-name { color: var(--ink); }
+    body.kitchen-light .kc-person-label { color: var(--ink-4); }
+    body.kitchen-light .kc-time { color: var(--ink-4); }
+    body.kitchen-light .kc-order-id { color: var(--ink-4); }
+    body.kitchen-light .kitchen-action-zone { border-color: var(--border); background: var(--bg); }
+    body.kitchen-light .kitchen-empty { color: var(--ink-4); }
+    body.kitchen-light .kitchen-empty h3 { color: var(--ink-3); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      #orders-grid { grid-template-columns: 1fr 1fr; }
+      .kitchen-main { padding: 1rem; }
+    }
+    @media (max-width: 520px) {
+      #orders-grid { grid-template-columns: 1fr; }
+      .kitchen-bar { padding: 0 1rem; }
+      .kitchen-status { padding: .6rem 1rem; }
+      .kitchen-filter-wrap { padding: .5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<header class="kitchen-bar">
+  <a href="index.html" class="kitchen-brand">
+    <div class="kitchen-brand-mark">HH</div>
+    Kitchen Display
+  </a>
+  <div class="kitchen-bar-spacer"></div>
+  <div class="refresh-indicator">
+    <div class="refresh-dot ticking" id="refresh-dot"></div>
+    <span id="refresh-label">Live</span>
+  </div>
+  <div class="kitchen-clock" id="kitchen-clock">—</div>
+  <div class="kitchen-bar-links">
+    <button class="kitchen-bar-link dark-toggle" id="dark-toggle">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      Light Mode
+    </button>
+    <a href="admin.html" class="kitchen-bar-link">Admin</a>
+    <a href="index.html" class="kitchen-bar-link">Guest</a>
+  </div>
+</header>
+
+<!-- STATUS BADGES -->
+<div class="kitchen-status" id="kitchen-status">
+  <div class="ks-badge pending">
+    <div class="ks-badge-dot"></div>
+    <span id="count-pending">0</span> Pending
+  </div>
+  <div class="ks-badge preparing">
+    <div class="ks-badge-dot"></div>
+    <span id="count-preparing">0</span> Preparing
+  </div>
+  <div class="ks-badge ready">
+    <div class="ks-badge-dot"></div>
+    <span id="count-ready">0</span> Ready
+  </div>
+  <div class="ks-badge completed">
+    <div class="ks-badge-dot"></div>
+    <span id="count-completed">0</span> Completed
+  </div>
+  <div class="kitchen-status-spacer"></div>
+  <button class="kitchen-bar-link" id="tour-replay-btn" style="display:flex;align-items:center;gap:.35rem;font-size:.75rem;color:rgba(255,255,255,.3)">
+    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+    Take Tour
+  </button>
+</div>
+
+<!-- FILTER BAR -->
+<div class="kitchen-filter-wrap">
+  <div id="kitchen-filter">
+    <button class="kf-btn active" data-filter="active">
+      Active <span class="kf-count" id="fc-active">0</span>
+    </button>
+    <button class="kf-btn" data-filter="all">All Orders</button>
+    <button class="kf-btn" data-filter="pending">
+      Pending <span class="kf-count" id="fc-pending">0</span>
+    </button>
+    <button class="kf-btn" data-filter="preparing">
+      Preparing <span class="kf-count" id="fc-preparing">0</span>
+    </button>
+    <button class="kf-btn" data-filter="ready">
+      Ready <span class="kf-count" id="fc-ready">0</span>
+    </button>
+    <button class="kf-btn" data-filter="completed">Completed</button>
+  </div>
+</div>
+
+<!-- ORDERS GRID -->
+<main class="kitchen-main">
+  <div id="orders-grid"></div>
+</main>
+
+<div id="toast-container"></div>
+
+<script src="app.js"></script>
+<script src="tour.js"></script>
+<script>
+  'use strict';
+  Store.load();
+
+  let activeFilter = 'active';
+  let lightMode    = localStorage.getItem('hh_kitchen_light') === '1';
+  if (lightMode) document.body.classList.add('kitchen-light');
+
+  /* ── CLOCK ── */
+  function updateClock() {
+    const now = new Date();
+    const h   = String(now.getHours()).padStart(2,'0');
+    const m   = String(now.getMinutes()).padStart(2,'0');
+    document.getElementById('kitchen-clock').textContent = `${h}:${m}`;
+  }
+  updateClock();
+  setInterval(updateClock, 10000);
+
+  /* ── STATUS COUNTS ── */
+  function updateCounts() {
+    const orders = Store.orders;
+    const c = {
+      pending:   orders.filter(o => o.status === 'pending').length,
+      preparing: orders.filter(o => o.status === 'preparing').length,
+      ready:     orders.filter(o => o.status === 'ready').length,
+      completed: orders.filter(o => o.status === 'completed').length
+    };
+    document.getElementById('count-pending').textContent   = c.pending;
+    document.getElementById('count-preparing').textContent = c.preparing;
+    document.getElementById('count-ready').textContent     = c.ready;
+    document.getElementById('count-completed').textContent = c.completed;
+
+    document.getElementById('fc-active').textContent    = c.pending + c.preparing + c.ready;
+    document.getElementById('fc-pending').textContent   = c.pending;
+    document.getElementById('fc-preparing').textContent = c.preparing;
+    document.getElementById('fc-ready').textContent     = c.ready;
+  }
+
+  /* ── FILTER ── */
+  document.getElementById('kitchen-filter').addEventListener('click', e => {
+    const btn = e.target.closest('.kf-btn');
+    if (!btn) return;
+    activeFilter = btn.dataset.filter;
+    document.querySelectorAll('.kf-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === activeFilter));
+    renderOrders();
+  });
+
+  /* ── RENDER ── */
+  function getFilteredOrders() {
+    const all = Store.orders;
+    if (activeFilter === 'active')
+      return all.filter(o => o.status === 'pending' || o.status === 'preparing' || o.status === 'ready');
+    if (activeFilter === 'all') return all;
+    return all.filter(o => o.status === activeFilter);
+  }
+
+  function renderOrders() {
+    Store.load(); // refresh from localStorage
+    updateCounts();
+    const orders = getFilteredOrders();
+    const grid = document.getElementById('orders-grid');
+
+    if (!orders.length) {
+      grid.innerHTML = `
+        <div class="kitchen-empty" style="grid-column:1/-1">
+          <div class="kitchen-empty-icon">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          </div>
+          <h3>${activeFilter === 'active' ? 'All clear' : 'No orders'}</h3>
+          <p>${activeFilter === 'active' ? 'No active orders right now' : 'Nothing in this category'}</p>
+        </div>`;
+      return;
+    }
+
+    // Sort: pending first, then preparing, then ready, then completed; within each group oldest first
+    const statusOrder = { pending:0, preparing:1, ready:2, completed:3 };
+    const sorted = [...orders].sort((a, b) => {
+      const sd = statusOrder[a.status] - statusOrder[b.status];
+      if (sd !== 0) return sd;
+      return new Date(a.createdAt) - new Date(b.createdAt);
+    });
+
+    grid.innerHTML = '';
+    sorted.forEach(order => grid.appendChild(buildCard(order)));
+    attachEvents();
+  }
+
+  function isUrgent(order) {
+    const mins = (Date.now() - new Date(order.createdAt)) / 60000;
+    return (order.status === 'pending' || order.status === 'preparing') && mins > 12;
+  }
+
+  function buildCard(order) {
+    const div  = document.createElement('div');
+    const mins = Math.floor((Date.now() - new Date(order.createdAt)) / 60000);
+    const timeStr = mins < 1 ? 'just now' : mins < 60 ? `${mins}m ago` : `${Math.floor(mins/60)}h ${mins%60}m ago`;
+    const urgent = isUrgent(order);
+
+    div.className = `korder-card status-${order.status}${urgent ? ' urgent' : ''}`;
+
+    // Build items HTML
+    let itemsHtml = '';
+    const multiPerson = order.persons.length > 1;
+    order.persons.forEach(person => {
+      if (!person.items.length) return;
+      if (multiPerson) {
+        itemsHtml += `<div class="kc-person-label">${escapeHtml(person.name)}</div>`;
+      }
+      person.items.forEach(item => {
+        itemsHtml += `
+          <div class="kc-item">
+            <span class="kc-item-qty">×${item.quantity}</span>
+            <span class="kc-item-name">${escapeHtml(item.name)}</span>
+          </div>`;
+      });
+    });
+
+    const notesHtml = order.notes ? `
+      <div class="kc-notes">
+        <svg class="kc-notes-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+        ${escapeHtml(order.notes)}
+      </div>` : '';
+
+    /* Next action button */
+    let actionHtml = '';
+    if (order.status === 'pending') {
+      actionHtml = `
+        <button class="kc-action-btn kc-action-pending kitchen-advance-btn"
+          data-id="${order.id}" data-next="preparing">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><path d="M10 8l6 4-6 4V8z"/></svg>
+          Start Preparing
+        </button>`;
+    } else if (order.status === 'preparing') {
+      actionHtml = `
+        <button class="kc-action-btn kc-action-preparing kitchen-advance-btn"
+          data-id="${order.id}" data-next="ready">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+          Mark Ready
+        </button>`;
+    } else if (order.status === 'ready') {
+      actionHtml = `
+        <button class="kc-action-btn kc-action-ready kitchen-advance-btn"
+          data-id="${order.id}" data-next="completed">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Complete & Send
+        </button>`;
+    } else {
+      actionHtml = `
+        <button class="kc-action-btn kc-action-complete" disabled>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+          Delivered
+        </button>`;
+    }
+
+    div.innerHTML = `
+      <div class="kc-head">
+        <div class="kc-table-badge">
+          <div>
+            <div class="kc-table-label">Table</div>
+            <div class="kc-table-num">${escapeHtml(String(order.tableNumber))}</div>
+          </div>
+        </div>
+        <div class="kc-head-right">
+          <div class="kc-status-pill ${order.status}">
+            <div class="kc-status-dot"></div>
+            ${statusLabel(order.status)}
+          </div>
+          <div class="kc-time${urgent ? ' urgent-time' : ''}">${timeStr}${urgent ? ' ⚠' : ''}</div>
+          <div class="kc-order-id">${order.id}</div>
+        </div>
+      </div>
+      <div class="kc-items">${itemsHtml}</div>
+      ${notesHtml}
+      <div class="kitchen-action-zone">${actionHtml}</div>
+    `;
+
+    return div;
+  }
+
+  function attachEvents() {
+    document.querySelectorAll('.kitchen-advance-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const order = Store.updateOrderStatus(btn.dataset.id, btn.dataset.next);
+        const labels = { preparing:'Now Preparing', ready:'Ready for Service', completed:'Order Complete' };
+        showToast(`${btn.dataset.id} — ${labels[btn.dataset.next] || btn.dataset.next}`, 'success');
+        renderOrders();
+      });
+    });
+  }
+
+  /* ── DARK/LIGHT TOGGLE ── */
+  const darkToggle = document.getElementById('dark-toggle');
+  function updateToggleLabel() {
+    darkToggle.innerHTML = lightMode
+      ? `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg> Dark Mode`
+      : `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg> Light Mode`;
+  }
+  updateToggleLabel();
+  darkToggle.addEventListener('click', () => {
+    lightMode = !lightMode;
+    document.body.classList.toggle('kitchen-light', lightMode);
+    localStorage.setItem('hh_kitchen_light', lightMode ? '1' : '0');
+    updateToggleLabel();
+  });
+
+  /* ── AUTO REFRESH (every 5s) ── */
+  let refreshCount = 0;
+  const refreshDot = document.getElementById('refresh-dot');
+  setInterval(() => {
+    Store.load();
+    renderOrders();
+    refreshCount++;
+    refreshDot.classList.remove('ticking');
+    void refreshDot.offsetWidth; // force reflow
+    refreshDot.classList.add('ticking');
+  }, 5000);
+
+  /* ── GUIDED TOUR ── */
+  Tour.init('kitchen');
+  document.getElementById('tour-replay-btn').addEventListener('click', () => Tour.restart('kitchen'));
+
+  /* ── INIT ── */
+  renderOrders();
+</script>
+</body>
+</html>
