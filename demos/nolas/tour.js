@@ -304,17 +304,45 @@ const Tour = (() => {
 
   function positionPopup(target, position) {
     const pop = el.popup;
-    const pw  = pop.offsetWidth  || 360;
-    const ph  = pop.offsetHeight || 280;
     const vw  = window.innerWidth;
     const vh  = window.innerHeight;
     const pad = 16;
 
+    // On mobile always anchor with left/right insets — avoids overflow from stale offsetWidth
+    if (vw < 600) {
+      Object.assign(pop.style, {
+        left: pad + 'px', right: pad + 'px', width: 'auto',
+        top: '', bottom: '', transform: ''
+      });
+      // Place below target if visible, otherwise center vertically
+      if (target) {
+        const r = target.getBoundingClientRect();
+        const spaceBelow = vh - r.bottom - pad;
+        const spaceAbove = r.top - pad;
+        if (spaceBelow >= 220 || spaceBelow >= spaceAbove) {
+          pop.style.top    = Math.min(r.bottom + 14, vh - 240) + 'px';
+          pop.style.bottom = '';
+        } else {
+          pop.style.bottom = pad + 'px';
+          pop.style.top    = '';
+        }
+      } else {
+        pop.style.top       = '50%';
+        pop.style.transform = 'translateY(-50%)';
+      }
+      return;
+    }
+
+    const pw = pop.offsetWidth  || 360;
+    const ph = pop.offsetHeight || 280;
+
     if (!target || position === 'center') {
-      Object.assign(pop.style, { top:'50%', left:'50%', transform:'translate(-50%,-50%)' });
+      Object.assign(pop.style, { top:'50%', left:'50%', right:'', width:'', transform:'translate(-50%,-50%)' });
       return;
     }
     pop.style.transform = '';
+    pop.style.right     = '';
+    pop.style.width     = '';
     const r = target.getBoundingClientRect();
     let top, left;
     if      (position === 'bottom') { top = r.bottom + 14; left = r.left + r.width/2 - pw/2; }
