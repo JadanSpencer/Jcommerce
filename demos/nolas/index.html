@@ -1,0 +1,858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="Nola's Events — Fine Dining on Jamaica's Serene South Coast. Luana, St. Elizabeth.">
+  <meta name="theme-color" content="#0C0A07">
+  <title>Nola's Events — Fine Dining, Luana Jamaica</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;1,400;1,600&family=Jost:wght@200;300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    /* ══ BASE ══ */
+    :root {
+      --bg:        #0C0A07;
+      --bg2:       #111009;
+      --surface:   #1A1610;
+      --surface2:  #221D14;
+      --border:    rgba(212,168,67,.14);
+      --border2:   rgba(212,168,67,.28);
+      --gold:      #D4A843;
+      --gold-lt:   #E8C56A;
+      --gold-pale: rgba(212,168,67,.08);
+      --cream:     #F5ECD7;
+      --text:      #F5ECD7;
+      --text2:     #C9B89A;
+      --text3:     #9B8878;
+      --text4:     #6B5848;
+      --jerk:      #E05A2B;
+      --green:     #4CAF7A;
+      --r:         12px;
+      --r-lg:      18px;
+      --r-xl:      24px;
+      --r-2xl:     32px;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      font-family:'Jost',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      min-height:100dvh;
+      display:flex; flex-direction:column;
+      overflow-x:hidden;
+    }
+    a { color:inherit; text-decoration:none; }
+    button { font-family:'Jost',sans-serif; cursor:pointer; }
+    img { display:block; max-width:100%; }
+
+    /* ══ NAV ══ */
+    .nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      height:64px;
+      display:flex; align-items:center;
+      padding:0 2rem;
+      background:rgba(12,10,7,.85);
+      backdrop-filter:blur(20px);
+      -webkit-backdrop-filter:blur(20px);
+      border-bottom:1px solid var(--border);
+    }
+    .nav-brand {
+      display:flex; align-items:center; gap:.75rem;
+    }
+    .nav-logo {
+      width:36px; height:36px;
+      background:var(--gold);
+      border-radius:10px;
+      display:grid; place-items:center;
+      color:#0C0A07; font-size:1.1rem;
+      flex-shrink:0;
+    }
+    .nav-name  { font-family:'Playfair Display',serif; font-size:1.05rem; font-weight:700; color:var(--cream); }
+    .nav-tag   { font-size:.62rem; color:var(--text4); letter-spacing:.12em; text-transform:uppercase; }
+    .nav-spacer { flex:1; }
+    .nav-links {
+      display:flex; align-items:center; gap:.25rem;
+    }
+    .nav-link {
+      padding:.45rem .9rem;
+      border-radius:8px;
+      font-size:.82rem; font-weight:500; color:var(--text3);
+      transition:all .18s;
+    }
+    .nav-link:hover { background:rgba(255,255,255,.06); color:var(--text); }
+    .nav-link.active { color:var(--gold); }
+    .nav-tour-btn {
+      display:flex; align-items:center; gap:.4rem;
+      padding:.42rem .9rem;
+      border-radius:8px;
+      border:1px solid var(--border2);
+      background:var(--gold-pale);
+      color:var(--gold);
+      font-size:.78rem; font-weight:600;
+      transition:all .18s;
+    }
+    .nav-tour-btn:hover { background:rgba(212,168,67,.15); border-color:var(--gold); }
+    @media(max-width:640px){
+      .nav { padding:0 1.25rem; }
+      .nav-links { display:none; }
+    }
+
+    /* ══ HERO ══ */
+    .hero {
+      min-height:100dvh;
+      position:relative;
+      display:flex; align-items:center;
+      overflow:hidden;
+      padding-top:64px;
+    }
+    .hero-bg {
+      position:absolute; inset:0;
+      background:
+        radial-gradient(ellipse 80% 60% at 20% 60%, rgba(224,90,43,.12) 0%, transparent 60%),
+        radial-gradient(ellipse 60% 80% at 80% 30%, rgba(212,168,67,.08) 0%, transparent 55%),
+        radial-gradient(ellipse 100% 100% at 50% 100%, rgba(26,22,16,.9) 0%, transparent 70%);
+    }
+    /* Grain texture */
+    .hero-bg::after {
+      content:'';
+      position:absolute; inset:0;
+      background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      opacity:.4; pointer-events:none;
+    }
+    .hero-orb {
+      position:absolute; border-radius:50%; pointer-events:none; filter:blur(80px);
+    }
+    .hero-orb-1 { width:500px; height:500px; background:rgba(212,168,67,.07); top:-100px; right:-100px; animation:drift1 12s ease-in-out infinite; }
+    .hero-orb-2 { width:400px; height:400px; background:rgba(224,90,43,.06); bottom:-80px; left:-80px; animation:drift2 10s ease-in-out infinite; }
+    @keyframes drift1 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(-30px,20px)} }
+    @keyframes drift2 { 0%,100%{transform:translate(0,0)} 50%{transform:translate(20px,-25px)} }
+
+    .hero-inner {
+      position:relative; z-index:2;
+      max-width:1200px; margin:0 auto;
+      padding:4rem 2rem 6rem;
+      display:grid;
+      grid-template-columns:1fr 420px;
+      gap:5rem;
+      align-items:center;
+      width:100%;
+    }
+
+    /* Left column */
+    .hero-left {}
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.3rem .9rem;
+      border-radius:100px;
+      border:1px solid rgba(212,168,67,.3);
+      background:rgba(212,168,67,.07);
+      font-size:.62rem; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:var(--gold);
+      margin-bottom:1.75rem;
+    }
+    .hero-eyebrow-dot {
+      width:5px; height:5px; border-radius:50%;
+      background:var(--gold);
+      animation:pulse 1.8s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(1.5)} }
+
+    .hero-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(2.8rem,6vw,4.5rem);
+      font-weight:800;
+      line-height:1.04;
+      color:var(--cream);
+      margin-bottom:1rem;
+    }
+    .hero-title em { font-style:italic; color:var(--gold); }
+
+    .hero-desc {
+      font-size:1.05rem; font-weight:300;
+      color:var(--text3); line-height:1.75;
+      max-width:480px; margin-bottom:2.75rem;
+    }
+
+    .hero-actions {
+      display:flex; flex-wrap:wrap; gap:.875rem; margin-bottom:3.5rem;
+    }
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.9rem 2rem;
+      border-radius:var(--r);
+      background:var(--gold);
+      color:#0C0A07;
+      font-size:.9rem; font-weight:700;
+      border:none;
+      transition:all .2s;
+      box-shadow:0 4px 20px rgba(212,168,67,.3);
+    }
+    .btn-primary:hover { background:var(--gold-lt); transform:translateY(-2px); box-shadow:0 8px 32px rgba(212,168,67,.4); }
+    .btn-ghost {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.9rem 2rem;
+      border-radius:var(--r);
+      background:transparent;
+      color:var(--text2);
+      font-size:.9rem; font-weight:500;
+      border:1px solid var(--border2);
+      transition:all .2s;
+    }
+    .btn-ghost:hover { background:rgba(255,255,255,.05); color:var(--text); border-color:rgba(212,168,67,.4); }
+    .hero-whatsapp {
+      display:inline-flex; align-items:center; gap:.5rem;
+      padding:.9rem 2rem;
+      border-radius:var(--r);
+      background:transparent;
+      color:var(--green);
+      font-size:.9rem; font-weight:500;
+      border:1px solid rgba(76,175,122,.3);
+      transition:all .2s;
+    }
+    .hero-whatsapp:hover { background:rgba(76,175,122,.08); border-color:var(--green); }
+
+    .hero-stats {
+      display:flex; gap:2.5rem;
+      padding-top:2rem;
+      border-top:1px solid var(--border);
+    }
+    .h-stat-num {
+      font-family:'Playfair Display',serif;
+      font-size:1.9rem; font-weight:800; color:var(--cream); line-height:1;
+    }
+    .h-stat-num span { font-size:1rem; color:var(--gold); }
+    .h-stat-label {
+      font-size:.62rem; color:var(--text4);
+      text-transform:uppercase; letter-spacing:.12em; margin-top:.25rem;
+      font-weight:500;
+    }
+
+    /* Right column — order card */
+    .order-card {
+      background:var(--surface);
+      border:1px solid var(--border2);
+      border-radius:var(--r-xl);
+      padding:2rem;
+      box-shadow:0 24px 80px rgba(0,0,0,.6), 0 0 0 1px rgba(212,168,67,.05);
+      position:relative;
+      overflow:hidden;
+    }
+    .order-card::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0; height:2px;
+      background:linear-gradient(90deg, transparent, var(--gold), transparent);
+      opacity:.6;
+    }
+    .oc-title {
+      font-family:'Playfair Display',serif;
+      font-size:1.3rem; font-weight:700;
+      color:var(--cream); margin-bottom:.3rem;
+    }
+    .oc-sub { font-size:.82rem; color:var(--text4); margin-bottom:1.75rem; font-weight:300; }
+
+    .table-wrap { position:relative; margin-bottom:1rem; }
+    .table-icon {
+      position:absolute; left:1rem; top:50%; transform:translateY(-50%);
+      color:var(--text4); pointer-events:none;
+    }
+    .table-input {
+      width:100%; padding:.95rem 1rem .95rem 2.75rem;
+      background:rgba(255,255,255,.05);
+      border:1.5px solid var(--border2);
+      border-radius:var(--r);
+      font-size:1rem; font-weight:500; color:var(--text);
+      font-family:'Jost',sans-serif;
+      transition:all .2s;
+    }
+    .table-input::placeholder { color:var(--text4); }
+    .table-input:focus {
+      outline:none;
+      border-color:var(--gold);
+      background:rgba(212,168,67,.05);
+      box-shadow:0 0 0 3px rgba(212,168,67,.12);
+    }
+    .table-input::-webkit-inner-spin-button,
+    .table-input::-webkit-outer-spin-button { -webkit-appearance:none; margin:0; }
+
+    #continue-btn {
+      width:100%;
+      padding:1rem;
+      border-radius:var(--r);
+      background:var(--gold);
+      color:#0C0A07;
+      font-size:.95rem; font-weight:700;
+      border:none;
+      margin-bottom:.75rem;
+      display:flex; align-items:center; justify-content:center; gap:.5rem;
+      transition:all .2s;
+      box-shadow:0 4px 20px rgba(212,168,67,.25);
+    }
+    #continue-btn:hover { background:var(--gold-lt); transform:translateY(-1px); box-shadow:0 8px 28px rgba(212,168,67,.35); }
+    #continue-btn:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+
+    .btn-takeout-card {
+      width:100%;
+      padding:.85rem;
+      border-radius:var(--r);
+      background:transparent;
+      color:var(--text2);
+      font-size:.875rem; font-weight:500;
+      border:1px solid var(--border);
+      display:flex; align-items:center; justify-content:center; gap:.5rem;
+      transition:all .2s;
+    }
+    .btn-takeout-card:hover { background:rgba(255,255,255,.04); border-color:var(--border2); color:var(--text); }
+
+    .or-divider {
+      display:flex; align-items:center; gap:.6rem;
+      color:var(--text4); font-size:.7rem; font-weight:500;
+      letter-spacing:.1em; text-transform:uppercase;
+      margin:.875rem 0;
+    }
+    .or-divider::before, .or-divider::after {
+      content:''; flex:1; height:1px; background:var(--border);
+    }
+
+    .popular-pills { margin-top:1.5rem; padding-top:1.25rem; border-top:1px solid var(--border); }
+    .pp-label {
+      font-size:.6rem; font-weight:700;
+      letter-spacing:.18em; text-transform:uppercase;
+      color:var(--text4); margin-bottom:.75rem;
+    }
+    .pp-list { display:flex; flex-wrap:wrap; gap:.4rem; }
+    .pp-pill {
+      background:rgba(255,255,255,.05);
+      border:1px solid var(--border);
+      border-radius:100px;
+      padding:.25rem .75rem;
+      font-size:.72rem; font-weight:500; color:var(--text3);
+    }
+
+    /* ══ FEATURES ══ */
+    .section {
+      padding:5rem 2rem;
+      max-width:1200px; margin:0 auto; width:100%;
+    }
+    .section-eyebrow {
+      font-size:.62rem; font-weight:700;
+      letter-spacing:.2em; text-transform:uppercase;
+      color:var(--gold); margin-bottom:.75rem;
+    }
+    .section-title {
+      font-family:'Playfair Display',serif;
+      font-size:clamp(1.8rem,3.5vw,2.75rem);
+      font-weight:700; color:var(--cream);
+      line-height:1.15; margin-bottom:1rem;
+    }
+    .section-title em { font-style:italic; color:var(--gold); }
+    .section-desc {
+      font-size:.95rem; color:var(--text3);
+      line-height:1.75; max-width:560px;
+    }
+
+    .features-grid {
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:1.25rem;
+      margin-top:3rem;
+    }
+    .feature-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-lg);
+      padding:1.75rem;
+      transition:all .25s;
+      position:relative;
+      overflow:hidden;
+    }
+    .feature-card:hover {
+      border-color:var(--border2);
+      transform:translateY(-3px);
+      box-shadow:0 16px 48px rgba(0,0,0,.4);
+    }
+    .feature-card::after {
+      content:'';
+      position:absolute; inset:0;
+      background:linear-gradient(135deg, rgba(212,168,67,.03) 0%, transparent 60%);
+      pointer-events:none;
+    }
+    .feat-icon {
+      width:48px; height:48px;
+      background:var(--gold-pale);
+      border:1px solid rgba(212,168,67,.18);
+      border-radius:12px;
+      display:grid; place-items:center;
+      color:var(--gold);
+      margin-bottom:1.25rem;
+      font-size:1.3rem;
+    }
+    .feat-title {
+      font-family:'Playfair Display',serif;
+      font-size:1.05rem; font-weight:700;
+      color:var(--cream); margin-bottom:.5rem;
+    }
+    .feat-desc {
+      font-size:.82rem; color:var(--text3);
+      line-height:1.65;
+    }
+
+    /* ══ MENU PREVIEW ══ */
+    .menu-preview {
+      background:var(--bg2);
+      border-top:1px solid var(--border);
+      border-bottom:1px solid var(--border);
+      padding:5rem 2rem;
+    }
+    .mp-inner { max-width:1200px; margin:0 auto; }
+    .cat-pills {
+      display:flex; flex-wrap:wrap; gap:.5rem;
+      margin-top:2rem; margin-bottom:2.5rem;
+    }
+    .cat-pill {
+      padding:.45rem 1.1rem;
+      border-radius:100px;
+      border:1px solid var(--border);
+      background:transparent;
+      color:var(--text3); font-size:.82rem; font-weight:500;
+      cursor:pointer; transition:all .18s;
+    }
+    .cat-pill:hover { border-color:var(--border2); color:var(--text2); }
+    .cat-pill.active { border-color:var(--gold); color:var(--gold); background:var(--gold-pale); }
+
+    .preview-grid {
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(280px,1fr));
+      gap:1rem;
+    }
+    .prev-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-lg);
+      padding:1.25rem;
+      display:flex; gap:1rem;
+      align-items:flex-start;
+      transition:border-color .2s;
+    }
+    .prev-card:hover { border-color:var(--border2); }
+    .prev-emoji {
+      width:48px; height:48px;
+      background:var(--gold-pale);
+      border-radius:10px;
+      display:grid; place-items:center;
+      font-size:1.4rem; flex-shrink:0;
+    }
+    .prev-info { flex:1; min-width:0; }
+    .prev-name {
+      font-family:'Playfair Display',serif;
+      font-size:.95rem; font-weight:700; color:var(--cream);
+      margin-bottom:.2rem;
+    }
+    .prev-desc { font-size:.75rem; color:var(--text4); line-height:1.5; }
+    .prev-price {
+      font-family:'Playfair Display',serif;
+      font-size:.95rem; font-weight:700; color:var(--gold);
+      flex-shrink:0; white-space:nowrap;
+    }
+    .prev-tag {
+      display:inline-block;
+      padding:.15rem .5rem;
+      border-radius:100px;
+      font-size:.62rem; font-weight:600;
+      background:rgba(212,168,67,.1);
+      color:var(--gold);
+      margin-top:.4rem;
+    }
+
+    /* ══ STAFF PORTALS ══ */
+    .portals-grid {
+      display:grid;
+      grid-template-columns:repeat(2,1fr);
+      gap:1.25rem;
+      margin-top:3rem;
+    }
+    .portal-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      padding:2rem;
+      display:flex; flex-direction:column;
+      gap:1.25rem;
+      transition:all .25s;
+      text-decoration:none;
+    }
+    .portal-card:hover {
+      border-color:var(--border2);
+      transform:translateY(-3px);
+      box-shadow:0 20px 60px rgba(0,0,0,.5);
+    }
+    .portal-icon-wrap {
+      width:56px; height:56px;
+      border-radius:14px;
+      display:grid; place-items:center;
+      font-size:1.6rem;
+    }
+    .portal-title {
+      font-family:'Playfair Display',serif;
+      font-size:1.2rem; font-weight:700; color:var(--cream);
+    }
+    .portal-desc { font-size:.82rem; color:var(--text3); line-height:1.6; }
+    .portal-arrow {
+      margin-top:auto;
+      display:inline-flex; align-items:center; gap:.35rem;
+      font-size:.8rem; font-weight:600; color:var(--gold);
+    }
+
+    /* ══ FOOTER ══ */
+    .footer {
+      background:var(--bg2);
+      border-top:1px solid var(--border);
+      padding:3rem 2rem;
+      text-align:center;
+    }
+    .footer-name {
+      font-family:'Playfair Display',serif;
+      font-size:1.3rem; font-weight:700;
+      color:var(--cream); margin-bottom:.4rem;
+    }
+    .footer-address { font-size:.82rem; color:var(--text4); margin-bottom:1.5rem; }
+    .footer-links { display:flex; justify-content:center; gap:1rem; flex-wrap:wrap; }
+    .footer-link {
+      font-size:.8rem; color:var(--text4);
+      transition:color .18s;
+    }
+    .footer-link:hover { color:var(--gold); }
+    .footer-demo-badge {
+      display:inline-block;
+      margin-top:1.5rem;
+      padding:.3rem .85rem;
+      border-radius:100px;
+      border:1px solid var(--border);
+      font-size:.68rem; color:var(--text4);
+      letter-spacing:.12em; text-transform:uppercase;
+    }
+
+    /* ══ RESPONSIVE ══ */
+    @media(max-width:960px) {
+      .hero-inner { grid-template-columns:1fr; gap:3rem; padding:3rem 1.5rem 5rem; }
+      .order-card { max-width:480px; }
+      .features-grid { grid-template-columns:repeat(2,1fr); }
+      .portals-grid { grid-template-columns:1fr; }
+    }
+    @media(max-width:640px) {
+      .hero-inner { padding:2.5rem 1.25rem 4rem; }
+      .hero-title { font-size:clamp(2.2rem,9vw,3rem); }
+      .hero-stats { gap:1.75rem; }
+      .features-grid { grid-template-columns:1fr; }
+      .section { padding:3.5rem 1.25rem; }
+      .menu-preview { padding:3.5rem 1.25rem; }
+      .footer { padding:2.5rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══ NAV ══ -->
+<nav class="nav">
+  <div class="nav-brand">
+    <div class="nav-logo">🌶️</div>
+    <div>
+      <div class="nav-name">Nola's Events</div>
+      <div class="nav-tag">Fine Dining · Luana, Jamaica</div>
+    </div>
+  </div>
+  <div class="nav-spacer"></div>
+  <nav class="nav-links">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="menu.html"  class="nav-link">Menu</a>
+    <a href="kitchen.html" class="nav-link">Kitchen</a>
+    <a href="admin.html" class="nav-link">Admin</a>
+    <button class="nav-tour-btn" id="tour-btn" onclick="Tour.restart('index')">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+      Demo Tour
+    </button>
+  </nav>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-orb hero-orb-1"></div>
+  <div class="hero-orb hero-orb-2"></div>
+
+  <div class="hero-inner">
+    <!-- Left -->
+    <div class="hero-left">
+      <div class="hero-eyebrow">
+        <span class="hero-eyebrow-dot"></span>
+        Live Demo · Luana, St. Elizabeth, Jamaica
+      </div>
+      <h1 class="hero-title">
+        Fine Dining<br><em>on the South</em><br>Coast
+      </h1>
+      <p class="hero-desc">
+        Nola's Events — where jerk meets fine dining, cocktails meet Caribbean soul,
+        and every evening becomes an occasion. Order from the menu, your way.
+      </p>
+      <div class="hero-actions">
+        <a href="menu.html" class="btn-primary" id="browse-menu-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+          Browse Full Menu
+        </a>
+        <a href="https://wa.me/18762392229?text=Hi%20Nola's%20Events!%20I'd%20like%20to%20make%20an%20order." target="_blank" class="hero-whatsapp">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Order via WhatsApp
+        </a>
+      </div>
+      <div class="hero-stats">
+        <div>
+          <div class="h-stat-num">5<span>+</span></div>
+          <div class="h-stat-label">Menu Categories</div>
+        </div>
+        <div>
+          <div class="h-stat-num">30<span>+</span></div>
+          <div class="h-stat-label">Dishes & Drinks</div>
+        </div>
+        <div>
+          <div class="h-stat-num" id="hero-order-count">—</div>
+          <div class="h-stat-label">Orders Demo</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right — Table Entry -->
+    <div class="order-card">
+      <div class="oc-title">Dine-In Ordering</div>
+      <div class="oc-sub">Enter your table number to start ordering.</div>
+
+      <div class="table-wrap">
+        <span class="table-icon">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 4v16M16 4v16M3 10h18"/></svg>
+        </span>
+        <input type="number" id="table-input" class="table-input"
+               placeholder="Table number (e.g. 5)"
+               min="1" max="99" autocomplete="off">
+      </div>
+
+      <button id="continue-btn" disabled>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        View Menu
+      </button>
+
+      <div class="or-divider">or</div>
+
+      <button class="btn-takeout-card" id="takeout-btn">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        Takeout / Pickup Order
+      </button>
+
+      <div class="popular-pills">
+        <div class="pp-label">Popular tonight</div>
+        <div class="pp-list">
+          <span class="pp-pill">Jerk Chicken 🌶️</span>
+          <span class="pp-pill">Oxtail 🍖</span>
+          <span class="pp-pill">Rum Punch 🍹</span>
+          <span class="pp-pill">Rum & Raisin Ice Cream 🍦</span>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ FEATURES ══ -->
+<section class="section" style="padding-top:5rem;">
+  <div class="section-eyebrow">The System</div>
+  <h2 class="section-title">Everything the <em>restaurant needs,</em><br>nothing it doesn't.</h2>
+  <p class="section-desc">A complete digital ordering system designed for Nola's Events — fast, elegant, and built to work on any device.</p>
+
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feat-icon">📱</div>
+      <div class="feat-title">Mobile-First Menu</div>
+      <div class="feat-desc">Guests order from their own phones at the table. No app download, no sign-up. Beautiful on any screen size.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">👥</div>
+      <div class="feat-title">Group Ordering</div>
+      <div class="feat-desc">Multiple guests, one order. Each person's items tracked separately — makes splitting the bill a breeze.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">🔥</div>
+      <div class="feat-title">Kitchen Display</div>
+      <div class="feat-desc">Live order cards for the kitchen team. One tap to advance status — no paper tickets, no confusion.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">📊</div>
+      <div class="feat-title">Admin Dashboard</div>
+      <div class="feat-desc">Revenue stats, order management, and menu editing all in one place. Toggle item availability in real time.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">💳</div>
+      <div class="feat-title">GCT + Gratuity</div>
+      <div class="feat-desc">Automatic 15% GCT calculation. Guests can select gratuity percentage at checkout — handles it all cleanly.</div>
+    </div>
+    <div class="feature-card">
+      <div class="feat-icon">✨</div>
+      <div class="feat-title">Fully Offline-Ready</div>
+      <div class="feat-desc">No backend required in demo mode. All state is local. Perfect for Vercel hosting with zero server costs.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MENU PREVIEW ══ -->
+<section class="menu-preview">
+  <div class="mp-inner">
+    <div class="section-eyebrow">The Menu</div>
+    <h2 class="section-title">South Coast <em>flavours,</em><br>beautifully presented.</h2>
+
+    <div class="cat-pills" id="preview-cats"></div>
+    <div class="preview-grid" id="preview-items"></div>
+
+    <div style="text-align:center;margin-top:2.5rem;">
+      <a href="menu.html" class="btn-primary">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/></svg>
+        View Full Menu & Order
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ══ STAFF PORTALS ══ -->
+<section class="section">
+  <div class="section-eyebrow">Staff Access</div>
+  <h2 class="section-title">Built for the <em>whole team.</em></h2>
+  <p class="section-desc">From front of house to the kitchen, every role has a dedicated view.</p>
+
+  <div class="portals-grid">
+    <a href="kitchen.html" class="portal-card">
+      <div class="portal-icon-wrap" style="background:rgba(224,90,43,.12);">🔥</div>
+      <div>
+        <div class="portal-title">Kitchen Display</div>
+        <div class="portal-desc">Live order cards by status. Pending → Preparing → Ready. Real-time updates, no refresh needed. Filter by station.</div>
+      </div>
+      <div class="portal-arrow">
+        Open Kitchen Screen
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </a>
+    <a href="admin.html" class="portal-card">
+      <div class="portal-icon-wrap" style="background:rgba(212,168,67,.1);">📊</div>
+      <div>
+        <div class="portal-title">Admin Panel</div>
+        <div class="portal-desc">Revenue stats, order management, menu item editor. Toggle availability, add new dishes, manage the whole operation.</div>
+      </div>
+      <div class="portal-arrow">
+        Open Admin Panel
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ══ FOOTER ══ -->
+<footer class="footer">
+  <div class="footer-name">Nola's Events</div>
+  <div class="footer-address">34CV+6CR, Luana, St. Elizabeth, Jamaica · (876) 239-2229</div>
+  <div class="footer-links">
+    <a href="index.html" class="footer-link">Home</a>
+    <a href="menu.html" class="footer-link">Menu</a>
+    <a href="kitchen.html" class="footer-link">Kitchen</a>
+    <a href="admin.html" class="footer-link">Admin</a>
+  </div>
+  <div class="footer-demo-badge">Demo Mode · All data is local</div>
+</footer>
+
+<div id="toast-container"></div>
+
+<script src="app.js"></script>
+<script src="tour.js"></script>
+<script>
+'use strict';
+Store.load();
+
+/* ── Table input ── */
+const tableInput    = document.getElementById('table-input');
+const continueBtn   = document.getElementById('continue-btn');
+const takeoutBtn    = document.getElementById('takeout-btn');
+const browsMenuBtn  = document.getElementById('browse-menu-btn');
+
+tableInput.addEventListener('input', () => {
+  const v = tableInput.value.trim();
+  continueBtn.disabled = !v || isNaN(+v) || +v < 1;
+});
+tableInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !continueBtn.disabled) continueBtn.click();
+});
+continueBtn.addEventListener('click', () => {
+  const t = tableInput.value.trim();
+  if (!t || isNaN(+t) || +t < 1) return;
+  Store.setTable(t);
+  Store.setOrderType('dine-in');
+  window.location.href = 'menu.html';
+});
+takeoutBtn.addEventListener('click', () => {
+  Store.setTable('Takeout');
+  Store.setOrderType('takeout');
+  window.location.href = 'menu.html';
+});
+browsMenuBtn.addEventListener('click', e => {
+  // Already has href — if no table set, set takeout as default
+  const t = Store.cart.tableNumber;
+  if (!t) {
+    e.preventDefault();
+    Store.setTable('Takeout');
+    Store.setOrderType('takeout');
+    window.location.href = 'menu.html';
+  }
+});
+
+/* ── Hero stat ── */
+document.getElementById('hero-order-count').textContent = Store.orders.length;
+
+/* ── Menu preview ── */
+let previewCat = Store.categories[0].id;
+const catsEl   = document.getElementById('preview-cats');
+const itemsEl  = document.getElementById('preview-items');
+const catEmoji = { jerk:'🌶️', mains:'🍽️', sides:'🌿', bar:'🍸', desserts:'🍦' };
+
+function renderPreview() {
+  itemsEl.innerHTML = '';
+  const items = Store.getItemsByCategory(previewCat).slice(0, 6);
+  items.forEach(item => {
+    const div = document.createElement('div');
+    div.className = 'prev-card';
+    div.innerHTML = `
+      <div class="prev-emoji">${catEmoji[item.category] || '🍽️'}</div>
+      <div class="prev-info">
+        <div class="prev-name">${escapeHtml(item.name)}</div>
+        <div class="prev-desc">${escapeHtml((item.description || '').substring(0, 70))}…</div>
+        ${item.tags[0] ? `<span class="prev-tag">${escapeHtml(item.tags[0])}</span>` : ''}
+      </div>
+      <div class="prev-price">${formatPrice(item.price)}</div>
+    `;
+    itemsEl.appendChild(div);
+  });
+}
+
+Store.categories.forEach(cat => {
+  const btn = document.createElement('button');
+  btn.className = 'cat-pill' + (cat.id === previewCat ? ' active' : '');
+  btn.textContent = (catEmoji[cat.id] || '') + ' ' + cat.name;
+  btn.addEventListener('click', () => {
+    previewCat = cat.id;
+    document.querySelectorAll('.cat-pill').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderPreview();
+  });
+  catsEl.appendChild(btn);
+});
+renderPreview();
+
+/* ── Tour ── */
+Tour.init('index');
+</script>
+</body>
+</html>

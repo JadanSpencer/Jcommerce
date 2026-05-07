@@ -419,10 +419,16 @@ const Tour = (() => {
   }
 
   function finish() {
+    // Restore scrolling
     document.body.style.overflow = '';
     document.body.style.position = '';
     document.body.style.width = '';
-  
+    document.body.style.maxWidth = '';
+    document.documentElement.style.overflowX = '';
+    
+    // Force cleanup of any leftover inline styles
+    document.body.style.top = '';
+    
     destroyElements();
   }
 
