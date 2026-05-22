@@ -358,43 +358,16 @@ const Tour = (() => {
 
   function showStep(i) {
     document.body.style.overflow = 'hidden';
-    const cfg    = tours[i];
+    const cfg   = tours[i];
     if (!cfg) { finish(); return; }
-    const isMob  = window.innerWidth < 700;
-    const sel    = isMob && cfg.mobileTarget ? cfg.mobileTarget : cfg.target;
+    const isMob = window.innerWidth < 700;
+    const sel   = isMob && cfg.mobileTarget ? cfg.mobileTarget : cfg.target;
     const target = sel ? document.querySelector(sel) : null;
-
-    if (target) {
-      if (isMob) document.body.style.overflow = '';   // ← unlock so scroll can happen
-      target.scrollIntoView({ behavior:'smooth', block:'center' });
-      setTimeout(() => {
-        if (isMob) document.body.style.overflow = 'hidden';  // ← re-lock after scroll
-        if (!isMob) {                          // ← ADD THIS CHECK
-      const r   = target.getBoundingClientRect();
-      const pad = 10;
-      Object.assign(el.highlight.style, {
-        top:    (r.top  - pad) + 'px',
-        left:   (r.left - pad) + 'px',
-        width:  (r.width  + pad*2) + 'px',
-        height: (r.height + pad*2) + 'px',
-        display:'block'
-      });
-    } else {
-      el.highlight.style.display = 'none';    // ← HIDE IT ON MOBILE
-    }
-    positionPopup(target, cfg.position);
-    requestAnimationFrame(() => { el.popup.style.opacity = '1'; });
-  }, 350);
-} else {
-  el.highlight.style.display = 'none';
-  positionPopup(null, 'center');
-  requestAnimationFrame(() => { el.popup.style.opacity = '1'; });
-}
-
+  
     const dots = tours.map((_,idx) =>
       `<span class="tour-dot${idx===i?' active':''}"></span>`
     ).join('');
-
+  
     el.popup.innerHTML = `
       <div class="tour-icon">${cfg.icon}</div>
       <div class="tour-step-label">Step ${i+1} of ${tours.length}</div>
@@ -408,21 +381,48 @@ const Tour = (() => {
         </div>
       </div>
     `;
-
+  
     el.popup.querySelector('.tour-next').addEventListener('click', () => {
       step++;
       if (step < tours.length) {
         el.popup.remove();
         el.popup = Object.assign(document.createElement('div'), { className:'tour-popup' });
-        el.popup.style.opacity = '0';
-        el.popup.style.animation = 'none';
-        document.body.appendChild(el.popup);
         setTimeout(() => showStep(step), 50);
       } else {
         finish();
       }
     });
     el.popup.querySelector('.tour-skip').addEventListener('click', finish);
+  
+    function placePopup() {
+      if (!el.popup.isConnected) document.body.appendChild(el.popup);
+      if (!isMob) {
+        const r   = target && target.getBoundingClientRect();
+        const pad = 10;
+        if (r) {
+          Object.assign(el.highlight.style, {
+            top: (r.top - pad)+'px', left: (r.left - pad)+'px',
+            width: (r.width + pad*2)+'px', height: (r.height + pad*2)+'px',
+            display: 'block'
+          });
+        }
+      } else {
+        el.highlight.style.display = 'none';
+      }
+      positionPopup(target, cfg.position);
+    }
+  
+    if (target) {
+      if (isMob) document.body.style.overflow = '';
+      target.scrollIntoView({ behavior:'smooth', block:'center' });
+      setTimeout(() => {
+        if (isMob) document.body.style.overflow = 'hidden';
+        placePopup();
+      }, 350);
+    } else {
+      el.highlight.style.display = 'none';
+      placePopup();
+    }
   }
 
   function finish() {
