@@ -215,6 +215,7 @@ const Tour = (() => {
       overflow-y: auto;
       box-shadow: 0 32px 80px rgba(0,0,0,.7), 0 0 0 1px rgba(212,168,67,.08);
       animation: tourPopIn 0.35s cubic-bezier(0.34,1.56,0.64,1) both;
+      transition: opacity 0.25s ease;
     }
     @keyframes tourPopIn {
       from { opacity:0; transform:scale(0.86) translateY(12px); }
@@ -409,6 +410,7 @@ const Tour = (() => {
       if (step < tours.length) {
         el.popup.remove();
         el.popup = Object.assign(document.createElement('div'), { className:'tour-popup' });
+        el.popup.style.opacity = '0';
         document.body.appendChild(el.popup);
         setTimeout(() => showStep(step), 50);
       } else {
