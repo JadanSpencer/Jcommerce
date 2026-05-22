@@ -364,23 +364,27 @@ const Tour = (() => {
     const target = sel ? document.querySelector(sel) : null;
 
     if (target) {
-      target.scrollIntoView({ behavior:'smooth', block:'center' });
-      setTimeout(() => {
-        const r   = target.getBoundingClientRect();
-        const pad = 10;
-        Object.assign(el.highlight.style, {
-          top:    (r.top  - pad) + 'px',
-          left:   (r.left - pad) + 'px',
-          width:  (r.width  + pad*2) + 'px',
-          height: (r.height + pad*2) + 'px',
-          display:'block'
-        });
-        positionPopup(target, cfg.position);
-      }, 350);
+  target.scrollIntoView({ behavior:'smooth', block:'center' });
+  setTimeout(() => {
+    if (!isMob) {                              // ← ADD THIS CHECK
+      const r   = target.getBoundingClientRect();
+      const pad = 10;
+      Object.assign(el.highlight.style, {
+        top:    (r.top  - pad) + 'px',
+        left:   (r.left - pad) + 'px',
+        width:  (r.width  + pad*2) + 'px',
+        height: (r.height + pad*2) + 'px',
+        display:'block'
+      });
     } else {
-      el.highlight.style.display = 'none';
-      positionPopup(null, 'center');
+      el.highlight.style.display = 'none';    // ← HIDE IT ON MOBILE
     }
+    positionPopup(target, cfg.position);
+  }, 350);
+} else {
+  el.highlight.style.display = 'none';
+  positionPopup(null, 'center');
+}
 
     const dots = tours.map((_,idx) =>
       `<span class="tour-dot${idx===i?' active':''}"></span>`
