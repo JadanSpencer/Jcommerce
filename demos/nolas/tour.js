@@ -381,10 +381,12 @@ const Tour = (() => {
       el.highlight.style.display = 'none';    // ← HIDE IT ON MOBILE
     }
     positionPopup(target, cfg.position);
+    requestAnimationFrame(() => { el.popup.style.opacity = '1'; });
   }, 350);
 } else {
   el.highlight.style.display = 'none';
   positionPopup(null, 'center');
+  requestAnimationFrame(() => { el.popup.style.opacity = '1'; });
 }
 
     const dots = tours.map((_,idx) =>
@@ -411,6 +413,7 @@ const Tour = (() => {
         el.popup.remove();
         el.popup = Object.assign(document.createElement('div'), { className:'tour-popup' });
         el.popup.style.opacity = '0';
+        el.popup.style.animation = 'none';
         document.body.appendChild(el.popup);
         setTimeout(() => showStep(step), 50);
       } else {
