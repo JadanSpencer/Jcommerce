@@ -365,9 +365,11 @@ const Tour = (() => {
     const target = sel ? document.querySelector(sel) : null;
 
     if (target) {
-  target.scrollIntoView({ behavior:'smooth', block:'center' });
-  setTimeout(() => {
-    if (!isMob) {                              // ← ADD THIS CHECK
+      if (isMob) document.body.style.overflow = '';   // ← unlock so scroll can happen
+      target.scrollIntoView({ behavior:'smooth', block:'center' });
+      setTimeout(() => {
+        if (isMob) document.body.style.overflow = 'hidden';  // ← re-lock after scroll
+        if (!isMob) {                          // ← ADD THIS CHECK
       const r   = target.getBoundingClientRect();
       const pad = 10;
       Object.assign(el.highlight.style, {
