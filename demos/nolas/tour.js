@@ -413,12 +413,19 @@ const Tour = (() => {
     }
   
     if (target) {
-      if (isMob) document.body.style.overflow = '';
-      target.scrollIntoView({ behavior:'smooth', block:'center' });
-      setTimeout(() => {
-        if (isMob) document.body.style.overflow = 'hidden';
-        placePopup();
-      }, 350);
+      if (isMob) {
+        document.body.style.overflow = '';
+        target.scrollIntoView({ behavior: 'instant', block: 'center' });
+        requestAnimationFrame(() => {
+          document.body.style.overflow = 'hidden';
+          placePopup();
+        });
+      } else {
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        setTimeout(() => {
+          placePopup();
+        }, 350);
+      }
     } else {
       el.highlight.style.display = 'none';
       placePopup();
