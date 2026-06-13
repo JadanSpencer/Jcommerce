@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0D0805">
+  <title>Flava Fingaz — Flame Grilled Excellence</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@300;400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --char:    #0D0805;
+      --oak:     #1A1008;
+      --mahog:   #2A1506;
+      --flame:   #FF4D00;
+      --ember:   #FF8C00;
+      --gold:    #FFD700;
+      --cream:   #E8D5B0;
+      --ash:     #9A8A70;
+      --smoke:   #4A3A28;
+      --r:6px;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+
+    body {
+      font-family:'Space Grotesk',sans-serif;
+      background:var(--char);
+      color:var(--cream);
+      min-height:100dvh;
+      overflow-x:hidden;
+      position:relative;
+    }
+
+    /* ── GRAIN TEXTURE OVERLAY ── */
+    body::before {
+      content:'';
+      position:fixed; inset:0; z-index:0; pointer-events:none;
+      background-image:
+        url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+      opacity:0.055;
+      mix-blend-mode:overlay;
+    }
+
+    /* ── AMBIENT GLOW ── */
+    body::after {
+      content:'';
+      position:fixed; inset:0; z-index:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse 60% 50% at 50% 100%, rgba(255,77,0,.18) 0%, transparent 70%),
+        radial-gradient(ellipse 40% 30% at 20% 80%, rgba(255,140,0,.1) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 30% at 80% 75%, rgba(255,77,0,.08) 0%, transparent 60%);
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position:fixed; top:0; left:0; right:0; z-index:100;
+      display:flex; align-items:center; padding:0 2.5rem;
+      height:70px;
+      background:rgba(13,8,5,.85);
+      backdrop-filter:blur(24px);
+      border-bottom:1px solid rgba(255,77,0,.12);
+    }
+
+    .nav-wordmark {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:1.6rem;
+      letter-spacing:.08em;
+      color:var(--cream);
+      line-height:1;
+    }
+    .nav-wordmark span { color:var(--flame); }
+
+    .nav-spacer { flex:1; }
+
+    .nav-links {
+      display:flex; align-items:center; gap:1.5rem;
+    }
+
+    .nav-link {
+      font-size:.78rem; font-weight:600; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--ash);
+      text-decoration:none; transition:color .2s;
+    }
+    .nav-link:hover { color:var(--cream); }
+
+    .nav-pill {
+      padding:.45rem 1.25rem;
+      background:var(--flame);
+      color:#0D0805;
+      font-size:.72rem; font-weight:700; letter-spacing:.1em;
+      text-transform:uppercase; text-decoration:none;
+      border-radius:2px;
+      transition:all .2s;
+      box-shadow:0 0 20px rgba(255,77,0,.35);
+    }
+    .nav-pill:hover {
+      background:var(--ember);
+      box-shadow:0 0 32px rgba(255,77,0,.5);
+      transform:translateY(-1px);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position:relative; z-index:1;
+      min-height:100dvh;
+      display:flex; flex-direction:column;
+      align-items:center; justify-content:center;
+      padding:6rem 2rem 4rem;
+      text-align:center;
+      overflow:hidden;
+    }
+
+    /* Animated flame SVG lines */
+    .flame-bg {
+      position:absolute; inset:0; z-index:0;
+      display:flex; align-items:flex-end; justify-content:center;
+      overflow:hidden; pointer-events:none;
+    }
+
+    .flame-svg {
+      width:100%; max-width:900px;
+      opacity:.35;
+      mix-blend-mode:screen;
+    }
+
+    .flame-line {
+      fill:none;
+      stroke-linecap:round;
+      stroke-linejoin:round;
+    }
+
+    .fl-1 { stroke:#FF4D00; stroke-width:2; animation:flameSway1 4s ease-in-out infinite; }
+    .fl-2 { stroke:#FF6B00; stroke-width:1.5; animation:flameSway2 3.5s ease-in-out infinite; }
+    .fl-3 { stroke:#FF8C00; stroke-width:1; animation:flameSway3 5s ease-in-out infinite; }
+    .fl-4 { stroke:#FFD700; stroke-width:1; opacity:.6; animation:flameSway4 3s ease-in-out infinite; }
+
+    @keyframes flameSway1 {
+      0%,100% { transform:translateX(-4px) scaleX(1); }
+      50%      { transform:translateX(4px) scaleX(1.02); }
+    }
+    @keyframes flameSway2 {
+      0%,100% { transform:translateX(6px) scaleX(.98); }
+      50%      { transform:translateX(-6px) scaleX(1); }
+    }
+    @keyframes flameSway3 {
+      0%,100% { transform:translateX(-2px); }
+      50%      { transform:translateX(8px); }
+    }
+    @keyframes flameSway4 {
+      0%,100% { transform:scaleY(1) translateY(0); opacity:.6; }
+      50%      { transform:scaleY(.96) translateY(4px); opacity:.4; }
+    }
+
+    /* ── HERO CONTENT ── */
+    .hero-content { position:relative; z-index:1; max-width:680px; }
+
+    .hero-eyebrow {
+      display:inline-flex; align-items:center; gap:.6rem;
+      font-size:.68rem; font-weight:700; letter-spacing:.25em;
+      text-transform:uppercase; color:var(--flame);
+      margin-bottom:1.5rem;
+    }
+
+    .hero-eyebrow-line {
+      display:block; width:32px; height:1px;
+      background:linear-gradient(90deg, transparent, var(--flame));
+    }
+
+    .hero-title {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:clamp(5rem, 14vw, 11rem);
+      line-height:.9;
+      letter-spacing:.04em;
+      color:var(--cream);
+      margin-bottom:.5rem;
+      text-shadow:0 0 80px rgba(255,77,0,.3), 0 0 160px rgba(255,77,0,.15);
+    }
+
+    .hero-title .neon-line {
+      display:block;
+      color:transparent;
+      -webkit-text-stroke:1.5px var(--flame);
+      text-shadow:0 0 40px rgba(255,77,0,.6), 0 0 80px rgba(255,77,0,.3);
+      animation:neonPulse 3s ease-in-out infinite;
+    }
+
+    @keyframes neonPulse {
+      0%,100% { text-shadow:0 0 40px rgba(255,77,0,.6), 0 0 80px rgba(255,77,0,.3); }
+      50%      { text-shadow:0 0 60px rgba(255,77,0,.9), 0 0 120px rgba(255,77,0,.5), 0 0 200px rgba(255,77,0,.2); }
+    }
+
+    .hero-sub {
+      font-size:clamp(.85rem, 2vw, 1rem);
+      color:var(--ash);
+      letter-spacing:.08em;
+      text-transform:uppercase;
+      margin-bottom:3rem;
+    }
+
+    /* ── TABLE ENTRY ── */
+    .table-entry {
+      background:rgba(26,16,8,.9);
+      border:1px solid rgba(255,77,0,.2);
+      border-radius:4px;
+      padding:2.5rem 2.5rem 2rem;
+      max-width:440px;
+      margin:0 auto;
+      backdrop-filter:blur(12px);
+      box-shadow:0 0 60px rgba(255,77,0,.08), inset 0 1px 0 rgba(255,255,255,.04);
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* neon top edge */
+    .table-entry::before {
+      content:'';
+      position:absolute; top:0; left:10%; right:10%; height:1px;
+      background:linear-gradient(90deg, transparent, var(--flame), var(--ember), var(--flame), transparent);
+      opacity:.8;
+    }
+
+    .entry-label {
+      font-size:.65rem; font-weight:700; letter-spacing:.2em;
+      text-transform:uppercase; color:var(--flame);
+      margin-bottom:.75rem;
+    }
+
+    .entry-title {
+      font-family:'Bebas Neue',sans-serif;
+      font-size:1.6rem; letter-spacing:.06em;
+      color:var(--cream); margin-bottom:.4rem;
+    }
+
+    .entry-sub {
+      font-size:.78rem; color:var(--ash);
+      margin-bottom:1.75rem; line-height:1.5;
+    }
+
+    .type-toggle {
+      display:grid; grid-template-columns:1fr 1fr;
+      gap:.25rem; margin-bottom:1.25rem;
+      background:rgba(13,8,5,.6);
+      border:1px solid rgba(255,77,0,.12);
+      border-radius:3px;
+      padding:.25rem;
+    }
+
+    .type-btn {
+      padding:.6rem;
+      border-radius:2px; border:none;
+      background:transparent; color:var(--ash);
+      font-family:'Space Grotesk',sans-serif;
+      font-size:.78rem; font-weight:600;
+      letter-spacing:.08em; text-transform:uppercase;
+      cursor:pointer; transition:all .2s;
+    }
+
+    .type-btn.active {
+      background:var(--flame);
+      color:#0D0805;
+      box-shadow:0 0 16px rgba(255,77,0,.4);
+    }
+
+    .input-wrap { position:relative; margin-bottom:1rem; }
+
+    .input-label {
+      display:block; font-size:.65rem; font-weight:700;
+      letter-spacing:.15em; text-transform:uppercase;
+      color:var(--ash); margin-bottom:.5rem;
+    }
+
+    .table-input {
+      width:100%; padding:1rem 1.25rem;
+      background:rgba(13,8,5,.8);
+      border:1.5px solid rgba(255,77,0,.2);
+      border-radius:3px;
+      color:var(--cream);
+      font-family:'Bebas Neue',sans-serif;
+      font-size:1.8rem;
+      letter-spacing:.15em;
+      text-align:center;
+      transition:all .25s;
+      caret-color:var(--flame);
+    }
+
+    .table-input:focus {
+      outline:none;
+      border-color:var(--flame);
+      background:rgba(255,77,0,.04);
+      box-shadow:0 0 0 3px rgba(255,77,0,.1), 0 0 24px rgba(255,77,0,.15);
+    }
+
+    .table-input::placeholder { color:rgba(154,138,112,.4); font-size:1.4rem; }
+
+    #takeout-name-wrap { display:none; }
+
+    .btn-enter {
+      width:100%; padding:1.1rem;
+      background:var(--flame);
+      border:none; border-radius:3px;
+      color:#0D0805;
+      font-family:'Space Grotesk',sans-serif;
+      font-size:.85rem; font-weight:700;
+      letter-spacing:.15em; text-transform:uppercase;
+      cursor:pointer;
+      transition:all .25s;
+      box-shadow:0 0 24px rgba(255,77,0,.3);
+      position:relative; overflow:hidden;
+      margin-top:.75rem;
+    }
+
+    .btn-enter::before {
+      content:'';
+      position:absolute; inset:0;
+      background:linear-gradient(90deg, transparent 0%, rgba(255,255,255,.12) 50%, transparent 100%);
+      transform:translateX(-100%);
+      transition:transform .5s ease;
+    }
+
+    .btn-enter:hover {
+      background:var(--ember);
+      box-shadow:0 0 36px rgba(255,77,0,.5);
+      transform:translateY(-2px);
+    }
+    .btn-enter:hover::before { transform:translateX(100%); }
+    .btn-enter:active { transform:translateY(0); }
+
+    .entry-error {
+      font-size:.75rem; color:#FF4D4D;
+      text-align:center; margin-top:.5rem;
+      min-height:1.2em;
+    }
+
+    /* Staff links */
+    .staff-links {
+      display:flex; justify-content:center; gap:2rem;
+      margin-top:3rem; position:relative; z-index:1;
+    }
+
+    .staff-link {
+      font-size:.68rem; font-weight:600; letter-spacing:.12em;
+      text-transform:uppercase; color:var(--smoke);
+      text-decoration:none; transition:color .2s;
+      display:flex; align-items:center; gap:.4rem;
+    }
+    .staff-link:hover { color:var(--ash); }
+    .staff-link::before {
+      content:''; display:block; width:12px; height:1px;
+      background:currentColor;
+    }
+
+    /* ── FEATURES STRIP ── */
+    .features {
+      position:relative; z-index:1;
+      border-top:1px solid rgba(255,77,0,.1);
+      padding:1.5rem 2.5rem;
+      display:flex; justify-content:center; gap:3rem;
+      flex-wrap:wrap;
+    }
+
+    .feature {
+      display:flex; align-items:center; gap:.6rem;
+      font-size:.72rem; font-weight:500; letter-spacing:.08em;
+      text-transform:uppercase; color:var(--smoke);
+    }
+
+    .feature-dot {
+      width:5px; height:5px; border-radius:50%;
+      background:var(--flame);
+      box-shadow:0 0 8px rgba(255,77,0,.6);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px) {
+      .nav { padding:0 1.25rem; }
+      .hero { padding:5rem 1.25rem 2rem; }
+      .table-entry { padding:1.75rem 1.5rem 1.5rem; }
+      .features { gap:1.5rem; padding:1.25rem; }
+      .nav-links .nav-link { display:none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-wordmark">FLAVA<span>.</span>FINGAZ</div>
+  <div class="nav-spacer"></div>
+  <div class="nav-links">
+    <a href="#" class="nav-link">Kingston, JA</a>
+    <a href="menu.html" class="nav-pill">Order Now</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- Animated flame background -->
+  <div class="flame-bg">
+    <svg class="flame-svg" viewBox="0 0 900 700" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <!-- Large outer flame shapes -->
+      <path class="flame-line fl-1"
+        d="M450,700 C440,600 400,560 420,480 C435,420 470,400 460,340 C448,270 400,240 420,180 C440,110 480,80 465,20
+           C480,80 520,110 500,180 C480,240 520,270 505,340 C490,400 530,420 540,480 C555,560 510,600 450,700"/>
+      <path class="flame-line fl-1"
+        d="M300,700 C290,620 260,580 275,510 C288,450 315,435 305,378 C293,312 255,285 270,225 C285,165 315,145 300,95
+           C320,145 350,165 335,225 C320,285 360,312 348,378 C336,435 365,450 378,510 C393,580 360,620 300,700"/>
+      <path class="flame-line fl-1"
+        d="M600,700 C590,620 560,585 575,515 C588,455 615,440 605,383 C593,317 555,290 570,230 C585,170 615,150 600,100
+           C620,150 650,170 635,230 C620,290 660,317 648,383 C636,440 665,455 678,515 C693,585 660,620 600,700"/>
+
+      <!-- Mid flames -->
+      <path class="flame-line fl-2"
+        d="M180,700 C172,640 150,610 162,555 C172,510 195,495 186,448 C176,395 148,375 160,322 C172,270 198,254 185,210
+           C200,254 225,270 212,322 C199,375 228,395 218,448 C208,495 232,510 242,555 C254,610 230,640 180,700"/>
+      <path class="flame-line fl-2"
+        d="M720,700 C712,640 690,610 702,555 C712,510 735,495 726,448 C716,395 688,375 700,322 C712,270 738,254 725,210
+           C740,254 765,270 752,322 C739,375 768,395 758,448 C748,495 772,510 782,555 C794,610 770,640 720,700"/>
+
+      <!-- Inner hot core flames (amber/gold) -->
+      <path class="flame-line fl-3"
+        d="M450,700 C446,650 430,630 438,595 C444,567 460,557 455,525 C449,488 432,472 440,440 C448,408 464,400 458,372
+           C464,400 480,408 474,440 C468,472 480,488 472,525 C464,557 480,567 486,595 C494,630 478,650 450,700"/>
+      <path class="flame-line fl-3"
+        d="M350,700 C346,660 332,643 339,612 C345,586 358,577 353,549 C347,517 332,503 339,475 C346,447 360,440 355,415
+           C361,440 374,447 369,475 C364,503 378,517 372,549 C366,577 380,586 386,612 C393,643 378,660 350,700"/>
+      <path class="flame-line fl-3"
+        d="M550,700 C546,660 532,643 539,612 C545,586 558,577 553,549 C547,517 532,503 539,475 C546,447 560,440 555,415
+           C561,440 574,447 569,475 C564,503 578,517 572,549 C566,577 580,586 586,612 C593,643 578,660 550,700"/>
+
+      <!-- Gold tip cores -->
+      <path class="flame-line fl-4"
+        d="M450,700 C448,670 440,658 444,638 C448,618 456,610 453,590 C450,570 441,560 445,540 C449,520 456,514 453,496
+           C456,514 464,520 461,540 C458,560 466,570 463,590 C460,610 468,618 472,638 C476,658 465,670 450,700"/>
+      <path class="flame-line fl-4"
+        d="M380,700 C378,675 372,664 375,646 C378,628 385,621 382,603 C379,585 372,576 375,558 C378,540 385,534 382,518
+           C385,534 392,540 389,558 C386,576 392,585 389,603 C386,621 392,628 395,646 C398,664 388,675 380,700"/>
+      <path class="flame-line fl-4"
+        d="M520,700 C518,675 512,664 515,646 C518,628 525,621 522,603 C519,585 512,576 515,558 C518,540 525,534 522,518
+           C525,534 532,540 529,558 C526,576 532,585 529,603 C526,621 532,628 535,646 C538,664 528,675 520,700"/>
+    </svg>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="hero-eyebrow-line"></span>
+      Kingston, Jamaica
+      <span class="hero-eyebrow-line" style="background:linear-gradient(90deg, var(--flame), transparent)"></span>
+    </div>
+
+    <h1 class="hero-title">
+      FLAVA
+      <span class="neon-line">FINGAZ</span>
+    </h1>
+
+    <p class="hero-sub">Flame Grilled Excellence · Live Coal Kitchen</p>
+
+    <!-- TABLE ENTRY CARD -->
+    <div class="table-entry">
+      <div class="entry-label">Begin Your Order</div>
+      <h2 class="entry-title">What's Your Table?</h2>
+      <p class="entry-sub">Enter your table number and we'll send your order straight to the kitchen — no waiting, no confusion.</p>
+
+      <div class="type-toggle">
+        <button class="type-btn active" data-type="dine-in" id="btn-dine">Dine In</button>
+        <button class="type-btn" data-type="takeout" id="btn-takeout">Takeout</button>
+      </div>
+
+      <div class="input-wrap" id="table-wrap">
+        <label class="input-label" for="table-input">Table Number</label>
+        <input type="text" id="table-input" class="table-input" placeholder="01" maxlength="4" inputmode="numeric" autocomplete="off">
+      </div>
+
+      <div class="input-wrap" id="takeout-name-wrap">
+        <label class="input-label" for="name-input">Your Name</label>
+        <input type="text" id="name-input" class="table-input" placeholder="JAYDEN" maxlength="20" autocomplete="off">
+      </div>
+
+      <button class="btn-enter" id="continue-btn">
+        See The Menu →
+      </button>
+
+      <div class="entry-error" id="entry-error"></div>
+    </div>
+  </div>
+
+  <div class="staff-links">
+    <a href="kitchen.html" class="staff-link">Kitchen Display</a>
+    <a href="admin.html" class="staff-link">Admin Panel</a>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<div class="features">
+  <div class="feature"><span class="feature-dot"></span>Live Coal Grill</div>
+  <div class="feature"><span class="feature-dot"></span>Order at the Table</div>
+  <div class="feature"><span class="feature-dot"></span>Real-Time Kitchen</div>
+  <div class="feature"><span class="feature-dot"></span>Fresh Daily Menu</div>
+</div>
+
+<div id="toast-container"></div>
+<script src="app.js"></script>
+<script>
+'use strict';
+Store.load();
+
+let orderType = 'dine-in';
+
+// Restore table if already set
+const saved = Store.cart.tableNumber;
+if (saved && saved !== 'Takeout') {
+  document.getElementById('table-input').value = saved;
+} else if (saved === 'Takeout') {
+  document.getElementById('btn-takeout').click();
+}
+
+// Type toggle
+document.querySelectorAll('.type-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    orderType = btn.dataset.type;
+    document.querySelectorAll('.type-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    if (orderType === 'takeout') {
+      document.getElementById('table-wrap').style.display = 'none';
+      document.getElementById('takeout-name-wrap').style.display = 'block';
+    } else {
+      document.getElementById('table-wrap').style.display = 'block';
+      document.getElementById('takeout-name-wrap').style.display = 'none';
+    }
+    document.getElementById('entry-error').textContent = '';
+  });
+});
+
+// Auto-format table number uppercase
+document.getElementById('table-input').addEventListener('input', e => {
+  e.target.value = e.target.value.toUpperCase();
+  document.getElementById('entry-error').textContent = '';
+});
+document.getElementById('name-input').addEventListener('input', e => {
+  e.target.value = e.target.value.toUpperCase();
+  document.getElementById('entry-error').textContent = '';
+});
+
+// Continue
+function goToMenu() {
+  const err = document.getElementById('entry-error');
+
+  if (orderType === 'dine-in') {
+    const val = document.getElementById('table-input').value.trim();
+    if (!val) { err.textContent = 'Please enter your table number.'; return; }
+    Store.setTable(val);
+    Store.setOrderType('dine-in');
+  } else {
+    const val = document.getElementById('name-input').value.trim();
+    Store.setTable(val || 'Takeout');
+    Store.setOrderType('takeout');
+  }
+
+  window.location.href = 'menu.html';
+}
+
+document.getElementById('continue-btn').addEventListener('click', goToMenu);
+document.getElementById('table-input').addEventListener('keydown', e => { if (e.key==='Enter') goToMenu(); });
+document.getElementById('name-input').addEventListener('keydown', e => { if (e.key==='Enter') goToMenu(); });
+</script>
+</body>
+</html>

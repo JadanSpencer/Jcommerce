@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0D0805">
+  <title>Flava Fingaz — Kitchen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Grotesk:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --char:#0D0805; --oak:#1A1008; --mahog:#2A1506;
+      --flame:#FF4D00; --ember:#FF8C00; --gold:#FFD700;
+      --cream:#E8D5B0; --ash:#9A8A70; --smoke:#4A3A28;
+      --green:#4CAF7A; --blue:#5B9BD5; --nav-h:60px; --stats-h:50px;
+    }
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+    body{font-family:'Space Grotesk',sans-serif;background:var(--char);color:var(--cream);height:100dvh;display:flex;flex-direction:column;overflow:hidden;}
+    body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");opacity:.04;mix-blend-mode:overlay;}
+    button{font-family:'Space Grotesk',sans-serif;cursor:pointer;}
+    a{color:inherit;text-decoration:none;}
+
+    .nav{height:var(--nav-h);display:flex;align-items:center;padding:0 1.5rem;gap:1rem;background:rgba(13,8,5,.95);border-bottom:1px solid rgba(255,77,0,.12);flex-shrink:0;position:relative;z-index:10;}
+    .nav-brand{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.08em;}
+    .nav-brand span{color:var(--flame);}
+    .nav-tag{font-size:.6rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;color:var(--smoke);}
+    .nav-spacer{flex:1;}
+    .live-dot{width:7px;height:7px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 2s ease-in-out infinite;}
+    @keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+    .live-label{font-size:.7rem;font-weight:600;color:var(--green);letter-spacing:.1em;text-transform:uppercase;}
+    .nav-link{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--smoke);padding:.35rem .7rem;border-radius:2px;border:1px solid rgba(255,255,255,.04);transition:all .2s;}
+    .nav-link:hover{color:var(--ash);}
+
+    .stats-bar{height:var(--stats-h);display:flex;align-items:center;padding:0 1.5rem;gap:1.5rem;background:var(--oak);border-bottom:1px solid rgba(255,77,0,.08);flex-shrink:0;position:relative;z-index:9;}
+    .stat{display:flex;align-items:center;gap:.5rem;}
+    .stat-lbl{font-size:.6rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--smoke);}
+    .stat-val{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;line-height:1;}
+    .stat-div{width:1px;height:22px;background:var(--mahog);}
+    .crit-badge{display:flex;align-items:center;gap:.4rem;padding:.2rem .75rem;border-radius:2px;background:rgba(255,77,0,.12);border:1px solid rgba(255,77,0,.25);color:var(--flame);font-size:.7rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;margin-left:auto;}
+    .crit-badge.hidden{display:none;}
+
+    .kitchen-grid{flex:1;display:grid;grid-template-columns:repeat(3,1fr);overflow:hidden;position:relative;z-index:1;}
+    .k-col{display:flex;flex-direction:column;border-right:1px solid rgba(255,77,0,.06);overflow:hidden;}
+    .k-col:last-child{border-right:none;}
+
+    .k-col-hdr{padding:.875rem 1.25rem;border-bottom:1px solid rgba(255,77,0,.08);display:flex;align-items:center;justify-content:space-between;flex-shrink:0;}
+    .k-col-hdr-left{display:flex;align-items:center;gap:.5rem;}
+    .col-dot{width:8px;height:8px;border-radius:50%;}
+    .col-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.08em;color:var(--cream);}
+    .col-count{font-family:'Courier Prime',monospace;font-size:.75rem;font-weight:700;padding:.15rem .6rem;background:rgba(255,255,255,.05);border-radius:2px;color:var(--ash);}
+
+    .k-col-body{flex:1;overflow-y:auto;padding:.875rem;display:flex;flex-direction:column;gap:.625rem;}
+    .k-col-body::-webkit-scrollbar{width:3px;}
+    .k-col-body::-webkit-scrollbar-thumb{background:var(--mahog);}
+
+    .order-card{background:var(--oak);border:1px solid rgba(255,255,255,.04);border-radius:4px;overflow:hidden;transition:border-color .2s;}
+    .order-card.urgent{border-color:rgba(255,140,0,.35);box-shadow:0 0 0 1px rgba(255,140,0,.1);}
+    .order-card.critical{border-color:rgba(255,77,0,.5);box-shadow:0 0 0 1px rgba(255,77,0,.15),0 0 20px rgba(255,77,0,.06);}
+
+    .oc-top{padding:.75rem 1rem;display:flex;align-items:flex-start;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,.04);}
+    .oc-table{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.06em;color:var(--cream);}
+    .oc-id{font-family:'Courier Prime',monospace;font-size:.65rem;color:var(--smoke);margin-top:1px;}
+    .oc-timer{font-family:'Courier Prime',monospace;font-size:.8rem;font-weight:700;padding:.2rem .55rem;border-radius:2px;}
+    .oc-timer.ok{background:rgba(76,175,122,.1);color:var(--green);}
+    .oc-timer.warn{background:rgba(255,140,0,.1);color:var(--ember);}
+    .oc-timer.crit{background:rgba(255,77,0,.15);color:var(--flame);animation:timerBlink .8s step-end infinite;}
+    @keyframes timerBlink{0%,100%{opacity:1}50%{opacity:.3}}
+
+    .oc-body{padding:.75rem 1rem;}
+    .oc-person{font-size:.6rem;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--smoke);margin-bottom:.3rem;margin-top:.625rem;}
+    .oc-person:first-child{margin-top:0;}
+    .oc-item{display:flex;align-items:flex-start;gap:.5rem;padding:.3rem 0;border-bottom:1px solid rgba(255,255,255,.03);}
+    .oc-item:last-child{border-bottom:none;}
+    .oc-qty{min-width:22px;height:22px;border-radius:2px;background:rgba(255,77,0,.12);display:grid;place-items:center;font-family:'Courier Prime',monospace;font-size:.72rem;font-weight:700;color:var(--flame);flex-shrink:0;}
+    .oc-item-name{font-size:.82rem;color:var(--cream);line-height:1.3;}
+
+    .oc-note{margin:.5rem 1rem 0;padding:.45rem .75rem;background:rgba(255,140,0,.06);border:1px solid rgba(255,140,0,.15);border-radius:2px;font-size:.72rem;color:var(--ember);line-height:1.5;}
+
+    .oc-actions{padding:.75rem 1rem;border-top:1px solid rgba(255,255,255,.04);display:flex;gap:.4rem;}
+    .oc-btn{flex:1;padding:.6rem;border-radius:2px;border:none;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.3rem;}
+    .oc-btn-primary{background:var(--flame);color:#0D0805;box-shadow:0 0 12px rgba(255,77,0,.25);}
+    .oc-btn-primary:hover{background:var(--ember);box-shadow:0 0 20px rgba(255,77,0,.4);}
+    .oc-btn-ghost{background:var(--mahog);color:var(--ash);border:1px solid rgba(255,255,255,.06);}
+    .oc-btn-ghost:hover{color:var(--cream);}
+
+    .k-empty{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.75rem;color:var(--smoke);text-align:center;padding:2rem;}
+    .k-empty-icon{font-size:2rem;opacity:.4;}
+    .k-empty-msg{font-size:.78rem;line-height:1.6;}
+
+    @media(max-width:900px){
+      body{overflow:auto;height:auto;}
+      .kitchen-grid{grid-template-columns:1fr;overflow:visible;height:auto;}
+      .k-col{border-right:none;border-bottom:1px solid rgba(255,77,0,.06);overflow:visible;}
+      .k-col-body{overflow:visible;max-height:none;}
+    }
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <div>
+    <div class="nav-brand">FLAVA<span>.</span>FINGAZ</div>
+    <div class="nav-tag">Kitchen Display</div>
+  </div>
+  <div class="nav-spacer"></div>
+  <div class="live-dot"></div>
+  <span class="live-label">Live</span>
+  <a href="admin.html" class="nav-link">Admin</a>
+  <a href="index.html" class="nav-link">Home</a>
+</nav>
+
+<div class="stats-bar">
+  <div class="stat"><div><div class="stat-lbl">Pending</div><div class="stat-val" id="sp" style="color:var(--flame)">0</div></div></div>
+  <div class="stat-div"></div>
+  <div class="stat"><div><div class="stat-lbl">Preparing</div><div class="stat-val" id="spr" style="color:var(--blue)">0</div></div></div>
+  <div class="stat-div"></div>
+  <div class="stat"><div><div class="stat-lbl">Ready</div><div class="stat-val" id="sr" style="color:var(--green)">0</div></div></div>
+  <div class="stat-div"></div>
+  <div class="stat"><div><div class="stat-lbl">Done</div><div class="stat-val" id="sc" style="color:var(--smoke)">0</div></div></div>
+  <div class="crit-badge hidden" id="crit-badge">⚠ <span id="crit-count">0</span> Critical</div>
+</div>
+
+<main class="kitchen-grid">
+  <div class="k-col">
+    <div class="k-col-hdr">
+      <div class="k-col-hdr-left"><div class="col-dot" style="background:var(--flame);box-shadow:0 0 6px var(--flame)"></div><span class="col-title">Pending</span></div>
+      <span class="col-count" id="cc-pending">0</span>
+    </div>
+    <div class="k-col-body" id="col-pending"></div>
+  </div>
+  <div class="k-col">
+    <div class="k-col-hdr">
+      <div class="k-col-hdr-left"><div class="col-dot" style="background:var(--blue);box-shadow:0 0 6px var(--blue)"></div><span class="col-title">Preparing</span></div>
+      <span class="col-count" id="cc-preparing">0</span>
+    </div>
+    <div class="k-col-body" id="col-preparing"></div>
+  </div>
+  <div class="k-col">
+    <div class="k-col-hdr">
+      <div class="k-col-hdr-left"><div class="col-dot" style="background:var(--green);box-shadow:0 0 6px var(--green)"></div><span class="col-title">Ready</span></div>
+      <span class="col-count" id="cc-ready">0</span>
+    </div>
+    <div class="k-col-body" id="col-ready"></div>
+  </div>
+</main>
+
+<div id="toast-container"></div>
+<script src="app.js"></script>
+<script>
+'use strict';
+Store.load();
+const NEXT = {pending:'preparing',preparing:'ready',ready:'completed'};
+const NEXT_LBL = {pending:'Start Cooking',preparing:'Mark Ready',ready:'Complete & Serve'};
+
+function advance(id) {
+  const o = Store.orders.find(o=>o.id===id);
+  if (!o||!NEXT[o.status]) return;
+  Store.updateOrderStatus(id, NEXT[o.status]);
+  showToast(`${id} — ${NEXT_LBL[o.status]} ✓`, 'success');
+  render();
+}
+
+function buildCard(order) {
+  const mins = elapsedMins(order.createdAt);
+  const urgent = mins>=12&&mins<20;
+  const critical = mins>=20;
+  const timerClass = critical?'crit':urgent?'warn':'ok';
+
+  const items = order.persons.map(p=>{
+    const pHead = order.persons.length>1 ? `<div class="oc-person">${escapeHtml(p.name)}</div>` : '';
+    return pHead + p.items.map(it=>
+      `<div class="oc-item">
+        <div class="oc-qty">${it.quantity}</div>
+        <div class="oc-item-name">${escapeHtml(it.name)}</div>
+      </div>`
+    ).join('');
+  }).join('');
+
+  const note = order.notes ? `<div class="oc-note">⚠ ${escapeHtml(order.notes)}</div>` : '';
+
+  const actionBtn = NEXT[order.status] ? `
+    <div class="oc-actions">
+      <button class="oc-btn oc-btn-ghost" onclick="Store.updateOrderStatus('${order.id}','completed');render();showToast('Voided','default')">Void</button>
+      <button class="oc-btn oc-btn-primary" onclick="advance('${order.id}')">${NEXT_LBL[order.status]} →</button>
+    </div>` : '';
+
+  return `
+    <div class="order-card${critical?' critical':urgent?' urgent':''}">
+      <div class="oc-top">
+        <div>
+          <div class="oc-table">${order.orderType==='takeout'?'🛍 Takeout':'Table '+escapeHtml(order.tableNumber)}</div>
+          <div class="oc-id">${order.id} · ${timeSince(order.createdAt)}</div>
+        </div>
+        <span class="oc-timer ${timerClass}">${mins}m</span>
+      </div>
+      <div class="oc-body">${items}</div>
+      ${note}
+      ${actionBtn}
+    </div>`;
+}
+
+function render() {
+  const orders = Store.orders;
+  const pending   = orders.filter(o=>o.status==='pending');
+  const preparing = orders.filter(o=>o.status==='preparing');
+  const ready     = orders.filter(o=>o.status==='ready');
+  const completed = orders.filter(o=>o.status==='completed');
+  const crit = [...pending,...preparing].filter(o=>elapsedMins(o.createdAt)>=20);
+
+  document.getElementById('sp').textContent  = pending.length;
+  document.getElementById('spr').textContent = preparing.length;
+  document.getElementById('sr').textContent  = ready.length;
+  document.getElementById('sc').textContent  = completed.length;
+  document.getElementById('cc-pending').textContent   = pending.length;
+  document.getElementById('cc-preparing').textContent = preparing.length;
+  document.getElementById('cc-ready').textContent     = ready.length;
+
+  const cb = document.getElementById('crit-badge');
+  if (crit.length) { cb.classList.remove('hidden'); document.getElementById('crit-count').textContent=crit.length; }
+  else { cb.classList.add('hidden'); }
+
+  const renderCol = (id, list, emptyIcon, emptyMsg) => {
+    const el = document.getElementById(id);
+    el.innerHTML = list.length
+      ? list.map(o=>buildCard(o)).join('')
+      : `<div class="k-empty"><div class="k-empty-icon">${emptyIcon}</div><p class="k-empty-msg">${emptyMsg}</p></div>`;
+  };
+  renderCol('col-pending',   pending,   '✓', 'No pending orders');
+  renderCol('col-preparing', preparing, '🔥', 'Nothing in progress');
+  renderCol('col-ready',     ready,     '🔔', 'Nothing ready yet');
+}
+
+render();
+setInterval(render, 5000);
+</script>
+</body>
+</html>
