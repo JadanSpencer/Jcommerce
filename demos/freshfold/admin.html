@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Dashboard — FreshFold Laundry Co.</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="brand" data-nav>
+      <span class="brand-mark"></span>
+      <span>FreshFold<small>Laundry Co.</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu" class="lucide"></i></button>
+    <div class="nav-links">
+      <a href="index.html" data-nav>Home</a>
+      <a href="book.html" data-nav>Book a service</a>
+      <a href="track.html" data-nav>Track order</a>
+      <a href="driver.html" data-nav>Driver portal</a>
+      <a href="admin.html" data-nav class="active">Staff dashboard</a>
+      <a href="careers.html" data-nav class="btn btn-primary nav-cta-desktop">We're hiring</a>
+    </div>
+  </nav>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <div class="eyebrow">Staff operations</div>
+    <h1>Laundry operations dashboard</h1>
+    <p>Manage orders, track machine status, and assign tasks — all from one place.</p>
+  </div>
+</div>
+
+<main class="section" style="padding-top:2rem;">
+  <div class="container">
+    
+    <!-- Stats Row -->
+    <div class="stat-row">
+      <div class="stat-card">
+        <div class="stat-top">
+          <div class="stat-icon"><i data-lucide="package" class="lucide"></i></div>
+          <span class="stat-trend">+12%</span>
+        </div>
+        <div class="stat-val" id="pendingCount">0</div>
+        <div class="stat-label">Pending orders</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <div class="stat-icon"><i data-lucide="refresh-cw" class="lucide"></i></div>
+          <span class="stat-trend">In progress</span>
+        </div>
+        <div class="stat-val" id="activeCount">0</div>
+        <div class="stat-label">Active orders</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <div class="stat-icon"><i data-lucide="check-circle" class="lucide"></i></div>
+          <span class="stat-trend">Today</span>
+        </div>
+        <div class="stat-val" id="completedCount">0</div>
+        <div class="stat-label">Completed today</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-top">
+          <div class="stat-icon"><i data-lucide="truck" class="lucide"></i></div>
+          <span class="stat-trend">Active</span>
+        </div>
+        <div class="stat-val">3</div>
+        <div class="stat-label">Drivers on shift</div>
+      </div>
+    </div>
+
+    <!-- Admin Tabs -->
+    <div class="admin-tabs">
+      <button class="admin-tab active" data-tab="orders">📋 Orders</button>
+      <button class="admin-tab" data-tab="machines">🧺 Machine status</button>
+      <button class="admin-tab" data-tab="staff">👥 Staff</button>
+    </div>
+
+    <!-- Orders Tab -->
+    <div class="admin-tab-panel active" id="tab-orders">
+      <div class="kanban">
+        <div class="kanban-col" data-status="pending">
+          <h4>📋 Pending <span class="count" id="kanbanPending">0</span></h4>
+          <div class="kanban-items" id="kanbanPendingItems"></div>
+        </div>
+        <div class="kanban-col" data-status="collected">
+          <h4>🚗 Collected <span class="count" id="kanbanCollected">0</span></h4>
+          <div class="kanban-items" id="kanbanCollectedItems"></div>
+        </div>
+        <div class="kanban-col" data-status="washing">
+          <h4>💧 Washing <span class="count" id="kanbanWashing">0</span></h4>
+          <div class="kanban-items" id="kanbanWashingItems"></div>
+        </div>
+        <div class="kanban-col" data-status="drying">
+          <h4>🌀 Drying <span class="count" id="kanbanDrying">0</span></h4>
+          <div class="kanban-items" id="kanbanDryingItems"></div>
+        </div>
+        <div class="kanban-col" data-status="folding">
+          <h4>📦 Folding <span class="count" id="kanbanFolding">0</span></h4>
+          <div class="kanban-items" id="kanbanFoldingItems"></div>
+        </div>
+        <div class="kanban-col" data-status="ready">
+          <h4>✅ Ready <span class="count" id="kanbanReady">0</span></h4>
+          <div class="kanban-items" id="kanbanReadyItems"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Machines Tab -->
+    <div class="admin-tab-panel" id="tab-machines">
+      <div class="machine-section">
+        <div class="machine-section-head">
+          <h3><i data-lucide="droplet" class="lucide"></i> Washing Machines</h3>
+          <span class="machine-count" id="washerStats">0/0 available</span>
+        </div>
+        <div class="machine-grid" id="washerGrid"></div>
+      </div>
+      <div class="machine-section" style="margin-top:var(--sp-2xl);">
+        <div class="machine-section-head">
+          <h3><i data-lucide="wind" class="lucide"></i> Dryers</h3>
+          <span class="machine-count" id="dryerStats">0/0 available</span>
+        </div>
+        <div class="machine-grid" id="dryerGrid"></div>
+      </div>
+    </div>
+
+    <!-- Staff Tab -->
+    <div class="admin-tab-panel" id="tab-staff">
+      <div class="grid grid-2" style="margin-bottom:var(--sp-xl);">
+        <div class="stat-card">
+          <div class="stat-top">
+            <div class="stat-icon"><i data-lucide="users" class="lucide"></i></div>
+          </div>
+          <div class="stat-val">8</div>
+          <div class="stat-label">Total staff</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-top">
+            <div class="stat-icon"><i data-lucide="user-check" class="lucide"></i></div>
+          </div>
+          <div class="stat-val">4</div>
+          <div class="stat-label">On shift now</div>
+        </div>
+      </div>
+      <div style="background:var(--mist); border-radius:var(--radius-lg); padding:var(--sp-xl);">
+        <h3 style="font-size:var(--text-md); margin-bottom:var(--sp-lg);">Today's schedule</h3>
+        <div style="display:flex; flex-direction:column; gap:var(--sp-md);">
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:var(--sp-md); background:var(--white); border-radius:var(--radius-sm); border:0.0625rem solid var(--line);">
+            <div><strong>Kemar Williams</strong><span style="display:block; font-size:var(--text-xs); color:var(--ink-faint);">Driver</span></div>
+            <span class="badge progress">8:00 AM - 4:00 PM</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:var(--sp-md); background:var(--white); border-radius:var(--radius-sm); border:0.0625rem solid var(--line);">
+            <div><strong>Shanice Brown</strong><span style="display:block; font-size:var(--text-xs); color:var(--ink-faint);">Laundry Attendant</span></div>
+            <span class="badge progress">9:00 AM - 5:00 PM</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:var(--sp-md); background:var(--white); border-radius:var(--radius-sm); border:0.0625rem solid var(--line);">
+            <div><strong>Andre Thompson</strong><span style="display:block; font-size:var(--text-xs); color:var(--ink-faint);">Laundry Attendant</span></div>
+            <span class="badge progress">10:00 AM - 6:00 PM</span>
+          </div>
+          <div style="display:flex; justify-content:space-between; align-items:center; padding:var(--sp-md); background:var(--white); border-radius:var(--radius-sm); border:0.0625rem solid var(--line);">
+            <div><strong>Michael Chang</strong><span style="display:block; font-size:var(--text-xs); color:var(--ink-faint);">Driver</span></div>
+            <span class="badge pending">12:00 PM - 8:00 PM</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<button class="tour-fab" id="tourFab"><i data-lucide="compass" class="lucide"></i> Take the tour</button>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand"><span class="brand-mark"></span><span>FreshFold<small>Laundry Co.</small></span></div>
+        <p>Wash, dry, fold and delivery — booked online, done right. Mandeville, Jamaica.</p>
+      </div>
+      <div class="footer-col"><h4>Quick links</h4><ul>
+        <li><a href="index.html" data-nav>Home</a></li>
+        <li><a href="book.html" data-nav>Book a service</a></li>
+        <li><a href="careers.html" data-nav>Careers</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><i data-lucide="phone" class="lucide"></i> 876-223-6339</li>
+        <li><i data-lucide="mail" class="lucide"></i> freshfoldlaundryjm@gmail.com</li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 FreshFold Laundry Company Ltd.</span>
+      <span>Clean. Fresh. Convenient.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="loader">
+  <div class="loader-machine">
+    <div class="loader-ring"></div>
+    <div class="loader-drum">
+      <div class="loader-clothes"><span></span><span></span><span></span></div>
+      <div class="loader-water"></div>
+    </div>
+    <div class="loader-glass"></div>
+  </div>
+  <div class="loader-text"><strong>FreshFold</strong><span>Loading your laundry…</span></div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="js/main.js"></script>
+<script>
+window.tourSteps = [
+  { selector: '.stat-row', title: 'Key metrics at a glance', text: 'See pending orders, active loads, and today\'s completions right when you open the dashboard.', placement: 'bottom' },
+  { selector: '.admin-tabs', title: 'Organized by function', text: 'Switch between order management, machine status, and staff schedules.', placement: 'bottom' },
+  { selector: '.kanban', title: 'Order kanban board', text: 'Drag orders between stages to update status. Track every load from collection to completion.', placement: 'top' },
+  { selector: '#tab-machines', title: 'Machine status', text: 'Monitor washers and dryers in real-time. Mark machines as in-use, available, or maintenance.', placement: 'top' },
+];
+
+// Sample orders data
+let orders = [
+  { id: 'FF-1042', customer: 'Marcia Campbell', service: 'washfold', bags: '2× Small', status: 'pending', time: '9:00 AM' },
+  { id: 'FF-2251', customer: 'Donovan Clarke', service: 'washfold', bags: '1× Large', status: 'collected', time: '10:30 AM' },
+  { id: 'FF-3387', customer: 'Shenice Brown', service: 'dryclean', bags: '3× items', status: 'washing', time: '11:00 AM' },
+  { id: 'FF-4419', customer: 'Andre Williams', service: 'washfold', bags: '2× Small, 1× Large', status: 'drying', time: '12:00 PM' },
+  { id: 'FF-5532', customer: 'Tasha Reid', service: 'bedding', bags: '2× Large', status: 'folding', time: '1:30 PM' },
+  { id: 'FF-6648', customer: 'Kevin Brown', service: 'washfold', bags: '1× Small', status: 'ready', time: '2:00 PM' },
+  { id: 'FF-7751', customer: 'Latoya Grant', service: 'dryclean', bags: '2× items', status: 'pending', time: '3:00 PM' },
+];
+
+// Machine data
+let machines = {
+  washers: [
+    { id: 'W01', status: 'available', cycle: null },
+    { id: 'W02', status: 'in-use', cycle: 'Wash & Fold - FF-3387', remaining: '18 min' },
+    { id: 'W03', status: 'available', cycle: null },
+    { id: 'W04', status: 'maintenance', cycle: null },
+    { id: 'W05', status: 'in-use', cycle: 'Bedding - FF-5532', remaining: '32 min' },
+    { id: 'W06', status: 'available', cycle: null },
+  ],
+  dryers: [
+    { id: 'D01', status: 'available', cycle: null },
+    { id: 'D02', status: 'in-use', cycle: 'Wash & Fold - FF-2251', remaining: '12 min' },
+    { id: 'D03', status: 'available', cycle: null },
+    { id: 'D04', status: 'in-use', cycle: 'Dry Clean - FF-3387', remaining: '25 min' },
+    { id: 'D05', status: 'available', cycle: null },
+  ]
+};
+
+function getStatusLabel(status) {
+  const labels = {
+    pending: 'Pending',
+    collected: 'Collected',
+    washing: 'Washing',
+    drying: 'Drying',
+    folding: 'Folding',
+    ready: 'Ready'
+  };
+  return labels[status] || status;
+}
+
+function getStatusBadge(status) {
+  const badges = {
+    pending: 'pending',
+    collected: 'progress',
+    washing: 'progress',
+    drying: 'progress',
+    folding: 'progress',
+    ready: 'done'
+  };
+  return badges[status] || 'pending';
+}
+
+function renderKanban() {
+  const statuses = ['pending', 'collected', 'washing', 'drying', 'folding', 'ready'];
+  statuses.forEach(status => {
+    const container = document.getElementById(`kanban${status.charAt(0).toUpperCase() + status.slice(1)}Items`);
+    const countSpan = document.getElementById(`kanban${status.charAt(0).toUpperCase() + status.slice(1)}`);
+    const filtered = orders.filter(o => o.status === status);
+    if (countSpan) countSpan.textContent = filtered.length;
+    if (container) {
+      container.innerHTML = filtered.map(order => `
+        <div class="kcard" draggable="true" data-order-id="${order.id}" data-status="${order.status}">
+          <strong>${order.id}</strong>
+          <div>${order.customer}</div>
+          <div class="kcard-meta">
+            <span>${order.bags}</span>
+            <span>${order.time}</span>
+          </div>
+        </div>
+      `).join('');
+    }
+  });
+  
+  // Update counts
+  document.getElementById('pendingCount').textContent = orders.filter(o => o.status === 'pending').length;
+  document.getElementById('activeCount').textContent = orders.filter(o => ['collected','washing','drying','folding'].includes(o.status)).length;
+  document.getElementById('completedCount').textContent = orders.filter(o => o.status === 'ready').length;
+}
+
+function renderMachines() {
+  const washerGrid = document.getElementById('washerGrid');
+  const dryerGrid = document.getElementById('dryerGrid');
+  
+  const availableWashers = machines.washers.filter(m => m.status === 'available').length;
+  const availableDryers = machines.dryers.filter(m => m.status === 'available').length;
+  
+  document.getElementById('washerStats').textContent = `${availableWashers}/${machines.washers.length} available`;
+  document.getElementById('dryerStats').textContent = `${availableDryers}/${machines.dryers.length} available`;
+  
+  if (washerGrid) {
+    washerGrid.innerHTML = machines.washers.map(m => `
+      <div class="machine-tile ${m.status}" data-machine-id="${m.id}" data-type="washer">
+        <svg class="machine-svg" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+          <circle cx="20" cy="20" r="16" fill="none" stroke="currentColor"/>
+          <circle cx="20" cy="20" r="10" fill="none" stroke="currentColor"/>
+          <circle cx="20" cy="20" r="3" fill="currentColor" opacity="0.3"/>
+        </svg>
+        <div class="machine-id">${m.id}</div>
+        <div class="machine-status">
+          <span class="machine-status-dot ${m.status}"></span>
+          <span class="machine-status-label">${m.status === 'available' ? 'Ready' : m.status === 'in-use' ? 'In use' : 'Maintenance'}</span>
+        </div>
+        ${m.cycle ? `<div style="font-size:0.625rem; color:var(--ink-faint); margin-top:0.25rem;">${m.cycle}</div>` : ''}
+      </div>
+    `).join('');
+  }
+  
+  if (dryerGrid) {
+    dryerGrid.innerHTML = machines.dryers.map(m => `
+      <div class="machine-tile ${m.status}" data-machine-id="${m.id}" data-type="dryer">
+        <svg class="machine-svg" viewBox="0 0 40 40" fill="none" stroke="currentColor" stroke-width="1.5">
+          <rect x="6" y="6" width="28" height="28" rx="4" fill="none" stroke="currentColor"/>
+          <circle cx="20" cy="20" r="8" fill="none" stroke="currentColor"/>
+          <path d="M20 12 L20 16 M20 24 L20 28 M12 20 L16 20 M24 20 L28 20" stroke="currentColor" stroke-width="1"/>
+        </svg>
+        <div class="machine-id">${m.id}</div>
+        <div class="machine-status">
+          <span class="machine-status-dot ${m.status}"></span>
+          <span class="machine-status-label">${m.status === 'available' ? 'Ready' : m.status === 'in-use' ? 'In use' : 'Maintenance'}</span>
+        </div>
+        ${m.cycle ? `<div style="font-size:0.625rem; color:var(--ink-faint); margin-top:0.25rem;">${m.cycle}</div>` : ''}
+      </div>
+    `).join('');
+  }
+}
+
+// Tab switching
+document.querySelectorAll('.admin-tab').forEach(tab => {
+  tab.addEventListener('click', () => {
+    document.querySelectorAll('.admin-tab').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.admin-tab-panel').forEach(p => p.classList.remove('active'));
+    tab.classList.add('active');
+    const tabId = tab.dataset.tab;
+    document.getElementById(`tab-${tabId}`).classList.add('active');
+    if (tabId === 'machines') renderMachines();
+  });
+});
+
+// Drag and drop for kanban
+function setupDragAndDrop() {
+  const cards = document.querySelectorAll('.kcard');
+  const columns = document.querySelectorAll('.kanban-col');
+  
+  cards.forEach(card => {
+    card.addEventListener('dragstart', (e) => {
+      e.dataTransfer.setData('text/plain', card.dataset.orderId);
+      card.style.opacity = '0.5';
+    });
+    card.addEventListener('dragend', (e) => {
+      card.style.opacity = '1';
+    });
+  });
+  
+  columns.forEach(col => {
+    col.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      col.style.background = 'var(--cerulean-50)';
+    });
+    col.addEventListener('dragleave', () => {
+      col.style.background = '';
+    });
+    col.addEventListener('drop', (e) => {
+      e.preventDefault();
+      col.style.background = '';
+      const orderId = e.dataTransfer.getData('text/plain');
+      const newStatus = col.dataset.status;
+      const order = orders.find(o => o.id === orderId);
+      if (order) {
+        order.status = newStatus;
+        renderKanban();
+        setupDragAndDrop();
+        if (window.lucide) lucide.createIcons();
+      }
+    });
+  });
+}
+
+// Initialize
+renderKanban();
+renderMachines();
+setTimeout(() => {
+  setupDragAndDrop();
+}, 100);
+</script>
+<script src="js/tours.js"></script>
+</body>
+</html>

@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Book a Service — FreshFold Laundry Co.</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="brand" data-nav>
+      <span class="brand-mark"></span>
+      <span>FreshFold<small>Laundry Co.</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu" class="lucide"></i></button>
+    <div class="nav-links">
+      <a href="index.html" data-nav>Home</a>
+      <a href="book.html" data-nav class="active">Book a service</a>
+      <a href="track.html" data-nav>Track order</a>
+      <a href="driver.html" data-nav>Driver portal</a>
+      <a href="admin.html" data-nav>Staff dashboard</a>
+      <a href="careers.html" data-nav class="btn btn-primary nav-cta-desktop">We're hiring</a>
+    </div>
+  </nav>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <div class="eyebrow">Customer booking</div>
+    <h1>Book your laundry in four steps</h1>
+    <p>Choose walk-in or pickup &amp; delivery, tell us what's in the load, pick a time, and confirm. Your live order summary updates as you go.</p>
+    <div class="stepper" id="stepper">
+      <div class="stepper-item active" data-step-tab="1"><span class="dot">1</span><span class="label">Service</span></div>
+      <div class="stepper-item" data-step-tab="2"><span class="dot">2</span><span class="label">Details</span></div>
+      <div class="stepper-item" data-step-tab="3"><span class="dot">3</span><span class="label">Schedule</span></div>
+      <div class="stepper-item" data-step-tab="4"><span class="dot">4</span><span class="label">Confirm</span></div>
+    </div>
+  </div>
+</div>
+
+<main class="section" style="padding-top:2rem;">
+  <div class="container booking-shell">
+    <div class="panel">
+
+      <!-- STEP 1: SERVICE TYPE -->
+      <section class="step-panel active" data-step="1">
+        <h2>How would you like this done?</h2>
+        <p class="panel-sub">Pick the option that fits your day — you can change this for every order.</p>
+        <div class="choice-grid" id="serviceTypeGroup">
+          <label class="choice-card" data-value="walkin">
+            <input type="radio" name="serviceType" value="walkin">
+            <span class="check"><i data-lucide="check" class="lucide"></i></span>
+            <div class="ci-icon"><i data-lucide="store" class="lucide"></i></div>
+            <h3>Walk-in drop-off</h3>
+            <p>Bring your laundry to our counter and book an appointed collection time.</p>
+          </label>
+          <label class="choice-card" data-value="pickup">
+            <input type="radio" name="serviceType" value="pickup">
+            <span class="check"><i data-lucide="check" class="lucide"></i></span>
+            <div class="ci-icon"><i data-lucide="truck" class="lucide"></i></div>
+            <h3>Pickup &amp; delivery</h3>
+            <p>A driver collects your hamper and brings it back, fresh and folded.</p>
+          </label>
+        </div>
+        <div class="form-nav">
+          <span></span>
+          <button class="btn btn-primary btn-lg" data-next disabled>Continue <i data-lucide="arrow-right" class="lucide"></i></button>
+        </div>
+      </section>
+
+      <!-- STEP 2: DETAILS -->
+      <section class="step-panel" data-step="2">
+        <h2>What's in this load?</h2>
+        <p class="panel-sub">Choose a service and tell us roughly how much laundry you have.</p>
+
+        <div class="choice-grid" style="grid-template-columns:repeat(3,1fr); margin-bottom:var(--sp-xl);" id="categoryGroup">
+          <label class="choice-card" data-value="washfold">
+            <input type="radio" name="category" value="washfold">
+            <span class="check"><i data-lucide="check" class="lucide"></i></span>
+            <div class="ci-icon"><i data-lucide="shirt" class="lucide"></i></div>
+            <h3>Wash &amp; Fold</h3>
+            <p>Everyday laundry, sorted and folded.</p>
+          </label>
+          <label class="choice-card" data-value="dryclean">
+            <input type="radio" name="category" value="dryclean">
+            <span class="check"><i data-lucide="check" class="lucide"></i></span>
+            <div class="ci-icon"><i data-lucide="sparkles" class="lucide"></i></div>
+            <h3>Dry Cleaning</h3>
+            <p>Suits, dresses &amp; delicates, pressed.</p>
+          </label>
+          <label class="choice-card" data-value="bedding">
+            <input type="radio" name="category" value="bedding">
+            <span class="check"><i data-lucide="check" class="lucide"></i></span>
+            <div class="ci-icon"><i data-lucide="bed-double" class="lucide"></i></div>
+            <h3>Bedding &amp; Linens</h3>
+            <p>Sheets, duvets, towels &amp; covers.</p>
+          </label>
+        </div>
+
+        <h3 style="font-size:var(--text-base); margin-bottom:var(--sp-sm);">Load size</h3>
+        <div class="qty-row" data-price="1200" data-label="Small bag (~10 lb)">
+          <div class="qty-info"><strong>Small bag <span style="font-weight:400;color:var(--ink-faint);">(~10 lb)</span></strong><span>$1,200 / bag</span></div>
+          <div class="qty-control" data-min="0" data-max="10">
+            <button data-action="dec" type="button" aria-label="Decrease small bags"><i data-lucide="minus" class="lucide"></i></button>
+            <span class="qty-val">0</span>
+            <button data-action="inc" type="button" aria-label="Increase small bags"><i data-lucide="plus" class="lucide"></i></button>
+          </div>
+        </div>
+        <div class="qty-row" data-price="2200" data-label="Large bag (~20 lb)">
+          <div class="qty-info"><strong>Large bag <span style="font-weight:400;color:var(--ink-faint);">(~20 lb)</span></strong><span>$2,200 / bag</span></div>
+          <div class="qty-control" data-min="0" data-max="10">
+            <button data-action="dec" type="button" aria-label="Decrease large bags"><i data-lucide="minus" class="lucide"></i></button>
+            <span class="qty-val">0</span>
+            <button data-action="inc" type="button" aria-label="Increase large bags"><i data-lucide="plus" class="lucide"></i></button>
+          </div>
+        </div>
+
+        <div class="field" style="margin-top:var(--sp-lg);">
+          <label for="instructions">Special instructions <span class="hint">(optional)</span></label>
+          <textarea id="instructions" placeholder="e.g. cold wash only, separate the grey towels, extra starch on shirts"></textarea>
+        </div>
+
+        <div class="field-grid">
+          <div class="field">
+            <label for="custName">Full name</label>
+            <input type="text" id="custName" placeholder="Your name" autocomplete="name">
+          </div>
+          <div class="field">
+            <label for="custPhone">Phone number</label>
+            <input type="tel" id="custPhone" placeholder="876-000-0000" autocomplete="tel">
+          </div>
+        </div>
+        <div class="field">
+          <label for="custEmail">Email <span class="hint">(for order updates)</span></label>
+          <input type="email" id="custEmail" placeholder="you@email.com" autocomplete="email">
+        </div>
+
+        <div class="form-nav">
+          <button class="btn btn-ghost" data-prev><i data-lucide="arrow-left" class="lucide"></i> Back</button>
+          <button class="btn btn-primary btn-lg" data-next>Continue <i data-lucide="arrow-right" class="lucide"></i></button>
+        </div>
+      </section>
+
+      <!-- STEP 3: SCHEDULE -->
+      <section class="step-panel" data-step="3">
+        <h2>Choose your time</h2>
+        <p class="panel-sub" id="scheduleIntro">Pick a day and time slot that works for you.</p>
+
+        <div id="pickupFields" hidden>
+          <div class="field-grid">
+            <div class="field">
+              <label for="pickupAddress">Pickup address</label>
+              <input type="text" id="pickupAddress" placeholder="e.g. 12 Manchester Road, Mandeville">
+            </div>
+            <div class="field">
+              <label for="deliveryAddress">Delivery address</label>
+              <input type="text" id="deliveryAddress" placeholder="Same as pickup, or a different address">
+            </div>
+          </div>
+        </div>
+
+        <div id="walkinFields" hidden>
+          <div class="field">
+            <label for="branchSelect">Drop-off branch</label>
+            <select id="branchSelect">
+              <option>FreshFold Main Street — Mandeville</option>
+              <option>FreshFold Northern Caribbean Plaza — Mandeville</option>
+            </select>
+          </div>
+        </div>
+
+        <h3 style="font-size:var(--text-base); margin-bottom:var(--sp-sm);">Day</h3>
+        <div class="day-grid" id="dayGrid"></div>
+
+        <h3 style="font-size:var(--text-base); margin:var(--sp-lg) 0 var(--sp-sm);" id="slotLabel">Time slot</h3>
+        <div class="slot-grid" id="slotGrid">
+          <div class="slot" data-value="8-10">8:00 – 10:00 AM</div>
+          <div class="slot" data-value="10-12">10:00 AM – 12:00 PM</div>
+          <div class="slot full" data-value="12-2">12:00 – 2:00 PM</div>
+          <div class="slot" data-value="2-4">2:00 – 4:00 PM</div>
+          <div class="slot" data-value="4-6">4:00 – 6:00 PM</div>
+          <div class="slot full" data-value="6-8">6:00 – 8:00 PM</div>
+        </div>
+
+        <div class="form-nav">
+          <button class="btn btn-ghost" data-prev><i data-lucide="arrow-left" class="lucide"></i> Back</button>
+          <button class="btn btn-primary btn-lg" data-next disabled>Review order <i data-lucide="arrow-right" class="lucide"></i></button>
+        </div>
+      </section>
+
+      <!-- STEP 4: CONFIRM -->
+      <section class="step-panel" data-step="4">
+        <div id="reviewView">
+          <h2>Review &amp; confirm</h2>
+          <p class="panel-sub">Check the details below — this is exactly what our team will see.</p>
+          <div id="reviewSummary"></div>
+          <div class="form-nav">
+            <button class="btn btn-ghost" data-prev><i data-lucide="arrow-left" class="lucide"></i> Back</button>
+            <button class="btn btn-primary btn-lg" id="confirmBtn"><i data-lucide="check-circle" class="lucide"></i> Confirm booking</button>
+          </div>
+        </div>
+
+        <div class="confirm-wrap" id="confirmResult" hidden>
+          <div class="confirm-icon"><i data-lucide="badge-check" class="lucide"></i></div>
+          <h2>Booking confirmed</h2>
+          <p class="muted">We've got your order. Save this code to track its progress.</p>
+          <div class="confirm-code"><i data-lucide="hash" class="lucide"></i><span id="orderCodeOut">FF-0000</span></div>
+          <div class="hero-ctas" style="justify-content:center;">
+            <a href="track.html" data-nav class="btn btn-primary btn-lg"><i data-lucide="radar" class="lucide"></i> Track this order</a>
+            <a href="index.html" data-nav class="btn btn-ghost btn-lg">Back to home</a>
+          </div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- SUMMARY SIDEBAR -->
+    <aside class="summary-card">
+      <h3><i data-lucide="receipt" class="lucide" style="vertical-align:-0.2em;"></i> Order summary</h3>
+      <div id="summaryLines">
+        <p class="summary-empty">Choose a service to see your live estimate.</p>
+      </div>
+      <div class="summary-total" id="summaryTotalWrap" hidden>
+        <span>Estimated total</span>
+        <span id="summaryTotal">$0</span>
+      </div>
+    </aside>
+  </div>
+</main>
+
+<button class="tour-fab" id="tourFab"><i data-lucide="compass" class="lucide"></i> Take the tour</button>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand"><span class="brand-mark"></span><span>FreshFold<small>Laundry Co.</small></span></div>
+        <p>Wash, dry, fold and delivery — booked online, done right. Mandeville, Jamaica.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <ul>
+          <li><a href="book.html" data-nav>Wash &amp; fold</a></li>
+          <li><a href="book.html" data-nav>Pickup &amp; delivery</a></li>
+          <li><a href="book.html" data-nav>Dry cleaning</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <ul>
+          <li><a href="careers.html" data-nav>Careers</a></li>
+          <li><a href="track.html" data-nav>Track an order</a></li>
+          <li><a href="admin.html" data-nav>Staff dashboard</a></li>
+          <li><a href="driver.html" data-nav>Driver portal</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><i data-lucide="phone" class="lucide"></i> 876-223-6339</li>
+          <li><i data-lucide="mail" class="lucide"></i> freshfoldlaundryjm@gmail.com</li>
+          <li><i data-lucide="map-pin" class="lucide"></i> Mandeville, Jamaica</li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 FreshFold Laundry Company Ltd. — demo site for preview purposes.</span>
+      <span>Clean. Fresh. Convenient.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="loader">
+  <div class="loader-machine">
+    <div class="loader-ring"></div>
+    <div class="loader-drum">
+      <div class="loader-clothes"><span></span><span></span><span></span></div>
+      <div class="loader-water"></div>
+    </div>
+    <div class="loader-glass"></div>
+  </div>
+  <div class="loader-text">
+    <strong>FreshFold</strong>
+    <span>Loading your laundry…</span>
+  </div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="js/main.js"></script>
+<script>
+window.tourSteps = [
+  {
+    selector: '#stepper',
+    title: 'Four quick steps',
+    text: 'Every booking follows the same flow: pick your service, describe the load, choose a time, then confirm.',
+    placement: 'bottom'
+  },
+  {
+    selector: '#serviceTypeGroup',
+    title: 'Walk-in or pickup',
+    text: 'Choose to drop your laundry off yourself, or have a FreshFold driver collect it from your address.',
+    placement: 'bottom'
+  },
+  {
+    selector: '.summary-card',
+    title: 'Your live summary',
+    text: 'As you build your order, this panel keeps a running estimate of what it will cost.',
+    placement: 'left'
+  },
+  {
+    selector: '[data-next]',
+    title: 'Move through the flow',
+    text: 'Continue button takes you to the next step. You can always go back to make changes.',
+    placement: 'top'
+  }
+];
+</script>
+<script src="js/tours.js"></script>
+<script src="js/booking.js"></script>
+</body>
+</html>

@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Driver Portal — FreshFold Laundry Co.</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="brand" data-nav>
+      <span class="brand-mark"></span>
+      <span>FreshFold<small>Laundry Co.</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu" class="lucide"></i></button>
+    <div class="nav-links">
+      <a href="index.html" data-nav>Home</a>
+      <a href="book.html" data-nav>Book a service</a>
+      <a href="track.html" data-nav>Track order</a>
+      <a href="driver.html" data-nav class="active">Driver portal</a>
+      <a href="admin.html" data-nav>Staff dashboard</a>
+      <a href="careers.html" data-nav class="btn btn-primary nav-cta-desktop">We're hiring</a>
+    </div>
+  </nav>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <div class="eyebrow">Driver portal</div>
+    <h1>Your runs for today</h1>
+    <p>All pickups and deliveries assigned to you. Mark runs complete as you go.</p>
+  </div>
+</div>
+
+<main class="section" style="padding-top:2rem;">
+  <div class="container">
+    <div class="dash-shell">
+
+      <!-- Sidebar -->
+      <aside class="dash-side">
+        <div class="who">
+          <div class="avatar">KW</div>
+          <div>
+            <strong>Kemar Williams</strong>
+            <span>Driver · On shift</span>
+          </div>
+        </div>
+        <nav class="dash-nav">
+          <a href="#" class="active"><i data-lucide="truck" class="lucide"></i> My runs</a>
+          <a href="#"><i data-lucide="map-pin" class="lucide"></i> Route map</a>
+          <a href="#"><i data-lucide="history" class="lucide"></i> Past deliveries</a>
+          <a href="#"><i data-lucide="circle-user" class="lucide"></i> My profile</a>
+        </nav>
+        <div class="dash-stat-mini">
+          <span>Runs today</span>
+          <strong id="runCount">4</strong>
+        </div>
+        <div class="dash-stat-mini" style="margin-top:var(--sp-md);">
+          <span>Completed</span>
+          <strong id="runDone">1</strong>
+        </div>
+        <div class="dash-stat-mini" style="margin-top:var(--sp-md);">
+          <span>Shift earnings</span>
+          <strong>$4,000</strong>
+        </div>
+      </aside>
+
+      <!-- Main content -->
+      <div>
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:var(--sp-xl);flex-wrap:wrap;gap:var(--sp-md);">
+          <h2 style="font-size:var(--text-xl);margin:0;">Assigned runs</h2>
+          <div style="display:flex;gap:0.5rem;">
+            <button class="btn btn-ghost" onclick="filterRuns('all')" id="fAll" style="padding:.6rem 1rem;font-size:var(--text-sm);">All</button>
+            <button class="btn btn-ghost" onclick="filterRuns('pickup')" id="fPickup" style="padding:.6rem 1rem;font-size:var(--text-sm);">Pickups</button>
+            <button class="btn btn-ghost" onclick="filterRuns('delivery')" id="fDelivery" style="padding:.6rem 1rem;font-size:var(--text-sm);">Deliveries</button>
+          </div>
+        </div>
+
+        <div class="run-list" id="runList"></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<button class="tour-fab" id="tourFab"><i data-lucide="compass" class="lucide"></i> Take the tour</button>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand"><span class="brand-mark"></span><span>FreshFold<small>Laundry Co.</small></span></div>
+        <p>Wash, dry, fold and delivery — booked online, done right. Mandeville, Jamaica.</p>
+      </div>
+      <div class="footer-col"><h4>Quick links</h4><ul>
+        <li><a href="index.html" data-nav>Home</a></li>
+        <li><a href="admin.html" data-nav>Staff dashboard</a></li>
+        <li><a href="careers.html" data-nav>Careers</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><i data-lucide="phone" class="lucide"></i> 876-223-6339</li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 FreshFold Laundry Company Ltd.</span>
+      <span>Clean. Fresh. Convenient.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="loader">
+  <div class="loader-machine">
+    <div class="loader-ring"></div>
+    <div class="loader-drum">
+      <div class="loader-clothes"><span></span><span></span><span></span></div>
+      <div class="loader-water">
+        <svg class="loader-wave-svg" viewBox="0 0 200 20" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+          <path d="M0,10 C30,0 50,20 80,10 C110,0 130,20 160,10 C190,0 200,10 200,10 L200,20 L0,20 Z" fill="rgba(255,255,255,0.35)"/>
+          <path d="M0,14 C25,6 55,18 90,12 C125,6 155,18 200,12 L200,20 L0,20 Z" fill="rgba(255,255,255,0.2)"/>
+        </svg>
+      </div>
+    </div>
+    <div class="loader-glass"></div>
+  </div>
+  <div class="loader-text"><strong>FreshFold</strong><span>Loading your laundry…</span></div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="js/main.js"></script>
+<script>
+window.tourSteps = [
+  { selector: '.dash-side', title: 'Your driver profile', text: 'Your name, shift status and quick stats are shown here. Use the nav links to switch between your runs, route and profile.', placement: 'right' },
+  { selector: '#runList', title: 'Your assigned runs', text: 'Each card shows the run type, address, order code and time window. Tap the buttons to update the run status as you complete each one.', placement: 'top' },
+  { selector: '#fAll', title: 'Filter by run type', text: 'Toggle between all runs, pickups only, or deliveries only to keep your focus sharp on the road.', placement: 'bottom' },
+];
+
+const runs = [
+  { id: 'FF-1042', type: 'pickup', name: 'Marcia Campbell', address: '24 Caledonia Road, Mandeville', time: '9:00 – 11:00 AM', bags: '2 × Small bag', status: 'done' },
+  { id: 'FF-2251', type: 'delivery', name: 'Donovan Clarke', address: '8 Ward Avenue, Mandeville', time: '10:00 AM – 12:00 PM', bags: '1 × Large bag', status: 'active' },
+  { id: 'FF-3387', type: 'pickup', name: 'Shenice Brown', address: '16 Hargreaves Ave, Mandeville', time: '12:00 – 2:00 PM', bags: '3 × Small bag', status: 'pending' },
+  { id: 'FF-4419', type: 'delivery', name: 'Andre Williams', address: '5 Perth Road, Mandeville', time: '2:00 – 4:00 PM', bags: '1 × Small, 1 × Large', status: 'pending' },
+];
+
+let filter = 'all';
+
+function filterRuns(f) {
+  filter = f;
+  ['All','Pickup','Delivery'].forEach(n => {
+    const btn = document.getElementById('f'+n);
+    if (btn) btn.style.background = (f === n.toLowerCase() || (f==='all' && n==='All')) ? 'var(--cerulean-50)' : '';
+  });
+  renderRuns();
+}
+
+function renderRuns() {
+  const list = document.getElementById('runList');
+  const filtered = filter === 'all' ? runs : runs.filter(r => r.type === filter);
+  list.innerHTML = filtered.map(r => {
+    const icon = r.type === 'pickup' ? 'package' : 'truck';
+    const statusBadge = r.status === 'done'
+      ? `<span class="badge done"><i data-lucide="check" class="lucide"></i> Complete</span>`
+      : r.status === 'active'
+      ? `<span class="badge progress"><i data-lucide="loader" class="lucide"></i> In progress</span>`
+      : `<span class="badge pending"><i data-lucide="clock" class="lucide"></i> Pending</span>`;
+    const actionBtn = r.status === 'pending'
+      ? `<button class="btn btn-primary" onclick="startRun('${r.id}')" style="font-size:var(--text-sm);padding:.6rem 1.1rem;"><i data-lucide="play" class="lucide"></i> Start</button>`
+      : r.status === 'active'
+      ? `<button class="btn btn-accent" onclick="completeRun('${r.id}')" style="font-size:var(--text-sm);padding:.6rem 1.1rem;"><i data-lucide="check-circle" class="lucide"></i> Complete</button>`
+      : `<span style="font-size:var(--text-sm);color:var(--success);font-weight:600;">✓ Done</span>`;
+    return `<div class="run-card" id="run-${r.id}">
+      <div class="run-type"><i data-lucide="${icon}" class="lucide"></i></div>
+      <div class="run-body">
+        <h4>${r.type === 'pickup' ? 'Pickup' : 'Delivery'} · <span style="font-family:var(--font-mono);font-size:var(--text-sm);">${r.id}</span></h4>
+        <p>${r.name} · ${r.address}</p>
+        <p style="margin-top:.25rem;">${r.bags}</p>
+        <div class="run-time"><i data-lucide="clock" class="lucide" style="display:inline;vertical-align:-.15em;width:.9rem;height:.9rem;"></i> ${r.time}</div>
+      </div>
+      <div class="run-actions">
+        ${statusBadge}
+        ${actionBtn}
+      </div>
+    </div>`;
+  }).join('');
+  if (window.lucide) lucide.createIcons();
+  updateCounts();
+}
+
+function startRun(id) {
+  const run = runs.find(r => r.id === id);
+  if (run) { run.status = 'active'; renderRuns(); }
+}
+function completeRun(id) {
+  const run = runs.find(r => r.id === id);
+  if (run) { run.status = 'done'; renderRuns(); }
+}
+function updateCounts() {
+  document.getElementById('runDone').textContent = runs.filter(r => r.status === 'done').length;
+  document.getElementById('runCount').textContent = runs.length;
+}
+
+filterRuns('all');
+</script>
+<script src="js/tours.js"></script>
+</body>
+</html>

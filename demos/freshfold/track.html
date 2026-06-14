@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Track Order — FreshFold Laundry Co.</title>
+<link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+<header class="site-header">
+  <nav class="nav container">
+    <a href="index.html" class="brand" data-nav>
+      <span class="brand-mark"></span>
+      <span>FreshFold<small>Laundry Co.</small></span>
+    </a>
+    <button class="nav-toggle" aria-label="Open menu" aria-expanded="false"><i data-lucide="menu" class="lucide"></i></button>
+    <div class="nav-links">
+      <a href="index.html" data-nav>Home</a>
+      <a href="book.html" data-nav>Book a service</a>
+      <a href="track.html" data-nav class="active">Track order</a>
+      <a href="driver.html" data-nav>Driver portal</a>
+      <a href="admin.html" data-nav>Staff dashboard</a>
+      <a href="careers.html" data-nav class="btn btn-primary nav-cta-desktop">We're hiring</a>
+    </div>
+  </nav>
+</header>
+
+<div class="page-head">
+  <div class="container">
+    <div class="eyebrow">Live order tracking</div>
+    <h1>Track your laundry</h1>
+    <p>Enter your order code to follow every stage — from received to folded and delivered.</p>
+  </div>
+</div>
+
+<main class="section" style="padding-top:2rem;">
+  <div class="container" style="max-width:68rem;">
+    
+    <!-- Search Section -->
+    <div class="track-search">
+      <div class="track-search-inner">
+        <div class="field" style="flex:1; min-width:0; margin:0;">
+          <input type="text" id="trackInput" placeholder="FF-1042" style="text-transform:uppercase; font-family:var(--font-mono); letter-spacing:.1em; width:100%;">
+        </div>
+        <button class="btn btn-primary" id="trackBtn" style="flex-shrink:0;"><i data-lucide="search" class="lucide"></i> Track</button>
+      </div>
+      <div class="demo-codes">
+        <span>Demo:</span>
+        <button class="demo-btn" onclick="quickTrack('FF-1042')">FF-1042</button>
+        <button class="demo-btn" onclick="quickTrack('FF-2251')">FF-2251</button>
+        <button class="demo-btn" onclick="quickTrack('FF-3387')">FF-3387</button>
+      </div>
+    </div>
+
+    <!-- Track Result -->
+    <div id="trackResult" style="display:none;">
+      <div class="track-grid">
+        <!-- Left: Timeline -->
+        <div class="track-timeline-section">
+          <div class="track-header">
+            <div>
+              <div class="eyebrow" style="margin-bottom:0.25rem;">Order status</div>
+              <h2 style="font-size:var(--text-xl); margin:0;" id="trackOrderCode">FF-1042</h2>
+            </div>
+            <span class="badge progress" id="trackStatusBadge"><i data-lucide="loader" class="lucide"></i> In progress</span>
+          </div>
+
+          <div class="timeline" id="trackTimeline">
+            <div class="t-item done">
+              <div class="t-dot"><i data-lucide="check" class="lucide"></i></div>
+              <div class="t-content">
+                <h4>Order received</h4>
+                <p>Your booking was confirmed and is on our system.</p>
+                <div class="t-time">Today · 8:04 AM</div>
+              </div>
+            </div>
+            <div class="t-item done">
+              <div class="t-dot"><i data-lucide="package" class="lucide"></i></div>
+              <div class="t-content">
+                <h4>Collected / Dropped off</h4>
+                <p>Laundry has been collected from you or checked in at the counter.</p>
+                <div class="t-time">Today · 9:15 AM</div>
+              </div>
+            </div>
+            <div class="t-item active">
+              <div class="t-dot"><i data-lucide="wind" class="lucide"></i></div>
+              <div class="t-content">
+                <h4>Being washed &amp; dried</h4>
+                <p>Your load is currently in the machine. Drying cycle active.</p>
+                <div class="t-time">In progress · Cycle 2 of 3</div>
+              </div>
+            </div>
+            <div class="t-item">
+              <div class="t-dot"><i data-lucide="shirt" class="lucide"></i></div>
+              <div class="t-content">
+                <h4>Folding &amp; quality check</h4>
+                <p>Each item will be sorted, folded and checked before packing.</p>
+                <div class="t-time">Upcoming</div>
+              </div>
+            </div>
+            <div class="t-item">
+              <div class="t-dot"><i data-lucide="truck" class="lucide"></i></div>
+              <div class="t-content">
+                <h4>Out for delivery / Ready for pickup</h4>
+                <p>A driver is headed to you, or your order is bagged at the counter.</p>
+                <div class="t-time">Upcoming</div>
+              </div>
+            </div>
+            <div class="t-item">
+              <div class="t-dot"><i data-lucide="badge-check" class="lucide"></i></div>
+              <div class="t-content">
+                <h4>Delivered &amp; complete</h4>
+                <p>Fresh, folded and done. Thank you for choosing FreshFold!</p>
+                <div class="t-time">Upcoming</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Order Card + Map -->
+        <div class="track-sidebar">
+          <div class="order-card">
+            <h3><i data-lucide="receipt" class="lucide"></i> Order details</h3>
+            <ul class="order-list" id="orderDetailsList">
+              <li><span>Service</span><span id="odService">Pickup &amp; delivery</span></li>
+              <li><span>Category</span><span id="odCategory">Wash &amp; Fold</span></li>
+              <li><span>Bags</span><span id="odBags">2 × Small</span></li>
+              <li><span>Estimated ready</span><span>Tomorrow · 3 PM</span></li>
+            </ul>
+            <div class="order-total">
+              <span>Total</span>
+              <span id="odTotal">$2,400</span>
+            </div>
+          </div>
+
+          <!-- Cycle Dial -->
+          <div class="cycle-card">
+            <div class="cycle-dial" style="width:10rem; height:10rem; margin:0 auto;">
+              <svg viewBox="0 0 192 192">
+                <circle class="cycle-dial-track" cx="96" cy="96" r="90"></circle>
+                <circle class="cycle-dial-progress" cx="96" cy="96" r="90" data-progress="62"></circle>
+              </svg>
+              <div class="cycle-dial-face" style="width:7rem; height:7rem;">
+                <div class="cycle-icon"><i data-lucide="wind" class="lucide"></i></div>
+                <span class="cycle-status" style="font-size:var(--text-sm);">Drying</span>
+                <span class="cycle-meta" style="font-size:0.625rem;">Cycle 2 of 3</span>
+              </div>
+            </div>
+            <p class="cycle-caption">Live cycle progress</p>
+          </div>
+
+          <!-- Map Card -->
+          <div class="map-card">
+            <div class="map-route">
+              <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;opacity:0.5;">
+                <path d="M60,80 Q140,40 200,100 Q260,160 340,120" stroke="var(--cerulean-400)" stroke-width="3" fill="none" stroke-dasharray="8 4"/>
+              </svg>
+            </div>
+            <div class="map-pin p1"><i data-lucide="home" class="lucide"></i></div>
+            <div class="map-pin p2 driver"><i data-lucide="truck" class="lucide"></i></div>
+            <div class="map-eta">
+              <div><i data-lucide="clock" class="lucide"></i></div>
+              <div><strong>Driver en route</strong><span>Estimated 22 min</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Empty State -->
+    <div id="trackEmpty" class="track-empty">
+      <div class="track-empty-icon">
+        <i data-lucide="search" class="lucide"></i>
+      </div>
+      <h3>Enter your order code</h3>
+      <p>You'll find it in your booking confirmation, or check your email.</p>
+    </div>
+
+  </div>
+</main>
+
+<button class="tour-fab" id="tourFab"><i data-lucide="compass" class="lucide"></i> Take the tour</button>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <div class="brand"><span class="brand-mark"></span><span>FreshFold<small>Laundry Co.</small></span></div>
+        <p>Wash, dry, fold and delivery — booked online, done right. Mandeville, Jamaica.</p>
+      </div>
+      <div class="footer-col"><h4>Quick links</h4><ul>
+        <li><a href="book.html" data-nav>Book a service</a></li>
+        <li><a href="careers.html" data-nav>Careers</a></li>
+        <li><a href="admin.html" data-nav>Staff dashboard</a></li>
+      </ul></div>
+      <div class="footer-col"><h4>Contact</h4><ul>
+        <li><i data-lucide="phone" class="lucide"></i> 876-223-6339</li>
+        <li><i data-lucide="mail" class="lucide"></i> freshfoldlaundryjm@gmail.com</li>
+      </ul></div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 FreshFold Laundry Company Ltd.</span>
+      <span>Clean. Fresh. Convenient.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="loader">
+  <div class="loader-machine">
+    <div class="loader-ring"></div>
+    <div class="loader-drum">
+      <div class="loader-clothes"><span></span><span></span><span></span></div>
+      <div class="loader-water"></div>
+    </div>
+    <div class="loader-glass"></div>
+  </div>
+  <div class="loader-text"><strong>FreshFold</strong><span>Loading your laundry…</span></div>
+  <div class="loader-bar"><div class="loader-bar-fill"></div></div>
+</div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="js/main.js"></script>
+<script>
+window.tourSteps = [
+  { selector: '#trackInput', title: 'Enter your order code', text: 'Type the order code from your booking confirmation — it starts with FF followed by four digits.', placement: 'bottom' },
+  { selector: '#trackBtn', title: 'Track it', text: 'Hit Track order to pull up live status for your booking.', placement: 'bottom' },
+  { selector: '.timeline', title: 'Live status timeline', text: 'Each stage shows when it happened. The active step glows so you can see exactly where your laundry is right now.', placement: 'right' },
+];
+
+function quickTrack(code) {
+  document.getElementById('trackInput').value = code;
+  doTrack(code);
+}
+
+document.getElementById('trackBtn').addEventListener('click', () => {
+  const val = document.getElementById('trackInput').value.trim().toUpperCase();
+  if (!val) return;
+  doTrack(val);
+});
+document.getElementById('trackInput').addEventListener('keydown', (e) => {
+  if (e.key === 'Enter') document.getElementById('trackBtn').click();
+});
+
+function doTrack(code) {
+  document.getElementById('trackOrderCode').textContent = code;
+  document.getElementById('trackResult').style.display = 'block';
+  document.getElementById('trackEmpty').style.display = 'none';
+  
+  // Demo data population
+  const svc = sessionStorage.getItem('ff_order_service');
+  const cat = sessionStorage.getItem('ff_order_category');
+  const small = parseInt(sessionStorage.getItem('ff_order_bags_small') || '0');
+  const large = parseInt(sessionStorage.getItem('ff_order_bags_large') || '0');
+  const catLabels = { washfold: 'Wash & Fold', dryclean: 'Dry Cleaning', bedding: 'Bedding & Linens' };
+  
+  if (svc) document.getElementById('odService').textContent = svc === 'walkin' ? 'Walk-in drop-off' : 'Pickup & delivery';
+  if (cat) document.getElementById('odCategory').textContent = catLabels[cat] || cat;
+  if (small || large) {
+    const bagStr = [small ? `${small}× Small` : '', large ? `${large}× Large` : ''].filter(Boolean).join(', ');
+    document.getElementById('odBags').textContent = bagStr;
+    const total = (small * 1200) + (large * 2200) + (svc === 'pickup' ? 600 : 0);
+    document.getElementById('odTotal').textContent = '$' + total.toLocaleString();
+  }
+  
+  // Update timeline based on mock data
+  const statuses = ['pending', 'collected', 'washing', 'drying', 'folding', 'ready', 'delivered'];
+  const mockProgress = { 'FF-1042': 2, 'FF-2251': 3, 'FF-3387': 1 };
+  const progress = mockProgress[code] || 2;
+  
+  const timelineItems = document.querySelectorAll('.t-item');
+  timelineItems.forEach((item, idx) => {
+    item.classList.remove('done', 'active');
+    if (idx < progress) item.classList.add('done');
+    else if (idx === progress) item.classList.add('active');
+  });
+  
+  const statusBadge = document.getElementById('trackStatusBadge');
+  const statusText = ['Pending', 'Collected', 'Washing', 'Drying', 'Folding', 'Ready', 'Delivered'];
+  if (statusBadge) {
+    statusBadge.innerHTML = `<i data-lucide="${progress >= 4 ? 'check' : 'loader'}" class="lucide"></i> ${statusText[progress] || 'In progress'}`;
+  }
+  
+  if (window.lucide) lucide.createIcons();
+}
+
+const savedCode = sessionStorage.getItem('ff_order_code');
+if (savedCode) {
+  document.getElementById('trackInput').value = savedCode;
+  setTimeout(() => doTrack(savedCode), 200);
+}
+</script>
+<script src="js/tours.js"></script>
+</body>
+</html>
