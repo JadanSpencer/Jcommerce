@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Online Queue &mdash; D&amp;D Wholesale Ltd</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main>
+    <div class="page-head">
+        <div class="container page-head__row">
+            <div>
+                <span class="eyebrow">Counter 05 &middot; Take a Number</span>
+                <h1>Online Queue</h1>
+                <p class="page-head__lede">Grab a ticket from your phone, bring your cart, and we'll call you when a counter opens.</p>
+            </div>
+            <div id="admin-queue-btns" style="display: none;">
+                <button class="btn btn--ink btn--sm" id="reset-queue-btn">Reset Queue</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="queue-grid">
+                <!-- Left: My Ticket & Cart -->
+                <div>
+                    <div class="form-card" style="margin-bottom: var(--space-5);">
+                        <h3 style="margin-bottom: var(--space-4);">Your Cart</h3>
+                        <div id="cart-items" class="stack-gap">
+                            <div class="empty">Your cart is empty. <a href="menu.html">Browse the menu</a> to add items.</div>
+                        </div>
+                        <div id="cart-total" style="margin-top: var(--space-4); padding-top: var(--space-3); border-top: 1px solid var(--color-hairline); font-weight: 700;"></div>
+                    </div>
+                    
+                    <div class="form-card" id="join-queue-section">
+                        <h3 style="margin-bottom: var(--space-4);">Join the Queue</h3>
+                        <div class="field">
+                            <label>Your Name</label>
+                            <input type="text" id="queue-name" placeholder="Enter your name">
+                        </div>
+                        <button class="btn btn--primary" id="join-queue-btn" style="width: 100%;">Take a Number →</button>
+                    </div>
+                    
+                    <div id="my-ticket-section" class="queue-ticket my-ticket" style="display: none;">
+                        <div class="queue-ticket__head">
+                            <span class="queue-ticket__no">Your Ticket #<span id="my-ticket-number">—</span></span>
+                            <span id="my-ticket-status" class="queue-status"><span class="dot dot--waiting"></span> Waiting</span>
+                        </div>
+                        <div class="queue-ticket__body">
+                            <div class="queue-ticket__items" id="my-ticket-items"></div>
+                        </div>
+                        <div class="queue-ticket__foot">
+                            <span class="queue-ticket__time" id="my-ticket-time">—</span>
+                            <button class="btn btn--sm btn--danger" id="cancel-ticket-btn">Cancel Ticket</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Right: Live Queue Board -->
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: var(--space-4);">
+                        <h3>Live Queue</h3>
+                        <span class="badge badge--ink" id="queue-stats">— waiting</span>
+                    </div>
+                    <div id="queue-board" class="stack-gap">
+                        <div class="notice">Loading queue...</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<div id="site-footer"></div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/queue.js"></script>
+</body>
+</html>

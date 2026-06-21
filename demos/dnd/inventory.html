@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inventory &amp; Warehouse &mdash; D&amp;D Wholesale Ltd</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main>
+    <div class="page-head">
+        <div class="container page-head__row">
+            <div>
+                <span class="eyebrow">Counter 04 &middot; Warehouse Ops</span>
+                <h1>Inventory Management</h1>
+                <p class="page-head__lede">Track stock levels, reorder points, and warehouse reports — real-time visibility for staff and admin.</p>
+            </div>
+            <div id="admin-inventory-btns" style="display: none;">
+                <button class="btn btn--ink btn--sm" id="add-inventory-btn">+ Add Stock Item</button>
+            </div>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <!-- Reports Dashboard -->
+            <div class="report-grid" id="report-grid">
+                <div class="report-card">
+                    <span class="report-card__label">Total SKUs</span>
+                    <div class="report-card__value" id="total-skus">—</div>
+                </div>
+                <div class="report-card">
+                    <span class="report-card__label">Low Stock Items</span>
+                    <div class="report-card__value is-alert" id="low-stock-count">—</div>
+                </div>
+                <div class="report-card">
+                    <span class="report-card__label">Out of Stock</span>
+                    <div class="report-card__value" id="out-of-stock-count">—</div>
+                </div>
+                <div class="report-card">
+                    <span class="report-card__label">Total Value (Cost)</span>
+                    <div class="report-card__value" id="total-value">—</div>
+                </div>
+            </div>
+
+            <!-- Stock Level Bar Chart -->
+            <div style="background: white; border: 1px solid var(--color-hairline); border-radius: var(--radius-md); padding: var(--space-5); margin-bottom: var(--space-6);">
+                <h3 style="margin-bottom: var(--space-4); font-size: var(--text-md);">Stock Level by Category</h3>
+                <div id="category-stock-chart" class="bar-chart"></div>
+            </div>
+
+            <!-- Search & Filter -->
+            <div class="search-row">
+                <div class="field" style="flex:1">
+                    <input type="text" id="inventory-search" placeholder="Search by name, SKU, or bin...">
+                </div>
+                <select id="category-filter" class="btn--ghost" style="padding: var(--space-3) var(--space-4); border-radius: var(--radius-sm); border: 1px solid var(--color-hairline);">
+                    <option value="all">All Categories</option>
+                </select>
+                <button class="btn btn--ghost" id="reset-inventory">Reset</button>
+            </div>
+
+            <!-- Inventory Table -->
+            <div class="table-wrap">
+                <table id="inventory-table">
+                    <thead>
+                        <tr><th>SKU</th><th>Name</th><th>Category</th><th>Qty</th><th>Unit</th><th>Reorder</th><th>Status</th><th>Bin</th><th id="admin-actions-col" style="display: none;">Actions</th></tr>
+                    </thead>
+                    <tbody id="inventory-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Add/Edit Inventory Modal -->
+<div id="inventory-modal" class="modal-overlay" hidden>
+    <div class="modal" style="max-width: 35rem;">
+        <div class="modal__head">
+            <h3 id="inventory-modal-title">Add Stock Item</h3>
+            <button class="icon-btn" id="close-inventory-modal">✕</button>
+        </div>
+        <div class="modal__body">
+            <input type="hidden" id="edit-inventory-id">
+            <div class="field--row">
+                <div class="field">
+                    <label>SKU *</label>
+                    <input type="text" id="inv-sku" placeholder="DND-XXXX">
+                </div>
+                <div class="field">
+                    <label>Product Name *</label>
+                    <input type="text" id="inv-name" required>
+                </div>
+            </div>
+            <div class="field--row">
+                <div class="field">
+                    <label>Category *</label>
+                    <select id="inv-category" required></select>
+                </div>
+                <div class="field">
+                    <label>Unit</label>
+                    <select id="inv-unit">
+                        <option value="case">Case</option>
+                        <option value="bag">Bag</option>
+                        <option value="box">Box</option>
+                        <option value="bundle">Bundle</option>
+                        <option value="each">Each</option>
+                    </select>
+                </div>
+            </div>
+            <div class="field--row">
+                <div class="field">
+                    <label>Current Quantity *</label>
+                    <input type="number" id="inv-qty" min="0" required>
+                </div>
+                <div class="field">
+                    <label>Reorder Point *</label>
+                    <input type="number" id="inv-reorder" min="0" required>
+                </div>
+            </div>
+            <div class="field--row">
+                <div class="field">
+                    <label>Cost Price (JMD)</label>
+                    <input type="number" id="inv-cost" min="0">
+                </div>
+                <div class="field">
+                    <label>Bin Location</label>
+                    <input type="text" id="inv-bin" placeholder="A1, B2, etc.">
+                </div>
+            </div>
+            <div class="field">
+                <label>Supplier</label>
+                <input type="text" id="inv-supplier">
+            </div>
+        </div>
+        <div class="modal__foot">
+            <button class="btn btn--danger" id="delete-inventory-btn" style="display: none;">Delete</button>
+            <button class="btn btn--ghost" id="cancel-inventory-modal">Cancel</button>
+            <button class="btn btn--primary" id="save-inventory-btn">Save Item</button>
+        </div>
+    </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/inventory.js"></script>
+</body>
+</html>

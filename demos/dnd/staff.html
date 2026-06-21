@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Staff Directory &mdash; D&amp;D Wholesale Ltd</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<div id="site-header"></div>
+
+<main>
+    <div class="page-head">
+        <div class="container">
+            <span class="eyebrow">Counter 02 &middot; Meet the Team</span>
+            <h1>Staff Directory</h1>
+            <p class="page-head__lede">Get to know the faces behind the counter. Recognize someone who helped you? Rate them or leave a compliment.</p>
+        </div>
+    </div>
+
+    <section class="section">
+        <div class="container">
+            <div class="search-row">
+                <div class="field" style="flex:1">
+                    <input type="text" id="staff-search" placeholder="Search by name or position...">
+                </div>
+                <button class="btn btn--ghost" id="reset-staff-search">Reset</button>
+            </div>
+            
+            <div id="staff-grid" class="staff-grid">
+                <div class="notice">Loading staff...</div>
+            </div>
+            
+            <!-- Admin-only add staff button -->
+            <div id="admin-staff-btn" style="margin-top: 2rem; text-align: center; display: none;">
+                <button class="btn btn--ink" id="add-staff-btn">+ Add New Staff Member</button>
+            </div>
+        </div>
+    </section>
+</main>
+
+<!-- Add/Edit Staff Modal -->
+<div id="staff-modal" class="modal-overlay" hidden>
+    <div class="modal">
+        <div class="modal__head">
+            <h3 id="staff-modal-title">Add Staff Member</h3>
+            <button class="icon-btn" id="close-staff-modal">✕</button>
+        </div>
+        <div class="modal__body">
+            <input type="hidden" id="edit-staff-id">
+            <div class="field">
+                <label>Full Name *</label>
+                <input type="text" id="staff-name" required>
+            </div>
+            <div class="field">
+                <label>Employee ID</label>
+                <input type="text" id="staff-employee-id" placeholder="DD-XXX">
+            </div>
+            <div class="field">
+                <label>Position *</label>
+                <select id="staff-position">
+                    <option value="">Select position</option>
+                </select>
+            </div>
+            <div class="field">
+                <label>Date of Birth</label>
+                <input type="date" id="staff-dob">
+            </div>
+        </div>
+        <div class="modal__foot">
+            <button class="btn btn--danger" id="delete-staff-btn" style="display:none;">Delete</button>
+            <button class="btn btn--ghost" id="cancel-staff-modal">Cancel</button>
+            <button class="btn btn--primary" id="save-staff-btn">Save Staff</button>
+        </div>
+    </div>
+</div>
+
+<div id="site-footer"></div>
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+<script src="js/data.js"></script>
+<script src="js/layout.js"></script>
+<script src="js/staff.js"></script>
+</body>
+</html>
