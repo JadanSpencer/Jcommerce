@@ -8,53 +8,147 @@
   <link rel="stylesheet" href="styles.css">
   <style>
     /* ── MENU PAGE ── */
-    .menu-layout {
-      display:grid;
-      grid-template-columns:1fr;
-      min-height:100dvh;
-      padding-top:var(--nav-h);
-    }
 
     /* Student greeting bar */
     .greeting-bar {
       background:var(--surface);
       border-bottom:1px solid var(--border);
-      padding:.65rem 1.25rem;
+      padding:.6rem 1.25rem;
       display:flex; align-items:center; justify-content:space-between;
       gap:1rem;
+      position:sticky; top:var(--nav-h); z-index:150;
     }
     .greeting-txt { font-size:.85rem; color:var(--text2); }
     .greeting-name { color:var(--yellow); font-weight:700; }
-    .queue-join-btn {
+
+    .queue-pill-btn {
       display:flex; align-items:center; gap:.35rem;
-      padding:.35rem .8rem;
+      padding:.35rem .85rem;
       border-radius:100px;
       background:var(--red-pale);
-      border:1px solid rgba(232,41,28,.2);
+      border:1px solid rgba(232,41,28,.25);
       color:var(--red-lt);
       font-size:.72rem; font-weight:700;
-      cursor:pointer;
-      transition:all .18s;
+      cursor:pointer; transition:all .18s;
       white-space:nowrap;
+      flex-shrink:0;
     }
-    .queue-join-btn:hover { background:rgba(232,41,28,.2); }
-    .queue-join-btn.in-queue {
+    .queue-pill-btn:hover { background:rgba(232,41,28,.22); }
+    .queue-pill-btn.in-queue {
       background:rgba(34,197,94,.1);
-      border-color:rgba(34,197,94,.25);
+      border-color:rgba(34,197,94,.3);
       color:var(--green);
     }
 
-    /* Category tabs */
+    /* ── COLLAPSIBLE QUEUE DRAWER ── */
+    .queue-drawer {
+      background:var(--surface2);
+      border-bottom:1px solid var(--border);
+      overflow:hidden;
+      max-height:0;
+      transition:max-height .38s cubic-bezier(0.4,0,0.2,1);
+    }
+    .queue-drawer.open { max-height:420px; }
+
+    .queue-drawer-inner {
+      padding:.85rem 1.25rem 1rem;
+    }
+    .queue-drawer-header {
+      display:flex; align-items:center; justify-content:space-between;
+      margin-bottom:.75rem;
+    }
+    .queue-drawer-title {
+      font-family:'Syne',sans-serif;
+      font-weight:700; font-size:.92rem;
+      display:flex; align-items:center; gap:.4rem;
+    }
+    .queue-count-pill {
+      background:var(--yellow);
+      color:#0F0D0A;
+      font-size:.62rem; font-weight:800;
+      padding:.15rem .5rem;
+      border-radius:100px;
+    }
+    .close-drawer-btn {
+      width:26px; height:26px;
+      border-radius:6px;
+      background:var(--surface3);
+      border:1px solid var(--border);
+      color:var(--text3);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.9rem; cursor:pointer;
+      transition:all .15s;
+    }
+    .close-drawer-btn:hover { color:var(--text); background:var(--surface); }
+
+    /* My position banner */
+    .my-pos-banner {
+      display:flex; align-items:center; gap:.75rem;
+      padding:.65rem .85rem;
+      background:var(--yellow-pale);
+      border:1px solid var(--border2);
+      border-radius:var(--r);
+      margin-bottom:.65rem;
+    }
+    .my-pos-num {
+      font-family:'Syne',sans-serif;
+      font-size:1.8rem; font-weight:800;
+      color:var(--yellow); line-height:1;
+    }
+    .my-pos-info { flex:1; }
+    .my-pos-label { font-size:.8rem; font-weight:600; color:var(--text2); }
+    .my-pos-sub { font-size:.7rem; color:var(--text3); margin-top:.1rem; }
+
+    /* Queue list in drawer */
+    .drawer-queue-list {
+      display:flex; flex-direction:column; gap:.4rem;
+      max-height:200px; overflow-y:auto;
+      scrollbar-width:none;
+    }
+    .drawer-queue-list::-webkit-scrollbar { display:none; }
+
+    .dq-entry {
+      display:flex; align-items:center; gap:.6rem;
+      padding:.5rem .75rem;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+    }
+    .dq-entry.is-me { border-color:rgba(245,195,0,.3); background:var(--yellow-pale); }
+    .dq-pos {
+      width:24px; height:24px;
+      border-radius:50%;
+      background:var(--surface3);
+      border:1px solid var(--border);
+      color:var(--text3);
+      font-size:.68rem; font-weight:800;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+    }
+    .dq-entry.is-me .dq-pos { background:var(--yellow); color:#0F0D0A; border-color:transparent; }
+    .dq-name { flex:1; font-size:.82rem; font-weight:600; color:var(--text2); }
+    .dq-entry.is-me .dq-name { color:var(--text); }
+    .dq-you-tag {
+      font-size:.6rem; font-weight:800; color:var(--yellow);
+      background:rgba(245,195,0,.15); padding:.15rem .45rem; border-radius:100px;
+    }
+    .dq-time { font-size:.68rem; color:var(--text4); }
+
+    /* Join / leave queue buttons */
+    .queue-drawer-actions { margin-top:.75rem; display:flex; gap:.5rem; }
+
+    /* Category tabs — sticky below greeting + drawer */
     .cat-bar {
       background:var(--bg);
       border-bottom:1px solid var(--border);
-      padding:.75rem 1.25rem .5rem;
-      position:sticky; top:var(--nav-h); z-index:100;
+      padding:.6rem 1.25rem .4rem;
+      position:sticky; z-index:100;
+      top:calc(var(--nav-h) + 44px);
     }
 
     /* Menu items grid */
     .menu-content {
-      padding:1.25rem;
+      padding:1rem 1.25rem 6rem;
       max-width:900px; margin:0 auto;
       width:100%;
     }
@@ -65,7 +159,7 @@
       font-family:'Syne',sans-serif;
       font-size:1.05rem; font-weight:700;
       color:var(--text);
-      margin-bottom:1rem;
+      margin-bottom:.85rem;
       padding-bottom:.5rem;
       border-bottom:1px solid var(--border);
     }
@@ -75,91 +169,71 @@
       border-radius:8px;
       display:flex; align-items:center; justify-content:center;
       font-size:.85rem;
+      border:1px solid var(--border2);
     }
+    .cat-item-count { font-size:.7rem; color:var(--text4); font-weight:400; font-family:'DM Sans',sans-serif; }
 
     /* Item card */
     .item-card {
       display:flex; align-items:flex-start; gap:.85rem;
-      padding:1rem;
+      padding:.9rem;
       background:var(--surface);
       border:1px solid var(--border);
       border-radius:var(--r-lg);
       transition:border-color .18s, box-shadow .18s;
       cursor:pointer;
+      user-select:none;
+      -webkit-tap-highlight-color:transparent;
     }
-    .item-card:hover { border-color:var(--border2); box-shadow:0 4px 16px rgba(0,0,0,.3); }
-    .item-card.added { border-color:rgba(245,195,0,.3); }
+    .item-card:hover { border-color:var(--border2); box-shadow:0 4px 16px rgba(0,0,0,.25); }
+    .item-card:active { transform:scale(.99); }
+    .item-card.in-cart { border-color:rgba(245,195,0,.3); }
 
     .item-emoji {
-      width:48px; height:48px;
+      width:48px; height:48px; min-width:48px;
       background:var(--surface2);
       border-radius:var(--r);
       display:flex; align-items:center; justify-content:center;
       font-size:1.5rem;
-      flex-shrink:0;
     }
 
     .item-body { flex:1; min-width:0; }
-    .item-name {
-      font-weight:700; font-size:.93rem;
-      color:var(--text);
-      margin-bottom:.2rem;
-    }
+    .item-name { font-weight:700; font-size:.92rem; color:var(--text); margin-bottom:.18rem; }
     .item-desc {
-      font-size:.78rem; color:var(--text3);
-      line-height:1.5;
-      margin-bottom:.5rem;
-      display:-webkit-box;
-      -webkit-line-clamp:2;
-      -webkit-box-orient:vertical;
-      overflow:hidden;
+      font-size:.76rem; color:var(--text3); line-height:1.5;
+      margin-bottom:.45rem;
+      display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden;
     }
-    .item-meta {
-      display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
-    }
-    .item-price {
-      font-family:'Syne',sans-serif;
-      font-weight:800; font-size:.95rem;
-      color:var(--yellow);
-    }
-    .item-prep {
-      font-size:.68rem; color:var(--text4);
-      display:flex; align-items:center; gap:.2rem;
-    }
+    .item-meta { display:flex; align-items:center; gap:.45rem; flex-wrap:wrap; }
+    .item-price { font-family:'Syne',sans-serif; font-weight:800; font-size:.9rem; color:var(--yellow); }
+    .item-prep { font-size:.66rem; color:var(--text4); display:flex; align-items:center; gap:.2rem; }
 
     .item-add-btn {
-      width:34px; height:34px;
+      width:34px; height:34px; min-width:34px;
       border-radius:var(--r);
       background:var(--yellow);
       color:#0F0D0A;
       display:flex; align-items:center; justify-content:center;
-      font-size:1.2rem; font-weight:700;
-      cursor:pointer;
-      transition:all .15s;
-      flex-shrink:0;
+      font-size:1.25rem; font-weight:700;
+      cursor:pointer; transition:all .15s;
       align-self:center;
+      border:none;
     }
     .item-add-btn:hover { background:var(--yellow-lt); transform:scale(1.08); }
 
     .items-grid {
-      display:grid;
-      grid-template-columns:1fr;
-      gap:.65rem;
+      display:grid; grid-template-columns:1fr; gap:.55rem;
     }
-    @media(min-width:580px) {
-      .items-grid { grid-template-columns:1fr 1fr; }
-    }
+    @media(min-width:580px) { .items-grid { grid-template-columns:1fr 1fr; } }
 
-    /* ── CART DRAWER ── */
+    /* ── CART SHEET ── */
     .cart-sheet {
-      position:fixed; inset:0; z-index:600;
-      display:none;
+      position:fixed; inset:0; z-index:600; display:none;
     }
     .cart-sheet.open { display:flex; }
     .cart-backdrop {
       position:absolute; inset:0;
-      background:rgba(0,0,0,.75);
-      backdrop-filter:blur(4px);
+      background:rgba(0,0,0,.72); backdrop-filter:blur(4px);
     }
     .cart-panel {
       position:absolute; right:0; top:0; bottom:0;
@@ -167,197 +241,116 @@
       background:var(--surface);
       border-left:1px solid var(--border);
       display:flex; flex-direction:column;
-      animation:slide-in-right .3s ease;
+      animation:slide-in-right .28s cubic-bezier(0.4,0,0.2,1);
     }
     @keyframes slide-in-right { from{transform:translateX(100%)} to{transform:translateX(0)} }
-
     @media(max-width:640px) {
       .cart-panel {
-        left:0; right:0; top:auto;
-        width:100%;
-        border-left:none;
-        border-top:1px solid var(--border);
-        border-radius:20px 20px 0 0;
-        max-height:88dvh;
-        animation:slide-up .3s ease;
+        left:0; right:0; top:auto; width:100%;
+        border-left:none; border-top:1px solid var(--border);
+        border-radius:20px 20px 0 0; max-height:90dvh;
+        animation:slide-up .28s cubic-bezier(0.4,0,0.2,1);
       }
     }
-
+    .cart-handle { display:flex; justify-content:center; padding:.6rem 0 0; }
+    .cart-handle-bar { width:36px; height:4px; border-radius:2px; background:var(--border2); }
     .cart-header {
-      padding:1.25rem 1.25rem .75rem;
+      padding:.85rem 1.25rem .65rem;
       border-bottom:1px solid var(--border);
-      display:flex; align-items:center; justify-content:space-between;
-      flex-shrink:0;
+      display:flex; align-items:center; justify-content:space-between; flex-shrink:0;
     }
-    .cart-title {
-      font-family:'Syne',sans-serif;
-      font-weight:800; font-size:1.1rem;
-    }
-
+    .cart-title { font-family:'Syne',sans-serif; font-weight:800; font-size:1.05rem; }
     .cart-body { flex:1; overflow-y:auto; padding:1rem 1.25rem; }
 
     /* Person section in cart */
-    .person-section { margin-bottom:1.25rem; }
-    .person-header {
-      display:flex; align-items:center; gap:.5rem;
-      margin-bottom:.6rem;
-    }
+    .person-section { margin-bottom:1.1rem; }
+    .person-header { display:flex; align-items:center; gap:.5rem; margin-bottom:.5rem; }
     .person-avatar {
-      width:26px; height:26px;
-      border-radius:50%;
-      background:var(--yellow);
-      color:#0F0D0A;
+      width:26px; height:26px; border-radius:50%;
+      background:var(--yellow); color:#0F0D0A;
       font-size:.7rem; font-weight:800;
-      display:flex; align-items:center; justify-content:center;
-      flex-shrink:0;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0;
     }
     .person-name-input {
-      background:transparent;
-      border:none;
+      background:transparent; border:none;
       border-bottom:1px dashed var(--border2);
-      color:var(--text);
-      font-weight:600; font-size:.88rem;
-      outline:none;
-      width:auto;
-      min-width:80px;
-      padding:.1rem .2rem;
+      color:var(--text); font-weight:600; font-size:.88rem;
+      outline:none; min-width:80px; padding:.1rem .2rem;
     }
-    .person-name-input::placeholder { color:var(--text4); }
     .person-name-input:focus { border-bottom-color:var(--yellow); }
 
     .cart-item-row {
-      display:flex; align-items:center; gap:.6rem;
-      padding:.5rem 0;
-      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; gap:.55rem;
+      padding:.45rem 0; border-bottom:1px solid var(--border);
     }
     .cart-item-row:last-child { border-bottom:none; }
-    .cart-item-name { flex:1; font-size:.85rem; color:var(--text2); }
-    .cart-item-price { font-size:.82rem; color:var(--text3); white-space:nowrap; }
+    .cart-item-name { flex:1; font-size:.83rem; color:var(--text2); line-height:1.3; }
+    .cart-item-price { font-size:.8rem; color:var(--text3); white-space:nowrap; }
     .cart-item-del {
-      width:22px; height:22px;
-      border-radius:5px;
-      background:var(--surface3);
-      color:var(--text4);
+      width:22px; height:22px; border-radius:5px;
+      background:var(--surface3); color:var(--text4);
       display:flex; align-items:center; justify-content:center;
-      font-size:.9rem; cursor:pointer;
-      transition:all .15s; flex-shrink:0;
+      font-size:.85rem; cursor:pointer; transition:all .15s; flex-shrink:0; border:none;
     }
     .cart-item-del:hover { background:var(--red-pale); color:var(--red-lt); }
 
-    .add-person-row {
-      display:flex; align-items:center; gap:.5rem;
-      margin-top:.5rem;
-    }
+    .add-person-row { display:flex; align-items:center; gap:.5rem; margin-top:.65rem; }
     .add-person-input {
-      flex:1;
-      background:var(--surface2);
-      border:1px solid var(--border);
-      border-radius:8px;
-      padding:.45rem .75rem;
-      color:var(--text);
-      font-size:.82rem; outline:none;
+      flex:1; background:var(--surface2); border:1px solid var(--border);
+      border-radius:8px; padding:.45rem .75rem;
+      color:var(--text); font-size:.82rem; outline:none;
     }
     .add-person-input:focus { border-color:var(--yellow); }
     .add-person-btn {
-      padding:.45rem .75rem;
-      background:var(--surface2);
-      border:1px solid var(--border);
-      border-radius:8px;
-      color:var(--text3);
-      font-size:.82rem; cursor:pointer;
+      padding:.45rem .75rem; background:var(--surface2);
+      border:1px solid var(--border); border-radius:8px;
+      color:var(--text3); font-size:.82rem; cursor:pointer;
       transition:all .15s; white-space:nowrap;
     }
     .add-person-btn:hover { border-color:var(--yellow); color:var(--yellow); }
 
-    /* Notes */
     .cart-notes textarea {
-      background:var(--surface2);
-      border:1px solid var(--border);
-      border-radius:var(--r);
-      padding:.65rem .9rem;
-      color:var(--text);
-      font-size:.85rem;
-      width:100%; min-height:64px;
-      resize:vertical; outline:none;
+      background:var(--surface2); border:1px solid var(--border);
+      border-radius:var(--r); padding:.65rem .9rem;
+      color:var(--text); font-size:.85rem;
+      width:100%; min-height:60px; resize:vertical; outline:none;
     }
     .cart-notes textarea:focus { border-color:var(--yellow); }
 
-    /* Totals */
     .cart-totals {
-      padding:1rem 1.25rem;
-      border-top:1px solid var(--border);
-      background:var(--bg2);
-      flex-shrink:0;
+      padding:.85rem 1.25rem; border-top:1px solid var(--border);
+      background:var(--bg2); flex-shrink:0;
     }
     .total-row {
       display:flex; justify-content:space-between; align-items:center;
-      font-size:.85rem; color:var(--text2);
-      margin-bottom:.4rem;
+      font-size:.83rem; color:var(--text2); margin-bottom:.35rem;
     }
     .total-row.big {
-      font-family:'Syne',sans-serif;
-      font-size:1.1rem; font-weight:800;
-      color:var(--text);
-      margin-bottom:.85rem;
+      font-family:'Syne',sans-serif; font-size:1.05rem; font-weight:800;
+      color:var(--text); margin-bottom:.8rem;
     }
     .total-row.big .price { color:var(--yellow); }
 
     /* ── ITEM DETAIL MODAL ── */
-    .item-modal-emoji { font-size:3rem; text-align:center; margin-bottom:.5rem; }
-    .item-modal-name {
-      font-family:'Syne',sans-serif;
-      font-weight:800; font-size:1.25rem;
-      text-align:center; margin-bottom:.4rem;
-    }
-    .item-modal-desc {
-      font-size:.88rem; color:var(--text3);
-      text-align:center; line-height:1.6;
-      margin-bottom:1.25rem;
-    }
-    .person-select {
-      display:flex; flex-direction:column; gap:.4rem;
-      margin-bottom:1rem;
-    }
+    .item-modal-emoji { font-size:2.8rem; text-align:center; margin-bottom:.4rem; }
+    .item-modal-name { font-family:'Syne',sans-serif; font-weight:800; font-size:1.2rem; text-align:center; margin-bottom:.35rem; }
+    .item-modal-desc { font-size:.86rem; color:var(--text3); text-align:center; line-height:1.6; margin-bottom:1.1rem; }
+    .person-select { display:flex; flex-direction:column; gap:.35rem; margin-bottom:.9rem; }
     .person-opt {
       display:flex; align-items:center; gap:.6rem;
-      padding:.6rem .85rem;
-      background:var(--surface2);
-      border:1px solid var(--border);
-      border-radius:var(--r);
+      padding:.55rem .85rem; background:var(--surface2);
+      border:1px solid var(--border); border-radius:var(--r);
       cursor:pointer; transition:all .15s;
     }
     .person-opt:hover { border-color:var(--border2); }
     .person-opt.selected { background:var(--yellow-pale); border-color:var(--yellow); }
-    .person-opt-name { flex:1; font-weight:600; font-size:.88rem; }
-
+    .person-opt-name { flex:1; font-weight:600; font-size:.87rem; }
     .item-notes-field {
-      background:var(--surface2);
-      border:1px solid var(--border);
-      border-radius:var(--r);
-      padding:.6rem .85rem;
-      color:var(--text);
-      font-size:.85rem;
-      width:100%; outline:none;
-      margin-bottom:1rem;
+      background:var(--surface2); border:1px solid var(--border);
+      border-radius:var(--r); padding:.6rem .85rem;
+      color:var(--text); font-size:.85rem; width:100%; outline:none; margin-bottom:.9rem;
     }
     .item-notes-field:focus { border-color:var(--yellow); }
-
-    /* ── QUEUE MODAL ── */
-    .queue-banner {
-      background:var(--yellow-pale);
-      border:1px solid var(--border2);
-      border-radius:var(--r);
-      padding:.75rem 1rem;
-      display:flex; align-items:center; gap:.5rem;
-      margin-bottom:1rem;
-    }
-    .queue-pos-big {
-      font-family:'Syne',sans-serif;
-      font-size:2rem; font-weight:800;
-      color:var(--yellow);
-    }
-    .queue-pos-label { font-size:.8rem; color:var(--text3); }
-    .queue-list { display:flex; flex-direction:column; gap:.5rem; }
   </style>
 </head>
 <body>
@@ -385,10 +378,41 @@
 <!-- GREETING BAR -->
 <div class="greeting-bar">
   <div class="greeting-txt">Hey, <span class="greeting-name" id="greeting-name">there</span> 👋</div>
-  <button class="queue-join-btn" id="queue-btn">
+  <button class="queue-pill-btn" id="queue-toggle-btn">
     <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
-    Join Virtual Line
+    <span id="queue-btn-label">Virtual Line</span>
+    <svg id="queue-chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" style="transition:transform .25s"><polyline points="6 9 12 15 18 9"/></svg>
   </button>
+</div>
+
+<!-- COLLAPSIBLE QUEUE DRAWER -->
+<div class="queue-drawer" id="queue-drawer">
+  <div class="queue-drawer-inner">
+    <div class="queue-drawer-header">
+      <div class="queue-drawer-title">
+        🚶 Virtual Line
+        <span class="queue-count-pill" id="drawer-count">0</span>
+      </div>
+      <button class="close-drawer-btn" id="close-drawer-btn">✕</button>
+    </div>
+
+    <!-- My position (shown when in queue) -->
+    <div id="my-pos-banner" style="display:none;">
+      <div class="my-pos-banner">
+        <div class="my-pos-num" id="my-pos-num">#1</div>
+        <div class="my-pos-info">
+          <div class="my-pos-label" id="my-pos-label">You're next!</div>
+          <div class="my-pos-sub" id="my-pos-sub"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Queue list -->
+    <div class="drawer-queue-list" id="drawer-queue-list"></div>
+
+    <!-- Actions -->
+    <div class="queue-drawer-actions" id="queue-drawer-actions"></div>
+  </div>
 </div>
 
 <!-- CATEGORY TABS -->
@@ -403,28 +427,19 @@
 <div class="cart-sheet" id="cart-sheet">
   <div class="cart-backdrop" id="cart-backdrop"></div>
   <div class="cart-panel">
-    <div class="sheet-handle" style="padding-top:.75rem; padding-left:50%; transform:none; width:100%; display:flex; justify-content:center; padding-bottom:0;">
-      <div style="width:36px;height:4px;border-radius:2px;background:var(--border2);"></div>
-    </div>
+    <div class="cart-handle"><div class="cart-handle-bar"></div></div>
     <div class="cart-header">
       <div class="cart-title">Your Order</div>
       <button class="modal-close" id="cart-close">✕</button>
     </div>
-
-    <div class="cart-body" id="cart-body">
-      <!-- rendered dynamically -->
+    <div class="cart-body" id="cart-body"></div>
+    <div class="cart-notes" style="padding:.65rem 1.25rem; border-top:1px solid var(--border);">
+      <div class="field-label" style="margin-bottom:.4rem;">Order notes</div>
+      <textarea id="order-notes" placeholder="e.g. No onions, extra ketchup, ring the bell…"></textarea>
     </div>
-
-    <!-- Notes -->
-    <div class="cart-notes" style="padding:.75rem 1.25rem; border-top:1px solid var(--border);">
-      <div class="field-label" style="margin-bottom:.4rem;">Order notes (optional)</div>
-      <textarea id="order-notes" placeholder="e.g. No onions on the burger, extra ketchup…"></textarea>
-    </div>
-
-    <!-- Totals & Checkout -->
     <div class="cart-totals">
       <div class="total-row"><span>Subtotal</span><span id="cart-subtotal">J$0</span></div>
-      <div class="total-row" id="delivery-fee-row" style="display:none;"><span>Delivery fee</span><span>J$200</span></div>
+      <div class="total-row" id="delivery-fee-row" style="display:none;"><span>Delivery to hall</span><span>J$200</span></div>
       <div class="total-row big"><span>Total</span><span class="price" id="cart-total">J$0</span></div>
       <button class="btn btn-yellow btn-full" id="checkout-btn" disabled>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -436,18 +451,15 @@
 
 <!-- ITEM DETAIL MODAL -->
 <div class="modal-overlay" id="item-modal" style="display:none;">
-  <div class="modal" id="item-modal-body">
+  <div class="modal">
     <div class="sheet-handle"></div>
     <div class="item-modal-emoji" id="im-emoji"></div>
     <div class="item-modal-name" id="im-name"></div>
     <div class="item-modal-desc" id="im-desc"></div>
-
     <div class="field-label" style="margin-bottom:.5rem;">Add to whose order?</div>
     <div class="person-select" id="im-persons"></div>
-
-    <input class="item-notes-field" id="im-notes" placeholder="Special request? e.g. no pickles">
-
-    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+    <input class="item-notes-field" id="im-notes" placeholder="Special request? e.g. no pickles, extra sauce">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:.9rem;">
       <div class="field-label">Quantity</div>
       <div class="qty-ctrl">
         <button class="qty-btn" id="im-minus">−</button>
@@ -455,31 +467,12 @@
         <button class="qty-btn" id="im-plus">+</button>
       </div>
     </div>
-
-    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
-      <div>
-        <div class="field-label">Item price</div>
-        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:var(--yellow)" id="im-price"></div>
-      </div>
+    <div style="margin-bottom:1rem;">
+      <div class="field-label">Price</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.2rem;color:var(--yellow)" id="im-price"></div>
     </div>
-
     <button class="btn btn-yellow btn-full" id="im-add-btn">Add to Order</button>
     <button class="btn btn-ghost btn-full" style="margin-top:.5rem;" id="im-cancel">Cancel</button>
-  </div>
-</div>
-
-<!-- QUEUE MODAL -->
-<div class="modal-overlay" id="queue-modal" style="display:none;">
-  <div class="modal">
-    <div class="sheet-handle"></div>
-    <div class="modal-header">
-      <div class="modal-title">🚶 Virtual Line</div>
-      <button class="modal-close" id="queue-modal-close">✕</button>
-    </div>
-
-    <div id="queue-modal-body">
-      <!-- rendered dynamically -->
-    </div>
   </div>
 </div>
 
@@ -495,23 +488,139 @@ Store.load();
 const savedLogo = localStorage.getItem('nardos_logo');
 if (savedLogo) document.getElementById('nav-logo-box').innerHTML = `<img src="${savedLogo}" alt="logo">`;
 
-/* ── STUDENT GREETING ── */
+/* ── STUDENT CHECK ── */
 const student = Store.getStudent();
 if (!student) { window.location.href = 'index.html'; }
-const greetName = document.getElementById('greeting-name');
-greetName.textContent = student ? student.name : 'there';
-
-// Set delivery pref
+document.getElementById('greeting-name').textContent = student ? student.name : 'there';
 if (student?.wantsDelivery) Cart.wantsDelivery = true;
 Cart.persons[0].name = student?.name || '';
 
 /* ── CATEGORY EMOJIS ── */
-const CAT_EMOJI = {
-  burgers:'🍔', hotdogs:'🌭', fries:'🍟',
-  snacks:'🍿', meals:'🍽️', beverages:'🧃'
-};
+const CAT_EMOJI = { burgers:'🍔', hotdogs:'🌭', fries:'🍟', snacks:'🍿', meals:'🍽️', beverages:'🧃' };
 
-/* ── RENDER CATEGORY TABS ── */
+/* ── MY QUEUE ENTRY ── */
+let myQueueEntry = Store.getActiveQueue().find(q => q.name === student?.name) || null;
+
+/* ─────────────────────────────────────────────────────────
+   QUEUE DRAWER
+───────────────────────────────────────────────────────── */
+let drawerOpen = false;
+
+function updateCatBarTop() {
+  const greetH = document.querySelector('.greeting-bar')?.offsetHeight || 44;
+  const drawerEl = document.getElementById('queue-drawer');
+  const drawerH = drawerOpen ? drawerEl.scrollHeight : 0;
+  document.querySelector('.cat-bar').style.top = (60 + greetH + drawerH) + 'px';
+}
+
+function openDrawer() {
+  drawerOpen = true;
+  const el = document.getElementById('queue-drawer');
+  el.classList.add('open');
+  document.getElementById('queue-chevron').style.transform = 'rotate(180deg)';
+  renderDrawer();
+  // Update after transition
+  setTimeout(updateCatBarTop, 400);
+}
+function closeDrawer() {
+  drawerOpen = false;
+  document.getElementById('queue-drawer').classList.remove('open');
+  document.getElementById('queue-chevron').style.transform = '';
+  setTimeout(updateCatBarTop, 400);
+}
+function toggleDrawer() { drawerOpen ? closeDrawer() : openDrawer(); }
+
+document.getElementById('queue-toggle-btn').addEventListener('click', toggleDrawer);
+document.getElementById('close-drawer-btn').addEventListener('click', closeDrawer);
+
+function updateQueueBtn() {
+  const btn = document.getElementById('queue-toggle-btn');
+  const label = document.getElementById('queue-btn-label');
+  if (myQueueEntry) {
+    const pos = Store.getQueuePosition(myQueueEntry.id);
+    label.textContent = '#' + (pos || '?') + ' in Line';
+    btn.classList.add('in-queue');
+  } else {
+    label.textContent = 'Virtual Line';
+    btn.classList.remove('in-queue');
+  }
+}
+
+function renderDrawer() {
+  const queue = Store.getActiveQueue();
+  document.getElementById('drawer-count').textContent = queue.length;
+
+  /* My position banner */
+  const banner = document.getElementById('my-pos-banner');
+  if (myQueueEntry) {
+    const pos = Store.getQueuePosition(myQueueEntry.id);
+    banner.style.display = 'block';
+    document.getElementById('my-pos-num').textContent = '#' + (pos || '?');
+    document.getElementById('my-pos-label').textContent = pos === 1 ? "You're next!" : pos + ' people ahead of you';
+    document.getElementById('my-pos-sub').textContent = queue.length + ' total in line · ~' + myQueueEntry.estimateMins + 'min prep';
+  } else {
+    banner.style.display = 'none';
+  }
+
+  /* Queue list */
+  const list = document.getElementById('drawer-queue-list');
+  list.innerHTML = '';
+  if (queue.length === 0) {
+    list.innerHTML = `<div style="text-align:center;padding:1rem;font-size:.82rem;color:var(--text4);">Line is empty — be first in! 🏃</div>`;
+  } else {
+    queue.forEach((e, i) => {
+      const isMe = myQueueEntry && e.id === myQueueEntry.id;
+      const div = document.createElement('div');
+      div.className = 'dq-entry' + (isMe ? ' is-me' : '');
+      div.innerHTML = `
+        <div class="dq-pos">${i+1}</div>
+        <div class="dq-name">${escapeHtml(e.name)}</div>
+        ${isMe ? '<span class="dq-you-tag">you</span>' : ''}
+        <div class="dq-time">~${e.estimateMins}min</div>
+      `;
+      list.appendChild(div);
+    });
+  }
+
+  /* Actions */
+  const actions = document.getElementById('queue-drawer-actions');
+  if (myQueueEntry) {
+    actions.innerHTML = `
+      <button class="btn btn-ghost btn-sm" id="leave-queue-btn" style="flex:1;">
+        Leave Line
+      </button>
+    `;
+    document.getElementById('leave-queue-btn').addEventListener('click', () => {
+      Store.markServed(myQueueEntry.id);
+      myQueueEntry = null;
+      updateQueueBtn();
+      renderDrawer();
+      showToast('You left the line', 'info');
+    });
+  } else {
+    actions.innerHTML = `
+      <button class="btn btn-red btn-sm btn-full" id="join-queue-btn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+        Join the Line
+      </button>
+    `;
+    document.getElementById('join-queue-btn').addEventListener('click', () => {
+      if (!student) return;
+      myQueueEntry = Store.joinQueue(student.name, student.hall, 12);
+      updateQueueBtn();
+      renderDrawer();
+      showToast('You joined the line! Position #' + Store.getQueuePosition(myQueueEntry.id), 'success');
+    });
+  }
+}
+
+// Initial render
+renderDrawer();
+updateQueueBtn();
+
+/* ─────────────────────────────────────────────────────────
+   CATEGORY TABS
+───────────────────────────────────────────────────────── */
 const catTabs = document.getElementById('cat-tabs');
 let activeCategory = Store.categories[0].id;
 
@@ -524,7 +633,6 @@ function renderCatTabs() {
     btn.addEventListener('click', () => {
       activeCategory = cat.id;
       renderCatTabs();
-      // Scroll to section
       const sec = document.getElementById('cat-' + cat.id);
       if (sec) sec.scrollIntoView({ behavior:'smooth', block:'start' });
     });
@@ -532,7 +640,9 @@ function renderCatTabs() {
   });
 }
 
-/* ── RENDER MENU ── */
+/* ─────────────────────────────────────────────────────────
+   MENU
+───────────────────────────────────────────────────────── */
 function renderMenu() {
   const content = document.getElementById('menu-content');
   content.innerHTML = '';
@@ -543,23 +653,21 @@ function renderMenu() {
     const sec = document.createElement('section');
     sec.className = 'cat-section';
     sec.id = 'cat-' + cat.id;
-
     sec.innerHTML = `
       <div class="cat-section-title">
         <div class="cat-section-icon">${cat.icon || CAT_EMOJI[cat.id] || '🍽️'}</div>
         ${escapeHtml(cat.name)}
-        <span style="font-size:.75rem;color:var(--text4);font-family:'DM Sans',sans-serif;font-weight:400;">(${items.length})</span>
+        <span class="cat-item-count">(${items.length})</span>
       </div>
       <div class="items-grid" id="grid-${cat.id}"></div>
     `;
-
     content.appendChild(sec);
-    const grid = sec.querySelector('.items-grid');
 
+    const grid = sec.querySelector('#grid-' + cat.id);
     items.forEach(item => {
       const inCart = Cart.persons.some(p => p.items.some(i => i.id === item.id));
       const card = document.createElement('div');
-      card.className = 'item-card' + (inCart ? ' added' : '');
+      card.className = 'item-card' + (inCart ? ' in-cart' : '');
       card.innerHTML = `
         <div class="item-emoji">${CAT_EMOJI[item.category] || '🍽️'}</div>
         <div class="item-body">
@@ -574,31 +682,27 @@ function renderMenu() {
             ${(item.tags||[]).slice(0,1).map(t => `<span class="tag tag-yellow">${escapeHtml(t)}</span>`).join('')}
           </div>
         </div>
-        <button class="item-add-btn" data-id="${item.id}" title="Add to order">
+        <button class="item-add-btn" data-id="${item.id}" aria-label="Add ${escapeHtml(item.name)}">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         </button>
       `;
-      card.addEventListener('click', (e) => {
-        if (!e.target.closest('.item-add-btn')) return; // Only add btn triggers
+      card.querySelector('.item-add-btn').addEventListener('click', (e) => {
+        e.stopPropagation();
         openItemModal(item);
       });
-      card.addEventListener('click', (e) => {
-        if (e.target.closest('.item-add-btn')) return;
-        openItemModal(item);
-      });
+      card.addEventListener('click', () => openItemModal(item));
       grid.appendChild(card);
     });
   });
 }
 
-/* ── ITEM MODAL ── */
+/* ─────────────────────────────────────────────────────────
+   ITEM MODAL
+───────────────────────────────────────────────────────── */
 let modalItem = null, modalQty = 1, modalPersonIdx = 0;
 
 function openItemModal(item) {
-  modalItem = item;
-  modalQty = 1;
-  modalPersonIdx = 0;
-
+  modalItem = item; modalQty = 1; modalPersonIdx = 0;
   document.getElementById('im-emoji').textContent = CAT_EMOJI[item.category] || '🍽️';
   document.getElementById('im-name').textContent = item.name;
   document.getElementById('im-desc').textContent = item.description;
@@ -606,13 +710,11 @@ function openItemModal(item) {
   document.getElementById('im-qty').textContent = '1';
   document.getElementById('im-notes').value = '';
 
-  // Person selector
   const ps = document.getElementById('im-persons');
   ps.innerHTML = '';
   Cart.persons.forEach((p, i) => {
     const opt = document.createElement('div');
     opt.className = 'person-opt' + (i === 0 ? ' selected' : '');
-    opt.dataset.idx = i;
     opt.innerHTML = `
       <div class="person-avatar">${(p.name || 'Me').charAt(0).toUpperCase()}</div>
       <div class="person-opt-name">${escapeHtml(p.name || 'My Order')}</div>
@@ -632,8 +734,7 @@ document.getElementById('im-minus').addEventListener('click', () => {
   if (modalQty > 1) { modalQty--; document.getElementById('im-qty').textContent = modalQty; }
 });
 document.getElementById('im-plus').addEventListener('click', () => {
-  modalQty++;
-  document.getElementById('im-qty').textContent = modalQty;
+  modalQty++; document.getElementById('im-qty').textContent = modalQty;
 });
 document.getElementById('im-add-btn').addEventListener('click', () => {
   if (!modalItem) return;
@@ -650,7 +751,9 @@ document.getElementById('item-modal').addEventListener('click', e => {
   if (e.target === document.getElementById('item-modal')) document.getElementById('item-modal').style.display = 'none';
 });
 
-/* ── CART ── */
+/* ─────────────────────────────────────────────────────────
+   CART
+───────────────────────────────────────────────────────── */
 function updateCartBadge() {
   const n = Cart.totalItems;
   const badge = document.getElementById('cart-badge');
@@ -665,255 +768,146 @@ function renderCartBody() {
 
   if (Cart.totalItems === 0) {
     body.innerHTML = `<div class="empty-state"><div class="empty-icon">🛒</div><div class="empty-title">Nothing here yet</div><div class="empty-body">Add items from the menu to get started</div></div>`;
-  } else {
-    Cart.persons.forEach((person, pi) => {
-      if (!person.items.length && pi > 0) return; // skip empty extra persons
-      const sec = document.createElement('div');
-      sec.className = 'person-section';
-
-      const header = document.createElement('div');
-      header.className = 'person-header';
-      header.innerHTML = `
-        <div class="person-avatar">${(person.name || 'Me').charAt(0).toUpperCase()}</div>
-        <input class="person-name-input" placeholder="Name…" value="${escapeHtml(person.name || '')}" data-pi="${pi}">
-      `;
-      header.querySelector('.person-name-input').addEventListener('input', e => {
-        Cart.setPersonName(pi, e.target.value);
-      });
-      sec.appendChild(header);
-
-      if (person.items.length === 0) {
-        sec.innerHTML += `<div style="font-size:.78rem;color:var(--text4);padding:.4rem .25rem;">No items yet — add from the menu</div>`;
-      } else {
-        person.items.forEach(item => {
-          const row = document.createElement('div');
-          row.className = 'cart-item-row';
-          row.innerHTML = `
-            <span class="cart-item-name">${escapeHtml(item.name)}${item.notes ? `<br><span style="font-size:.7rem;color:var(--text4)">${escapeHtml(item.notes)}</span>` : ''}</span>
-            <div class="qty-ctrl" style="gap:.25rem;">
-              <button class="qty-btn" style="width:22px;height:22px;font-size:.85rem;" data-pi="${pi}" data-id="${item.id}" data-action="minus">−</button>
-              <span class="qty-val" style="font-size:.82rem;min-width:16px;">${item.qty}</span>
-              <button class="qty-btn" style="width:22px;height:22px;font-size:.85rem;" data-pi="${pi}" data-id="${item.id}" data-action="plus">+</button>
-            </div>
-            <span class="cart-item-price">${formatPrice(item.price * item.qty)}</span>
-            <button class="cart-item-del" data-pi="${pi}" data-id="${item.id}">✕</button>
-          `;
-          sec.appendChild(row);
-        });
-      }
-      body.appendChild(sec);
-    });
-
-    // Add person
-    const addRow = document.createElement('div');
-    addRow.innerHTML = `
-      <div class="divider"></div>
-      <div class="field-label" style="margin-bottom:.4rem;">Add someone to your order</div>
-      <div class="add-person-row">
-        <input class="add-person-input" id="new-person-input" placeholder="Their name…">
-        <button class="add-person-btn" id="add-person-btn">+ Add</button>
-      </div>
-    `;
-    body.appendChild(addRow);
-
-    document.getElementById('add-person-btn').addEventListener('click', () => {
-      const input = document.getElementById('new-person-input');
-      const name = input.value.trim();
-      if (!name) { showToast('Enter a name first', 'error'); return; }
-      Cart.addPerson(name);
-      input.value = '';
-      renderCartBody();
-      showToast(name + ' added to the order!');
-    });
-
-    // Qty/remove handlers
-    body.querySelectorAll('[data-action]').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const pi = +btn.dataset.pi, id = btn.dataset.id;
-        const person = Cart.persons[pi];
-        const item = person.items.find(i => i.id === id);
-        if (!item) return;
-        if (btn.dataset.action === 'minus') {
-          item.qty--;
-          if (item.qty <= 0) Cart.removeItem(pi, id);
-        } else {
-          item.qty++;
-        }
-        updateCartBadge();
-        renderCartBody();
-        updateTotals();
-      });
-    });
-    body.querySelectorAll('.cart-item-del').forEach(btn => {
-      btn.addEventListener('click', () => {
-        Cart.removeItem(+btn.dataset.pi, btn.dataset.id);
-        updateCartBadge();
-        renderCartBody();
-        updateTotals();
-      });
-    });
+    return;
   }
+
+  Cart.persons.forEach((person, pi) => {
+    if (!person.items.length && pi > 0) return;
+    const sec = document.createElement('div');
+    sec.className = 'person-section';
+
+    const header = document.createElement('div');
+    header.className = 'person-header';
+    header.innerHTML = `
+      <div class="person-avatar">${(person.name || 'Me').charAt(0).toUpperCase()}</div>
+      <input class="person-name-input" placeholder="Name…" value="${escapeHtml(person.name || '')}" data-pi="${pi}">
+    `;
+    header.querySelector('.person-name-input').addEventListener('input', e => Cart.setPersonName(pi, e.target.value));
+    sec.appendChild(header);
+
+    if (!person.items.length) {
+      const empty = document.createElement('div');
+      empty.style.cssText = 'font-size:.76rem;color:var(--text4);padding:.3rem .25rem;';
+      empty.textContent = 'No items yet';
+      sec.appendChild(empty);
+    } else {
+      person.items.forEach(item => {
+        const row = document.createElement('div');
+        row.className = 'cart-item-row';
+        row.innerHTML = `
+          <span class="cart-item-name">${escapeHtml(item.name)}${item.notes ? `<br><span style="font-size:.68rem;color:var(--text4);">${escapeHtml(item.notes)}</span>` : ''}</span>
+          <div class="qty-ctrl" style="gap:.2rem;">
+            <button class="qty-btn" style="width:22px;height:22px;font-size:.85rem;" data-pi="${pi}" data-id="${item.id}" data-action="minus">−</button>
+            <span class="qty-val" style="font-size:.8rem;min-width:14px;">${item.qty}</span>
+            <button class="qty-btn" style="width:22px;height:22px;font-size:.85rem;" data-pi="${pi}" data-id="${item.id}" data-action="plus">+</button>
+          </div>
+          <span class="cart-item-price">${formatPrice(item.price * item.qty)}</span>
+          <button class="cart-item-del" data-pi="${pi}" data-id="${item.id}">✕</button>
+        `;
+        sec.appendChild(row);
+      });
+    }
+    body.appendChild(sec);
+  });
+
+  /* Add person row */
+  const addRow = document.createElement('div');
+  addRow.innerHTML = `
+    <div class="divider"></div>
+    <div class="field-label" style="margin-bottom:.4rem;">Add someone to this order</div>
+    <div class="add-person-row">
+      <input class="add-person-input" id="new-person-input" placeholder="Their name…" maxlength="30">
+      <button class="add-person-btn" id="add-person-btn">+ Add</button>
+    </div>
+  `;
+  body.appendChild(addRow);
+
+  document.getElementById('add-person-btn').addEventListener('click', () => {
+    const input = document.getElementById('new-person-input');
+    const name = input.value.trim();
+    if (!name) { showToast('Enter a name first', 'error'); return; }
+    Cart.addPerson(name);
+    input.value = '';
+    renderCartBody();
+    showToast(name + ' added to the order!');
+  });
+
+  /* Qty / remove handlers */
+  body.querySelectorAll('[data-action]').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const pi = +btn.dataset.pi, id = btn.dataset.id;
+      const item = Cart.persons[pi]?.items.find(i => i.id === id);
+      if (!item) return;
+      if (btn.dataset.action === 'minus') {
+        item.qty--;
+        if (item.qty <= 0) Cart.removeItem(pi, id);
+      } else { item.qty++; }
+      updateCartBadge(); renderCartBody(); updateTotals();
+    });
+  });
+  body.querySelectorAll('.cart-item-del').forEach(btn => {
+    btn.addEventListener('click', () => {
+      Cart.removeItem(+btn.dataset.pi, btn.dataset.id);
+      updateCartBadge(); renderCartBody(); updateTotals();
+    });
+  });
 }
 
 function updateTotals() {
   document.getElementById('cart-subtotal').textContent = formatPrice(Cart.subtotal);
-  document.getElementById('cart-total').textContent = formatPrice(Cart.total);
-  const feeRow = document.getElementById('delivery-fee-row');
-  feeRow.style.display = Cart.wantsDelivery ? 'flex' : 'none';
+  document.getElementById('cart-total').textContent    = formatPrice(Cart.total);
+  document.getElementById('delivery-fee-row').style.display = Cart.wantsDelivery ? 'flex' : 'none';
 }
 
-/* Cart open/close */
 document.getElementById('cart-btn').addEventListener('click', () => {
   document.getElementById('cart-sheet').classList.add('open');
-  renderCartBody();
-  updateTotals();
+  renderCartBody(); updateTotals();
 });
-document.getElementById('cart-close').addEventListener('click', () => {
-  document.getElementById('cart-sheet').classList.remove('open');
-});
-document.getElementById('cart-backdrop').addEventListener('click', () => {
-  document.getElementById('cart-sheet').classList.remove('open');
-});
+document.getElementById('cart-close').addEventListener('click', () => document.getElementById('cart-sheet').classList.remove('open'));
+document.getElementById('cart-backdrop').addEventListener('click', () => document.getElementById('cart-sheet').classList.remove('open'));
 
-/* ── CHECKOUT ── */
+/* ─────────────────────────────────────────────────────────
+   CHECKOUT
+───────────────────────────────────────────────────────── */
 document.getElementById('checkout-btn').addEventListener('click', () => {
   const items = Cart.flatten();
   if (!items.length) return;
   const notes = document.getElementById('order-notes').value.trim();
   const order = Store.createOrder(items, Cart.persons, notes, { wantsDelivery: Cart.wantsDelivery });
 
-  // Also join queue
-  if (student) {
-    const maxPrep = Math.max(...items.map(i => {
-      const mi = Store.getItem(i.id); return mi ? mi.prepMins || 10 : 10;
-    }));
-    Store.joinQueue(student.name, student.hall, maxPrep);
+  /* Auto-join queue on order */
+  if (student && !myQueueEntry) {
+    const maxPrep = Math.max(...items.map(i => { const mi = Store.getItem(i.id); return mi ? mi.prepMins || 10 : 10; }));
+    myQueueEntry = Store.joinQueue(student.name, student.hall, maxPrep);
   }
 
-  showToast('Order placed! Order #' + order.id, 'success');
-  Cart.clear();
-  updateCartBadge();
+  showToast('Order placed! ' + order.id, 'success');
+  Cart.clear(); updateCartBadge();
   document.getElementById('cart-sheet').classList.remove('open');
-
-  setTimeout(() => {
-    window.location.href = 'status.html?order=' + order.id;
-  }, 800);
+  setTimeout(() => { window.location.href = 'status.html?order=' + order.id; }, 700);
 });
 
-/* ── VIRTUAL QUEUE ── */
-let myQueueEntry = null;
-
-function openQueueModal() {
-  document.getElementById('queue-modal').style.display = 'flex';
-  renderQueueModal();
-}
-
-function renderQueueModal() {
-  const body = document.getElementById('queue-modal-body');
-  const queue = Store.getActiveQueue();
-
-  if (myQueueEntry) {
-    const pos = Store.getQueuePosition(myQueueEntry.id);
-    body.innerHTML = `
-      <div class="queue-banner">
-        <div>
-          <div style="font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem;">Your position</div>
-          <div class="queue-pos-big">#${pos || '?'}</div>
-          <div class="queue-pos-label">in line · ~${myQueueEntry.estimateMins}min prep time</div>
-        </div>
-      </div>
-      <div class="field-label" style="margin-bottom:.6rem;">People in line (${queue.length})</div>
-      <div class="queue-list">
-        ${queue.map((e,i) => `
-          <div class="queue-entry">
-            <div class="queue-pos">${i+1}</div>
-            <div>
-              <div class="queue-name">${escapeHtml(e.name)}${e.id === myQueueEntry?.id ? ' <span style="color:var(--yellow);font-size:.7rem;">(you)</span>' : ''}</div>
-              <div class="queue-detail">~${e.estimateMins}min · joined ${timeAgo(e.joinedAt)}</div>
-            </div>
-          </div>
-        `).join('')}
-      </div>
-    `;
-  } else {
-    body.innerHTML = `
-      <div style="margin-bottom:1rem;">
-        <p style="font-size:.88rem;color:var(--text3);line-height:1.6;margin-bottom:1rem;">
-          Join the virtual line now — even before you order. 
-          When it's your turn, walk to Nardos or wait for delivery.
-        </p>
-        <div class="field-label" style="margin-bottom:.6rem;">People in line (${queue.length})</div>
-        <div class="queue-list" style="margin-bottom:1rem;">
-          ${queue.length === 0 
-            ? `<div class="empty-state" style="padding:1rem;"><div class="empty-icon" style="font-size:1.5rem;">🏃</div><div class="empty-title" style="font-size:.88rem;">Line is empty</div><div class="empty-body" style="font-size:.75rem;">Be first in!</div></div>`
-            : queue.map((e,i) => `
-              <div class="queue-entry">
-                <div class="queue-pos">${i+1}</div>
-                <div>
-                  <div class="queue-name">${escapeHtml(e.name)}</div>
-                  <div class="queue-detail">~${e.estimateMins}min · joined ${timeAgo(e.joinedAt)}</div>
-                </div>
-              </div>
-            `).join('')
-          }
-        </div>
-        <button class="btn btn-red btn-full" id="join-queue-btn">
-          Join the Line Now
-        </button>
-      </div>
-    `;
-    const joinBtn = document.getElementById('join-queue-btn');
-    if (joinBtn) {
-      joinBtn.addEventListener('click', () => {
-        if (!student) { showToast('Go back and enter your name first', 'error'); return; }
-        myQueueEntry = Store.joinQueue(student.name, student.hall, 12);
-        updateQueueBtn();
-        renderQueueModal();
-        showToast('You joined the line!', 'success');
-      });
-    }
-  }
-}
-
-function updateQueueBtn() {
-  const btn = document.getElementById('queue-btn');
-  if (myQueueEntry) {
-    const pos = Store.getQueuePosition(myQueueEntry.id);
-    btn.textContent = `#${pos || '?'} in Line`;
-    btn.classList.add('in-queue');
-  }
-}
-
-document.getElementById('queue-btn').addEventListener('click', openQueueModal);
-document.getElementById('queue-modal-close').addEventListener('click', () => {
-  document.getElementById('queue-modal').style.display = 'none';
-});
-document.getElementById('queue-modal').addEventListener('click', e => {
-  if (e.target === document.getElementById('queue-modal')) document.getElementById('queue-modal').style.display = 'none';
-});
-
-/* ── REAL-TIME SYNC ── */
+/* ─────────────────────────────────────────────────────────
+   REAL-TIME SYNC
+───────────────────────────────────────────────────────── */
 try {
-  const bc = new BroadcastChannel('nardos_orders');
-  bc.addEventListener('message', e => {
+  const bcListen = new BroadcastChannel('nardos_orders');
+  bcListen.addEventListener('message', e => {
     if (e.data.type === 'queue_update') {
       Store.queue = e.data.payload;
+      myQueueEntry = Store.getActiveQueue().find(q => q.name === student?.name) || myQueueEntry;
       updateQueueBtn();
+      if (drawerOpen) renderDrawer();
     }
   });
 } catch(err) {}
 
-/* ── INIT ── */
+/* ─────────────────────────────────────────────────────────
+   INIT
+───────────────────────────────────────────────────────── */
 renderCatTabs();
 renderMenu();
 updateCartBadge();
-
-// Check if already in queue
-if (student) {
-  const inQueue = Store.getActiveQueue().find(q => q.name === student.name);
-  if (inQueue) { myQueueEntry = inQueue; updateQueueBtn(); }
-}
-
 Tour.init('menu');
 </script>
 </body>
