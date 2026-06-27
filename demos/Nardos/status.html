@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0F0D0A">
+  <title>Order Status — Nardos</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    .status-page {
+      max-width:480px; margin:0 auto;
+      padding:1.5rem 1.25rem 4rem;
+    }
+
+    /* Status hero */
+    .status-hero {
+      text-align:center;
+      padding:2rem 1rem 1.5rem;
+      position:relative;
+    }
+
+    .status-big-icon {
+      font-size:3.5rem;
+      margin-bottom:1rem;
+      display:block;
+      animation:bounce 2s ease-in-out infinite;
+    }
+    @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-8px)} }
+
+    .order-id-tag {
+      display:inline-flex; align-items:center; gap:.4rem;
+      padding:.25rem .75rem;
+      border-radius:100px;
+      background:var(--surface2);
+      border:1px solid var(--border);
+      font-size:.7rem; color:var(--text4);
+      font-family:'Syne',sans-serif; font-weight:700;
+      margin-bottom:1rem;
+      letter-spacing:.05em;
+    }
+
+    .status-headline {
+      font-family:'Syne',sans-serif;
+      font-size:1.5rem; font-weight:800;
+      line-height:1.2;
+      margin-bottom:.4rem;
+    }
+    .status-sub {
+      font-size:.9rem; color:var(--text3);
+      line-height:1.6;
+    }
+
+    /* Progress steps */
+    .progress-steps {
+      display:flex; align-items:center;
+      padding:1.5rem;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      margin-bottom:1rem;
+      gap:0;
+    }
+    .step {
+      flex:1;
+      display:flex; flex-direction:column; align-items:center;
+      gap:.4rem;
+      position:relative;
+    }
+    .step:not(:last-child)::after {
+      content:'';
+      position:absolute;
+      top:16px; left:50%; right:-50%;
+      height:2px;
+      background:var(--border);
+      z-index:0;
+    }
+    .step.done:not(:last-child)::after { background:var(--yellow); }
+    .step.active:not(:last-child)::after { background:linear-gradient(90deg, var(--yellow), var(--border)); }
+
+    .step-circle {
+      width:32px; height:32px;
+      border-radius:50%;
+      background:var(--surface2);
+      border:2px solid var(--border);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.85rem;
+      z-index:1; position:relative;
+      transition:all .4s;
+    }
+    .step.done .step-circle {
+      background:var(--yellow);
+      border-color:var(--yellow);
+    }
+    .step.active .step-circle {
+      background:var(--red);
+      border-color:var(--red);
+      box-shadow:0 0 0 4px rgba(232,41,28,.2);
+      animation:ring-pulse 1.5s ease-in-out infinite;
+    }
+    @keyframes ring-pulse { 0%,100%{box-shadow:0 0 0 4px rgba(232,41,28,.2)} 50%{box-shadow:0 0 0 8px rgba(232,41,28,.08)} }
+
+    .step-label {
+      font-size:.65rem; font-weight:700;
+      color:var(--text4);
+      text-align:center; text-transform:uppercase; letter-spacing:.05em;
+    }
+    .step.done .step-label, .step.active .step-label { color:var(--text2); }
+
+    /* Timer */
+    .timer-card {
+      background:var(--surface);
+      border:1px solid var(--border2);
+      border-radius:var(--r-xl);
+      padding:1.5rem;
+      text-align:center;
+      margin-bottom:1rem;
+      position:relative;
+      overflow:hidden;
+    }
+    .timer-card::before {
+      content:'';
+      position:absolute; top:0; left:0; right:0;
+      height:2px;
+      background:linear-gradient(90deg, var(--yellow), var(--red));
+    }
+    .timer-label-sm {
+      font-size:.68rem; color:var(--text3);
+      text-transform:uppercase; letter-spacing:.1em;
+      margin-bottom:.5rem;
+    }
+    .timer-big {
+      font-family:'Syne',sans-serif;
+      font-size:3.5rem; font-weight:800;
+      color:var(--yellow);
+      font-variant-numeric:tabular-nums;
+      line-height:1;
+      margin-bottom:.3rem;
+    }
+    .timer-sub { font-size:.8rem; color:var(--text3); }
+    .timer-hint {
+      margin-top:.75rem;
+      padding:.6rem;
+      background:var(--surface2);
+      border-radius:var(--r);
+      font-size:.78rem; color:var(--text3);
+      display:flex; align-items:center; gap:.4rem;
+    }
+
+    /* Queue position */
+    .queue-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      padding:1.25rem;
+      margin-bottom:1rem;
+    }
+    .queue-card-title {
+      font-family:'Syne',sans-serif;
+      font-weight:700; font-size:.9rem;
+      margin-bottom:.85rem;
+      display:flex; align-items:center; gap:.4rem;
+    }
+    .queue-pos-display {
+      display:flex; align-items:center; gap:1rem;
+    }
+    .big-pos-num {
+      font-family:'Syne',sans-serif;
+      font-size:2.5rem; font-weight:800;
+      color:var(--yellow);
+      line-height:1;
+    }
+    .queue-pos-info { flex:1; }
+    .queue-pos-desc { font-size:.88rem; color:var(--text2); margin-bottom:.25rem; }
+    .queue-pos-sub { font-size:.75rem; color:var(--text3); }
+
+    /* Order details */
+    .order-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      overflow:hidden;
+      margin-bottom:1rem;
+    }
+    .order-card-header {
+      padding:1rem 1.25rem;
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; justify-content:space-between;
+    }
+    .order-card-title {
+      font-family:'Syne',sans-serif;
+      font-weight:700; font-size:.95rem;
+    }
+    .order-item-row {
+      display:flex; align-items:center; gap:.6rem;
+      padding:.65rem 1.25rem;
+      border-bottom:1px solid var(--border);
+    }
+    .order-item-row:last-child { border-bottom:none; }
+    .order-item-person {
+      width:24px; height:24px;
+      border-radius:50%;
+      background:var(--yellow-pale);
+      border:1px solid var(--border2);
+      color:var(--yellow);
+      font-size:.65rem; font-weight:800;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+    }
+    .order-item-name { flex:1; font-size:.85rem; color:var(--text2); }
+    .order-item-qty { font-size:.75rem; color:var(--text4); }
+    .order-item-price { font-size:.85rem; color:var(--text3); }
+
+    /* Actions */
+    .status-actions {
+      display:flex; flex-direction:column; gap:.6rem;
+    }
+
+    /* Ready banner */
+    .ready-banner {
+      background:linear-gradient(135deg, rgba(34,197,94,.15), rgba(34,197,94,.05));
+      border:1px solid rgba(34,197,94,.3);
+      border-radius:var(--r-xl);
+      padding:1.5rem;
+      text-align:center;
+      margin-bottom:1rem;
+      animation:glow 2s ease-in-out infinite;
+    }
+    @keyframes glow { 0%,100%{box-shadow:0 0 0 rgba(34,197,94,0)} 50%{box-shadow:0 0 20px rgba(34,197,94,.15)} }
+    .ready-title {
+      font-family:'Syne',sans-serif;
+      font-size:1.4rem; font-weight:800;
+      color:var(--green); margin-bottom:.4rem;
+    }
+    .ready-sub { font-size:.9rem; color:var(--text3); }
+
+    .select-order-bar {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      padding:1.25rem;
+      margin-bottom:1rem;
+    }
+    .order-list { display:flex; flex-direction:column; gap:.5rem; margin-top:.75rem; }
+    .order-list-item {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.65rem .9rem;
+      background:var(--surface2);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      cursor:pointer;
+      transition:all .15s;
+    }
+    .order-list-item:hover { border-color:var(--yellow); }
+    .order-list-item.selected { border-color:var(--yellow); background:var(--yellow-pale); }
+  </style>
+</head>
+<body>
+<div class="noise-bg"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="menu.html" class="nav-logo-box" id="nav-logo-box">N</a>
+  <div>
+    <div class="nav-name">Nardos</div>
+    <div class="nav-sub">Order Status</div>
+  </div>
+  <div class="nav-spacer"></div>
+  <a href="menu.html" class="nav-btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    New Order
+  </a>
+</nav>
+
+<div class="page">
+  <div class="status-page" id="status-page">
+    <!-- Rendered dynamically -->
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="demo-seed.js"></script>
+<script src="app.js"></script>
+<script>
+'use strict';
+Store.load();
+
+const savedLogo = localStorage.getItem('nardos_logo');
+if (savedLogo) document.getElementById('nav-logo-box').innerHTML = `<img src="${savedLogo}" alt="logo">`;
+
+const params = new URLSearchParams(location.search);
+let currentOrderId = params.get('order');
+let timerInterval = null;
+
+const STATUS_STEPS = ['pending','preparing','ready','served'];
+const STATUS_ICONS = { pending:'🕐', preparing:'🔥', ready:'✅', served:'🎉' };
+const STATUS_LABEL = { pending:'Order Received', preparing:'Preparing Now', ready:'Ready!', served:'Served' };
+const STATUS_HEADLINE = {
+  pending:   ['Order received!', "Nardos has your order. Sit tight — they'll start soon."],
+  preparing: ['Being made now 🔥', "Your food is being prepared. Watch the timer!"],
+  ready:     ['Ready to collect! 🎉', 'Head to Nardos now — or your delivery is on the way!'],
+  served:    ['Enjoy your meal! 😋', 'Your order has been served. Come back anytime!']
+};
+
+function render() {
+  const page = document.getElementById('status-page');
+  const student = Store.getStudent();
+
+  if (!currentOrderId) {
+    // Show order picker
+    const orders = Store.orders.filter(o => o.student === (student?.name || '') || true);
+    if (orders.length === 0) {
+      page.innerHTML = `
+        <div class="status-hero">
+          <span class="status-big-icon">🛒</span>
+          <div class="status-headline">No orders yet</div>
+          <div class="status-sub">Place an order first</div>
+        </div>
+        <a href="menu.html" class="btn btn-yellow btn-full" style="display:flex;">Browse the Menu</a>
+      `;
+      return;
+    }
+
+    page.innerHTML = `
+      <div class="status-hero">
+        <span class="status-big-icon">📋</span>
+        <div class="status-headline">Your Orders</div>
+        <div class="status-sub">Tap an order to check its status</div>
+      </div>
+      <div class="select-order-bar">
+        <div class="field-label">Recent orders</div>
+        <div class="order-list" id="order-picker"></div>
+      </div>
+    `;
+
+    const picker = document.getElementById('order-picker');
+    orders.slice(0, 10).forEach(o => {
+      const row = document.createElement('div');
+      row.className = 'order-list-item';
+      row.innerHTML = `
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;">${o.id}</div>
+          <div style="font-size:.72rem;color:var(--text3);">${timeAgo(o.createdAt)} · ${formatPrice(o.total)}</div>
+        </div>
+        <span class="status-badge status-${o.status}">${STATUS_LABEL[o.status]}</span>
+      `;
+      row.addEventListener('click', () => {
+        currentOrderId = o.id;
+        history.replaceState(null,'','status.html?order=' + o.id);
+        render();
+      });
+      picker.appendChild(row);
+    });
+    return;
+  }
+
+  const order = Store.orders.find(o => o.id === currentOrderId);
+  if (!order) {
+    page.innerHTML = `
+      <div class="status-hero">
+        <span class="status-big-icon">🔍</span>
+        <div class="status-headline">Order not found</div>
+        <div class="status-sub">This order doesn't exist in the demo</div>
+      </div>
+      <button class="btn btn-ghost btn-full" onclick="currentOrderId=null;render()">View all orders</button>
+    `;
+    return;
+  }
+
+  // Clear old timer
+  if (timerInterval) clearInterval(timerInterval);
+
+  const statusIdx = STATUS_STEPS.indexOf(order.status);
+  const [headline, sub] = STATUS_HEADLINE[order.status] || ['Order status', ''];
+
+  // Build queue info
+  let queueHtml = '';
+  const myQE = Store.getActiveQueue().find(q => q.name === order.student);
+  if (myQE) {
+    const pos = Store.getQueuePosition(myQE.id);
+    const total = Store.getActiveQueue().length;
+    queueHtml = `
+      <div class="queue-card">
+        <div class="queue-card-title">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+          Virtual Line
+        </div>
+        <div class="queue-pos-display">
+          <div class="big-pos-num">#${pos || '?'}</div>
+          <div class="queue-pos-info">
+            <div class="queue-pos-desc">${pos === 1 ? "You're next!" : pos + ' people ahead of you'}</div>
+            <div class="queue-pos-sub">${total} total in line · ~${myQE.estimateMins}min prep</div>
+          </div>
+        </div>
+      </div>
+    `;
+  }
+
+  // Timer
+  let timerHtml = '';
+  if (order.timerEnd && (order.status === 'preparing' || order.status === 'pending')) {
+    timerHtml = `
+      <div class="timer-card">
+        <div class="timer-label-sm">Estimated ready in</div>
+        <div class="timer-big" id="timer-display">--:--</div>
+        <div class="timer-sub">This updates live</div>
+        <div class="timer-hint">
+          <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+          Head down when the timer hits 0:00
+        </div>
+      </div>
+    `;
+  }
+
+  // Ready banner
+  let readyHtml = '';
+  if (order.status === 'ready') {
+    readyHtml = `
+      <div class="ready-banner">
+        <div style="font-size:2.5rem;margin-bottom:.5rem;">🎉</div>
+        <div class="ready-title">Your order is ready!</div>
+        <div class="ready-sub">${order.wantsDelivery ? 'Your delivery is on the way to ' + escapeHtml(order.hall || 'your hall') : 'Head to Nardos to collect your order'}</div>
+      </div>
+    `;
+  }
+
+  // Order items
+  const allItems = order.persons
+    ? order.persons.flatMap(p => p.items.map(i => ({ ...i, personName: p.name })))
+    : order.items || [];
+
+  page.innerHTML = `
+    <div class="status-hero">
+      <div class="order-id-tag">
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+        ${order.id}
+      </div>
+      <div class="status-headline">${escapeHtml(headline)}</div>
+      <div class="status-sub">${escapeHtml(sub)}</div>
+    </div>
+
+    <!-- Progress -->
+    <div class="progress-steps" style="margin-bottom:1rem;">
+      ${['pending','preparing','ready','served'].map((s, i) => `
+        <div class="step ${i < statusIdx ? 'done' : i === statusIdx ? 'active' : ''}">
+          <div class="step-circle">
+            ${i < statusIdx ? '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#0F0D0A" stroke-width="3"><path d="M20 6L9 17l-5-5"/></svg>' : STATUS_ICONS[s]}
+          </div>
+          <div class="step-label">${STATUS_LABEL[s].split(' ')[0]}</div>
+        </div>
+      `).join('')}
+    </div>
+
+    ${readyHtml}
+    ${timerHtml}
+    ${queueHtml}
+
+    <!-- Order details -->
+    <div class="order-card">
+      <div class="order-card-header">
+        <div class="order-card-title">Order Details</div>
+        <span class="status-badge status-${order.status}">${STATUS_LABEL[order.status]}</span>
+      </div>
+      ${allItems.map(item => `
+        <div class="order-item-row">
+          <div class="order-item-person">${(item.personName || 'Me').charAt(0).toUpperCase()}</div>
+          <div class="order-item-name">${escapeHtml(item.name || item.id)}</div>
+          <div class="order-item-qty">×${item.qty || item.quantity || 1}</div>
+          <div class="order-item-price">${formatPrice((item.price || 0) * (item.qty || item.quantity || 1))}</div>
+        </div>
+      `).join('')}
+      ${order.notes ? `<div style="padding:.75rem 1.25rem;font-size:.78rem;color:var(--text3);border-top:1px solid var(--border);">📝 ${escapeHtml(order.notes)}</div>` : ''}
+      <div style="padding:1rem 1.25rem;border-top:1px solid var(--border);">
+        <div style="display:flex;justify-content:space-between;font-size:.82rem;color:var(--text3);margin-bottom:.3rem;"><span>Subtotal</span><span>${formatPrice(order.subtotal)}</span></div>
+        ${order.wantsDelivery ? `<div style="display:flex;justify-content:space-between;font-size:.82rem;color:var(--text3);margin-bottom:.3rem;"><span>Delivery</span><span>J$200</span></div>` : ''}
+        <div style="display:flex;justify-content:space-between;font-family:'Syne',sans-serif;font-weight:800;font-size:1rem;color:var(--text);"><span>Total</span><span style="color:var(--yellow)">${formatPrice(order.total)}</span></div>
+      </div>
+    </div>
+
+    <!-- Actions -->
+    <div class="status-actions">
+      <button class="btn btn-ghost btn-full" onclick="currentOrderId=null;history.replaceState(null,'','status.html');render()">
+        View All Orders
+      </button>
+      <a href="menu.html" class="btn btn-yellow btn-full" style="text-align:center;">
+        Order More
+      </a>
+    </div>
+  `;
+
+  // Start timer
+  if (order.timerEnd && (order.status === 'preparing' || order.status === 'pending')) {
+    const timerEl = document.getElementById('timer-display');
+    function tick() {
+      const remaining = new Date(order.timerEnd) - Date.now();
+      if (remaining <= 0) {
+        if (timerEl) timerEl.textContent = '0:00';
+        clearInterval(timerInterval);
+        return;
+      }
+      const mins = Math.floor(remaining / 60000);
+      const secs = Math.floor((remaining % 60000) / 1000);
+      if (timerEl) timerEl.textContent = mins + ':' + String(secs).padStart(2,'0');
+    }
+    tick();
+    timerInterval = setInterval(tick, 1000);
+  }
+}
+
+/* Real-time updates */
+try {
+  const bc = new BroadcastChannel('nardos_orders');
+  bc.addEventListener('message', e => {
+    if (e.data.type === 'order_update' && e.data.payload.orderId === currentOrderId) {
+      Store.load(); render();
+    }
+    if (e.data.type === 'queue_update') {
+      Store.queue = e.data.payload;
+      render();
+    }
+  });
+} catch(err) {}
+
+// Auto-refresh every 8s
+setInterval(() => { Store.load(); render(); }, 8000);
+
+render();
+Tour.init('status');
+</script>
+</body>
+</html>

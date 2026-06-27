@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0F0D0A">
+  <title>Nardos One Stop Shop — UWI Campus</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── WELCOME PAGE SPECIFIC ── */
+    .welcome-page {
+      min-height:100dvh;
+      display:flex; flex-direction:column;
+      position:relative;
+      overflow:hidden;
+    }
+
+    /* Ambient background */
+    .welcome-bg {
+      position:fixed; inset:0; pointer-events:none;
+      background:
+        radial-gradient(ellipse 70% 50% at 15% 80%, rgba(245,195,0,.07) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 85% 20%, rgba(232,41,28,.06) 0%, transparent 55%);
+    }
+
+    .welcome-hero {
+      flex:1;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      padding:5rem 1.5rem 2rem;
+      text-align:center;
+      position:relative; z-index:2;
+    }
+
+    /* Logo area */
+    .logo-area {
+      margin-bottom:2rem;
+      display:flex; flex-direction:column; align-items:center; gap:1rem;
+    }
+    .logo-circle {
+      width:88px; height:88px;
+      background:var(--yellow);
+      border-radius:22px;
+      display:grid; place-items:center;
+      font-family:'Syne',sans-serif;
+      font-size:2.2rem; font-weight:800;
+      color:#0F0D0A;
+      box-shadow:0 0 40px rgba(245,195,0,.3), 0 0 80px rgba(245,195,0,.1);
+      overflow:hidden;
+      cursor:pointer;
+      transition:transform .2s;
+      position:relative;
+    }
+    .logo-circle:hover { transform:scale(1.04); }
+    .logo-circle img {
+      width:100%; height:100%; object-fit:cover;
+      position:absolute; inset:0;
+    }
+    .logo-circle .logo-letter { position:relative; z-index:1; }
+    .logo-upload-hint {
+      font-size:.68rem; color:var(--text4);
+      letter-spacing:.06em; text-transform:uppercase;
+    }
+
+    .welcome-eyebrow {
+      display:inline-flex; align-items:center; gap:.4rem;
+      padding:.25rem .8rem;
+      border-radius:100px;
+      background:var(--red-pale);
+      border:1px solid rgba(232,41,28,.2);
+      font-size:.62rem; font-weight:700;
+      color:var(--red-lt);
+      letter-spacing:.12em; text-transform:uppercase;
+      margin-bottom:1rem;
+    }
+    .dot-blink {
+      width:5px; height:5px; border-radius:50%;
+      background:var(--green);
+      animation:pulse 1.5s ease-in-out infinite;
+    }
+
+    .welcome-title {
+      font-family:'Syne',sans-serif;
+      font-size:clamp(2rem,8vw,3.2rem);
+      font-weight:800; line-height:1.08;
+      color:var(--text);
+      margin-bottom:.6rem;
+    }
+    .welcome-title span { color:var(--yellow); }
+
+    .welcome-sub {
+      font-size:1rem; color:var(--text3);
+      line-height:1.65; max-width:320px;
+      margin:0 auto 2.5rem;
+    }
+
+    /* Form card */
+    .form-card {
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-xl);
+      padding:1.75rem;
+      width:100%; max-width:400px;
+      margin:0 auto;
+      position:relative;
+    }
+
+    .form-card::before {
+      content:'';
+      position:absolute; top:0; left:50%; transform:translateX(-50%);
+      width:60%; height:1px;
+      background:linear-gradient(90deg, transparent, var(--yellow), transparent);
+    }
+
+    .form-title {
+      font-family:'Syne',sans-serif;
+      font-weight:700; font-size:1.05rem;
+      margin-bottom:1.25rem; color:var(--text);
+    }
+
+    .form-fields { display:flex; flex-direction:column; gap:1rem; }
+
+    /* Delivery toggle */
+    .delivery-row {
+      display:flex; align-items:center; justify-content:space-between;
+      padding:.85rem 1rem;
+      background:var(--surface2);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      cursor:pointer;
+      transition:border-color .18s;
+      user-select:none;
+    }
+    .delivery-row:hover { border-color:var(--border2); }
+    .delivery-row.active { border-color:var(--yellow); background:var(--yellow-pale); }
+    .delivery-info { display:flex; flex-direction:column; gap:.2rem; }
+    .delivery-label { font-weight:600; font-size:.9rem; color:var(--text); }
+    .delivery-sub { font-size:.75rem; color:var(--text3); }
+
+    .toggle {
+      width:42px; height:24px;
+      background:var(--surface3);
+      border-radius:12px;
+      position:relative;
+      transition:background .2s;
+      flex-shrink:0;
+    }
+    .toggle::after {
+      content:'';
+      position:absolute;
+      top:3px; left:3px;
+      width:18px; height:18px;
+      border-radius:50%;
+      background:#fff;
+      transition:transform .2s;
+    }
+    .toggle.on { background:var(--yellow); }
+    .toggle.on::after { transform:translateX(18px); }
+
+    /* Hall field — hidden by default */
+    .hall-field { display:none; }
+    .hall-field.show { display:flex; }
+
+    /* Fee note */
+    .fee-note {
+      display:flex; align-items:center; gap:.4rem;
+      font-size:.75rem; color:var(--text3);
+      background:var(--yellow-pale);
+      border:1px solid var(--border2);
+      border-radius:var(--r);
+      padding:.5rem .75rem;
+    }
+    .fee-note span { color:var(--yellow); font-weight:700; }
+
+    /* CTA button */
+    .cta-btn {
+      width:100%;
+      padding:1rem;
+      border-radius:var(--r);
+      background:var(--yellow);
+      color:#0F0D0A;
+      font-family:'Syne',sans-serif;
+      font-size:1rem; font-weight:800;
+      border:none; cursor:pointer;
+      transition:all .2s;
+      display:flex; align-items:center; justify-content:center; gap:.5rem;
+      margin-top:.5rem;
+      box-shadow:0 6px 24px rgba(245,195,0,.25);
+    }
+    .cta-btn:hover { background:var(--yellow-lt); transform:translateY(-2px); box-shadow:0 10px 32px rgba(245,195,0,.35); }
+    .cta-btn:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+
+    .cta-arrow {
+      width:22px; height:22px;
+      background:#0F0D0A;
+      border-radius:50%;
+      display:flex; align-items:center; justify-content:center;
+    }
+
+    /* Features strip */
+    .features-strip {
+      display:flex; justify-content:center; gap:1.5rem;
+      padding:1.5rem 1.5rem 2rem;
+      flex-wrap:wrap;
+      position:relative; z-index:2;
+    }
+    .feat-item {
+      display:flex; align-items:center; gap:.4rem;
+      font-size:.75rem; color:var(--text3);
+    }
+    .feat-icon-sm {
+      width:22px; height:22px;
+      background:var(--surface2);
+      border-radius:6px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.72rem;
+    }
+
+    /* Logo upload hidden input */
+    #logo-upload { display:none; }
+  </style>
+</head>
+<body>
+<div class="noise-bg"></div>
+<div class="welcome-bg"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo-box" id="nav-logo-box">N</div>
+  <div>
+    <div class="nav-name">Nardos</div>
+    <div class="nav-sub">UWI One Stop Shop</div>
+  </div>
+  <div class="nav-spacer"></div>
+  <button class="nav-btn" id="tour-btn">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Tour
+  </button>
+</nav>
+
+<!-- WELCOME PAGE -->
+<main class="welcome-page">
+  <div class="welcome-hero">
+
+    <div class="logo-area">
+      <div class="logo-circle" id="logo-click" title="Tap to upload logo">
+        <span class="logo-letter">N</span>
+      </div>
+      <div class="logo-upload-hint">Tap to add logo</div>
+      <input type="file" id="logo-upload" accept="image/*">
+    </div>
+
+    <div class="welcome-eyebrow">
+      <div class="dot-blink"></div>
+      Open 24/7 · UWI Mona
+    </div>
+
+    <h1 class="welcome-title">
+      The shop that<br><span>never closes.</span>
+    </h1>
+    <p class="welcome-sub">
+      Burgers, hot dogs, snacks, meals — done to order, any hour.
+      Walk down or get it delivered to your hall.
+    </p>
+
+    <!-- FORM -->
+    <div class="form-card">
+      <div class="form-title">Let's get your order started</div>
+      <div class="form-fields">
+
+        <div class="field">
+          <label class="field-label" for="student-name">Your name</label>
+          <input class="field-input" type="text" id="student-name" placeholder="e.g. Kayla" maxlength="40" autocomplete="given-name">
+        </div>
+
+        <!-- Delivery toggle -->
+        <div>
+          <div class="delivery-row" id="delivery-row">
+            <div class="delivery-info">
+              <div class="delivery-label">
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="vertical-align:-1px;margin-right:3px"><path d="M3 11l19-9-9 19-2-8-8-2z"/></svg>
+                Deliver to my hall
+              </div>
+              <div class="delivery-sub">Optional · adds J$200</div>
+            </div>
+            <div class="toggle" id="delivery-toggle"></div>
+          </div>
+
+          <!-- Hall selector — shows when delivery on -->
+          <div class="field hall-field" id="hall-field" style="margin-top:.75rem;">
+            <label class="field-label" for="hall-select">Your hall</label>
+            <select class="field-input" id="hall-select">
+              <option value="">Select your hall…</option>
+            </select>
+          </div>
+
+          <div class="fee-note" id="fee-note" style="display:none; margin-top:.6rem;">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/></svg>
+            Delivery fee: <span>J$200</span> — we bring it right to your dorm
+          </div>
+        </div>
+
+        <button class="cta-btn" id="start-btn" disabled>
+          Let's Eat
+          <div class="cta-arrow">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </div>
+        </button>
+
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Features strip -->
+  <div class="features-strip">
+    <div class="feat-item">
+      <div class="feat-icon-sm">🍔</div>
+      Done to order
+    </div>
+    <div class="feat-item">
+      <div class="feat-icon-sm">👥</div>
+      Group orders
+    </div>
+    <div class="feat-item">
+      <div class="feat-icon-sm">🚶</div>
+      Virtual line
+    </div>
+    <div class="feat-item">
+      <div class="feat-icon-sm">🛵</div>
+      Hall delivery
+    </div>
+  </div>
+</main>
+
+<div id="toast-container"></div>
+
+<script src="demo-seed.js"></script>
+<script src="app.js"></script>
+<script>
+'use strict';
+Store.load();
+
+// Populate halls
+const hallSel = document.getElementById('hall-select');
+HALLS.forEach(h => {
+  const opt = document.createElement('option');
+  opt.value = h; opt.textContent = h;
+  hallSel.appendChild(opt);
+});
+
+// Logo upload
+const logoClick = document.getElementById('logo-click');
+const logoUpload = document.getElementById('logo-upload');
+const navLogoBox = document.getElementById('nav-logo-box');
+
+// Check for saved logo
+const savedLogo = localStorage.getItem('nardos_logo');
+if (savedLogo) {
+  logoClick.innerHTML = `<img src="${savedLogo}" alt="logo">`;
+  navLogoBox.innerHTML = `<img src="${savedLogo}" alt="logo">`;
+}
+
+logoClick.addEventListener('click', () => logoUpload.click());
+logoUpload.addEventListener('change', e => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const r = new FileReader();
+  r.onload = ev => {
+    const data = ev.target.result;
+    localStorage.setItem('nardos_logo', data);
+    logoClick.innerHTML = `<img src="${data}" alt="logo">`;
+    navLogoBox.innerHTML = `<img src="${data}" alt="logo">`;
+    showToast('Logo saved!');
+  };
+  r.readAsDataURL(file);
+});
+
+// Delivery toggle
+let wantsDelivery = false;
+const deliveryRow = document.getElementById('delivery-row');
+const deliveryToggle = document.getElementById('delivery-toggle');
+const hallField = document.getElementById('hall-field');
+const feeNote = document.getElementById('fee-note');
+
+deliveryRow.addEventListener('click', () => {
+  wantsDelivery = !wantsDelivery;
+  deliveryToggle.classList.toggle('on', wantsDelivery);
+  deliveryRow.classList.toggle('active', wantsDelivery);
+  if (wantsDelivery) {
+    hallField.style.display = 'flex';
+    hallField.classList.add('show');
+    feeNote.style.display = 'flex';
+  } else {
+    hallField.style.display = 'none';
+    hallField.classList.remove('show');
+    feeNote.style.display = 'none';
+  }
+  validate();
+});
+
+// Name input
+const nameInput = document.getElementById('student-name');
+const startBtn  = document.getElementById('start-btn');
+
+function validate() {
+  const hasName = nameInput.value.trim().length >= 2;
+  const deliveryOk = !wantsDelivery || hallSel.value;
+  startBtn.disabled = !(hasName && deliveryOk);
+}
+
+nameInput.addEventListener('input', validate);
+hallSel.addEventListener('change', validate);
+nameInput.addEventListener('keydown', e => {
+  if (e.key === 'Enter' && !startBtn.disabled) startBtn.click();
+});
+
+// Pre-fill if returning
+const existing = Store.getStudent();
+if (existing) {
+  nameInput.value = existing.name;
+  validate();
+}
+
+startBtn.addEventListener('click', () => {
+  const name = nameInput.value.trim();
+  const hall = hallSel.value;
+  Store.setStudent(name, hall, wantsDelivery);
+  showToast('Hey ' + name + '! Loading your menu…', 'success');
+  setTimeout(() => { window.location.href = 'menu.html'; }, 600);
+});
+
+Tour.init('welcome');
+</script>
+</body>
+</html>

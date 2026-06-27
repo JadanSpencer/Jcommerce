@@ -1,0 +1,920 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="theme-color" content="#0F0D0A">
+  <title>Menu — Nardos One Stop Shop</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* ── MENU PAGE ── */
+    .menu-layout {
+      display:grid;
+      grid-template-columns:1fr;
+      min-height:100dvh;
+      padding-top:var(--nav-h);
+    }
+
+    /* Student greeting bar */
+    .greeting-bar {
+      background:var(--surface);
+      border-bottom:1px solid var(--border);
+      padding:.65rem 1.25rem;
+      display:flex; align-items:center; justify-content:space-between;
+      gap:1rem;
+    }
+    .greeting-txt { font-size:.85rem; color:var(--text2); }
+    .greeting-name { color:var(--yellow); font-weight:700; }
+    .queue-join-btn {
+      display:flex; align-items:center; gap:.35rem;
+      padding:.35rem .8rem;
+      border-radius:100px;
+      background:var(--red-pale);
+      border:1px solid rgba(232,41,28,.2);
+      color:var(--red-lt);
+      font-size:.72rem; font-weight:700;
+      cursor:pointer;
+      transition:all .18s;
+      white-space:nowrap;
+    }
+    .queue-join-btn:hover { background:rgba(232,41,28,.2); }
+    .queue-join-btn.in-queue {
+      background:rgba(34,197,94,.1);
+      border-color:rgba(34,197,94,.25);
+      color:var(--green);
+    }
+
+    /* Category tabs */
+    .cat-bar {
+      background:var(--bg);
+      border-bottom:1px solid var(--border);
+      padding:.75rem 1.25rem .5rem;
+      position:sticky; top:var(--nav-h); z-index:100;
+    }
+
+    /* Menu items grid */
+    .menu-content {
+      padding:1.25rem;
+      max-width:900px; margin:0 auto;
+      width:100%;
+    }
+
+    .cat-section { margin-bottom:2rem; }
+    .cat-section-title {
+      display:flex; align-items:center; gap:.5rem;
+      font-family:'Syne',sans-serif;
+      font-size:1.05rem; font-weight:700;
+      color:var(--text);
+      margin-bottom:1rem;
+      padding-bottom:.5rem;
+      border-bottom:1px solid var(--border);
+    }
+    .cat-section-icon {
+      width:28px; height:28px;
+      background:var(--yellow-pale);
+      border-radius:8px;
+      display:flex; align-items:center; justify-content:center;
+      font-size:.85rem;
+    }
+
+    /* Item card */
+    .item-card {
+      display:flex; align-items:flex-start; gap:.85rem;
+      padding:1rem;
+      background:var(--surface);
+      border:1px solid var(--border);
+      border-radius:var(--r-lg);
+      transition:border-color .18s, box-shadow .18s;
+      cursor:pointer;
+    }
+    .item-card:hover { border-color:var(--border2); box-shadow:0 4px 16px rgba(0,0,0,.3); }
+    .item-card.added { border-color:rgba(245,195,0,.3); }
+
+    .item-emoji {
+      width:48px; height:48px;
+      background:var(--surface2);
+      border-radius:var(--r);
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.5rem;
+      flex-shrink:0;
+    }
+
+    .item-body { flex:1; min-width:0; }
+    .item-name {
+      font-weight:700; font-size:.93rem;
+      color:var(--text);
+      margin-bottom:.2rem;
+    }
+    .item-desc {
+      font-size:.78rem; color:var(--text3);
+      line-height:1.5;
+      margin-bottom:.5rem;
+      display:-webkit-box;
+      -webkit-line-clamp:2;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+    .item-meta {
+      display:flex; align-items:center; gap:.5rem; flex-wrap:wrap;
+    }
+    .item-price {
+      font-family:'Syne',sans-serif;
+      font-weight:800; font-size:.95rem;
+      color:var(--yellow);
+    }
+    .item-prep {
+      font-size:.68rem; color:var(--text4);
+      display:flex; align-items:center; gap:.2rem;
+    }
+
+    .item-add-btn {
+      width:34px; height:34px;
+      border-radius:var(--r);
+      background:var(--yellow);
+      color:#0F0D0A;
+      display:flex; align-items:center; justify-content:center;
+      font-size:1.2rem; font-weight:700;
+      cursor:pointer;
+      transition:all .15s;
+      flex-shrink:0;
+      align-self:center;
+    }
+    .item-add-btn:hover { background:var(--yellow-lt); transform:scale(1.08); }
+
+    .items-grid {
+      display:grid;
+      grid-template-columns:1fr;
+      gap:.65rem;
+    }
+    @media(min-width:580px) {
+      .items-grid { grid-template-columns:1fr 1fr; }
+    }
+
+    /* ── CART DRAWER ── */
+    .cart-sheet {
+      position:fixed; inset:0; z-index:600;
+      display:none;
+    }
+    .cart-sheet.open { display:flex; }
+    .cart-backdrop {
+      position:absolute; inset:0;
+      background:rgba(0,0,0,.75);
+      backdrop-filter:blur(4px);
+    }
+    .cart-panel {
+      position:absolute; right:0; top:0; bottom:0;
+      width:min(420px, 100vw);
+      background:var(--surface);
+      border-left:1px solid var(--border);
+      display:flex; flex-direction:column;
+      animation:slide-in-right .3s ease;
+    }
+    @keyframes slide-in-right { from{transform:translateX(100%)} to{transform:translateX(0)} }
+
+    @media(max-width:640px) {
+      .cart-panel {
+        left:0; right:0; top:auto;
+        width:100%;
+        border-left:none;
+        border-top:1px solid var(--border);
+        border-radius:20px 20px 0 0;
+        max-height:88dvh;
+        animation:slide-up .3s ease;
+      }
+    }
+
+    .cart-header {
+      padding:1.25rem 1.25rem .75rem;
+      border-bottom:1px solid var(--border);
+      display:flex; align-items:center; justify-content:space-between;
+      flex-shrink:0;
+    }
+    .cart-title {
+      font-family:'Syne',sans-serif;
+      font-weight:800; font-size:1.1rem;
+    }
+
+    .cart-body { flex:1; overflow-y:auto; padding:1rem 1.25rem; }
+
+    /* Person section in cart */
+    .person-section { margin-bottom:1.25rem; }
+    .person-header {
+      display:flex; align-items:center; gap:.5rem;
+      margin-bottom:.6rem;
+    }
+    .person-avatar {
+      width:26px; height:26px;
+      border-radius:50%;
+      background:var(--yellow);
+      color:#0F0D0A;
+      font-size:.7rem; font-weight:800;
+      display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
+    }
+    .person-name-input {
+      background:transparent;
+      border:none;
+      border-bottom:1px dashed var(--border2);
+      color:var(--text);
+      font-weight:600; font-size:.88rem;
+      outline:none;
+      width:auto;
+      min-width:80px;
+      padding:.1rem .2rem;
+    }
+    .person-name-input::placeholder { color:var(--text4); }
+    .person-name-input:focus { border-bottom-color:var(--yellow); }
+
+    .cart-item-row {
+      display:flex; align-items:center; gap:.6rem;
+      padding:.5rem 0;
+      border-bottom:1px solid var(--border);
+    }
+    .cart-item-row:last-child { border-bottom:none; }
+    .cart-item-name { flex:1; font-size:.85rem; color:var(--text2); }
+    .cart-item-price { font-size:.82rem; color:var(--text3); white-space:nowrap; }
+    .cart-item-del {
+      width:22px; height:22px;
+      border-radius:5px;
+      background:var(--surface3);
+      color:var(--text4);
+      display:flex; align-items:center; justify-content:center;
+      font-size:.9rem; cursor:pointer;
+      transition:all .15s; flex-shrink:0;
+    }
+    .cart-item-del:hover { background:var(--red-pale); color:var(--red-lt); }
+
+    .add-person-row {
+      display:flex; align-items:center; gap:.5rem;
+      margin-top:.5rem;
+    }
+    .add-person-input {
+      flex:1;
+      background:var(--surface2);
+      border:1px solid var(--border);
+      border-radius:8px;
+      padding:.45rem .75rem;
+      color:var(--text);
+      font-size:.82rem; outline:none;
+    }
+    .add-person-input:focus { border-color:var(--yellow); }
+    .add-person-btn {
+      padding:.45rem .75rem;
+      background:var(--surface2);
+      border:1px solid var(--border);
+      border-radius:8px;
+      color:var(--text3);
+      font-size:.82rem; cursor:pointer;
+      transition:all .15s; white-space:nowrap;
+    }
+    .add-person-btn:hover { border-color:var(--yellow); color:var(--yellow); }
+
+    /* Notes */
+    .cart-notes textarea {
+      background:var(--surface2);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      padding:.65rem .9rem;
+      color:var(--text);
+      font-size:.85rem;
+      width:100%; min-height:64px;
+      resize:vertical; outline:none;
+    }
+    .cart-notes textarea:focus { border-color:var(--yellow); }
+
+    /* Totals */
+    .cart-totals {
+      padding:1rem 1.25rem;
+      border-top:1px solid var(--border);
+      background:var(--bg2);
+      flex-shrink:0;
+    }
+    .total-row {
+      display:flex; justify-content:space-between; align-items:center;
+      font-size:.85rem; color:var(--text2);
+      margin-bottom:.4rem;
+    }
+    .total-row.big {
+      font-family:'Syne',sans-serif;
+      font-size:1.1rem; font-weight:800;
+      color:var(--text);
+      margin-bottom:.85rem;
+    }
+    .total-row.big .price { color:var(--yellow); }
+
+    /* ── ITEM DETAIL MODAL ── */
+    .item-modal-emoji { font-size:3rem; text-align:center; margin-bottom:.5rem; }
+    .item-modal-name {
+      font-family:'Syne',sans-serif;
+      font-weight:800; font-size:1.25rem;
+      text-align:center; margin-bottom:.4rem;
+    }
+    .item-modal-desc {
+      font-size:.88rem; color:var(--text3);
+      text-align:center; line-height:1.6;
+      margin-bottom:1.25rem;
+    }
+    .person-select {
+      display:flex; flex-direction:column; gap:.4rem;
+      margin-bottom:1rem;
+    }
+    .person-opt {
+      display:flex; align-items:center; gap:.6rem;
+      padding:.6rem .85rem;
+      background:var(--surface2);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      cursor:pointer; transition:all .15s;
+    }
+    .person-opt:hover { border-color:var(--border2); }
+    .person-opt.selected { background:var(--yellow-pale); border-color:var(--yellow); }
+    .person-opt-name { flex:1; font-weight:600; font-size:.88rem; }
+
+    .item-notes-field {
+      background:var(--surface2);
+      border:1px solid var(--border);
+      border-radius:var(--r);
+      padding:.6rem .85rem;
+      color:var(--text);
+      font-size:.85rem;
+      width:100%; outline:none;
+      margin-bottom:1rem;
+    }
+    .item-notes-field:focus { border-color:var(--yellow); }
+
+    /* ── QUEUE MODAL ── */
+    .queue-banner {
+      background:var(--yellow-pale);
+      border:1px solid var(--border2);
+      border-radius:var(--r);
+      padding:.75rem 1rem;
+      display:flex; align-items:center; gap:.5rem;
+      margin-bottom:1rem;
+    }
+    .queue-pos-big {
+      font-family:'Syne',sans-serif;
+      font-size:2rem; font-weight:800;
+      color:var(--yellow);
+    }
+    .queue-pos-label { font-size:.8rem; color:var(--text3); }
+    .queue-list { display:flex; flex-direction:column; gap:.5rem; }
+  </style>
+</head>
+<body>
+<div class="noise-bg"></div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-logo-box" id="nav-logo-box">N</div>
+  <div>
+    <div class="nav-name">Nardos</div>
+    <div class="nav-sub">Menu</div>
+  </div>
+  <div class="nav-spacer"></div>
+  <button class="nav-btn" id="tour-btn" style="margin-right:.4rem;">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+    Guide
+  </button>
+  <button class="nav-cart-btn" id="cart-btn">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 002 1.61h9.72a2 2 0 002-1.61L23 6H6"/></svg>
+    Cart
+    <span class="cart-badge" id="cart-badge" style="display:none">0</span>
+  </button>
+</nav>
+
+<!-- GREETING BAR -->
+<div class="greeting-bar">
+  <div class="greeting-txt">Hey, <span class="greeting-name" id="greeting-name">there</span> 👋</div>
+  <button class="queue-join-btn" id="queue-btn">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/><path d="M16 3.13a4 4 0 010 7.75"/></svg>
+    Join Virtual Line
+  </button>
+</div>
+
+<!-- CATEGORY TABS -->
+<div class="cat-bar">
+  <div class="tab-scroll" id="cat-tabs"></div>
+</div>
+
+<!-- MENU CONTENT -->
+<main class="menu-content" id="menu-content"></main>
+
+<!-- CART SHEET -->
+<div class="cart-sheet" id="cart-sheet">
+  <div class="cart-backdrop" id="cart-backdrop"></div>
+  <div class="cart-panel">
+    <div class="sheet-handle" style="padding-top:.75rem; padding-left:50%; transform:none; width:100%; display:flex; justify-content:center; padding-bottom:0;">
+      <div style="width:36px;height:4px;border-radius:2px;background:var(--border2);"></div>
+    </div>
+    <div class="cart-header">
+      <div class="cart-title">Your Order</div>
+      <button class="modal-close" id="cart-close">✕</button>
+    </div>
+
+    <div class="cart-body" id="cart-body">
+      <!-- rendered dynamically -->
+    </div>
+
+    <!-- Notes -->
+    <div class="cart-notes" style="padding:.75rem 1.25rem; border-top:1px solid var(--border);">
+      <div class="field-label" style="margin-bottom:.4rem;">Order notes (optional)</div>
+      <textarea id="order-notes" placeholder="e.g. No onions on the burger, extra ketchup…"></textarea>
+    </div>
+
+    <!-- Totals & Checkout -->
+    <div class="cart-totals">
+      <div class="total-row"><span>Subtotal</span><span id="cart-subtotal">J$0</span></div>
+      <div class="total-row" id="delivery-fee-row" style="display:none;"><span>Delivery fee</span><span>J$200</span></div>
+      <div class="total-row big"><span>Total</span><span class="price" id="cart-total">J$0</span></div>
+      <button class="btn btn-yellow btn-full" id="checkout-btn" disabled>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        Place Order
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- ITEM DETAIL MODAL -->
+<div class="modal-overlay" id="item-modal" style="display:none;">
+  <div class="modal" id="item-modal-body">
+    <div class="sheet-handle"></div>
+    <div class="item-modal-emoji" id="im-emoji"></div>
+    <div class="item-modal-name" id="im-name"></div>
+    <div class="item-modal-desc" id="im-desc"></div>
+
+    <div class="field-label" style="margin-bottom:.5rem;">Add to whose order?</div>
+    <div class="person-select" id="im-persons"></div>
+
+    <input class="item-notes-field" id="im-notes" placeholder="Special request? e.g. no pickles">
+
+    <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem;">
+      <div class="field-label">Quantity</div>
+      <div class="qty-ctrl">
+        <button class="qty-btn" id="im-minus">−</button>
+        <span class="qty-val" id="im-qty">1</span>
+        <button class="qty-btn" id="im-plus">+</button>
+      </div>
+    </div>
+
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+      <div>
+        <div class="field-label">Item price</div>
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:1.15rem;color:var(--yellow)" id="im-price"></div>
+      </div>
+    </div>
+
+    <button class="btn btn-yellow btn-full" id="im-add-btn">Add to Order</button>
+    <button class="btn btn-ghost btn-full" style="margin-top:.5rem;" id="im-cancel">Cancel</button>
+  </div>
+</div>
+
+<!-- QUEUE MODAL -->
+<div class="modal-overlay" id="queue-modal" style="display:none;">
+  <div class="modal">
+    <div class="sheet-handle"></div>
+    <div class="modal-header">
+      <div class="modal-title">🚶 Virtual Line</div>
+      <button class="modal-close" id="queue-modal-close">✕</button>
+    </div>
+
+    <div id="queue-modal-body">
+      <!-- rendered dynamically -->
+    </div>
+  </div>
+</div>
+
+<div id="toast-container"></div>
+
+<script src="demo-seed.js"></script>
+<script src="app.js"></script>
+<script>
+'use strict';
+Store.load();
+
+/* ── LOGO ── */
+const savedLogo = localStorage.getItem('nardos_logo');
+if (savedLogo) document.getElementById('nav-logo-box').innerHTML = `<img src="${savedLogo}" alt="logo">`;
+
+/* ── STUDENT GREETING ── */
+const student = Store.getStudent();
+if (!student) { window.location.href = 'index.html'; }
+const greetName = document.getElementById('greeting-name');
+greetName.textContent = student ? student.name : 'there';
+
+// Set delivery pref
+if (student?.wantsDelivery) Cart.wantsDelivery = true;
+Cart.persons[0].name = student?.name || '';
+
+/* ── CATEGORY EMOJIS ── */
+const CAT_EMOJI = {
+  burgers:'🍔', hotdogs:'🌭', fries:'🍟',
+  snacks:'🍿', meals:'🍽️', beverages:'🧃'
+};
+
+/* ── RENDER CATEGORY TABS ── */
+const catTabs = document.getElementById('cat-tabs');
+let activeCategory = Store.categories[0].id;
+
+function renderCatTabs() {
+  catTabs.innerHTML = '';
+  Store.categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className = 'tab-pill' + (cat.id === activeCategory ? ' active' : '');
+    btn.textContent = (cat.icon || CAT_EMOJI[cat.id] || '') + ' ' + cat.name;
+    btn.addEventListener('click', () => {
+      activeCategory = cat.id;
+      renderCatTabs();
+      // Scroll to section
+      const sec = document.getElementById('cat-' + cat.id);
+      if (sec) sec.scrollIntoView({ behavior:'smooth', block:'start' });
+    });
+    catTabs.appendChild(btn);
+  });
+}
+
+/* ── RENDER MENU ── */
+function renderMenu() {
+  const content = document.getElementById('menu-content');
+  content.innerHTML = '';
+  Store.categories.forEach(cat => {
+    const items = Store.getItemsByCategory(cat.id);
+    if (!items.length) return;
+
+    const sec = document.createElement('section');
+    sec.className = 'cat-section';
+    sec.id = 'cat-' + cat.id;
+
+    sec.innerHTML = `
+      <div class="cat-section-title">
+        <div class="cat-section-icon">${cat.icon || CAT_EMOJI[cat.id] || '🍽️'}</div>
+        ${escapeHtml(cat.name)}
+        <span style="font-size:.75rem;color:var(--text4);font-family:'DM Sans',sans-serif;font-weight:400;">(${items.length})</span>
+      </div>
+      <div class="items-grid" id="grid-${cat.id}"></div>
+    `;
+
+    content.appendChild(sec);
+    const grid = sec.querySelector('.items-grid');
+
+    items.forEach(item => {
+      const inCart = Cart.persons.some(p => p.items.some(i => i.id === item.id));
+      const card = document.createElement('div');
+      card.className = 'item-card' + (inCart ? ' added' : '');
+      card.innerHTML = `
+        <div class="item-emoji">${CAT_EMOJI[item.category] || '🍽️'}</div>
+        <div class="item-body">
+          <div class="item-name">${escapeHtml(item.name)}</div>
+          <div class="item-desc">${escapeHtml(item.description)}</div>
+          <div class="item-meta">
+            <div class="item-price">${formatPrice(item.price)}</div>
+            <div class="item-prep">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              ~${item.prepMins}min
+            </div>
+            ${(item.tags||[]).slice(0,1).map(t => `<span class="tag tag-yellow">${escapeHtml(t)}</span>`).join('')}
+          </div>
+        </div>
+        <button class="item-add-btn" data-id="${item.id}" title="Add to order">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+      `;
+      card.addEventListener('click', (e) => {
+        if (!e.target.closest('.item-add-btn')) return; // Only add btn triggers
+        openItemModal(item);
+      });
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.item-add-btn')) return;
+        openItemModal(item);
+      });
+      grid.appendChild(card);
+    });
+  });
+}
+
+/* ── ITEM MODAL ── */
+let modalItem = null, modalQty = 1, modalPersonIdx = 0;
+
+function openItemModal(item) {
+  modalItem = item;
+  modalQty = 1;
+  modalPersonIdx = 0;
+
+  document.getElementById('im-emoji').textContent = CAT_EMOJI[item.category] || '🍽️';
+  document.getElementById('im-name').textContent = item.name;
+  document.getElementById('im-desc').textContent = item.description;
+  document.getElementById('im-price').textContent = formatPrice(item.price);
+  document.getElementById('im-qty').textContent = '1';
+  document.getElementById('im-notes').value = '';
+
+  // Person selector
+  const ps = document.getElementById('im-persons');
+  ps.innerHTML = '';
+  Cart.persons.forEach((p, i) => {
+    const opt = document.createElement('div');
+    opt.className = 'person-opt' + (i === 0 ? ' selected' : '');
+    opt.dataset.idx = i;
+    opt.innerHTML = `
+      <div class="person-avatar">${(p.name || 'Me').charAt(0).toUpperCase()}</div>
+      <div class="person-opt-name">${escapeHtml(p.name || 'My Order')}</div>
+    `;
+    opt.addEventListener('click', () => {
+      modalPersonIdx = i;
+      ps.querySelectorAll('.person-opt').forEach(el => el.classList.remove('selected'));
+      opt.classList.add('selected');
+    });
+    ps.appendChild(opt);
+  });
+
+  document.getElementById('item-modal').style.display = 'flex';
+}
+
+document.getElementById('im-minus').addEventListener('click', () => {
+  if (modalQty > 1) { modalQty--; document.getElementById('im-qty').textContent = modalQty; }
+});
+document.getElementById('im-plus').addEventListener('click', () => {
+  modalQty++;
+  document.getElementById('im-qty').textContent = modalQty;
+});
+document.getElementById('im-add-btn').addEventListener('click', () => {
+  if (!modalItem) return;
+  Cart.addItem(modalPersonIdx, modalItem, modalQty, document.getElementById('im-notes').value.trim());
+  document.getElementById('item-modal').style.display = 'none';
+  showToast(modalItem.name + ' added!', 'success');
+  updateCartBadge();
+  renderMenu();
+});
+document.getElementById('im-cancel').addEventListener('click', () => {
+  document.getElementById('item-modal').style.display = 'none';
+});
+document.getElementById('item-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('item-modal')) document.getElementById('item-modal').style.display = 'none';
+});
+
+/* ── CART ── */
+function updateCartBadge() {
+  const n = Cart.totalItems;
+  const badge = document.getElementById('cart-badge');
+  badge.textContent = n;
+  badge.style.display = n > 0 ? 'flex' : 'none';
+  document.getElementById('checkout-btn').disabled = n === 0;
+}
+
+function renderCartBody() {
+  const body = document.getElementById('cart-body');
+  body.innerHTML = '';
+
+  if (Cart.totalItems === 0) {
+    body.innerHTML = `<div class="empty-state"><div class="empty-icon">🛒</div><div class="empty-title">Nothing here yet</div><div class="empty-body">Add items from the menu to get started</div></div>`;
+  } else {
+    Cart.persons.forEach((person, pi) => {
+      if (!person.items.length && pi > 0) return; // skip empty extra persons
+      const sec = document.createElement('div');
+      sec.className = 'person-section';
+
+      const header = document.createElement('div');
+      header.className = 'person-header';
+      header.innerHTML = `
+        <div class="person-avatar">${(person.name || 'Me').charAt(0).toUpperCase()}</div>
+        <input class="person-name-input" placeholder="Name…" value="${escapeHtml(person.name || '')}" data-pi="${pi}">
+      `;
+      header.querySelector('.person-name-input').addEventListener('input', e => {
+        Cart.setPersonName(pi, e.target.value);
+      });
+      sec.appendChild(header);
+
+      if (person.items.length === 0) {
+        sec.innerHTML += `<div style="font-size:.78rem;color:var(--text4);padding:.4rem .25rem;">No items yet — add from the menu</div>`;
+      } else {
+        person.items.forEach(item => {
+          const row = document.createElement('div');
+          row.className = 'cart-item-row';
+          row.innerHTML = `
+            <span class="cart-item-name">${escapeHtml(item.name)}${item.notes ? `<br><span style="font-size:.7rem;color:var(--text4)">${escapeHtml(item.notes)}</span>` : ''}</span>
+            <div class="qty-ctrl" style="gap:.25rem;">
+              <button class="qty-btn" style="width:22px;height:22px;font-size:.85rem;" data-pi="${pi}" data-id="${item.id}" data-action="minus">−</button>
+              <span class="qty-val" style="font-size:.82rem;min-width:16px;">${item.qty}</span>
+              <button class="qty-btn" style="width:22px;height:22px;font-size:.85rem;" data-pi="${pi}" data-id="${item.id}" data-action="plus">+</button>
+            </div>
+            <span class="cart-item-price">${formatPrice(item.price * item.qty)}</span>
+            <button class="cart-item-del" data-pi="${pi}" data-id="${item.id}">✕</button>
+          `;
+          sec.appendChild(row);
+        });
+      }
+      body.appendChild(sec);
+    });
+
+    // Add person
+    const addRow = document.createElement('div');
+    addRow.innerHTML = `
+      <div class="divider"></div>
+      <div class="field-label" style="margin-bottom:.4rem;">Add someone to your order</div>
+      <div class="add-person-row">
+        <input class="add-person-input" id="new-person-input" placeholder="Their name…">
+        <button class="add-person-btn" id="add-person-btn">+ Add</button>
+      </div>
+    `;
+    body.appendChild(addRow);
+
+    document.getElementById('add-person-btn').addEventListener('click', () => {
+      const input = document.getElementById('new-person-input');
+      const name = input.value.trim();
+      if (!name) { showToast('Enter a name first', 'error'); return; }
+      Cart.addPerson(name);
+      input.value = '';
+      renderCartBody();
+      showToast(name + ' added to the order!');
+    });
+
+    // Qty/remove handlers
+    body.querySelectorAll('[data-action]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const pi = +btn.dataset.pi, id = btn.dataset.id;
+        const person = Cart.persons[pi];
+        const item = person.items.find(i => i.id === id);
+        if (!item) return;
+        if (btn.dataset.action === 'minus') {
+          item.qty--;
+          if (item.qty <= 0) Cart.removeItem(pi, id);
+        } else {
+          item.qty++;
+        }
+        updateCartBadge();
+        renderCartBody();
+        updateTotals();
+      });
+    });
+    body.querySelectorAll('.cart-item-del').forEach(btn => {
+      btn.addEventListener('click', () => {
+        Cart.removeItem(+btn.dataset.pi, btn.dataset.id);
+        updateCartBadge();
+        renderCartBody();
+        updateTotals();
+      });
+    });
+  }
+}
+
+function updateTotals() {
+  document.getElementById('cart-subtotal').textContent = formatPrice(Cart.subtotal);
+  document.getElementById('cart-total').textContent = formatPrice(Cart.total);
+  const feeRow = document.getElementById('delivery-fee-row');
+  feeRow.style.display = Cart.wantsDelivery ? 'flex' : 'none';
+}
+
+/* Cart open/close */
+document.getElementById('cart-btn').addEventListener('click', () => {
+  document.getElementById('cart-sheet').classList.add('open');
+  renderCartBody();
+  updateTotals();
+});
+document.getElementById('cart-close').addEventListener('click', () => {
+  document.getElementById('cart-sheet').classList.remove('open');
+});
+document.getElementById('cart-backdrop').addEventListener('click', () => {
+  document.getElementById('cart-sheet').classList.remove('open');
+});
+
+/* ── CHECKOUT ── */
+document.getElementById('checkout-btn').addEventListener('click', () => {
+  const items = Cart.flatten();
+  if (!items.length) return;
+  const notes = document.getElementById('order-notes').value.trim();
+  const order = Store.createOrder(items, Cart.persons, notes, { wantsDelivery: Cart.wantsDelivery });
+
+  // Also join queue
+  if (student) {
+    const maxPrep = Math.max(...items.map(i => {
+      const mi = Store.getItem(i.id); return mi ? mi.prepMins || 10 : 10;
+    }));
+    Store.joinQueue(student.name, student.hall, maxPrep);
+  }
+
+  showToast('Order placed! Order #' + order.id, 'success');
+  Cart.clear();
+  updateCartBadge();
+  document.getElementById('cart-sheet').classList.remove('open');
+
+  setTimeout(() => {
+    window.location.href = 'status.html?order=' + order.id;
+  }, 800);
+});
+
+/* ── VIRTUAL QUEUE ── */
+let myQueueEntry = null;
+
+function openQueueModal() {
+  document.getElementById('queue-modal').style.display = 'flex';
+  renderQueueModal();
+}
+
+function renderQueueModal() {
+  const body = document.getElementById('queue-modal-body');
+  const queue = Store.getActiveQueue();
+
+  if (myQueueEntry) {
+    const pos = Store.getQueuePosition(myQueueEntry.id);
+    body.innerHTML = `
+      <div class="queue-banner">
+        <div>
+          <div style="font-size:.72rem;color:var(--text3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.2rem;">Your position</div>
+          <div class="queue-pos-big">#${pos || '?'}</div>
+          <div class="queue-pos-label">in line · ~${myQueueEntry.estimateMins}min prep time</div>
+        </div>
+      </div>
+      <div class="field-label" style="margin-bottom:.6rem;">People in line (${queue.length})</div>
+      <div class="queue-list">
+        ${queue.map((e,i) => `
+          <div class="queue-entry">
+            <div class="queue-pos">${i+1}</div>
+            <div>
+              <div class="queue-name">${escapeHtml(e.name)}${e.id === myQueueEntry?.id ? ' <span style="color:var(--yellow);font-size:.7rem;">(you)</span>' : ''}</div>
+              <div class="queue-detail">~${e.estimateMins}min · joined ${timeAgo(e.joinedAt)}</div>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+  } else {
+    body.innerHTML = `
+      <div style="margin-bottom:1rem;">
+        <p style="font-size:.88rem;color:var(--text3);line-height:1.6;margin-bottom:1rem;">
+          Join the virtual line now — even before you order. 
+          When it's your turn, walk to Nardos or wait for delivery.
+        </p>
+        <div class="field-label" style="margin-bottom:.6rem;">People in line (${queue.length})</div>
+        <div class="queue-list" style="margin-bottom:1rem;">
+          ${queue.length === 0 
+            ? `<div class="empty-state" style="padding:1rem;"><div class="empty-icon" style="font-size:1.5rem;">🏃</div><div class="empty-title" style="font-size:.88rem;">Line is empty</div><div class="empty-body" style="font-size:.75rem;">Be first in!</div></div>`
+            : queue.map((e,i) => `
+              <div class="queue-entry">
+                <div class="queue-pos">${i+1}</div>
+                <div>
+                  <div class="queue-name">${escapeHtml(e.name)}</div>
+                  <div class="queue-detail">~${e.estimateMins}min · joined ${timeAgo(e.joinedAt)}</div>
+                </div>
+              </div>
+            `).join('')
+          }
+        </div>
+        <button class="btn btn-red btn-full" id="join-queue-btn">
+          Join the Line Now
+        </button>
+      </div>
+    `;
+    const joinBtn = document.getElementById('join-queue-btn');
+    if (joinBtn) {
+      joinBtn.addEventListener('click', () => {
+        if (!student) { showToast('Go back and enter your name first', 'error'); return; }
+        myQueueEntry = Store.joinQueue(student.name, student.hall, 12);
+        updateQueueBtn();
+        renderQueueModal();
+        showToast('You joined the line!', 'success');
+      });
+    }
+  }
+}
+
+function updateQueueBtn() {
+  const btn = document.getElementById('queue-btn');
+  if (myQueueEntry) {
+    const pos = Store.getQueuePosition(myQueueEntry.id);
+    btn.textContent = `#${pos || '?'} in Line`;
+    btn.classList.add('in-queue');
+  }
+}
+
+document.getElementById('queue-btn').addEventListener('click', openQueueModal);
+document.getElementById('queue-modal-close').addEventListener('click', () => {
+  document.getElementById('queue-modal').style.display = 'none';
+});
+document.getElementById('queue-modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('queue-modal')) document.getElementById('queue-modal').style.display = 'none';
+});
+
+/* ── REAL-TIME SYNC ── */
+try {
+  const bc = new BroadcastChannel('nardos_orders');
+  bc.addEventListener('message', e => {
+    if (e.data.type === 'queue_update') {
+      Store.queue = e.data.payload;
+      updateQueueBtn();
+    }
+  });
+} catch(err) {}
+
+/* ── INIT ── */
+renderCatTabs();
+renderMenu();
+updateCartBadge();
+
+// Check if already in queue
+if (student) {
+  const inQueue = Store.getActiveQueue().find(q => q.name === student.name);
+  if (inQueue) { myQueueEntry = inQueue; updateQueueBtn(); }
+}
+
+Tour.init('menu');
+</script>
+</body>
+</html>
