@@ -4,337 +4,236 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Big J's Auto Parts — Jamaica's Only Midnight Auto Store</title>
+<link rel="stylesheet" href="style.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,800&family=Inter:wght@300;400;500;600;700&display=swap');
+/* ── HOME-SPECIFIC ── */
 
-:root {
-  --y: #FFD100;
-  --yd: #C9A800;
-  --yl: rgba(255,209,0,0.12);
-  --g: #1B6B2A;
-  --gm: #22913A;
-  --gl: #2EAD46;
-  --black: #080C08;
-  --dark: #0E130E;
-  --surf: #141C14;
-  --card: #192119;
-  --card2: #1E281E;
-  --bdr: #253025;
-  --bdr2: #2E3D2E;
-  --txt: #EDEEED;
-  --muted: #7A8C7A;
-  --dim: #4A5A4A;
-  --r: 12px;
-  --r2: 8px;
+/* HERO */
+.hero {
+  position: relative;
+  min-height: calc(100vh - var(--top-h) - var(--nav-h));
+  display: flex; align-items: center;
+  overflow: hidden;
+  background: var(--black);
 }
-
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;font-size:16px}
-body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--txt);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--dark)}::-webkit-scrollbar-thumb{background:var(--g);border-radius:3px}
-
-/* ── TOPBAR ── */
-.topbar{background:var(--g);color:#fff;font-size:12px;font-weight:600;text-align:center;padding:8px 16px;letter-spacing:0.3px;display:flex;align-items:center;justify-content:center;gap:8px}
-.topbar-pulse{width:6px;height:6px;background:#4AFF6E;border-radius:50%;animation:pulse 1.5s infinite}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.5;transform:scale(1.5)}}
-
-/* ── NAV ── */
-nav{position:sticky;top:0;z-index:200;background:rgba(8,12,8,0.97);backdrop-filter:blur(16px);border-bottom:1px solid var(--bdr);height:64px;display:flex;align-items:center;padding:0 32px;gap:24px}
-.nav-logo{display:flex;align-items:center;gap:12px;text-decoration:none;margin-right:auto}
-.nav-logo-mark{width:40px;height:40px;background:var(--y);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:20px;color:var(--black);letter-spacing:-1px;flex-shrink:0}
-.nav-logo-text{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:22px;color:var(--y);line-height:1}
-.nav-logo-sub{font-size:10px;color:var(--muted);font-weight:500;letter-spacing:0.5px}
-.nav-link{color:var(--muted);font-size:13px;font-weight:500;text-decoration:none;transition:color .2s;white-space:nowrap}
-.nav-link:hover{color:var(--y)}
-.nav-sep{width:1px;height:20px;background:var(--bdr)}
-.nav-open{display:flex;align-items:center;gap:6px;background:rgba(46,173,70,0.15);border:1px solid rgba(46,173,70,0.3);color:var(--gl);font-size:11px;font-weight:700;padding:5px 12px;border-radius:99px;letter-spacing:0.3px}
-.nav-cta{background:var(--y);color:var(--black);font-weight:700;font-size:13px;padding:9px 20px;border-radius:var(--r2);text-decoration:none;transition:all .2s;white-space:nowrap;flex-shrink:0}
-.nav-cta:hover{background:var(--yd);transform:translateY(-1px)}
-.nav-mobile-menu{display:none}
-
-/* ── HERO ── */
-.hero{position:relative;min-height:92vh;display:flex;align-items:center;overflow:hidden;background:var(--black)}
-.hero-bg{position:absolute;inset:0;background-image:url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1600&q=85');background-size:cover;background-position:center 30%;opacity:0.07}
-.hero-grad{position:absolute;inset:0;background:linear-gradient(105deg,rgba(8,12,8,0.98) 40%,rgba(8,12,8,0.6) 70%,rgba(27,107,42,0.15) 100%)}
-.hero-inner{position:relative;z-index:2;max-width:1200px;margin:0 auto;padding:80px 32px 60px;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;width:100%}
-.hero-eyebrow{display:inline-flex;align-items:center;gap:8px;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gl);margin-bottom:20px}
-.hero-eyebrow-line{width:28px;height:2px;background:var(--gl)}
-.hero-h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(52px,7vw,88px);line-height:.92;text-transform:uppercase;margin-bottom:20px}
-.hero-h1 em{font-style:italic;color:var(--y);display:block}
-.hero-desc{font-size:15px;color:var(--muted);line-height:1.75;max-width:480px;margin-bottom:32px;font-weight:400}
-.hero-desc strong{color:var(--txt)}
-.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:48px}
-.btn-hero{display:inline-flex;align-items:center;gap:8px;background:var(--y);color:var(--black);font-weight:700;font-size:14px;padding:14px 28px;border-radius:var(--r2);border:none;cursor:pointer;transition:all .2s;text-decoration:none}
-.btn-hero:hover{background:var(--yd);transform:translateY(-2px);box-shadow:0 12px 32px rgba(255,209,0,0.25)}
-.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--txt);font-weight:600;font-size:14px;padding:14px 28px;border-radius:var(--r2);border:1.5px solid var(--bdr2);cursor:pointer;transition:all .2s;text-decoration:none}
-.btn-ghost:hover{border-color:var(--y);color:var(--y)}
-.hero-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bdr);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden}
-.hero-stat{background:var(--card);padding:18px 16px;text-align:center}
-.hero-stat-n{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:var(--y);line-height:1}
-.hero-stat-l{font-size:10px;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin-top:3px}
-
-/* HERO RIGHT — CLOCK CARD */
-.hero-right{display:flex;flex-direction:column;gap:16px}
-.clock-card{background:linear-gradient(145deg,var(--g),#0D4019);border:1px solid rgba(46,173,70,0.3);border-radius:16px;padding:28px;text-align:center;position:relative;overflow:hidden}
-.clock-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,209,0,0.08),transparent 70%)}
-.clock-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:rgba(255,255,255,0.6);margin-bottom:8px}
-.clock-time{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:72px;color:var(--y);line-height:1;letter-spacing:-2px}
-.clock-sub{font-size:13px;color:rgba(255,255,255,0.7);margin-top:8px}
-.clock-open-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,209,0,0.15);border:1px solid rgba(255,209,0,0.3);color:var(--y);font-size:12px;font-weight:700;padding:6px 14px;border-radius:99px;margin-top:14px}
-
-.mini-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.mini-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r2);padding:16px;transition:all .2s;cursor:pointer}
-.mini-card:hover{border-color:var(--y);transform:translateY(-2px)}
-.mini-card-icon{font-size:24px;margin-bottom:8px}
-.mini-card-title{font-size:13px;font-weight:600;margin-bottom:2px}
-.mini-card-sub{font-size:11px;color:var(--muted)}
-
-/* ── TRUST BAR ── */
-.trust-bar{background:var(--surf);border-top:1px solid var(--bdr);border-bottom:1px solid var(--bdr);padding:20px 32px}
-.trust-inner{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-around;gap:24px;flex-wrap:wrap}
-.trust-item{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;color:var(--muted)}
-.trust-item span:first-child{font-size:20px}
-.trust-item strong{color:var(--txt)}
-.trust-divider{width:1px;height:24px;background:var(--bdr)}
-
-/* ── SECTION BASE ── */
-.sec{padding:80px 32px}
-.sec-inner{max-width:1200px;margin:0 auto}
-.sec-label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.5px;color:var(--y);margin-bottom:10px;display:flex;align-items:center;gap:8px}
-.sec-label::before{content:'';width:16px;height:2px;background:var(--y)}
-.sec-h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(32px,4vw,52px);text-transform:uppercase;line-height:1;margin-bottom:12px}
-.sec-sub{font-size:15px;color:var(--muted);line-height:1.7;max-width:520px}
-.sec-head{display:flex;align-items:flex-end;justify-content:space-between;margin-bottom:40px;gap:24px;flex-wrap:wrap}
-
-/* ── SEARCH ── */
-.search-sec{background:var(--surf);padding:40px 32px}
-.search-inner{max-width:760px;margin:0 auto}
-.search-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:28px;text-transform:uppercase;text-align:center;margin-bottom:20px}
-.search-wrap{display:flex;background:var(--card);border:2px solid var(--bdr2);border-radius:var(--r);overflow:hidden;transition:border-color .2s}
-.search-wrap:focus-within{border-color:var(--y)}
-.search-icon{padding:0 16px;display:flex;align-items:center;color:var(--muted)}
-.search-wrap input{flex:1;background:transparent;border:none;padding:15px 0;color:var(--txt);font-size:14px;outline:none;font-family:'Inter',sans-serif}
-.search-btn{background:var(--y);border:none;padding:0 28px;font-weight:700;font-size:14px;color:var(--black);cursor:pointer;transition:background .2s;font-family:'Inter',sans-serif}
-.search-btn:hover{background:var(--yd)}
-.search-tags{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin-top:14px}
-.stag{background:var(--card2);border:1px solid var(--bdr);border-radius:99px;padding:5px 14px;font-size:12px;color:var(--muted);cursor:pointer;transition:all .2s}
-.stag:hover{border-color:var(--y);color:var(--y)}
-
-/* ── CATEGORIES ── */
-.cat-sec{background:var(--dark)}
-.cat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px}
-.cat-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:22px 14px;text-align:center;cursor:pointer;transition:all .25s;text-decoration:none;display:block;position:relative;overflow:hidden}
-.cat-card::after{content:'';position:absolute;inset:0;background:var(--y);opacity:0;transition:opacity .2s}
-.cat-card:hover{border-color:var(--y);transform:translateY(-4px);box-shadow:0 8px 24px rgba(255,209,0,0.12)}
-.cat-icon{font-size:30px;margin-bottom:10px;display:block;position:relative;z-index:1}
-.cat-name{font-size:12px;font-weight:600;color:var(--txt);position:relative;z-index:1}
-.cat-count{font-size:10px;color:var(--muted);margin-top:3px;position:relative;z-index:1}
-
-/* ── PRODUCTS ── */
-.prod-sec{background:var(--surf)}
-.filter-row{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap}
-.filter-btn{background:var(--card);border:1px solid var(--bdr);border-radius:99px;padding:6px 16px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;transition:all .2s}
-.filter-btn.active,.filter-btn:hover{background:var(--y);border-color:var(--y);color:var(--black)}
-.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
-.prod-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;transition:all .25s;cursor:pointer}
-.prod-card:hover{border-color:var(--y);transform:translateY(-4px);box-shadow:0 12px 40px rgba(0,0,0,0.4)}
-.prod-img-wrap{position:relative;overflow:hidden;height:190px;background:#0E140E}
-.prod-img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
-.prod-card:hover .prod-img{transform:scale(1.05)}
-.prod-badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:700;padding:3px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.5px}
-.badge-sale{background:var(--y);color:var(--black)}
-.badge-hot{background:#FF4444;color:#fff}
-.badge-new{background:var(--g);color:#fff}
-.prod-body{padding:18px}
-.prod-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--gl);margin-bottom:6px}
-.prod-name{font-size:15px;font-weight:600;line-height:1.3;margin-bottom:4px}
-.prod-compat{font-size:11px;color:var(--muted);margin-bottom:14px;line-height:1.5}
-.prod-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
-.prod-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:26px;color:var(--y);line-height:1}
-.prod-price-old{font-size:12px;color:var(--dim);text-decoration:line-through;margin-top:1px}
-.stock-pill{font-size:10px;font-weight:700;padding:4px 10px;border-radius:99px;text-transform:uppercase;letter-spacing:.3px}
-.in-stock{background:rgba(46,173,70,0.15);color:var(--gl);border:1px solid rgba(46,173,70,0.25)}
-.low-stock{background:rgba(255,150,0,0.12);color:#FF9600;border:1px solid rgba(255,150,0,0.2)}
-.out-stock{background:rgba(255,68,68,0.12);color:#FF4444;border:1px solid rgba(255,68,68,0.2)}
-.prod-btn{width:100%;background:var(--y);border:none;border-radius:var(--r2);padding:11px;font-weight:700;font-size:13px;color:var(--black);cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif;display:flex;align-items:center;justify-content:center;gap:6px}
-.prod-btn:hover{background:var(--yd)}
-.prod-btn.added{background:var(--g);color:#fff}
-
-/* ── CHATBOT ── */
-.chat-sec{background:var(--black)}
-.chat-layout{display:grid;grid-template-columns:1fr 440px;gap:64px;align-items:center}
-.chat-points{display:flex;flex-direction:column;gap:24px;margin-top:32px}
-.chat-point{display:flex;gap:18px;align-items:flex-start;padding:20px;background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);transition:all .2s}
-.chat-point:hover{border-color:var(--y)}
-.chat-point-icon{width:44px;height:44px;background:var(--yl);border:1px solid rgba(255,209,0,0.2);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.chat-point-title{font-size:14px;font-weight:700;margin-bottom:4px;color:var(--txt)}
-.chat-point-desc{font-size:13px;color:var(--muted);line-height:1.6}
-
-/* CHAT UI */
-.chat-ui{background:var(--surf);border:1px solid var(--bdr2);border-radius:20px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.6)}
-.chat-head{background:linear-gradient(135deg,var(--g),#0D4019);padding:18px 20px;display:flex;align-items:center;gap:14px}
-.chat-av{width:44px;height:44px;background:var(--y);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0}
-.chat-info-name{font-weight:700;font-size:15px}
-.chat-info-status{font-size:11px;color:rgba(255,255,255,0.7);display:flex;align-items:center;gap:5px;margin-top:2px}
-.chat-msgs{padding:20px;height:320px;overflow-y:auto;display:flex;flex-direction:column;gap:12px}
-.chat-msgs::-webkit-scrollbar{width:3px}
-.chat-msgs::-webkit-scrollbar-thumb{background:var(--bdr2)}
-.m{max-width:82%;animation:msgIn .3s ease}
-@keyframes msgIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
-.m-bot{align-self:flex-start}
-.m-user{align-self:flex-end}
-.m-bub{padding:10px 14px;font-size:13px;line-height:1.6;border-radius:14px}
-.m-bot .m-bub{background:var(--card2);border:1px solid var(--bdr);border-bottom-left-radius:4px;color:var(--txt)}
-.m-user .m-bub{background:var(--g);color:#fff;border-bottom-right-radius:4px}
-.m-time{font-size:10px;color:var(--muted);margin-top:4px}
-.m-user .m-time{text-align:right}
-.typing .m-bub{display:flex;gap:4px;align-items:center;padding:14px}
-.dot{width:6px;height:6px;background:var(--muted);border-radius:50%;animation:typing .9s infinite}
-.dot:nth-child(2){animation-delay:.15s}
-.dot:nth-child(3){animation-delay:.3s}
-@keyframes typing{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-5px)}}
-.chat-quick{padding:12px 20px;display:flex;gap:6px;overflow-x:auto;border-top:1px solid var(--bdr)}
-.chat-quick::-webkit-scrollbar{display:none}
-.qbtn{background:var(--card2);border:1px solid var(--bdr2);border-radius:99px;padding:6px 14px;font-size:11px;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .2s;font-family:'Inter',sans-serif}
-.qbtn:hover{border-color:var(--y);color:var(--y)}
-.chat-inp-row{padding:14px 20px;border-top:1px solid var(--bdr);display:flex;gap:10px;align-items:center}
-.chat-inp{flex:1;background:var(--card2);border:1.5px solid var(--bdr2);border-radius:10px;padding:11px 16px;color:var(--txt);font-size:13px;outline:none;font-family:'Inter',sans-serif;transition:border-color .2s}
-.chat-inp:focus{border-color:var(--y)}
-.chat-send-btn{width:42px;height:42px;background:var(--y);border:none;border-radius:10px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:18px;transition:background .2s;flex-shrink:0}
-.chat-send-btn:hover{background:var(--yd)}
-
-/* ── MIDNIGHT SECTION ── */
-.midnight{background:var(--y);color:var(--black);padding:72px 32px;text-align:center}
-.midnight-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(40px,7vw,80px);text-transform:uppercase;line-height:.95;margin-bottom:16px}
-.midnight-sub{font-size:16px;font-weight:500;opacity:.75;margin-bottom:44px;max-width:540px;margin-left:auto;margin-right:auto}
-.midnight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;max-width:900px;margin:0 auto}
-.mc{background:rgba(0,0,0,0.08);border:1.5px solid rgba(0,0,0,0.1);border-radius:var(--r);padding:24px 16px;transition:all .2s}
-.mc:hover{background:rgba(0,0,0,0.14)}
-.mc-icon{font-size:32px;margin-bottom:10px}
-.mc-title{font-weight:800;font-size:15px;margin-bottom:4px}
-.mc-desc{font-size:12px;opacity:.65;line-height:1.5}
-
-/* ── TESTIMONIALS ── */
-.test-sec{background:var(--surf)}
-.test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin-top:40px}
-.test-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:24px;transition:all .2s}
-.test-card:hover{border-color:var(--bdr2)}
-.stars{color:var(--y);font-size:14px;margin-bottom:12px;letter-spacing:1px}
-.test-text{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:16px;font-style:italic}
-.test-author{display:flex;align-items:center;gap:10px}
-.test-av{width:36px;height:36px;border-radius:50%;background:var(--g);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:700;color:#fff;flex-shrink:0}
-.test-name{font-size:13px;font-weight:600}
-.test-role{font-size:11px;color:var(--muted)}
-
-/* ── CTA SECTION ── */
-.cta-sec{background:linear-gradient(135deg,#0B170B 0%,#0D1F0D 50%,#0A1A0A 100%);padding:80px 32px;text-align:center;border-top:1px solid var(--bdr)}
-.cta-inner{max-width:640px;margin:0 auto}
-.cta-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:clamp(36px,5vw,60px);text-transform:uppercase;line-height:1;margin-bottom:16px}
-.cta-sub{font-size:15px;color:var(--muted);line-height:1.7;margin-bottom:36px}
-.cta-btns{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
-.cta-phone{margin-top:24px;font-size:13px;color:var(--muted)}
-.cta-phone strong{color:var(--y)}
-
-/* ── FOOTER ── */
-footer{background:var(--black);border-top:2px solid var(--y);padding:52px 32px 32px}
-.footer-inner{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:48px;margin-bottom:40px}
-.footer-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:32px;color:var(--y);margin-bottom:10px}
-.footer-desc{font-size:13px;color:var(--muted);line-height:1.7;margin-bottom:20px}
-.footer-contact a{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:8px;transition:color .2s}
-.footer-contact a:hover{color:var(--y)}
-.footer-col-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--y);margin-bottom:16px}
-.footer-col a{display:block;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:10px;transition:color .2s}
-.footer-col a:hover{color:var(--txt)}
-.footer-bottom{max-width:1200px;margin:0 auto;border-top:1px solid var(--bdr);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
-.footer-copy{font-size:12px;color:var(--dim)}
-.footer-copy a{color:var(--y);text-decoration:none}
-.footer-open-pill{display:flex;align-items:center;gap:6px;background:rgba(46,173,70,0.15);border:1px solid rgba(46,173,70,0.3);color:var(--gl);font-size:11px;font-weight:700;padding:6px 16px;border-radius:99px}
-
-/* ── FLOATING ELEMENTS ── */
-.float-chat{position:fixed;bottom:24px;right:24px;z-index:500;display:flex;flex-direction:column;align-items:flex-end;gap:10px}
-.float-wa{width:56px;height:56px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:26px;cursor:pointer;box-shadow:0 8px 32px rgba(37,211,102,0.4);animation:float 3s ease-in-out infinite;border:none}
-@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-6px)}}
-.float-tour{background:var(--g);color:#fff;font-size:12px;font-weight:700;padding:8px 16px;border-radius:var(--r2);cursor:pointer;border:1px solid rgba(255,209,0,0.3);transition:all .2s;white-space:nowrap}
-.float-tour:hover{background:var(--gm)}
-
-/* ── TOAST ── */
-.toast{position:fixed;top:80px;right:24px;z-index:600;background:var(--g);color:#fff;padding:14px 20px;border-radius:var(--r);font-size:13px;font-weight:600;box-shadow:0 12px 40px rgba(0,0,0,0.5);transform:translateX(120%);transition:transform .35s cubic-bezier(.25,.46,.45,.94);display:flex;align-items:center;gap:10px;border:1px solid rgba(255,255,255,0.1);max-width:300px}
-.toast.show{transform:translateX(0)}
-
-/* ── MODAL ── */
-.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:700;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;pointer-events:none;transition:opacity .3s}
-.overlay.open{opacity:1;pointer-events:all}
-.modal{background:var(--surf);border:1px solid var(--bdr2);border-radius:20px;max-width:580px;width:100%;overflow:hidden;transform:translateY(24px) scale(.97);transition:all .35s cubic-bezier(.25,.46,.45,.94)}
-.overlay.open .modal{transform:translateY(0) scale(1)}
-.modal-top{padding:32px 32px 0}
-.modal-progress{display:flex;gap:6px;margin-bottom:28px}
-.mdot{flex:1;height:3px;border-radius:2px;background:var(--bdr2);transition:background .3s}
-.mdot.done{background:var(--y)}
-.modal-step-label{font-size:10px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--y);margin-bottom:10px}
-.modal-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:36px;text-transform:uppercase;line-height:1;margin-bottom:14px}
-.modal-body{font-size:14px;color:var(--muted);line-height:1.8;margin-bottom:0}
-.modal-body strong{color:var(--txt)}
-.modal-body a{color:var(--y)}
-.modal-img{width:100%;height:180px;object-fit:cover;margin-top:24px;border-radius:0}
-.modal-foot{padding:24px 32px 28px;display:flex;gap:12px;border-top:1px solid var(--bdr);margin-top:24px}
-.modal-close-btn{position:absolute;top:20px;right:20px;width:32px;height:32px;background:var(--card2);border:1px solid var(--bdr);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:15px;transition:all .2s}
-.modal-close-btn:hover{border-color:var(--y);color:var(--y)}
-.modal-next-btn{flex:1;background:var(--y);color:var(--black);font-weight:700;font-size:14px;padding:13px;border-radius:var(--r2);border:none;cursor:pointer;transition:background .2s;font-family:'Inter',sans-serif}
-.modal-next-btn:hover{background:var(--yd)}
-.modal-skip-btn{background:transparent;color:var(--muted);font-size:14px;padding:13px 20px;border-radius:var(--r2);border:1px solid var(--bdr);cursor:pointer;transition:all .2s;font-family:'Inter',sans-serif}
-.modal-skip-btn:hover{color:var(--txt)}
-
-/* ── REVEAL ── */
-.rev{opacity:0;transform:translateY(28px);transition:opacity .55s ease,transform .55s ease}
-.rev.in{opacity:1;transform:translateY(0)}
-
-/* ── RESPONSIVE ── */
-@media(max-width:900px){
-  .hero-inner{grid-template-columns:1fr;padding:80px 20px 40px}
-  .hero-right{display:none}
-  .hero-stats{grid-template-columns:repeat(2,1fr)}
-  .chat-layout{grid-template-columns:1fr}
-  .footer-inner{grid-template-columns:1fr 1fr}
-  nav .nav-link,.nav-sep,.nav-open{display:none}
+.hero-bg {
+  position: absolute; inset: 0;
+  background-image: url('https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=1800&q=85');
+  background-size: cover; background-position: center 35%;
+  opacity: 0.06;
 }
-@media(max-width:560px){
-  .sec{padding:56px 20px}
-  .footer-inner{grid-template-columns:1fr}
-  .hero-stats{grid-template-columns:repeat(2,1fr)}
-  .midnight-grid{grid-template-columns:1fr 1fr}
+.hero-grad {
+  position: absolute; inset: 0;
+  background: linear-gradient(110deg, rgba(8,12,8,.98) 45%, rgba(8,12,8,.7) 75%, rgba(27,107,42,.15) 100%);
+}
+.hero-inner {
+  position: relative; z-index: 2;
+  max-width: 75rem; margin: 0 auto;
+  padding: 6rem 2rem 5rem;
+  display: grid;
+  grid-template-columns: 1fr 26rem;
+  gap: 4rem;
+  align-items: center;
+  width: 100%;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-size: 0.6875rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: var(--gl); margin-bottom: 1.25rem;
+}
+.hero-eyebrow-line { width: 1.75rem; height: 2px; background: var(--gl); }
+.hero-h1 { font-size: clamp(3.25rem, 7vw, 6rem); margin-bottom: 1.25rem; }
+.hero-h1 em { color: var(--y); font-style: italic; display: block; }
+.hero-desc { font-size: 1rem; color: var(--muted); line-height: 1.8; max-width: 30rem; margin-bottom: 2rem; }
+.hero-desc strong { color: var(--txt); }
+.hero-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; margin-bottom: 3rem; }
+.hero-stats {
+  display: grid; grid-template-columns: repeat(4,1fr);
+  gap: 1px; background: var(--bdr);
+  border: 1px solid var(--bdr); border-radius: var(--r); overflow: hidden;
+}
+.hero-stat { background: var(--card); padding: 1.125rem 1rem; text-align: center; }
+.hero-stat-n { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:2rem; color:var(--y); line-height:1; }
+.hero-stat-l { font-size:.625rem; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin-top:.25rem; }
+
+/* HERO RIGHT */
+.hero-right { display: flex; flex-direction: column; gap: 1rem; }
+.clock-card {
+  background: linear-gradient(145deg, var(--g), #0D4019);
+  border: 1px solid rgba(46,196,90,.25);
+  border-radius: 1rem; padding: 1.75rem;
+  text-align: center; position: relative; overflow: hidden;
+}
+.clock-card::before {
+  content:''; position:absolute; inset:0;
+  background: radial-gradient(circle at 50% -10%, rgba(255,209,0,.08), transparent 65%);
+}
+.clock-lbl { font-size:.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:rgba(255,255,255,.5); margin-bottom:.5rem; }
+.clock-time { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:4.5rem; color:var(--y); line-height:1; letter-spacing:-.05em; }
+.clock-sub { font-size:.8125rem; color:rgba(255,255,255,.6); margin-top:.5rem; }
+.clock-badge {
+  display:inline-flex; align-items:center; gap:.375rem;
+  background:rgba(255,209,0,.12); border:1px solid rgba(255,209,0,.25);
+  color:var(--y); font-size:.75rem; font-weight:700;
+  padding:.375rem .875rem; border-radius:99rem; margin-top:.875rem;
+}
+.hero-mini-grid { display: grid; grid-template-columns: 1fr 1fr; gap: .75rem; }
+.hero-mini-card {
+  background: var(--card); border: 1px solid var(--bdr); border-radius: var(--r);
+  padding: 1.125rem; cursor: pointer; transition: all .2s; text-align: center;
+}
+.hero-mini-card:hover { border-color: var(--y); transform: translateY(-.1875rem); }
+.hero-mini-icon { font-size: 1.5rem; margin-bottom: .5rem; }
+.hero-mini-title { font-size: .8125rem; font-weight: 700; }
+.hero-mini-sub { font-size: .6875rem; color: var(--muted); margin-top: .125rem; }
+
+/* TRUST BAR */
+.trust-bar {
+  background: var(--surf);
+  border-top: 1px solid var(--bdr); border-bottom: 1px solid var(--bdr);
+  padding: 1.25rem 2rem;
+}
+.trust-inner {
+  max-width: 75rem; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-around;
+  gap: 1.5rem; flex-wrap: wrap;
+}
+.trust-item { display:flex; align-items:center; gap:.625rem; font-size:.8125rem; font-weight:500; color:var(--muted); }
+.trust-item strong { color:var(--txt); }
+.trust-icon { font-size:1.25rem; }
+.trust-sep { width:1px; height:1.5rem; background:var(--bdr); flex-shrink:0; }
+
+/* WHY SECTION */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(14rem, 1fr));
+  gap: 1rem;
+  margin-top: 3rem;
+}
+.why-card {
+  background: var(--card); border: 1px solid var(--bdr);
+  border-radius: var(--r); padding: 1.75rem 1.5rem;
+  transition: all .25s;
+}
+.why-card:hover { border-color: var(--y); transform: translateY(-.25rem); box-shadow: 0 .75rem 2rem rgba(0,0,0,.4); }
+.why-icon { font-size: 2rem; margin-bottom: 1rem; }
+.why-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:1.25rem; text-transform:uppercase; margin-bottom:.5rem; }
+.why-desc { font-size:.875rem; color:var(--muted); line-height:1.7; }
+
+/* FEATURED PRODUCTS STRIP */
+.prod-strip { display: grid; grid-template-columns: repeat(auto-fill, minmax(15rem,1fr)); gap:1rem; margin-top:2.5rem; }
+.pc {
+  background: var(--card); border: 1px solid var(--bdr); border-radius: var(--r);
+  overflow: hidden; transition: all .25s; cursor: pointer;
+}
+.pc:hover { border-color: var(--y); transform: translateY(-.25rem); box-shadow: 0 .75rem 2.5rem rgba(0,0,0,.45); }
+.pc-img-wrap { height: 11rem; overflow: hidden; background: #0E140E; position: relative; }
+.pc-img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+.pc:hover .pc-img { transform: scale(1.06); }
+.pc-badge { position:absolute; top:.75rem; left:.75rem; font-size:.625rem; font-weight:700; padding:.1875rem .625rem; border-radius:99rem; text-transform:uppercase; letter-spacing:.04em; }
+.b-hot { background:var(--y); color:var(--black); }
+.b-new { background:var(--g); color:#fff; }
+.b-sale { background:#FF4444; color:#fff; }
+.pc-body { padding:1.125rem; }
+.pc-tag { font-size:.625rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--gl); margin-bottom:.375rem; }
+.pc-name { font-size:.9375rem; font-weight:600; line-height:1.3; margin-bottom:.25rem; }
+.pc-compat { font-size:.6875rem; color:var(--muted); margin-bottom:.875rem; line-height:1.5; }
+.pc-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:.75rem; }
+.pc-price { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.625rem; color:var(--y); line-height:1; }
+.pc-old { font-size:.6875rem; color:var(--dim); text-decoration:line-through; }
+.pc-btn { width:100%; background:var(--y); border:none; border-radius:var(--r2); padding:.6875rem; font-weight:700; font-size:.8125rem; color:var(--black); cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:.375rem; }
+.pc-btn:hover { background:var(--yd); }
+.pc-btn.done { background:var(--g); color:#fff; }
+
+/* MIDNIGHT CTA */
+.midnight-cta {
+  background: var(--y); color: var(--black);
+  padding: 5rem 2rem; text-align: center;
+}
+.mc-h { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:clamp(2.5rem,6vw,5rem); text-transform:uppercase; line-height:.95; margin-bottom:1rem; }
+.mc-sub { font-size:1rem; font-weight:500; opacity:.75; margin-bottom:2.75rem; max-width:34rem; margin-left:auto; margin-right:auto; }
+.mc-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(11rem,1fr)); gap:.75rem; max-width:56rem; margin:0 auto; }
+.mc-card { background:rgba(0,0,0,.08); border:1.5px solid rgba(0,0,0,.1); border-radius:var(--r); padding:1.5rem 1rem; transition:background .2s; }
+.mc-card:hover { background:rgba(0,0,0,.15); }
+.mc-icon { font-size:2rem; margin-bottom:.625rem; }
+.mc-title { font-weight:800; font-size:.9375rem; margin-bottom:.25rem; }
+.mc-desc { font-size:.75rem; opacity:.65; line-height:1.5; }
+
+/* REVIEWS */
+.rev-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(16rem,1fr)); gap:1rem; margin-top:2.5rem; }
+.rv-card { background:var(--card); border:1px solid var(--bdr); border-radius:var(--r); padding:1.5rem; }
+.rv-stars { color:var(--y); font-size:.875rem; letter-spacing:.0625rem; margin-bottom:.75rem; }
+.rv-text { font-size:.875rem; color:var(--muted); line-height:1.7; font-style:italic; margin-bottom:1rem; }
+.rv-author { display:flex; align-items:center; gap:.625rem; }
+.rv-av { width:2.25rem; height:2.25rem; border-radius:50%; background:var(--g); display:flex; align-items:center; justify-content:center; font-size:.875rem; font-weight:700; color:#fff; flex-shrink:0; }
+.rv-name { font-size:.8125rem; font-weight:600; }
+.rv-role { font-size:.6875rem; color:var(--muted); }
+
+/* FOOTER */
+footer { background:var(--black); border-top:2px solid var(--y); padding:3.25rem 2rem 2rem; }
+.footer-grid { max-width:75rem; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; margin-bottom:2.5rem; }
+.footer-brand { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:2rem; color:var(--y); margin-bottom:.625rem; }
+.footer-desc { font-size:.8125rem; color:var(--muted); line-height:1.7; margin-bottom:1.25rem; }
+.footer-links a { display:flex; align-items:center; gap:.5rem; font-size:.8125rem; color:var(--muted); margin-bottom:.5rem; transition:color .2s; }
+.footer-links a:hover { color:var(--y); }
+.footer-col-h { font-size:.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--y); margin-bottom:1rem; }
+.footer-col a { display:block; font-size:.8125rem; color:var(--muted); margin-bottom:.625rem; transition:color .2s; }
+.footer-col a:hover { color:var(--txt); }
+.footer-bottom { max-width:75rem; margin:0 auto; border-top:1px solid var(--bdr); padding-top:1.5rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.75rem; }
+.footer-copy { font-size:.75rem; color:var(--dim); }
+.footer-copy a { color:var(--y); }
+.footer-open-pill { display:flex; align-items:center; gap:.375rem; background:rgba(46,196,90,.12); border:1px solid rgba(46,196,90,.25); color:var(--gl); font-size:.6875rem; font-weight:700; padding:.375rem 1rem; border-radius:99rem; }
+
+@media(max-width:56rem) {
+  .hero-inner { grid-template-columns:1fr; padding:4rem 1.25rem 3rem; }
+  .hero-right { display:none; }
+  .hero-stats { grid-template-columns:repeat(2,1fr); }
+  .footer-grid { grid-template-columns:1fr 1fr; }
+  .trust-sep { display:none; }
+}
+@media(max-width:36rem) {
+  .footer-grid { grid-template-columns:1fr; gap:2rem; }
+  .hero-stats { grid-template-columns:repeat(2,1fr); }
+  .mc-grid { grid-template-columns:1fr 1fr; }
+  .hero-btns { flex-direction:column; }
+  .btn { justify-content:center; }
 }
 </style>
 </head>
 <body>
 
-<!-- TOPBAR -->
 <div class="topbar">
-  <div class="topbar-pulse"></div>
-  OPEN RIGHT NOW · 11AM to 12 MIDNIGHT · Every Day · Including Sundays & Public Holidays · 📍 36 Grants Pen Rd, Kingston 8
+  <div class="pulse"></div>
+  <div class="topbar-scroll">OPEN RIGHT NOW · 11AM – 12 MIDNIGHT · EVERY DAY · INCLUDING SUNDAYS & PUBLIC HOLIDAYS · 📍 36 GRANTS PEN RD, KINGSTON 8 · CALL (876) 630-8639 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OPEN RIGHT NOW · 11AM – 12 MIDNIGHT · EVERY DAY · INCLUDING SUNDAYS & PUBLIC HOLIDAYS · 📍 36 GRANTS PEN RD, KINGSTON 8 · CALL (876) 630-8639</div>
 </div>
 
-<!-- NAV -->
 <nav>
-  <a class="nav-logo" href="#">
-    <div class="nav-logo-mark">BJ</div>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-mark">BJ</div>
     <div>
-      <div class="nav-logo-text">Big J's Auto Parts</div>
-      <div class="nav-logo-sub">Jamaica's Only Midnight Auto Store</div>
+      <div class="nav-name">Big J's Auto Parts</div>
+      <div class="nav-tagline">Jamaica's Only Midnight Auto Store</div>
     </div>
   </a>
-  <a class="nav-link" href="#categories">Categories</a>
+  <a class="nav-link active" href="index.html">Home</a>
   <div class="nav-sep"></div>
-  <a class="nav-link" href="#products">Shop Parts</a>
+  <a class="nav-link" href="shop.html">Shop Parts</a>
   <div class="nav-sep"></div>
-  <a class="nav-link" href="#chatbot">24/7 Bot</a>
+  <a class="nav-link" href="about.html">About</a>
   <div class="nav-sep"></div>
-  <a class="nav-link" href="#contact">Contact</a>
+  <a class="nav-link" href="contact.html">Contact</a>
   <div class="nav-sep"></div>
-  <div class="nav-open"><div class="topbar-pulse"></div> Open Until Midnight</div>
-  <a class="nav-cta" href="#products">Shop Now →</a>
+  <div class="nav-open-pill"><div class="pulse"></div> Open Until Midnight</div>
+  <a class="nav-cta" href="shop.html">Shop Now →</a>
+  <button class="nav-burger" id="burger" aria-label="Menu"><span></span><span></span><span></span></button>
 </nav>
+<div class="nav-mobile" id="mobileNav">
+  <a class="active" href="index.html">Home</a>
+  <a href="shop.html">Shop Parts</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact & Chat</a>
+  <a class="nav-cta" href="shop.html">Shop Now →</a>
+</div>
 
 <!-- HERO -->
 <div class="hero">
@@ -342,12 +241,12 @@ footer{background:var(--black);border-top:2px solid var(--y);padding:52px 32px 3
   <div class="hero-grad"></div>
   <div class="hero-inner">
     <div class="rev">
-      <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div> Kingston 8 · Grants Pen Road</div>
-      <h1 class="hero-h1">Jamaica's Only<em>Midnight</em>Auto Store</h1>
-      <p class="hero-desc">Parts, tyres, batteries, and accessories for every car, truck, bus, and bike. We're open <strong>until midnight, every single day</strong> — including Sundays and public holidays.</p>
-      <div class="hero-actions">
-        <button class="btn-hero" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">🛒 Shop Parts Now</button>
-        <button class="btn-ghost" onclick="document.getElementById('chatbot').scrollIntoView({behavior:'smooth'})">💬 Ask Our Bot</button>
+      <div class="hero-eyebrow"><div class="hero-eyebrow-line"></div> Kingston 8 · Open 11AM–Midnight</div>
+      <h1 class="h1 hero-h1">Jamaica's<em>Only Midnight</em>Auto Store</h1>
+      <p class="hero-desc">Parts, tyres, batteries and accessories for every car, truck, bus and bike. Open when <strong>every other store is already closed</strong> — 7 days a week, every public holiday.</p>
+      <div class="hero-btns">
+        <a class="btn btn-y" href="shop.html">🛒 Shop Parts Now</a>
+        <a class="btn btn-outline" href="contact.html">💬 Ask Our Bot</a>
       </div>
       <div class="hero-stats">
         <div class="hero-stat"><div class="hero-stat-n">12AM</div><div class="hero-stat-l">Closing Time</div></div>
@@ -356,34 +255,18 @@ footer{background:var(--black);border-top:2px solid var(--y);padding:52px 32px 3
         <div class="hero-stat"><div class="hero-stat-n">ALL</div><div class="hero-stat-l">Public Holidays</div></div>
       </div>
     </div>
-    <div class="hero-right rev">
+    <div class="hero-right rev rev-d2">
       <div class="clock-card">
-        <div class="clock-label">Current Time</div>
+        <div class="clock-lbl">Current Time · Kingston, JA</div>
         <div class="clock-time" id="liveClock">--:--</div>
-        <div class="clock-sub">Kingston, Jamaica</div>
-        <div class="clock-open-badge"><div class="topbar-pulse"></div> Big J's Is Open Right Now</div>
+        <div class="clock-sub">Big J's is open right now</div>
+        <div class="clock-badge"><div class="pulse"></div> Open Until Midnight Tonight</div>
       </div>
-      <div class="mini-cards">
-        <div class="mini-card" onclick="document.getElementById('chatbot').scrollIntoView({behavior:'smooth'})">
-          <div class="mini-card-icon">💬</div>
-          <div class="mini-card-title">WhatsApp Bot</div>
-          <div class="mini-card-sub">Answers 24/7 instantly</div>
-        </div>
-        <div class="mini-card" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">
-          <div class="mini-card-icon">🔍</div>
-          <div class="mini-card-title">Search Parts</div>
-          <div class="mini-card-sub">1,000+ in stock</div>
-        </div>
-        <div class="mini-card">
-          <div class="mini-card-icon">📍</div>
-          <div class="mini-card-title">Get Directions</div>
-          <div class="mini-card-sub">36 Grants Pen Rd</div>
-        </div>
-        <div class="mini-card" onclick="addToCart('Emergency Part Enquiry')">
-          <div class="mini-card-icon">🚨</div>
-          <div class="mini-card-title">Emergency?</div>
-          <div class="mini-card-sub">We're open now</div>
-        </div>
+      <div class="hero-mini-grid">
+        <a class="hero-mini-card" href="shop.html"><div class="hero-mini-icon">🔍</div><div class="hero-mini-title">Search Parts</div><div class="hero-mini-sub">1,000+ in stock</div></a>
+        <a class="hero-mini-card" href="contact.html"><div class="hero-mini-icon">💬</div><div class="hero-mini-title">WhatsApp Bot</div><div class="hero-mini-sub">Answers 24/7</div></a>
+        <a class="hero-mini-card" href="contact.html"><div class="hero-mini-icon">📍</div><div class="hero-mini-title">Directions</div><div class="hero-mini-sub">Grants Pen Rd</div></a>
+        <a class="hero-mini-card" href="shop.html"><div class="hero-mini-icon">🚨</div><div class="hero-mini-title">Emergency?</div><div class="hero-mini-sub">We're open now</div></a>
       </div>
     </div>
   </div>
@@ -392,494 +275,184 @@ footer{background:var(--black);border-top:2px solid var(--y);padding:52px 32px 3
 <!-- TRUST BAR -->
 <div class="trust-bar">
   <div class="trust-inner">
-    <div class="trust-item"><span>✅</span><span><strong>In-Stock Guaranteed</strong> — If we list it, we have it</span></div>
-    <div class="trust-divider"></div>
-    <div class="trust-item"><span>🌙</span><span><strong>Open Until Midnight</strong> — No other store does this</span></div>
-    <div class="trust-divider"></div>
-    <div class="trust-item"><span>🏍️</span><span><strong>Cars, Trucks, Buses & Bikes</strong> — Every vehicle covered</span></div>
-    <div class="trust-divider"></div>
-    <div class="trust-item"><span>💬</span><span><strong>WhatsApp Before You Drive</strong> — Confirm availability first</span></div>
+    <div class="trust-item"><span class="trust-icon">✅</span><span>In-Stock Guarantee — <strong>If we list it, we have it</strong></span></div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="trust-icon">🌙</span><span>Open Until Midnight — <strong>No other store does this</strong></span></div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="trust-icon">🏍️</span><span>Cars, Trucks, Buses & Bikes — <strong>All vehicles</strong></span></div>
+    <div class="trust-sep"></div>
+    <div class="trust-item"><span class="trust-icon">💬</span><span>WhatsApp Before You Drive — <strong>Confirm first</strong></span></div>
   </div>
 </div>
 
-<!-- SEARCH -->
-<div class="search-sec">
-  <div class="search-inner rev">
-    <div class="search-title">Find Your Part in Seconds</div>
-    <div class="search-wrap">
-      <div class="search-icon">🔍</div>
-      <input type="text" id="sInput" placeholder="e.g. Brake pads Toyota Axio 2016..." onkeydown="if(event.key==='Enter')doSearch()"/>
-      <button class="search-btn" onclick="doSearch()">Search</button>
-    </div>
-    <div class="search-tags">
-      <div class="stag" onclick="fillS('Brake pads Axio')">Brake pads Axio</div>
-      <div class="stag" onclick="fillS('12V car battery')">12V Battery</div>
-      <div class="stag" onclick="fillS('185/65R15 tyre')">Tyre 185/65R15</div>
-      <div class="stag" onclick="fillS('Water pump Corolla')">Water pump Corolla</div>
-      <div class="stag" onclick="fillS('CV joint Vitz')">CV joint Vitz</div>
-      <div class="stag" onclick="fillS('Engine oil 10W-40')">Engine oil</div>
-    </div>
-  </div>
-</div>
-
-<!-- CATEGORIES -->
-<section class="sec cat-sec" id="categories">
+<!-- WHY BIG J'S -->
+<section class="sec bg-dark">
   <div class="sec-inner">
     <div class="rev">
-      <div class="sec-label">Browse</div>
-      <h2 class="sec-h2">Shop by Category</h2>
+      <div class="label">Why Big J's</div>
+      <h2 class="h2" style="font-size:clamp(2rem,4vw,3.25rem);margin-bottom:.75rem">Jamaica's Most Convenient<br>Auto Parts Store</h2>
+      <p class="sec-sub" style="color:var(--muted);font-size:.9375rem;line-height:1.75;max-width:34rem">We built Big J's around one truth: emergencies don't wait until 5pm. Neither do we.</p>
     </div>
-    <div class="cat-grid rev" style="margin-top:32px">
-      <a class="cat-card" href="#products"><span class="cat-icon">🔧</span><div class="cat-name">Engine Parts</div><div class="cat-count">240 items</div></a>
-      <a class="cat-card" href="#products"><span class="cat-icon">🛞</span><div class="cat-name">Tyres</div><div class="cat-count">180 sizes</div></a>
-      <a class="cat-card" href="#products"><span class="cat-icon">🔋</span><div class="cat-name">Batteries</div><div class="cat-count">45 options</div></a>
-      <a class="cat-card" href="#products"><span class="cat-icon">🛑</span><div class="cat-name">Brake Parts</div><div class="cat-count">120 items</div></a>
-      <a class="cat-card" href="#products"><span class="cat-icon">💧</span><div class="cat-name">Lubricants</div><div class="cat-count">60 products</div></a>
-      <a class="cat-card" href="#products"><span class="cat-icon">🏍️</span><div class="cat-name">Bike Parts</div><div class="cat-count">200 items</div></a>
-      <a class="cat-card" href="#products"><span class="cat-icon">💡</span><div class="cat-name">Electrical</div><div class="cat-count">90 items</div></a>
-      <a class="cat-card" href="#products"><span class="cat-icon">🚗</span><div class="cat-name">Body Parts</div><div class="cat-count">75 items</div></a>
-      <a class="cat-card" href="#products"><span class="cat-icon">❄️</span><div class="cat-name">AC Parts</div><div class="cat-count">55 items</div></a>
+    <div class="why-grid rev rev-d1">
+      <div class="why-card">
+        <div class="why-icon">🌙</div>
+        <div class="why-title">Open Until Midnight</div>
+        <div class="why-desc">Jamaica's only auto parts store open until midnight every single day — including Sundays and public holidays. When everyone else is closed, we're here.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">📦</div>
+        <div class="why-title">Massive Selection</div>
+        <div class="why-desc">Over 1,000 parts in stock at all times — engine parts, tyres, batteries, brakes, lubricants, bike parts, accessories, and more. From pin to anchor.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">💬</div>
+        <div class="why-title">WhatsApp First</div>
+        <div class="why-desc">Message us before you drive over. Our team confirms availability and price so you never make a wasted trip — even at 11pm on a Sunday.</div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon">🧠</div>
+        <div class="why-title">Expert Staff</div>
+        <div class="why-desc">Our team knows vehicles. Tell us your car model and the symptom — we'll identify the exact part you need, not just sell you something that might fit.</div>
+      </div>
     </div>
   </div>
 </section>
 
-<!-- PRODUCTS -->
-<section class="sec prod-sec" id="products">
+<!-- FEATURED PRODUCTS -->
+<section class="sec bg-surf">
   <div class="sec-inner">
     <div class="sec-head rev">
       <div>
-        <div class="sec-label">In Stock Now</div>
-        <h2 class="sec-h2">Popular Parts</h2>
-        <p class="sec-sub">All parts available today. WhatsApp to confirm before you drive over.</p>
+        <div class="label">In Stock Now</div>
+        <h2 class="h2" style="font-size:clamp(2rem,4vw,3.25rem)">Popular Parts</h2>
+        <p style="color:var(--muted);font-size:.875rem;margin-top:.5rem">Available today. WhatsApp to confirm before you drive over.</p>
       </div>
+      <a class="btn btn-outline btn-sm" href="shop.html" style="flex-shrink:0">View All Parts →</a>
     </div>
-    <div class="filter-row rev">
-      <button class="filter-btn active" onclick="setFilter(this,'All')">All Parts</button>
-      <button class="filter-btn" onclick="setFilter(this,'Engine')">Engine</button>
-      <button class="filter-btn" onclick="setFilter(this,'Brakes')">Brakes</button>
-      <button class="filter-btn" onclick="setFilter(this,'Tyres')">Tyres</button>
-      <button class="filter-btn" onclick="setFilter(this,'Battery')">Battery</button>
-      <button class="filter-btn" onclick="setFilter(this,'Lubricants')">Lubricants</button>
-    </div>
-    <div class="prod-grid rev" id="prodGrid">
-
-      <div class="prod-card" data-cat="Brakes">
-        <div class="prod-img-wrap">
-          <img class="prod-img" src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=500&q=80" alt="Brake Pads"/>
-          <div class="prod-badge badge-hot">🔥 Popular</div>
-        </div>
-        <div class="prod-body">
-          <div class="prod-tag">Brake Parts</div>
-          <div class="prod-name">Front Disc Brake Pad Set</div>
-          <div class="prod-compat">Toyota Axio · Fielder · Corolla 2012–2020</div>
-          <div class="prod-row">
-            <div><div class="prod-price">$3,500</div><div class="prod-price-old">$4,200 JMD</div></div>
-            <div class="stock-pill in-stock">✓ In Stock</div>
-          </div>
-          <button class="prod-btn" onclick="addCart(this,'Brake Pad Set – Toyota Axio')">🛒 Add to Enquiry</button>
+    <div class="prod-strip rev rev-d1">
+      <div class="pc">
+        <div class="pc-img-wrap"><img class="pc-img" src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=500&q=80" alt="Brake Pads"/><div class="pc-badge b-hot">🔥 Popular</div></div>
+        <div class="pc-body">
+          <div class="pc-tag">Brake Parts</div>
+          <div class="pc-name">Front Disc Brake Pad Set</div>
+          <div class="pc-compat">Toyota Axio · Fielder · Corolla 2012–2020</div>
+          <div class="pc-row"><div><div class="pc-price">$3,500</div><div class="pc-old">Was $4,200 JMD</div></div><span class="pill pill-green">✓ In Stock</span></div>
+          <button class="pc-btn" onclick="btnCart(this,'Front Brake Pad Set – Toyota Axio')">🛒 Add to Enquiry</button>
         </div>
       </div>
-
-      <div class="prod-card" data-cat="Battery">
-        <div class="prod-img-wrap">
-          <img class="prod-img" src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=500&q=80" alt="Battery"/>
-          <div class="prod-badge badge-new">New Stock</div>
-        </div>
-        <div class="prod-body">
-          <div class="prod-tag">Batteries</div>
-          <div class="prod-name">12V 45Ah Maintenance-Free Battery</div>
-          <div class="prod-compat">Universal · All small-medium vehicles</div>
-          <div class="prod-row">
-            <div><div class="prod-price">$12,000</div></div>
-            <div class="stock-pill in-stock">✓ In Stock</div>
-          </div>
-          <button class="prod-btn" onclick="addCart(this,'12V 45Ah Battery')">🛒 Add to Enquiry</button>
+      <div class="pc">
+        <div class="pc-img-wrap"><img class="pc-img" src="https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=500&q=80" alt="Battery"/><div class="pc-badge b-new">New Stock</div></div>
+        <div class="pc-body">
+          <div class="pc-tag">Batteries</div>
+          <div class="pc-name">12V 45Ah Maintenance-Free Battery</div>
+          <div class="pc-compat">Universal · All small-medium vehicles</div>
+          <div class="pc-row"><div><div class="pc-price">$12,000</div></div><span class="pill pill-green">✓ In Stock</span></div>
+          <button class="pc-btn" onclick="btnCart(this,'12V 45Ah Battery')">🛒 Add to Enquiry</button>
         </div>
       </div>
-
-      <div class="prod-card" data-cat="Tyres">
-        <div class="prod-img-wrap">
-          <img class="prod-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Tyres"/>
-          <div class="prod-badge badge-sale">Sale</div>
-        </div>
-        <div class="prod-body">
-          <div class="prod-tag">Tyres</div>
-          <div class="prod-name">185/65R15 All-Season Tyre</div>
-          <div class="prod-compat">Honda Fit · Toyota Vitz · Nissan Tiida</div>
-          <div class="prod-row">
-            <div><div class="prod-price">$8,500</div><div class="prod-price-old">$9,800 JMD</div></div>
-            <div class="stock-pill low-stock">⚠ Low Stock</div>
-          </div>
-          <button class="prod-btn" onclick="addCart(this,'185/65R15 Tyre')">🛒 Add to Enquiry</button>
+      <div class="pc">
+        <div class="pc-img-wrap"><img class="pc-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=500&q=80" alt="Tyres"/><div class="pc-badge b-sale">Sale</div></div>
+        <div class="pc-body">
+          <div class="pc-tag">Tyres</div>
+          <div class="pc-name">185/65R15 All-Season Tyre</div>
+          <div class="pc-compat">Honda Fit · Toyota Vitz · Nissan Tiida</div>
+          <div class="pc-row"><div><div class="pc-price">$8,500</div><div class="pc-old">Was $9,800 JMD</div></div><span class="pill pill-orange">⚠ Low Stock</span></div>
+          <button class="pc-btn" onclick="btnCart(this,'185/65R15 Tyre')">🛒 Add to Enquiry</button>
         </div>
       </div>
-
-      <div class="prod-card" data-cat="Engine">
-        <div class="prod-img-wrap">
-          <img class="prod-img" src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=500&q=80" alt="Water Pump"/>
-        </div>
-        <div class="prod-body">
-          <div class="prod-tag">Engine Parts</div>
-          <div class="prod-name">OEM Water Pump</div>
-          <div class="prod-compat">Toyota Corolla · Axio · Fielder 2006–2019</div>
-          <div class="prod-row">
-            <div><div class="prod-price">$5,500</div></div>
-            <div class="stock-pill in-stock">✓ In Stock</div>
-          </div>
-          <button class="prod-btn" onclick="addCart(this,'Water Pump – Toyota Corolla')">🛒 Add to Enquiry</button>
-        </div>
-      </div>
-
-      <div class="prod-card" data-cat="Lubricants">
-        <div class="prod-img-wrap">
-          <img class="prod-img" src="https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?w=500&q=80" alt="Engine Oil"/>
-          <div class="prod-badge badge-hot">🔥 Best Seller</div>
-        </div>
-        <div class="prod-body">
-          <div class="prod-tag">Lubricants</div>
-          <div class="prod-name">10W-40 Semi-Synthetic Engine Oil 4L</div>
-          <div class="prod-compat">All Japanese & Korean petrol engines</div>
-          <div class="prod-row">
-            <div><div class="prod-price">$4,200</div></div>
-            <div class="stock-pill in-stock">✓ In Stock</div>
-          </div>
-          <button class="prod-btn" onclick="addCart(this,'10W-40 Engine Oil 4L')">🛒 Add to Enquiry</button>
-        </div>
-      </div>
-
-      <div class="prod-card" data-cat="Engine">
-        <div class="prod-img-wrap">
-          <img class="prod-img" src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=500&q=80" alt="CV Joint"/>
-        </div>
-        <div class="prod-body">
-          <div class="prod-tag">Drive Train</div>
-          <div class="prod-name">Inner CV Joint Boot Kit</div>
-          <div class="prod-compat">Toyota Vitz · Yaris · Platz 2002–2018</div>
-          <div class="prod-row">
-            <div><div class="prod-price">$6,800</div></div>
-            <div class="stock-pill in-stock">✓ In Stock</div>
-          </div>
-          <button class="prod-btn" onclick="addCart(this,'CV Joint Kit – Toyota Vitz')">🛒 Add to Enquiry</button>
-        </div>
-      </div>
-
-    </div>
-  </div>
-</section>
-
-<!-- CHATBOT -->
-<section class="sec chat-sec" id="chatbot">
-  <div class="sec-inner">
-    <div class="chat-layout">
-      <div class="rev">
-        <div class="sec-label">Always On</div>
-        <h2 class="sec-h2">Your 24/7 WhatsApp Assistant</h2>
-        <p class="sec-sub">Never wait for an answer again. Our bot replies instantly — even at midnight when the phone is off.</p>
-        <div class="chat-points">
-          <div class="chat-point">
-            <div class="chat-point-icon">🔍</div>
-            <div>
-              <div class="chat-point-title">Instant Part Availability</div>
-              <div class="chat-point-desc">Ask about any part, any vehicle. The bot checks stock and replies with price and availability in seconds — no hold music, no waiting.</div>
-            </div>
-          </div>
-          <div class="chat-point">
-            <div class="chat-point-icon">🌙</div>
-            <div>
-              <div class="chat-point-title">Active Until Midnight</div>
-              <div class="chat-point-desc">Stranded at 10:30pm? Battery dead on a Sunday? The bot is awake. Customers get the information they need without calling anyone.</div>
-            </div>
-          </div>
-          <div class="chat-point">
-            <div class="chat-point-icon">📍</div>
-            <div>
-              <div class="chat-point-title">Location, Hours & Directions</div>
-              <div class="chat-point-desc">The bot sends your address, Google Maps link, opening hours, and phone number automatically — zero staff input needed.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="rev">
-        <div class="chat-ui">
-          <div class="chat-head">
-            <div class="chat-av">🤖</div>
-            <div>
-              <div class="chat-info-name">Big J's Auto Bot</div>
-              <div class="chat-info-status"><div class="topbar-pulse"></div> Online · Replies in seconds</div>
-            </div>
-          </div>
-          <div class="chat-msgs" id="chatMsgs">
-            <div class="m m-bot"><div class="m-bub">👋 Welcome to Big J's Auto Parts — Jamaica's only midnight auto store!<br><br>How can I help you today? Ask me about parts, pricing, availability, or how to find us.</div><div class="m-time">Just now</div></div>
-          </div>
-          <div class="chat-quick">
-            <button class="qbtn" onclick="quickChat('Do you have brake pads for a Toyota Axio?')">Brake pads Axio</button>
-            <button class="qbtn" onclick="quickChat('Are you open right now?')">Open now?</button>
-            <button class="qbtn" onclick="quickChat('Where are you located?')">Location</button>
-            <button class="qbtn" onclick="quickChat('Do you have a 12V battery?')">Battery price</button>
-            <button class="qbtn" onclick="quickChat('What tyres do you have in 185/65R15?')">Tyres</button>
-          </div>
-          <div class="chat-inp-row">
-            <input class="chat-inp" id="chatIn" type="text" placeholder="Ask about a part..." onkeydown="if(event.key==='Enter')sendMsg()"/>
-            <button class="chat-send-btn" onclick="sendMsg()">➤</button>
-          </div>
+      <div class="pc">
+        <div class="pc-img-wrap"><img class="pc-img" src="https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=500&q=80" alt="Water Pump"/></div>
+        <div class="pc-body">
+          <div class="pc-tag">Engine Parts</div>
+          <div class="pc-name">OEM Water Pump</div>
+          <div class="pc-compat">Toyota Corolla · Axio · Fielder 2006–2019</div>
+          <div class="pc-row"><div><div class="pc-price">$5,500</div></div><span class="pill pill-green">✓ In Stock</span></div>
+          <button class="pc-btn" onclick="btnCart(this,'Water Pump – Toyota Corolla')">🛒 Add to Enquiry</button>
         </div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- MIDNIGHT -->
-<div class="midnight">
-  <div class="midnight-h">Open Until<br>Midnight.<br>Every Day.</div>
-  <p class="midnight-sub">When your vehicle breaks down after hours, Big J's is the only answer in Jamaica.</p>
-  <div class="midnight-grid">
-    <div class="mc"><div class="mc-icon">🚕</div><div class="mc-title">Taxi Operators</div><div class="mc-desc">Keep earning. Get parts after your shift ends without waiting until morning.</div></div>
-    <div class="mc"><div class="mc-icon">📦</div><div class="mc-title">Delivery Drivers</div><div class="mc-desc">No downtime. Get back on the road fast — even at 11pm on a Sunday.</div></div>
-    <div class="mc"><div class="mc-icon">🏢</div><div class="mc-title">Fleet Managers</div><div class="mc-desc">Night breakdowns handled. Your fleet never stops because of a parts store that's closed.</div></div>
-    <div class="mc"><div class="mc-icon">🌙</div><div class="mc-title">Late Night Emergencies</div><div class="mc-desc">Flat tyre at 10pm? Dead battery? Broken belt? We've got you covered.</div></div>
+<!-- MIDNIGHT CTA -->
+<div class="midnight-cta">
+  <div class="mc-h">Open Until Midnight.<br>Every Single Day.</div>
+  <p class="mc-sub">When your vehicle breaks down after hours, Big J's is the only answer in Jamaica.</p>
+  <div class="mc-grid">
+    <div class="mc-card"><div class="mc-icon">🚕</div><div class="mc-title">Taxi Operators</div><div class="mc-desc">Keep earning. Get parts after your shift without waiting until morning.</div></div>
+    <div class="mc-card"><div class="mc-icon">📦</div><div class="mc-title">Delivery Drivers</div><div class="mc-desc">No downtime. Back on the road fast — even at 11pm on a Sunday.</div></div>
+    <div class="mc-card"><div class="mc-icon">🏢</div><div class="mc-title">Fleet Managers</div><div class="mc-desc">Night breakdowns handled. Your fleet never stops for a parts store that's closed.</div></div>
+    <div class="mc-card"><div class="mc-icon">🌙</div><div class="mc-title">Any Emergency</div><div class="mc-desc">Flat tyre, dead battery, broken belt — midnight is just another hour to us.</div></div>
   </div>
 </div>
 
-<!-- TESTIMONIALS -->
-<section class="sec test-sec">
+<!-- REVIEWS -->
+<section class="sec bg-dark">
   <div class="sec-inner">
     <div class="rev">
-      <div class="sec-label">Reviews</div>
-      <h2 class="sec-h2">What Customers Say</h2>
+      <div class="label">Customer Reviews</div>
+      <h2 class="h2" style="font-size:clamp(2rem,4vw,3.25rem)">What Kingston Says</h2>
     </div>
-    <div class="test-grid rev">
-      <div class="test-card">
-        <div class="stars">★★★★★</div>
-        <div class="test-text">"Glasses seems to love his work. Knowledgeable, friendly and always busy. Modern alignment equipment. Best service in Kingston for late night parts."</div>
-        <div class="test-author"><div class="test-av">M</div><div><div class="test-name">Marcus T.</div><div class="test-role">Google Review · Kingston</div></div></div>
-      </div>
-      <div class="test-card">
-        <div class="stars">★★★★★</div>
-        <div class="test-text">"Battery dead at 10:30pm on a Sunday. Called Big J's, they had exactly what I needed. In and out in 15 minutes. No other shop would have been open."</div>
-        <div class="test-author"><div class="test-av">D</div><div><div class="test-name">Delroy W.</div><div class="test-role">Taxi Operator · Kingston 8</div></div></div>
-      </div>
-      <div class="test-card">
-        <div class="stars">★★★★☆</div>
-        <div class="test-text">"Great attention to details. Tyre change timely and efficient. Staff knew exactly what part I needed for my Vitz without me knowing the exact name."</div>
-        <div class="test-author"><div class="test-av">S</div><div><div class="test-name">Sasha M.</div><div class="test-role">Google Review · St. Andrew</div></div></div>
-      </div>
+    <div class="rev-grid rev rev-d1">
+      <div class="rv-card"><div class="rv-stars">★★★★★</div><div class="rv-text">"Glasses seems to love his work. Knowledgeable, friendly and always busy. Modern alignment equipment and vehicle lifts. Best late-night parts experience in Kingston."</div><div class="rv-author"><div class="rv-av">M</div><div><div class="rv-name">Marcus T.</div><div class="rv-role">Google Review · Kingston</div></div></div></div>
+      <div class="rv-card"><div class="rv-stars">★★★★★</div><div class="rv-text">"Battery dead at 10:30pm on a Sunday. Called Big J's, they had exactly what I needed. In and out in 15 minutes. No other shop would have been open. Life saver."</div><div class="rv-author"><div class="rv-av">D</div><div><div class="rv-name">Delroy W.</div><div class="rv-role">Taxi Operator · Kingston 8</div></div></div></div>
+      <div class="rv-card"><div class="rv-stars">★★★★☆</div><div class="rv-text">"Great attention to detail. Tyre change was timely and efficient. Staff knew exactly what I needed for my Vitz without me knowing the part name. Highly recommend."</div><div class="rv-author"><div class="rv-av">S</div><div><div class="rv-name">Sasha M.</div><div class="rv-role">Google Review · St. Andrew</div></div></div></div>
     </div>
   </div>
 </section>
-
-<!-- CTA -->
-<div class="cta-sec" id="contact">
-  <div class="cta-inner rev">
-    <div class="sec-label" style="justify-content:center">Get Started</div>
-    <h2 class="cta-h">Need a Part Right Now?</h2>
-    <p class="cta-sub">WhatsApp us, call us, or drive straight in. We're open until midnight tonight — and every night.</p>
-    <div class="cta-btns">
-      <button class="btn-hero" onclick="addCart(null,'WhatsApp Enquiry')">💬 WhatsApp Us Now</button>
-      <button class="btn-ghost" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">🛒 Browse All Parts</button>
-    </div>
-    <div class="cta-phone">📞 Call us: <strong>(876) 630-8639</strong> or <strong>(876) 333-6937</strong> · Open 11AM–12 Midnight Daily</div>
-  </div>
-</div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-inner">
+  <div class="footer-grid">
     <div>
       <div class="footer-brand">Big J's Auto Parts</div>
-      <p class="footer-desc">Jamaica's only midnight auto parts store. Parts, tyres, batteries, and accessories for every car, truck, bus, and bike — open when every other store is closed.</p>
-      <div class="footer-contact">
+      <p class="footer-desc">Jamaica's only midnight auto parts store. Parts, tyres, batteries and accessories for every vehicle — open when everyone else is closed.</p>
+      <div class="footer-links">
         <a href="#">📍 36 Grants Pen Rd, Kingston 8 (Corner Shortwood Rd)</a>
         <a href="#">📞 (876) 630-8639 · (876) 333-6937</a>
         <a href="#">💬 WhatsApp: (876) 357-7749</a>
-        <a href="#">🕐 Open: 11AM – 12 Midnight · Every Day</a>
+        <a href="#">🕐 Open: 11AM – 12 Midnight Daily</a>
       </div>
     </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Shop</div>
-      <a href="#">Engine Parts</a>
-      <a href="#">Tyres</a>
-      <a href="#">Batteries</a>
-      <a href="#">Brake Parts</a>
-      <a href="#">Lubricants</a>
-      <a href="#">Bike Parts</a>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Vehicles</div>
-      <a href="#">Toyota</a>
-      <a href="#">Honda</a>
-      <a href="#">Nissan</a>
-      <a href="#">Hyundai</a>
-      <a href="#">Suzuki</a>
-      <a href="#">All Brands</a>
-    </div>
-    <div class="footer-col">
-      <div class="footer-col-title">Info</div>
-      <a href="#">About Us</a>
-      <a href="#">Find Us on Google Maps</a>
-      <a href="#">WhatsApp Bot</a>
-      <a href="#">Special Orders</a>
-      <a href="#">Contact</a>
-    </div>
+    <div class="footer-col"><div class="footer-col-h">Shop</div><a href="shop.html">Engine Parts</a><a href="shop.html">Tyres</a><a href="shop.html">Batteries</a><a href="shop.html">Brake Parts</a><a href="shop.html">Lubricants</a><a href="shop.html">Bike Parts</a></div>
+    <div class="footer-col"><div class="footer-col-h">Vehicles</div><a href="shop.html">Toyota</a><a href="shop.html">Honda</a><a href="shop.html">Nissan</a><a href="shop.html">Hyundai</a><a href="shop.html">Suzuki</a><a href="shop.html">All Brands</a></div>
+    <div class="footer-col"><div class="footer-col-h">Pages</div><a href="index.html">Home</a><a href="shop.html">Shop Parts</a><a href="about.html">About Us</a><a href="contact.html">Contact & Chat</a></div>
   </div>
   <div class="footer-bottom">
-    <div class="footer-copy">© 2025 Big J's Auto Parts · <strong>Demo built by</strong> <a href="https://j-commerce.online" target="_blank">Jcommerce</a> — j-commerce.online · This is what your business could look like online.</div>
-    <div class="footer-open-pill"><div class="topbar-pulse"></div> Open Until Midnight Tonight</div>
+    <div class="footer-copy">© 2025 Big J's Auto Parts · Demo built by <a href="https://j-commerce.online" target="_blank">Jcommerce</a> — j-commerce.online</div>
+    <div class="footer-open-pill"><div class="pulse"></div> Open Until Midnight Tonight</div>
   </div>
 </footer>
 
-<!-- FLOATING -->
-<div class="float-chat">
-  <div class="float-tour" onclick="openTour(0)">🎯 View Feature Tour</div>
-  <button class="float-wa" onclick="addCart(null,'WhatsApp Chat')">💬</button>
-</div>
-
-<!-- TOAST -->
 <div class="toast" id="toast"></div>
+<button class="float-wa" id="floatWa" aria-label="WhatsApp">💬</button>
 
 <!-- TOUR MODAL -->
-<div class="overlay" id="overlay" onclick="closeOverlay(event)">
-  <div class="modal" style="position:relative">
-    <button class="modal-close-btn" onclick="closeTour()">✕</button>
-    <div class="modal-top">
-      <div class="modal-progress" id="mProg"></div>
-      <div class="modal-step-label" id="mStep"></div>
-      <div class="modal-h" id="mTitle"></div>
-      <div class="modal-body" id="mBody"></div>
+<div class="overlay" id="tourOverlay">
+  <div class="modal-box">
+    <button class="modal-close-x" onclick="closeTour()">✕</button>
+    <div class="modal-inner">
+      <div class="modal-prog" id="tourProg"></div>
+      <div class="modal-step-lbl" id="tourStep"></div>
+      <div class="modal-h" id="tourH"></div>
+      <div class="modal-body-text" id="tourBody"></div>
+      <img id="tourImg" class="modal-img" src="" alt="" style="display:none;border-radius:.5rem"/>
     </div>
-    <img id="mImg" class="modal-img" src="" alt="" style="display:none"/>
     <div class="modal-foot">
-      <button class="modal-skip-btn" onclick="closeTour()">Skip Tour</button>
-      <button class="modal-next-btn" id="mNext" onclick="nextStep()">Next →</button>
+      <button class="modal-btn-skip" onclick="closeTour()">Skip Tour</button>
+      <button class="modal-btn-next" id="tourNext" onclick="nextTourStep()">Next →</button>
     </div>
   </div>
 </div>
 
 <script>
-// ── LIVE CLOCK ──
-function updateClock(){
-  const now=new Date();
-  const t=now.toLocaleTimeString('en-JM',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'America/Jamaica'});
-  const el=document.getElementById('liveClock');
-  if(el)el.textContent=t;
+function btnCart(btn, name) {
+  addEnquiry(name);
+  btn.textContent = '✓ Added!';
+  btn.classList.add('done');
+  setTimeout(() => { btn.textContent = '🛒 Add to Enquiry'; btn.classList.remove('done'); }, 2000);
 }
-updateClock();setInterval(updateClock,1000);
-
-// ── SCROLL REVEAL ──
-const obs=new IntersectionObserver(entries=>{
-  entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');obs.unobserve(e.target)}})
-},{threshold:0.08});
-document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
-
-// ── SEARCH ──
-function fillS(v){document.getElementById('sInput').value=v}
-function doSearch(){
-  const v=document.getElementById('sInput').value.trim();
-  if(!v)return;
-  document.getElementById('products').scrollIntoView({behavior:'smooth'});
-  showToast('🔍 Showing results for "'+v+'"');
-}
-
-// ── FILTER ──
-function setFilter(btn,cat){
-  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.prod-card').forEach(c=>{
-    c.style.display=(cat==='All'||c.dataset.cat===cat)?'block':'none';
-  });
-}
-
-// ── CART ──
-let cartCount=0;
-function addCart(btn,name){
-  cartCount++;
-  if(btn){btn.textContent='✓ Added!';btn.classList.add('added');setTimeout(()=>{btn.textContent='🛒 Add to Enquiry';btn.classList.remove('added')},2000)}
-  showToast('✅ '+name+' added to enquiry list');
-}
-function addToCart(name){showToast('✅ '+name+' — we\'ll respond on WhatsApp!')}
-
-// ── TOAST ──
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.classList.add('show');
-  setTimeout(()=>t.classList.remove('show'),3500);
-}
-
-// ── CHATBOT ──
-const replies={
-  brake:"✅ Yes! Front brake pads for Toyota Axio, Corolla & Fielder — *JMD $3,500/set*. In stock now. We're open until midnight tonight! 📍 36 Grants Pen Rd, Kingston 8.",
-  battery:"🔋 12V 45Ah battery — *JMD $12,000*. In stock and ready. We do installation on the spot too. Open until midnight! Call us: (876) 630-8639.",
-  tyre:"🛞 185/65R15 tyres in stock — *JMD $8,500 each*. We have multiple sizes. Tell me your tyre size and I'll confirm exact availability. Open until midnight!",
-  water:"✅ Water pump for Toyota Corolla (2006–2019) — *JMD $5,500*. Same for Axio and Fielder. In stock. Open until midnight at 36 Grants Pen Rd.",
-  oil:"💧 10W-40 engine oil (4L) — *JMD $4,200*. Also have 5W-30. In stock now. Open until midnight!",
-  open:"🌙 Yes, we are open *right now*! Big J's is open *11AM to 12 MIDNIGHT every day* — including Sundays and public holidays. 📍 36 Grants Pen Rd, Kingston 8.",
-  loc:"📍 *36 Grants Pen Road, Kingston 8* — corner of Shortwood Road and Grants Pen Road, entrance on Shortwood Rd. Open 11AM–Midnight daily. Call: (876) 630-8639.",
-  hours:"🕐 We're open *11AM to 12 MIDNIGHT, 7 days a week* — including ALL public holidays. Jamaica's only midnight auto parts store! 🇯🇲",
-  default:"Thanks for your message! For that part, WhatsApp us directly at *(876) 357-7749* and we'll confirm availability and price right away. We're open until midnight! 🌙"
-};
-function getReply(m){
-  m=m.toLowerCase();
-  if(m.match(/brake|pad|disc/))return replies.brake;
-  if(m.match(/battery|batt/))return replies.battery;
-  if(m.match(/tyre|tire/))return replies.tyre;
-  if(m.match(/water.?pump/))return replies.water;
-  if(m.match(/oil|lubric/))return replies.oil;
-  if(m.match(/open|close|midnight|now/))return replies.open;
-  if(m.match(/where|location|address|direction|find/))return replies.loc;
-  if(m.match(/hour|time|when/))return replies.hours;
-  return replies.default;
-}
-function addMsg(text,who){
-  const c=document.getElementById('chatMsgs');
-  const d=document.createElement('div');
-  d.className='m m-'+who;
-  d.innerHTML=`<div class="m-bub">${text.replace(/\*(.*?)\*/g,'<strong>$1</strong>')}</div><div class="m-time">Just now</div>`;
-  c.appendChild(d);c.scrollTop=c.scrollHeight;
-  return d;
-}
-function sendMsg(){
-  const inp=document.getElementById('chatIn');
-  const txt=inp.value.trim();if(!txt)return;
-  addMsg(txt,'user');inp.value='';
-  const typing=addMsg('<div class="typing" style="display:flex"><div class="m-bub"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div></div>','bot');
-  setTimeout(()=>{
-    typing.innerHTML=`<div class="m-bub">${getReply(txt).replace(/\*(.*?)\*/g,'<strong>$1</strong>')}</div><div class="m-time">Just now</div>`;
-    document.getElementById('chatMsgs').scrollTop=9999;
-  },1100);
-}
-function quickChat(txt){document.getElementById('chatIn').value=txt;sendMsg()}
-
-// ── TOUR ──
-const steps=[
-  {step:'Welcome · 1 of 5',title:'THIS IS YOUR WEBSITE',body:`This is a working demo of what <strong>Big J's Auto Parts</strong> would look like as a real web system — built, owned, and operated by you.<br><br>This is <strong>not advertising.</strong> No ads, no boosting, no third-party platforms. This is your own corner of the internet — running for your business 24 hours a day, 7 days a week.`,img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80'},
-  {step:'Feature · 2 of 5',title:'CUSTOMERS FIND YOU AT MIDNIGHT',body:`Right now, someone searching for auto parts at 10pm in Kingston finds <strong>nothing from Big J's</strong>.<br><br>With this system, when they Google <em>"auto parts Kingston open late"</em> — Big J's shows up first. With your hours, your location, your number, and your full catalogue. <strong>That's a sale you're currently losing every single night.</strong>`,img:'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=600&q=80'},
-  {step:'Feature · 3 of 5',title:'THE WHATSAPP BOT',body:`Scroll to the chat section and type something like <em>"do you have brake pads for a Corolla?"</em><br><br>The bot replies <strong>instantly, at any hour</strong> — stock availability, price, your location. Your team handles nothing until the customer walks in ready to buy. <strong>No phone calls. No interruptions at midnight.</strong>`,img:''},
-  {step:'Feature · 4 of 5',title:'PARTS CATALOGUE & SEARCH',body:`Customers browse your stock by category, search specific parts, check availability before driving over, and add items to an enquiry list.<br><br>Fewer wasted trips for customers. <strong>More confident buyers walking through your door already knowing what they want and what it costs.</strong>`,img:''},
-  {step:'Ready · 5 of 5',title:'LIVE IN 2 WEEKS',body:`Everything you've seen — website, WhatsApp bot, parts catalogue, search, categories — <strong>live for Big J's in 14 days.</strong><br><br>Setup: <strong>JMD 75,000</strong> · Monthly: <strong>8,000/month</strong> (hosting + support + updates)<br><br>Ready to talk? WhatsApp Jadan now: <strong>876-817-0095</strong><br>Or visit: <a href="https://j-commerce.online" target="_blank">j-commerce.online</a>`,img:''}
-];
-let cur=0;
-function openTour(i){
-  cur=i;renderStep();
-  document.getElementById('overlay').classList.add('open');
-}
-function renderStep(){
-  const s=steps[cur];
-  document.getElementById('mStep').textContent=s.step;
-  document.getElementById('mTitle').textContent=s.title;
-  document.getElementById('mBody').innerHTML=s.body;
-  document.getElementById('mNext').textContent=cur<steps.length-1?'Next →':'Got It ✓';
-  const prog=document.getElementById('mProg');
-  prog.innerHTML=steps.map((_,i)=>`<div class="mdot ${i<=cur?'done':''}"></div>`).join('');
-  const img=document.getElementById('mImg');
-  if(s.img){img.src=s.img;img.style.display='block'}else{img.style.display='none'}
-}
-function nextStep(){
-  if(cur<steps.length-1){cur++;renderStep()}else{closeTour()}
-}
-function closeTour(){document.getElementById('overlay').classList.remove('open')}
-function closeOverlay(e){if(e.target===document.getElementById('overlay'))closeTour()}
-
-// Auto-open tour after 1.5s
-setTimeout(()=>openTour(0),1500);
 </script>
+<script src="app.js"></script>
 </body>
 </html>

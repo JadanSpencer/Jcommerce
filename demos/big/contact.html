@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact & Live Chat — Big J's Auto Parts</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.contact-hero { background:var(--black); padding:4rem 2rem 3rem; border-bottom:1px solid var(--bdr); text-align:center; }
+.contact-hero-h { font-size:clamp(2.5rem,5vw,4.5rem); margin-bottom:.75rem; }
+.contact-hero-sub { font-size:1rem; color:var(--muted); max-width:36rem; margin:0 auto; line-height:1.75; }
+
+.contact-layout { max-width:75rem; margin:0 auto; padding:4rem 2rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
+
+/* INFO COLUMN */
+.info-col { display:flex; flex-direction:column; gap:1.5rem; }
+.info-card { background:var(--card); border:1px solid var(--bdr); border-radius:var(--r); padding:1.75rem; transition:border-color .2s; }
+.info-card:hover { border-color:var(--bdr2); }
+.info-icon { font-size:2rem; margin-bottom:.875rem; }
+.info-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:1.25rem; text-transform:uppercase; margin-bottom:.5rem; }
+.info-text { font-size:.875rem; color:var(--muted); line-height:1.7; }
+.info-text strong { color:var(--txt); }
+.info-text a { color:var(--y); }
+.hours-table { width:100%; margin-top:.875rem; }
+.hours-table tr { border-bottom:1px solid var(--bdr); }
+.hours-table td { padding:.5rem 0; font-size:.8125rem; }
+.hours-table td:first-child { color:var(--muted); }
+.hours-table td:last-child { text-align:right; color:var(--gl); font-weight:700; }
+.wa-btn { display:flex; align-items:center; gap:.75rem; background:#25D366; color:#fff; font-weight:700; font-size:.9375rem; padding:1rem 1.5rem; border-radius:var(--r); margin-top:1.25rem; border:none; cursor:pointer; width:100%; transition:all .2s; font-family:'Inter',sans-serif; }
+.wa-btn:hover { background:#1EAF57; transform:translateY(-2px); }
+
+/* CHAT COLUMN */
+.chat-col { position:sticky; top:calc(var(--top-h) + var(--nav-h) + 1.5rem); }
+.chat-header-label { font-size:.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--y); margin-bottom:.875rem; display:flex; align-items:center; gap:.5rem; }
+.chat-header-label::before { content:''; width:1rem; height:2px; background:var(--y); }
+.chat-ui { background:var(--surf); border:1px solid var(--bdr2); border-radius:1.25rem; overflow:hidden; box-shadow:0 1.5rem 5rem rgba(0,0,0,.6); }
+.chat-head { background:linear-gradient(135deg, var(--g), #0C3B18); padding:1.125rem 1.25rem; display:flex; align-items:center; gap:.875rem; }
+.chat-av { width:2.75rem; height:2.75rem; background:var(--y); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.25rem; flex-shrink:0; }
+.chat-info-name { font-weight:700; font-size:.9375rem; }
+.chat-info-status { font-size:.6875rem; color:rgba(255,255,255,.7); display:flex; align-items:center; gap:.375rem; margin-top:.125rem; }
+.chat-msgs { height:22rem; overflow-y:auto; padding:1.25rem; display:flex; flex-direction:column; gap:.75rem; background:var(--dark); }
+.chat-msgs::-webkit-scrollbar { width:3px; }
+.chat-msgs::-webkit-scrollbar-thumb { background:var(--bdr2); border-radius:2px; }
+.msg { max-width:84%; animation:msgIn .3s ease; }
+@keyframes msgIn { from{opacity:0;transform:translateY(.5rem)} to{opacity:1;transform:translateY(0)} }
+.msg-bot { align-self:flex-start; }
+.msg-user { align-self:flex-end; }
+.msg-bub { padding:.625rem .875rem; font-size:.8125rem; line-height:1.65; border-radius:.875rem; }
+.msg-bot .msg-bub { background:var(--card2); border:1px solid var(--bdr); border-bottom-left-radius:.1875rem; color:var(--txt); }
+.msg-user .msg-bub { background:var(--g); color:#fff; border-bottom-right-radius:.1875rem; }
+.msg-time { font-size:.625rem; color:var(--muted); margin-top:.25rem; }
+.msg-user .msg-time { text-align:right; }
+.typing-bub { display:flex; gap:.25rem; align-items:center; padding:.75rem .875rem; }
+.typing-dot { width:.375rem; height:.375rem; background:var(--muted); border-radius:50%; animation:tdot .9s infinite; }
+.typing-dot:nth-child(2){animation-delay:.15s}
+.typing-dot:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-.3125rem)}}
+.quick-replies { padding:.75rem 1rem; display:flex; gap:.5rem; overflow-x:auto; border-top:1px solid var(--bdr); background:var(--surf); }
+.quick-replies::-webkit-scrollbar { display:none; }
+.qr { background:var(--card2); border:1px solid var(--bdr2); border-radius:99rem; padding:.375rem .875rem; font-size:.6875rem; font-weight:600; color:var(--muted); cursor:pointer; white-space:nowrap; transition:all .2s; font-family:'Inter',sans-serif; flex-shrink:0; }
+.qr:hover { border-color:var(--y); color:var(--y); }
+.chat-inp-area { padding:.875rem 1rem; border-top:1px solid var(--bdr); display:flex; gap:.625rem; align-items:center; background:var(--surf); }
+.chat-inp { flex:1; background:var(--card2); border:1.5px solid var(--bdr2); border-radius:.625rem; padding:.6875rem .875rem; color:var(--txt); font-size:.8125rem; outline:none; font-family:'Inter',sans-serif; transition:border-color .2s; }
+.chat-inp:focus { border-color:var(--y); }
+.chat-inp::placeholder { color:var(--dim); }
+.chat-send { width:2.625rem; height:2.625rem; background:var(--y); border:none; border-radius:.625rem; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.125rem; color:var(--black); transition:background .2s; flex-shrink:0; }
+.chat-send:hover { background:var(--yd); }
+
+/* MAP SECTION */
+.map-sec { background:var(--surf); padding:4rem 2rem; border-top:1px solid var(--bdr); }
+.map-inner { max-width:75rem; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
+.map-placeholder { background:var(--card); border:1px solid var(--bdr); border-radius:var(--r); height:20rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; cursor:pointer; transition:all .2s; }
+.map-placeholder:hover { border-color:var(--y); }
+.map-pin { font-size:3rem; }
+.map-address { font-size:.9375rem; font-weight:600; text-align:center; line-height:1.5; }
+.map-cta { font-size:.8125rem; color:var(--y); }
+
+footer { background:var(--black); border-top:1px solid var(--bdr); padding:2rem; text-align:center; }
+.footer-min { font-size:.75rem; color:var(--dim); }
+.footer-min a { color:var(--y); }
+
+@media(max-width:56rem) {
+  .contact-layout { grid-template-columns:1fr; gap:2.5rem; }
+  .chat-col { position:static; }
+  .map-inner { grid-template-columns:1fr; }
+}
+@media(max-width:36rem) {
+  .contact-hero { padding:2.5rem 1.25rem 2rem; }
+  .contact-layout { padding:2.5rem 1.25rem; }
+  .map-sec { padding:2.5rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="pulse"></div>
+  <div class="topbar-scroll">OPEN RIGHT NOW · 11AM – 12 MIDNIGHT · EVERY DAY · 📍 36 GRANTS PEN RD, KINGSTON 8 · CALL (876) 630-8639 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OPEN RIGHT NOW · 11AM – 12 MIDNIGHT · EVERY DAY · 📍 36 GRANTS PEN RD, KINGSTON 8 · CALL (876) 630-8639</div>
+</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-mark">BJ</div>
+    <div><div class="nav-name">Big J's Auto Parts</div><div class="nav-tagline">Jamaica's Only Midnight Auto Store</div></div>
+  </a>
+  <a class="nav-link" href="index.html">Home</a>
+  <div class="nav-sep"></div>
+  <a class="nav-link" href="shop.html">Shop Parts</a>
+  <div class="nav-sep"></div>
+  <a class="nav-link" href="about.html">About</a>
+  <div class="nav-sep"></div>
+  <a class="nav-link active" href="contact.html">Contact</a>
+  <div class="nav-sep"></div>
+  <div class="nav-open-pill"><div class="pulse"></div> Open Until Midnight</div>
+  <a class="nav-cta" href="shop.html">Shop Parts →</a>
+  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav">
+  <a href="index.html">Home</a>
+  <a href="shop.html">Shop Parts</a>
+  <a href="about.html">About</a>
+  <a class="active" href="contact.html">Contact & Chat</a>
+  <a class="nav-cta" href="shop.html">Shop Parts →</a>
+</div>
+
+<div class="contact-hero">
+  <div class="rev">
+    <div class="label" style="justify-content:center">Get In Touch</div>
+    <h1 class="h1 contact-hero-h">Contact & Live Chat</h1>
+    <p class="contact-hero-sub">Ask about parts, confirm availability, or just get directions. Our bot answers instantly — your team answers fast.</p>
+  </div>
+</div>
+
+<div class="contact-layout">
+  <!-- INFO -->
+  <div class="info-col rev">
+    <div class="info-card">
+      <div class="info-icon">📍</div>
+      <div class="info-title">Our Location</div>
+      <div class="info-text">
+        <strong>36 Grants Pen Road, Kingston 8</strong><br>
+        Corner of Shortwood Road and Grants Pen Road.<br>
+        Entrance on Shortwood Rd. Secure parking available.
+      </div>
+      <button class="wa-btn" onclick="showToast('Opening maps… 36 Grants Pen Rd, Kingston 8')">📍 Get Directions on Google Maps</button>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">📞</div>
+      <div class="info-title">Call or WhatsApp Us</div>
+      <div class="info-text">
+        <strong>(876) 630-8639</strong> — Main line<br>
+        <strong>(876) 333-6937</strong> — Alternate<br>
+        <strong>(876) 357-7749</strong> — WhatsApp only<br><br>
+        Call before you drive over and we'll confirm your part is in stock.
+      </div>
+      <button class="wa-btn" onclick="showToast('Opening WhatsApp… (876) 357-7749')">💬 Open WhatsApp Now</button>
+    </div>
+
+    <div class="info-card">
+      <div class="info-icon">🕐</div>
+      <div class="info-title">Opening Hours</div>
+      <table class="hours-table">
+        <tr><td>Monday</td><td>11AM – 12 Midnight</td></tr>
+        <tr><td>Tuesday</td><td>11AM – 12 Midnight</td></tr>
+        <tr><td>Wednesday</td><td>11AM – 12 Midnight</td></tr>
+        <tr><td>Thursday</td><td>11AM – 12 Midnight</td></tr>
+        <tr><td>Friday</td><td>11AM – 12 Midnight</td></tr>
+        <tr><td>Saturday</td><td>11AM – 12 Midnight</td></tr>
+        <tr><td>Sunday</td><td>11AM – 12 Midnight</td></tr>
+        <tr><td>Public Holidays</td><td>11AM – 12 Midnight</td></tr>
+      </table>
+    </div>
+  </div>
+
+  <!-- CHAT -->
+  <div class="chat-col rev rev-d2">
+    <div class="chat-header-label">Try Our 24/7 WhatsApp Bot</div>
+    <div class="chat-ui">
+      <div class="chat-head">
+        <div class="chat-av">🤖</div>
+        <div>
+          <div class="chat-info-name">Big J's Auto Bot</div>
+          <div class="chat-info-status"><div class="pulse"></div> Online · Replies instantly</div>
+        </div>
+      </div>
+      <div class="chat-msgs" id="chatMsgs">
+        <div class="msg msg-bot">
+          <div class="msg-bub">👋 Welcome to Big J's Auto Parts — Jamaica's only midnight auto store!<br><br>Ask me about parts, pricing, availability, or how to find us. I'll reply instantly.</div>
+          <div class="msg-time">Just now</div>
+        </div>
+      </div>
+      <div class="quick-replies">
+        <button class="qr" onclick="qChat('Do you have brake pads for a Toyota Axio?')">Brake pads Axio</button>
+        <button class="qr" onclick="qChat('Are you open right now?')">Are you open?</button>
+        <button class="qr" onclick="qChat('Where are you located?')">Location</button>
+        <button class="qr" onclick="qChat('What tyres do you have in 185/65R15?')">Tyres</button>
+        <button class="qr" onclick="qChat('Do you have a 12V battery?')">Battery price</button>
+        <button class="qr" onclick="qChat('Do you have a water pump for a Corolla 2016?')">Water pump</button>
+      </div>
+      <div class="chat-inp-area">
+        <input class="chat-inp" id="chatIn" type="text" placeholder="Ask about a part or our hours..." onkeydown="if(event.key==='Enter')sendMsg()"/>
+        <button class="chat-send" onclick="sendMsg()">➤</button>
+      </div>
+    </div>
+    <p style="font-size:.75rem;color:var(--muted);margin-top:.75rem;line-height:1.6">This is a demo of the real WhatsApp chatbot that would be built for Big J's — answering customers automatically, 24/7, even at midnight.</p>
+  </div>
+</div>
+
+<!-- MAP -->
+<div class="map-sec">
+  <div class="map-inner">
+    <div class="rev">
+      <div class="label">Find Us</div>
+      <h2 class="h2" style="font-size:clamp(2rem,4vw,3rem);margin-bottom:1rem">36 Grants Pen Road,<br>Kingston 8</h2>
+      <p style="color:var(--muted);font-size:.9375rem;line-height:1.8;margin-bottom:1.5rem">Corner of Shortwood Road and Grants Pen Road. Entrance on Shortwood Rd. Secure parking available on site.</p>
+      <div style="display:flex;flex-direction:column;gap:.625rem">
+        <div style="display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--muted)">📞 <strong style="color:var(--txt)">(876) 630-8639</strong></div>
+        <div style="display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--muted)">💬 <strong style="color:var(--txt)">WhatsApp: (876) 357-7749</strong></div>
+        <div style="display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--muted)">🕐 <strong style="color:var(--gl)">Open 11AM – 12 Midnight Daily</strong></div>
+      </div>
+    </div>
+    <div class="map-placeholder rev rev-d1" onclick="showToast('Opening Google Maps for Big J\'s Auto Parts')">
+      <div class="map-pin">📍</div>
+      <div class="map-address"><strong>Big J's Auto Parts</strong><br>36 Grants Pen Rd<br>Kingston 8, Jamaica</div>
+      <div class="map-cta">Tap to open in Google Maps →</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-min">© 2025 Big J's Auto Parts · Demo by <a href="https://j-commerce.online" target="_blank">Jcommerce</a> — j-commerce.online · <a href="index.html">← Home</a> · <a href="shop.html">Shop Parts</a></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<button class="float-wa" id="floatWa">💬</button>
+<div class="overlay" id="tourOverlay"><div class="modal-box" style="position:relative"><button class="modal-close-x" onclick="closeTour()">✕</button><div class="modal-inner"><div class="modal-prog" id="tourProg"></div><div class="modal-step-lbl" id="tourStep"></div><div class="modal-h" id="tourH"></div><div class="modal-body-text" id="tourBody"></div><img id="tourImg" class="modal-img" src="" alt="" style="display:none;border-radius:.5rem"/></div><div class="modal-foot"><button class="modal-btn-skip" onclick="closeTour()">Skip Tour</button><button class="modal-btn-next" id="tourNext" onclick="nextTourStep()">Next →</button></div></div></div>
+
+<script>
+const botReplies = {
+  brake: "✅ Yes! Front disc brake pads for Toyota Axio, Corolla & Fielder — <strong>JMD $3,500/set</strong>. In stock right now. Come in anytime until midnight! 📍 36 Grants Pen Rd, Kingston 8.",
+  battery: "🔋 12V 45Ah battery — <strong>JMD $12,000</strong>. We also have 65Ah heavy-duty for trucks. In stock, installation included. Open until midnight — (876) 630-8639.",
+  tyre: "🛞 185/65R15 tyres in stock — <strong>JMD $8,500 each</strong>. We carry multiple sizes. Tell me your tyre size and I'll confirm availability. Open until midnight!",
+  water: "✅ Water pump for Toyota Corolla (2006–2019) — <strong>JMD $5,500</strong>. Same for Axio and Fielder. In stock now. Come in until midnight at 36 Grants Pen Rd.",
+  oil: "💧 10W-40 engine oil (4L) — <strong>JMD $4,200</strong>. Also carry 5W-30. In stock. Open until midnight every day.",
+  open: "🌙 Yes, we are open <strong>right now</strong>! Big J's is open <strong>11AM to 12 MIDNIGHT every day</strong> — including Sundays and ALL public holidays. Come in! 📍 36 Grants Pen Rd.",
+  loc: "📍 We're at <strong>36 Grants Pen Road, Kingston 8</strong> — corner of Shortwood Road and Grants Pen Road, entrance on Shortwood Rd. Open 11AM–Midnight daily. Call (876) 630-8639.",
+  hours: "🕐 Open <strong>11AM to 12 MIDNIGHT, 7 days a week</strong> — including ALL public holidays. Jamaica's only midnight auto parts store! 🇯🇲",
+  default: "Thanks for your message! For that specific part, WhatsApp us at <strong>(876) 357-7749</strong> and we'll confirm price and availability right away. We're open until midnight! 🌙"
+};
+
+function getBotReply(m) {
+  m = m.toLowerCase();
+  if (m.match(/brake|pad|disc/)) return botReplies.brake;
+  if (m.match(/battery|batt/)) return botReplies.battery;
+  if (m.match(/tyre|tire/)) return botReplies.tyre;
+  if (m.match(/water.?pump/)) return botReplies.water;
+  if (m.match(/oil|lubric/)) return botReplies.oil;
+  if (m.match(/open|close|midnight|now|hour|time/)) return botReplies.open;
+  if (m.match(/where|location|address|direction|find/)) return botReplies.loc;
+  return botReplies.default;
+}
+
+function addMsg(text, who) {
+  const c = document.getElementById('chatMsgs');
+  const d = document.createElement('div');
+  d.className = 'msg msg-' + who;
+  d.innerHTML = `<div class="msg-bub">${text}</div><div class="msg-time">Just now</div>`;
+  c.appendChild(d);
+  c.scrollTop = c.scrollHeight;
+  return d;
+}
+
+function sendMsg() {
+  const inp = document.getElementById('chatIn');
+  const txt = inp.value.trim();
+  if (!txt) return;
+  addMsg(txt, 'user');
+  inp.value = '';
+  const typing = document.createElement('div');
+  typing.className = 'msg msg-bot';
+  typing.innerHTML = '<div class="msg-bub"><div class="typing-bub"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
+  document.getElementById('chatMsgs').appendChild(typing);
+  document.getElementById('chatMsgs').scrollTop = 9999;
+  setTimeout(() => {
+    typing.innerHTML = `<div class="msg-bub">${getBotReply(txt)}</div><div class="msg-time">Just now</div>`;
+    document.getElementById('chatMsgs').scrollTop = 9999;
+  }, 1000);
+}
+
+function qChat(txt) {
+  document.getElementById('chatIn').value = txt;
+  sendMsg();
+}
+</script>
+<script src="app.js"></script>
+</body>
+</html>

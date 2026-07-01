@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shop Parts — Big J's Auto Parts</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.shop-hero { background:var(--black); padding:4rem 2rem 3rem; border-bottom:1px solid var(--bdr); }
+.shop-hero-inner { max-width:75rem; margin:0 auto; }
+.shop-hero-h { font-size:clamp(2.25rem,5vw,4rem); margin-bottom:.75rem; }
+.shop-hero-sub { font-size:.9375rem; color:var(--muted); max-width:36rem; line-height:1.7; }
+
+.search-bar-wrap { max-width:75rem; margin:0 auto; padding:2rem; background:var(--surf); border-bottom:1px solid var(--bdr); }
+.search-bar { display:flex; background:var(--card); border:2px solid var(--bdr2); border-radius:var(--r); overflow:hidden; transition:border-color .2s; }
+.search-bar:focus-within { border-color:var(--y); }
+.search-icon { padding:0 1rem; display:flex; align-items:center; font-size:1.125rem; color:var(--muted); }
+.search-bar input { flex:1; background:transparent; border:none; padding:.9375rem 0; color:var(--txt); font-size:.9375rem; outline:none; font-family:'Inter',sans-serif; }
+.search-bar input::placeholder { color:var(--dim); }
+.search-bar button { background:var(--y); border:none; padding:0 1.75rem; font-weight:700; font-size:.875rem; color:var(--black); cursor:pointer; transition:background .2s; font-family:'Inter',sans-serif; }
+.search-bar button:hover { background:var(--yd); }
+.search-tags { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.875rem; }
+.stag { background:var(--card2); border:1px solid var(--bdr); border-radius:99rem; padding:.3125rem .875rem; font-size:.75rem; color:var(--muted); cursor:pointer; transition:all .2s; }
+.stag:hover { border-color:var(--y); color:var(--y); }
+
+.shop-layout { max-width:75rem; margin:0 auto; padding:2.5rem 2rem; display:grid; grid-template-columns:14rem 1fr; gap:2.5rem; }
+
+/* SIDEBAR */
+.sidebar { }
+.sidebar-sec { background:var(--card); border:1px solid var(--bdr); border-radius:var(--r); padding:1.25rem; margin-bottom:1rem; }
+.sidebar-title { font-size:.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--y); margin-bottom:1rem; }
+.filter-opt { display:flex; align-items:center; gap:.625rem; padding:.5rem 0; cursor:pointer; transition:all .2s; }
+.filter-opt:hover .filter-lbl { color:var(--txt); }
+.filter-radio { width:1rem; height:1rem; border-radius:50%; border:2px solid var(--bdr2); display:flex; align-items:center; justify-content:center; transition:all .2s; flex-shrink:0; }
+.filter-opt.active .filter-radio { border-color:var(--y); background:var(--y); }
+.filter-opt.active .filter-radio::after { content:''; width:.375rem; height:.375rem; background:var(--black); border-radius:50%; }
+.filter-lbl { font-size:.8125rem; color:var(--muted); transition:color .2s; }
+.filter-opt.active .filter-lbl { color:var(--y); font-weight:600; }
+.filter-count { font-size:.6875rem; color:var(--dim); margin-left:auto; }
+
+/* PRODUCT GRID */
+.prod-area { }
+.prod-toolbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; flex-wrap:wrap; gap:.75rem; }
+.prod-count { font-size:.875rem; color:var(--muted); }
+.prod-count strong { color:var(--txt); }
+.sort-sel { background:var(--card); border:1px solid var(--bdr2); border-radius:var(--r2); padding:.5rem 1rem; color:var(--txt); font-size:.8125rem; outline:none; cursor:pointer; font-family:'Inter',sans-serif; }
+.prod-grid-main { display:grid; grid-template-columns:repeat(auto-fill,minmax(14rem,1fr)); gap:1rem; }
+.pc { background:var(--card); border:1px solid var(--bdr); border-radius:var(--r); overflow:hidden; transition:all .25s; cursor:pointer; }
+.pc:hover { border-color:var(--y); transform:translateY(-.25rem); box-shadow:0 .75rem 2.5rem rgba(0,0,0,.45); }
+.pc-img-wrap { height:10.5rem; overflow:hidden; background:#0E140E; position:relative; }
+.pc-img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
+.pc:hover .pc-img { transform:scale(1.06); }
+.pc-badge { position:absolute; top:.625rem; left:.625rem; font-size:.5625rem; font-weight:700; padding:.1875rem .5rem; border-radius:99rem; text-transform:uppercase; }
+.b-hot { background:var(--y); color:var(--black); }
+.b-new { background:var(--g); color:#fff; }
+.b-sale { background:#FF4444; color:#fff; }
+.pc-body { padding:1rem; }
+.pc-tag { font-size:.5625rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--gl); margin-bottom:.3125rem; }
+.pc-name { font-size:.875rem; font-weight:600; line-height:1.35; margin-bottom:.25rem; }
+.pc-compat { font-size:.625rem; color:var(--muted); margin-bottom:.75rem; line-height:1.5; }
+.pc-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:.625rem; }
+.pc-price { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.5rem; color:var(--y); line-height:1; }
+.pc-old { font-size:.625rem; color:var(--dim); text-decoration:line-through; }
+.pc-btn { width:100%; background:var(--y); border:none; border-radius:var(--r2); padding:.625rem; font-weight:700; font-size:.75rem; color:var(--black); cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:.3125rem; font-family:'Inter',sans-serif; }
+.pc-btn:hover { background:var(--yd); }
+.pc-btn.done { background:var(--g); color:#fff; }
+
+/* FOOTER (minimal) */
+footer { background:var(--black); border-top:1px solid var(--bdr); padding:2rem; text-align:center; }
+.footer-min { font-size:.75rem; color:var(--dim); }
+.footer-min a { color:var(--y); }
+
+@media(max-width:48rem) {
+  .shop-layout { grid-template-columns:1fr; }
+  .sidebar { display:none; }
+}
+@media(max-width:36rem) {
+  .shop-hero { padding:2.5rem 1.25rem 2rem; }
+  .search-bar-wrap { padding:1.25rem; }
+  .shop-layout { padding:1.5rem 1.25rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="pulse"></div>
+  <div class="topbar-scroll">OPEN RIGHT NOW · 11AM – 12 MIDNIGHT · EVERY DAY · 📍 36 GRANTS PEN RD, KINGSTON 8 · CALL (876) 630-8639 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OPEN RIGHT NOW · 11AM – 12 MIDNIGHT · EVERY DAY · 📍 36 GRANTS PEN RD, KINGSTON 8 · CALL (876) 630-8639</div>
+</div>
+
+<nav>
+  <a class="nav-logo" href="index.html">
+    <div class="nav-mark">BJ</div>
+    <div><div class="nav-name">Big J's Auto Parts</div><div class="nav-tagline">Jamaica's Only Midnight Auto Store</div></div>
+  </a>
+  <a class="nav-link" href="index.html">Home</a>
+  <div class="nav-sep"></div>
+  <a class="nav-link active" href="shop.html">Shop Parts</a>
+  <div class="nav-sep"></div>
+  <a class="nav-link" href="about.html">About</a>
+  <div class="nav-sep"></div>
+  <a class="nav-link" href="contact.html">Contact</a>
+  <div class="nav-sep"></div>
+  <div class="nav-open-pill"><div class="pulse"></div> Open Until Midnight</div>
+  <a class="nav-cta" href="contact.html">💬 WhatsApp Us</a>
+  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+</nav>
+<div class="nav-mobile" id="mobileNav">
+  <a href="index.html">Home</a>
+  <a class="active" href="shop.html">Shop Parts</a>
+  <a href="about.html">About</a>
+  <a href="contact.html">Contact & Chat</a>
+  <a class="nav-cta" href="contact.html">💬 WhatsApp Us</a>
+</div>
+
+<div class="shop-hero">
+  <div class="shop-hero-inner rev">
+    <div class="label">Parts Catalogue</div>
+    <h1 class="h1 shop-hero-h">Shop Auto Parts</h1>
+    <p class="shop-hero-sub">Over 1,000 parts in stock. WhatsApp to confirm availability before you drive over — (876) 357-7749.</p>
+  </div>
+</div>
+
+<div class="search-bar-wrap">
+  <div class="search-bar">
+    <div class="search-icon">🔍</div>
+    <input type="text" id="sInput" placeholder="Search parts — e.g. brake pads Toyota Axio, 185/65R15 tyre, 12V battery..."/>
+    <button onclick="doFilter()">Search</button>
+  </div>
+  <div class="search-tags">
+    <div class="stag" onclick="quickFilter('Brakes')">Brake Pads</div>
+    <div class="stag" onclick="quickFilter('Battery')">Battery</div>
+    <div class="stag" onclick="quickFilter('Tyres')">Tyres</div>
+    <div class="stag" onclick="quickFilter('Engine')">Engine Parts</div>
+    <div class="stag" onclick="quickFilter('Lubricants')">Engine Oil</div>
+    <div class="stag" onclick="quickFilter('Drivetrain')">CV Joints</div>
+    <div class="stag" onclick="quickFilter('Bike')">Bike Parts</div>
+  </div>
+</div>
+
+<div class="shop-layout">
+  <div class="sidebar">
+    <div class="sidebar-sec">
+      <div class="sidebar-title">Category</div>
+      <div class="filter-opt active" onclick="sideFilter(this,'All')"><div class="filter-radio"></div><div class="filter-lbl">All Parts</div><div class="filter-count">24</div></div>
+      <div class="filter-opt" onclick="sideFilter(this,'Engine')"><div class="filter-radio"></div><div class="filter-lbl">Engine Parts</div><div class="filter-count">6</div></div>
+      <div class="filter-opt" onclick="sideFilter(this,'Brakes')"><div class="filter-radio"></div><div class="filter-lbl">Brake Parts</div><div class="filter-count">4</div></div>
+      <div class="filter-opt" onclick="sideFilter(this,'Tyres')"><div class="filter-radio"></div><div class="filter-lbl">Tyres</div><div class="filter-count">4</div></div>
+      <div class="filter-opt" onclick="sideFilter(this,'Battery')"><div class="filter-radio"></div><div class="filter-lbl">Batteries</div><div class="filter-count">3</div></div>
+      <div class="filter-opt" onclick="sideFilter(this,'Lubricants')"><div class="filter-radio"></div><div class="filter-lbl">Lubricants</div><div class="filter-count">3</div></div>
+      <div class="filter-opt" onclick="sideFilter(this,'Drivetrain')"><div class="filter-radio"></div><div class="filter-lbl">Drive Train</div><div class="filter-count">2</div></div>
+      <div class="filter-opt" onclick="sideFilter(this,'Bike')"><div class="filter-radio"></div><div class="filter-lbl">Bike Parts</div><div class="filter-count">2</div></div>
+    </div>
+    <div class="sidebar-sec">
+      <div class="sidebar-title">Availability</div>
+      <div class="filter-opt active" onclick="availFilter(this,'all')"><div class="filter-radio"></div><div class="filter-lbl">All Items</div></div>
+      <div class="filter-opt" onclick="availFilter(this,'in')"><div class="filter-radio"></div><div class="filter-lbl">In Stock Only</div></div>
+    </div>
+    <div class="sidebar-sec">
+      <div class="sidebar-title">Vehicle Brand</div>
+      <div class="filter-opt active"><div class="filter-radio"></div><div class="filter-lbl">All Brands</div></div>
+      <div class="filter-opt"><div class="filter-radio"></div><div class="filter-lbl">Toyota</div></div>
+      <div class="filter-opt"><div class="filter-radio"></div><div class="filter-lbl">Honda</div></div>
+      <div class="filter-opt"><div class="filter-radio"></div><div class="filter-lbl">Nissan</div></div>
+      <div class="filter-opt"><div class="filter-radio"></div><div class="filter-lbl">Hyundai</div></div>
+      <div class="filter-opt"><div class="filter-radio"></div><div class="filter-lbl">Suzuki</div></div>
+    </div>
+  </div>
+
+  <div class="prod-area">
+    <div class="prod-toolbar">
+      <div class="prod-count"><strong id="prodCountNum">12</strong> parts found</div>
+      <select class="sort-sel" onchange="sortProds(this.value)">
+        <option value="default">Sort: Featured</option>
+        <option value="price-asc">Price: Low to High</option>
+        <option value="price-desc">Price: High to Low</option>
+        <option value="name">Name: A–Z</option>
+      </select>
+    </div>
+    <div class="prod-grid-main" id="prodGrid">
+      <!-- Products injected by JS -->
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-min">© 2025 Big J's Auto Parts · Demo by <a href="https://j-commerce.online" target="_blank">Jcommerce</a> · <a href="index.html">← Home</a> · <a href="contact.html">Contact & Chat →</a></div>
+</footer>
+
+<div class="toast" id="toast"></div>
+<button class="float-wa" id="floatWa" aria-label="WhatsApp">💬</button>
+
+<div class="overlay" id="tourOverlay">
+  <div class="modal-box" style="position:relative">
+    <button class="modal-close-x" onclick="closeTour()">✕</button>
+    <div class="modal-inner">
+      <div class="modal-prog" id="tourProg"></div>
+      <div class="modal-step-lbl" id="tourStep"></div>
+      <div class="modal-h" id="tourH"></div>
+      <div class="modal-body-text" id="tourBody"></div>
+      <img id="tourImg" class="modal-img" src="" alt="" style="display:none;border-radius:.5rem"/>
+    </div>
+    <div class="modal-foot">
+      <button class="modal-btn-skip" onclick="closeTour()">Skip Tour</button>
+      <button class="modal-btn-next" id="tourNext" onclick="nextTourStep()">Next →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const products = [
+  { cat:'Brakes', name:'Front Disc Brake Pad Set', compat:'Toyota Axio · Fielder · Corolla 2012–2020', price:3500, oldPrice:4200, stock:'in', badge:'hot', img:'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=400&q=80', tag:'Brake Parts' },
+  { cat:'Battery', name:'12V 45Ah Maintenance-Free Battery', compat:'Universal · All small-medium vehicles', price:12000, stock:'in', badge:'new', img:'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400&q=80', tag:'Batteries' },
+  { cat:'Tyres', name:'185/65R15 All-Season Tyre', compat:'Honda Fit · Toyota Vitz · Nissan Tiida', price:8500, oldPrice:9800, stock:'low', badge:'sale', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', tag:'Tyres' },
+  { cat:'Engine', name:'OEM Water Pump', compat:'Toyota Corolla · Axio · Fielder 2006–2019', price:5500, stock:'in', img:'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=400&q=80', tag:'Engine Parts' },
+  { cat:'Lubricants', name:'10W-40 Semi-Synthetic Engine Oil 4L', compat:'All Japanese & Korean petrol engines', price:4200, stock:'in', badge:'hot', img:'https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?w=400&q=80', tag:'Lubricants' },
+  { cat:'Drivetrain', name:'Inner CV Joint Boot Kit', compat:'Toyota Vitz · Yaris · Platz 2002–2018', price:6800, stock:'in', img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&q=80', tag:'Drive Train' },
+  { cat:'Engine', name:'Air Filter — OEM Quality', compat:'Honda Fit · Jazz · Civic 2008–2018', price:1800, stock:'in', img:'https://images.unsplash.com/photo-1620714223084-8fcacc2dfd4d?w=400&q=80', tag:'Engine Parts' },
+  { cat:'Brakes', name:'Rear Drum Brake Shoe Set', compat:'Nissan AD Wagon · Tiida · Note', price:2800, stock:'in', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', tag:'Brake Parts' },
+  { cat:'Battery', name:'12V 65Ah Heavy Duty Battery', compat:'SUVs · Hiace · Pickup trucks', price:16500, stock:'in', badge:'new', img:'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400&q=80', tag:'Batteries' },
+  { cat:'Tyres', name:'205/65R15 Premium All-Season', compat:'Toyota Fielder · Allion · Premio', price:10500, stock:'in', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', tag:'Tyres' },
+  { cat:'Engine', name:'Timing Belt Kit', compat:'Honda Civic · Stream · 2001–2013', price:7500, stock:'low', img:'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=400&q=80', tag:'Engine Parts' },
+  { cat:'Bike', name:'Motorcycle Disc Pad Set', compat:'125cc–250cc · Universal fitment', price:1200, stock:'in', badge:'hot', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', tag:'Bike Parts' },
+];
+
+let activeFilter = 'All';
+let availMode = 'all';
+
+function renderProds(list) {
+  const grid = document.getElementById('prodGrid');
+  document.getElementById('prodCountNum').textContent = list.length;
+  if (!list.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No parts found. <a href="contact.html" style="color:var(--y)">WhatsApp us</a> — we can source it.</div>'; return; }
+  grid.innerHTML = list.map(p => `
+    <div class="pc">
+      <div class="pc-img-wrap">
+        <img class="pc-img" src="${p.img}" alt="${p.name}" loading="lazy"/>
+        ${p.badge === 'hot' ? '<div class="pc-badge b-hot">🔥 Popular</div>' : p.badge === 'new' ? '<div class="pc-badge b-new">New</div>' : p.badge === 'sale' ? '<div class="pc-badge b-sale">Sale</div>' : ''}
+      </div>
+      <div class="pc-body">
+        <div class="pc-tag">${p.tag}</div>
+        <div class="pc-name">${p.name}</div>
+        <div class="pc-compat">${p.compat}</div>
+        <div class="pc-row">
+          <div><div class="pc-price">$${p.price.toLocaleString()}</div>${p.oldPrice ? `<div class="pc-old">Was $${p.oldPrice.toLocaleString()} JMD</div>` : ''}</div>
+          <span class="pill ${p.stock === 'in' ? 'pill-green' : p.stock === 'low' ? 'pill-orange' : 'pill-red'}">${p.stock === 'in' ? '✓ In Stock' : p.stock === 'low' ? '⚠ Low Stock' : '✗ Out of Stock'}</span>
+        </div>
+        <button class="pc-btn" onclick="btnCart(this,'${p.name}')">🛒 Add to Enquiry</button>
+      </div>
+    </div>
+  `).join('');
+  document.querySelectorAll('.rev').forEach(el => revObs.observe(el));
+}
+
+function getFiltered() {
+  return products.filter(p => {
+    const catOk = activeFilter === 'All' || p.cat === activeFilter;
+    const availOk = availMode === 'all' || p.stock === 'in';
+    return catOk && availOk;
+  });
+}
+
+function doFilter() {
+  const q = document.getElementById('sInput').value.toLowerCase();
+  const res = q ? products.filter(p => (p.name+p.compat+p.tag).toLowerCase().includes(q)) : getFiltered();
+  renderProds(res);
+}
+
+function quickFilter(cat) {
+  activeFilter = cat;
+  document.querySelectorAll('.filter-opt').forEach(o => o.classList.remove('active'));
+  renderProds(getFiltered());
+}
+
+function sideFilter(el, cat) {
+  activeFilter = cat;
+  el.closest('.sidebar-sec').querySelectorAll('.filter-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  renderProds(getFiltered());
+}
+
+function availFilter(el, mode) {
+  availMode = mode;
+  el.closest('.sidebar-sec').querySelectorAll('.filter-opt').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+  renderProds(getFiltered());
+}
+
+function sortProds(val) {
+  let list = getFiltered();
+  if (val === 'price-asc') list.sort((a,b) => a.price - b.price);
+  else if (val === 'price-desc') list.sort((a,b) => b.price - a.price);
+  else if (val === 'name') list.sort((a,b) => a.name.localeCompare(b.name));
+  renderProds(list);
+}
+
+function btnCart(btn, name) {
+  addEnquiry(name);
+  btn.textContent = '✓ Added!';
+  btn.classList.add('done');
+  setTimeout(() => { btn.textContent = '🛒 Add to Enquiry'; btn.classList.remove('done'); }, 2000);
+}
+
+renderProds(products);
+</script>
+<script src="app.js"></script>
+</body>
+</html>
