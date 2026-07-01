@@ -1,298 +1,255 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Contact & Live Chat — Big J's Auto Parts</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Contact &amp; Chat &mdash; Big J's Auto Parts</title>
+
 <style>
-.contact-hero { background:var(--black); padding:4rem 2rem 3rem; border-bottom:1px solid var(--bdr); text-align:center; }
-.contact-hero-h { font-size:clamp(2.5rem,5vw,4.5rem); margin-bottom:.75rem; }
-.contact-hero-sub { font-size:1rem; color:var(--muted); max-width:36rem; margin:0 auto; line-height:1.75; }
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--y:#FFD100;--yd:#C9A800;--yl:rgba(255,209,0,0.10);--g:#1B6B2A;--gm:#22913A;--gl:#3EC45A;--black:#080C08;--dark:#0D120D;--surf:#131A13;--card:#182018;--card2:#1D271D;--bdr:#243024;--bdr2:#2C3C2C;--txt:#EDEEED;--muted:#7A8C7A;--dim:#4A5A4A;--r:0.75rem;--r2:0.5rem;--nav-h:4rem;--top-h:2.25rem}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--txt);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{font-family:'Inter',sans-serif;cursor:pointer}
+input,textarea{font-family:'Inter',sans-serif}
+::-webkit-scrollbar{width:0.375rem}::-webkit-scrollbar-track{background:var(--dark)}::-webkit-scrollbar-thumb{background:var(--g);border-radius:0.1875rem}
+.topbar{height:var(--top-h);background:var(--g);color:#fff;font-size:0.7rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;padding:0 1rem;overflow:hidden;white-space:nowrap}
+.topbar-scroll{animation:marquee 30s linear infinite;white-space:nowrap;flex-shrink:0}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.pulse{width:0.45rem;height:0.45rem;background:#4AFF6E;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+nav{position:sticky;top:0;z-index:200;height:var(--nav-h);background:rgba(8,12,8,0.97);backdrop-filter:blur(1.25rem);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 2rem;gap:1.5rem}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;margin-right:auto;text-decoration:none}
+.nav-mark{width:2.5rem;height:2.5rem;background:var(--y);border-radius:0.5rem;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.25rem;color:var(--black);flex-shrink:0;letter-spacing:-0.05em}
+.nav-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.3rem;color:var(--y);line-height:1}
+.nav-tagline{font-size:0.65rem;color:var(--muted);font-weight:500;letter-spacing:0.02em}
+.nav-link{color:var(--muted);font-size:0.8125rem;font-weight:500;transition:color .2s;white-space:nowrap}
+.nav-link:hover,.nav-link.active{color:var(--y)}
+.nav-sep{width:1px;height:1.25rem;background:var(--bdr);flex-shrink:0}
+.nav-open-pill{display:flex;align-items:center;gap:0.375rem;background:rgba(46,196,90,0.12);border:1px solid rgba(46,196,90,0.25);color:var(--gl);font-size:0.6875rem;font-weight:700;padding:0.3125rem 0.75rem;border-radius:99rem;white-space:nowrap}
+.nav-cta{background:var(--y);color:var(--black);font-weight:700;font-size:0.8125rem;padding:0.5625rem 1.25rem;border-radius:var(--r2);transition:all .2s;white-space:nowrap;flex-shrink:0;border:none;text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--yd);transform:translateY(-1px)}
+.nav-burger{display:none;flex-direction:column;gap:0.3125rem;background:none;border:none;padding:0.25rem;margin-left:auto}
+.nav-burger span{display:block;width:1.375rem;height:2px;background:var(--txt);border-radius:1px;transition:all .25s}
+.nav-burger.open span:nth-child(1){transform:translateY(0.4375rem) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-0.4375rem) rotate(-45deg)}
+.nav-mobile{display:none;position:fixed;top:calc(var(--top-h) + var(--nav-h));left:0;right:0;background:rgba(8,12,8,0.99);border-bottom:1px solid var(--bdr);padding:1.5rem 2rem;flex-direction:column;gap:0.25rem;z-index:199}
+.nav-mobile.open{display:flex}
+.nav-mobile a{font-size:1rem;font-weight:600;color:var(--muted);padding:0.75rem 0;border-bottom:1px solid var(--bdr);transition:color .2s}
+.nav-mobile a:hover,.nav-mobile a.active{color:var(--y)}
+.nav-mobile .nav-cta{margin-top:1rem;display:block;text-align:center}
+.sec{padding:5rem 2rem}
+.sec-inner{max-width:75rem;margin:0 auto}
+.label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--y);margin-bottom:0.625rem}
+.label::before{content:'';width:1rem;height:2px;background:var(--y);display:block}
+.h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:.92;text-transform:uppercase}
+.h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:1;text-transform:uppercase}
+.h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;line-height:1.1;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;font-weight:700;font-size:0.875rem;padding:0.875rem 1.75rem;border-radius:var(--r2);border:none;cursor:pointer;transition:all .2s;white-space:nowrap;text-decoration:none}
+.btn-y{background:var(--y);color:var(--black)}
+.btn-y:hover{background:var(--yd);transform:translateY(-2px);box-shadow:0 0.75rem 2rem rgba(255,209,0,.2)}
+.btn-outline{background:transparent;color:var(--txt);border:1.5px solid var(--bdr2)}
+.btn-outline:hover{border-color:var(--y);color:var(--y)}
+.btn-sm{padding:0.625rem 1.25rem;font-size:0.8125rem}
+.pill{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.6875rem;font-weight:700;padding:0.25rem 0.625rem;border-radius:99rem}
+.pill-green{background:rgba(46,196,90,.12);color:var(--gl);border:1px solid rgba(46,196,90,.2)}
+.pill-orange{background:rgba(255,150,0,.12);color:#FF9600;border:1px solid rgba(255,150,0,.2)}
+.pill-red{background:rgba(255,68,68,.12);color:#FF4444;border:1px solid rgba(255,68,68,.2)}
+.toast{position:fixed;bottom:5.5rem;right:1.5rem;z-index:900;background:var(--g);color:#fff;padding:0.875rem 1.25rem;border-radius:var(--r);font-size:0.8125rem;font-weight:600;box-shadow:0 0.75rem 2.5rem rgba(0,0,0,.5);transform:translateY(2rem) scale(.95);opacity:0;transition:all .3s cubic-bezier(.25,.46,.45,.94);pointer-events:none;max-width:18rem;border:1px solid rgba(255,255,255,.08)}
+.toast.show{transform:translateY(0) scale(1);opacity:1}
+.float-wa{position:fixed;bottom:1.5rem;right:1.5rem;z-index:800;width:3.5rem;height:3.5rem;background:#25D366;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;font-size:1.625rem;box-shadow:0 0.5rem 2rem rgba(37,211,102,.4);animation:floatUp 3s ease-in-out infinite;cursor:pointer}
+@keyframes floatUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-0.5rem)}}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:700;display:flex;align-items:center;justify-content:center;padding:1.25rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--surf);border:1px solid var(--bdr2);border-radius:1.25rem;max-width:36rem;width:100%;transform:translateY(1.5rem) scale(.97);transition:all .35s cubic-bezier(.25,.46,.45,.94);position:relative;max-height:90vh;overflow-y:auto}
+.overlay.open .modal-box{transform:translateY(0) scale(1)}
+.modal-inner{padding:2rem}
+.modal-prog{display:flex;gap:0.375rem;margin-bottom:1.75rem}
+.mprog-dot{flex:1;height:0.1875rem;border-radius:0.125rem;background:var(--bdr2);transition:background .3s}
+.mprog-dot.done{background:var(--y)}
+.modal-step-lbl{font-size:0.625rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--y);margin-bottom:0.625rem}
+.modal-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;text-transform:uppercase;line-height:1;margin-bottom:0.875rem}
+.modal-body-text{font-size:0.875rem;color:var(--muted);line-height:1.8}
+.modal-body-text strong{color:var(--txt)}
+.modal-body-text a{color:var(--y)}
+.modal-img{width:100%;height:11rem;object-fit:cover;margin-top:1.5rem}
+.modal-foot{padding:1.5rem 2rem;border-top:1px solid var(--bdr);display:flex;gap:0.75rem}
+.modal-close-x{position:absolute;top:1.25rem;right:1.25rem;width:2rem;height:2rem;background:var(--card2);border:1px solid var(--bdr);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:0.875rem;transition:all .2s;line-height:1}
+.modal-close-x:hover{border-color:var(--y);color:var(--y)}
+.modal-btn-next{flex:1;background:var(--y);color:var(--black);font-weight:700;font-size:0.875rem;padding:0.8125rem;border-radius:var(--r2);border:none;cursor:pointer;transition:background .2s}
+.modal-btn-next:hover{background:var(--yd)}
+.modal-btn-skip{background:transparent;color:var(--muted);font-size:0.875rem;padding:0.8125rem 1.25rem;border-radius:var(--r2);border:1px solid var(--bdr);cursor:pointer;transition:all .2s}
+.modal-btn-skip:hover{color:var(--txt);border-color:var(--bdr2)}
+.rev{opacity:0;transform:translateY(1.75rem);transition:opacity .55s ease,transform .55s ease}
+.rev.in{opacity:1;transform:translateY(0)}
+.rev-d1{transition-delay:.1s}
+.rev-d2{transition-delay:.2s}
+.bg-dark{background:var(--dark)}
+.bg-black{background:var(--black)}
+.bg-surf{background:var(--surf)}
+footer.main-footer{background:var(--black);border-top:2px solid var(--y);padding:3.25rem 2rem 2rem}
+.footer-grid{max-width:75rem;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--y);margin-bottom:0.625rem}
+.footer-desc{font-size:0.8125rem;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
+.footer-contacts a{display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;color:var(--muted);margin-bottom:0.5rem;transition:color .2s}
+.footer-contacts a:hover{color:var(--y)}
+.footer-col-h{font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--y);margin-bottom:1rem}
+.footer-col a{display:block;font-size:0.8125rem;color:var(--muted);margin-bottom:0.625rem;transition:color .2s}
+.footer-col a:hover{color:var(--txt)}
+.footer-bottom{max-width:75rem;margin:0 auto;border-top:1px solid var(--bdr);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem}
+.footer-copy{font-size:0.75rem;color:var(--dim)}
+.footer-copy a{color:var(--y)}
+.footer-open-pill{display:flex;align-items:center;gap:0.375rem;background:rgba(46,196,90,.12);border:1px solid rgba(46,196,90,.25);color:var(--gl);font-size:0.6875rem;font-weight:700;padding:0.375rem 1rem;border-radius:99rem}
+@media(max-width:56rem){nav{padding:0 1.25rem}.nav-link,.nav-sep,.nav-open-pill,.nav-cta{display:none}.nav-burger{display:flex}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:36rem){.sec{padding:3.5rem 1.25rem}.footer-grid{grid-template-columns:1fr;gap:2rem}}
+</style>
 
-.contact-layout { max-width:75rem; margin:0 auto; padding:4rem 2rem; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:start; }
-
-/* INFO COLUMN */
-.info-col { display:flex; flex-direction:column; gap:1.5rem; }
-.info-card { background:var(--card); border:1px solid var(--bdr); border-radius:var(--r); padding:1.75rem; transition:border-color .2s; }
-.info-card:hover { border-color:var(--bdr2); }
-.info-icon { font-size:2rem; margin-bottom:.875rem; }
-.info-title { font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:1.25rem; text-transform:uppercase; margin-bottom:.5rem; }
-.info-text { font-size:.875rem; color:var(--muted); line-height:1.7; }
-.info-text strong { color:var(--txt); }
-.info-text a { color:var(--y); }
-.hours-table { width:100%; margin-top:.875rem; }
-.hours-table tr { border-bottom:1px solid var(--bdr); }
-.hours-table td { padding:.5rem 0; font-size:.8125rem; }
-.hours-table td:first-child { color:var(--muted); }
-.hours-table td:last-child { text-align:right; color:var(--gl); font-weight:700; }
-.wa-btn { display:flex; align-items:center; gap:.75rem; background:#25D366; color:#fff; font-weight:700; font-size:.9375rem; padding:1rem 1.5rem; border-radius:var(--r); margin-top:1.25rem; border:none; cursor:pointer; width:100%; transition:all .2s; font-family:'Inter',sans-serif; }
-.wa-btn:hover { background:#1EAF57; transform:translateY(-2px); }
-
-/* CHAT COLUMN */
-.chat-col { position:sticky; top:calc(var(--top-h) + var(--nav-h) + 1.5rem); }
-.chat-header-label { font-size:.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:.1em; color:var(--y); margin-bottom:.875rem; display:flex; align-items:center; gap:.5rem; }
-.chat-header-label::before { content:''; width:1rem; height:2px; background:var(--y); }
-.chat-ui { background:var(--surf); border:1px solid var(--bdr2); border-radius:1.25rem; overflow:hidden; box-shadow:0 1.5rem 5rem rgba(0,0,0,.6); }
-.chat-head { background:linear-gradient(135deg, var(--g), #0C3B18); padding:1.125rem 1.25rem; display:flex; align-items:center; gap:.875rem; }
-.chat-av { width:2.75rem; height:2.75rem; background:var(--y); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:1.25rem; flex-shrink:0; }
-.chat-info-name { font-weight:700; font-size:.9375rem; }
-.chat-info-status { font-size:.6875rem; color:rgba(255,255,255,.7); display:flex; align-items:center; gap:.375rem; margin-top:.125rem; }
-.chat-msgs { height:22rem; overflow-y:auto; padding:1.25rem; display:flex; flex-direction:column; gap:.75rem; background:var(--dark); }
-.chat-msgs::-webkit-scrollbar { width:3px; }
-.chat-msgs::-webkit-scrollbar-thumb { background:var(--bdr2); border-radius:2px; }
-.msg { max-width:84%; animation:msgIn .3s ease; }
-@keyframes msgIn { from{opacity:0;transform:translateY(.5rem)} to{opacity:1;transform:translateY(0)} }
-.msg-bot { align-self:flex-start; }
-.msg-user { align-self:flex-end; }
-.msg-bub { padding:.625rem .875rem; font-size:.8125rem; line-height:1.65; border-radius:.875rem; }
-.msg-bot .msg-bub { background:var(--card2); border:1px solid var(--bdr); border-bottom-left-radius:.1875rem; color:var(--txt); }
-.msg-user .msg-bub { background:var(--g); color:#fff; border-bottom-right-radius:.1875rem; }
-.msg-time { font-size:.625rem; color:var(--muted); margin-top:.25rem; }
-.msg-user .msg-time { text-align:right; }
-.typing-bub { display:flex; gap:.25rem; align-items:center; padding:.75rem .875rem; }
-.typing-dot { width:.375rem; height:.375rem; background:var(--muted); border-radius:50%; animation:tdot .9s infinite; }
-.typing-dot:nth-child(2){animation-delay:.15s}
-.typing-dot:nth-child(3){animation-delay:.3s}
-@keyframes tdot{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-.3125rem)}}
-.quick-replies { padding:.75rem 1rem; display:flex; gap:.5rem; overflow-x:auto; border-top:1px solid var(--bdr); background:var(--surf); }
-.quick-replies::-webkit-scrollbar { display:none; }
-.qr { background:var(--card2); border:1px solid var(--bdr2); border-radius:99rem; padding:.375rem .875rem; font-size:.6875rem; font-weight:600; color:var(--muted); cursor:pointer; white-space:nowrap; transition:all .2s; font-family:'Inter',sans-serif; flex-shrink:0; }
-.qr:hover { border-color:var(--y); color:var(--y); }
-.chat-inp-area { padding:.875rem 1rem; border-top:1px solid var(--bdr); display:flex; gap:.625rem; align-items:center; background:var(--surf); }
-.chat-inp { flex:1; background:var(--card2); border:1.5px solid var(--bdr2); border-radius:.625rem; padding:.6875rem .875rem; color:var(--txt); font-size:.8125rem; outline:none; font-family:'Inter',sans-serif; transition:border-color .2s; }
-.chat-inp:focus { border-color:var(--y); }
-.chat-inp::placeholder { color:var(--dim); }
-.chat-send { width:2.625rem; height:2.625rem; background:var(--y); border:none; border-radius:.625rem; cursor:pointer; display:flex; align-items:center; justify-content:center; font-size:1.125rem; color:var(--black); transition:background .2s; flex-shrink:0; }
-.chat-send:hover { background:var(--yd); }
-
-/* MAP SECTION */
-.map-sec { background:var(--surf); padding:4rem 2rem; border-top:1px solid var(--bdr); }
-.map-inner { max-width:75rem; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center; }
-.map-placeholder { background:var(--card); border:1px solid var(--bdr); border-radius:var(--r); height:20rem; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:1rem; cursor:pointer; transition:all .2s; }
-.map-placeholder:hover { border-color:var(--y); }
-.map-pin { font-size:3rem; }
-.map-address { font-size:.9375rem; font-weight:600; text-align:center; line-height:1.5; }
-.map-cta { font-size:.8125rem; color:var(--y); }
-
-footer { background:var(--black); border-top:1px solid var(--bdr); padding:2rem; text-align:center; }
-.footer-min { font-size:.75rem; color:var(--dim); }
-.footer-min a { color:var(--y); }
-
-@media(max-width:56rem) {
-  .contact-layout { grid-template-columns:1fr; gap:2.5rem; }
-  .chat-col { position:static; }
-  .map-inner { grid-template-columns:1fr; }
-}
-@media(max-width:36rem) {
-  .contact-hero { padding:2.5rem 1.25rem 2rem; }
-  .contact-layout { padding:2.5rem 1.25rem; }
-  .map-sec { padding:2.5rem 1.25rem; }
-}
+<style>
+.ch{background:var(--black);padding:4rem 2rem 3rem;border-bottom:1px solid var(--bdr);text-align:center}
+.ch-h{font-size:clamp(2.5rem,5vw,4.5rem);margin-bottom:.75rem}
+.ch-sub{font-size:1rem;color:var(--muted);max-width:36rem;margin:0 auto;line-height:1.75}
+.cl{max-width:75rem;margin:0 auto;padding:4rem 2rem;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start}
+.ic{display:flex;flex-direction:column;gap:1.25rem}
+.icard{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:1.75rem;transition:border-color .2s}
+.icard:hover{border-color:var(--bdr2)}
+.icard-icon{font-size:2rem;margin-bottom:.875rem}
+.icard-title{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.25rem;text-transform:uppercase;margin-bottom:.5rem}
+.icard-text{font-size:.875rem;color:var(--muted);line-height:1.7}
+.icard-text strong{color:var(--txt)}
+.htable{width:100%;margin-top:.875rem}
+.htable tr{border-bottom:1px solid var(--bdr)}
+.htable td{padding:.5rem 0;font-size:.8125rem}
+.htable td:first-child{color:var(--muted)}
+.htable td:last-child{text-align:right;color:var(--gl);font-weight:700}
+.wa-btn{display:flex;align-items:center;gap:.75rem;background:#25D366;color:#fff;font-weight:700;font-size:.9375rem;padding:1rem 1.5rem;border-radius:var(--r);margin-top:1.25rem;border:none;cursor:pointer;width:100%;transition:all .2s;font-family:'Inter',sans-serif}
+.wa-btn:hover{background:#1EAF57;transform:translateY(-2px)}
+.chat-col{position:sticky;top:calc(var(--top-h) + var(--nav-h) + 1.5rem)}
+.chat-lbl{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--y);margin-bottom:.875rem;display:flex;align-items:center;gap:.5rem}
+.chat-lbl::before{content:'';width:1rem;height:2px;background:var(--y)}
+.chat-ui{background:var(--surf);border:1px solid var(--bdr2);border-radius:1.25rem;overflow:hidden;box-shadow:0 1.5rem 5rem rgba(0,0,0,.6)}
+.chat-head{background:linear-gradient(135deg,var(--g),#0C3B18);padding:1.125rem 1.25rem;display:flex;align-items:center;gap:.875rem}
+.chat-av{width:2.75rem;height:2.75rem;background:var(--y);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0}
+.chat-info-name{font-weight:700;font-size:.9375rem}
+.chat-info-status{font-size:.6875rem;color:rgba(255,255,255,.7);display:flex;align-items:center;gap:.375rem;margin-top:.125rem}
+.msgs{height:22rem;overflow-y:auto;padding:1.25rem;display:flex;flex-direction:column;gap:.75rem;background:var(--dark)}
+.msgs::-webkit-scrollbar{width:3px}.msgs::-webkit-scrollbar-thumb{background:var(--bdr2);border-radius:2px}
+.msg{max-width:84%;animation:mIn .3s ease}
+@keyframes mIn{from{opacity:0;transform:translateY(.5rem)}to{opacity:1;transform:translateY(0)}}
+.msg-b{align-self:flex-start}.msg-u{align-self:flex-end}
+.mbub{padding:.625rem .875rem;font-size:.8125rem;line-height:1.65;border-radius:.875rem}
+.msg-b .mbub{background:var(--card2);border:1px solid var(--bdr);border-bottom-left-radius:.1875rem;color:var(--txt)}
+.msg-u .mbub{background:var(--g);color:#fff;border-bottom-right-radius:.1875rem}
+.mtime{font-size:.625rem;color:var(--muted);margin-top:.25rem}
+.msg-u .mtime{text-align:right}
+.tdot{width:.375rem;height:.375rem;background:var(--muted);border-radius:50%;animation:td .9s infinite;display:inline-block}
+.tdot:nth-child(2){animation-delay:.15s}.tdot:nth-child(3){animation-delay:.3s}
+@keyframes td{0%,60%,100%{transform:translateY(0)}30%{transform:translateY(-.3125rem)}}
+.qrs{padding:.75rem 1rem;display:flex;gap:.5rem;overflow-x:auto;border-top:1px solid var(--bdr);background:var(--surf)}
+.qrs::-webkit-scrollbar{display:none}
+.qr{background:var(--card2);border:1px solid var(--bdr2);border-radius:99rem;padding:.375rem .875rem;font-size:.6875rem;font-weight:600;color:var(--muted);cursor:pointer;white-space:nowrap;transition:all .2s;font-family:'Inter',sans-serif;flex-shrink:0}
+.qr:hover{border-color:var(--y);color:var(--y)}
+.cinp-row{padding:.875rem 1rem;border-top:1px solid var(--bdr);display:flex;gap:.625rem;align-items:center;background:var(--surf)}
+.cinp{flex:1;background:var(--card2);border:1.5px solid var(--bdr2);border-radius:.625rem;padding:.6875rem .875rem;color:var(--txt);font-size:.8125rem;outline:none;font-family:'Inter',sans-serif;transition:border-color .2s}
+.cinp:focus{border-color:var(--y)}.cinp::placeholder{color:var(--dim)}
+.csend{width:2.625rem;height:2.625rem;background:var(--y);border:none;border-radius:.625rem;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:1.125rem;color:var(--black);transition:background .2s;flex-shrink:0}
+.csend:hover{background:var(--yd)}
+.map-sec{background:var(--surf);padding:4rem 2rem;border-top:1px solid var(--bdr)}
+.map-inner{max-width:75rem;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.map-box{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);height:20rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem;cursor:pointer;transition:all .2s}
+.map-box:hover{border-color:var(--y)}
+.map-pin{font-size:3rem}
+.map-addr{font-size:.9375rem;font-weight:600;text-align:center;line-height:1.5}
+.map-cta{font-size:.8125rem;color:var(--y)}
+.mini-footer{background:var(--black);border-top:1px solid var(--bdr);padding:1.5rem 2rem;text-align:center;font-size:.75rem;color:var(--dim)}
+.mini-footer a{color:var(--y)}
+@media(max-width:56rem){.cl{grid-template-columns:1fr;gap:2.5rem}.chat-col{position:static}.map-inner{grid-template-columns:1fr}}
+@media(max-width:36rem){.ch{padding:2.5rem 1.25rem 2rem}.cl{padding:2.5rem 1.25rem}.map-sec{padding:2.5rem 1.25rem}}
 </style>
 </head>
 <body>
-
-<div class="topbar">
-  <div class="pulse"></div>
-  <div class="topbar-scroll">OPEN RIGHT NOW · 11AM – 12 MIDNIGHT · EVERY DAY · 📍 36 GRANTS PEN RD, KINGSTON 8 · CALL (876) 630-8639 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OPEN RIGHT NOW · 11AM – 12 MIDNIGHT · EVERY DAY · 📍 36 GRANTS PEN RD, KINGSTON 8 · CALL (876) 630-8639</div>
-</div>
-
+<div class="topbar"><div class="pulse"></div><div class="topbar-scroll">OPEN RIGHT NOW &nbsp;·&nbsp; 11AM – 12 MIDNIGHT &nbsp;·&nbsp; EVERY DAY &nbsp;·&nbsp; INCLUDING SUNDAYS & PUBLIC HOLIDAYS &nbsp;·&nbsp; 📍 36 GRANTS PEN RD, KINGSTON 8 &nbsp;·&nbsp; CALL (876) 630-8639 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OPEN RIGHT NOW &nbsp;·&nbsp; 11AM – 12 MIDNIGHT &nbsp;·&nbsp; EVERY DAY &nbsp;·&nbsp; INCLUDING SUNDAYS & PUBLIC HOLIDAYS &nbsp;·&nbsp; 📍 36 GRANTS PEN RD, KINGSTON 8 &nbsp;·&nbsp; CALL (876) 630-8639</div></div>
 <nav>
-  <a class="nav-logo" href="index.html">
-    <div class="nav-mark">BJ</div>
-    <div><div class="nav-name">Big J's Auto Parts</div><div class="nav-tagline">Jamaica's Only Midnight Auto Store</div></div>
-  </a>
-  <a class="nav-link" href="index.html">Home</a>
-  <div class="nav-sep"></div>
-  <a class="nav-link" href="shop.html">Shop Parts</a>
-  <div class="nav-sep"></div>
-  <a class="nav-link" href="about.html">About</a>
-  <div class="nav-sep"></div>
-  <a class="nav-link active" href="contact.html">Contact</a>
-  <div class="nav-sep"></div>
-  <div class="nav-open-pill"><div class="pulse"></div> Open Until Midnight</div>
-  <a class="nav-cta" href="shop.html">Shop Parts →</a>
-  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+<a class="nav-logo" href="index.html"><div class="nav-mark">BJ</div><div><div class="nav-name">Big J's Auto Parts</div><div class="nav-tagline">Jamaica's Only Midnight Auto Store</div></div></a>
+<a class="nav-link" href="index.html">Home</a><div class="nav-sep"></div><a class="nav-link" href="shop.html">Shop Parts</a><div class="nav-sep"></div><a class="nav-link" href="about.html">About</a><div class="nav-sep"></div><a class="nav-link active" href="contact.html">Contact</a><div class="nav-sep"></div>
+<div class="nav-open-pill"><div class="pulse"></div> Open Until Midnight</div>
+<a class="nav-cta" href="shop.html">Shop Now &rarr;</a>
+<button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
 </nav>
-<div class="nav-mobile" id="mobileNav">
-  <a href="index.html">Home</a>
-  <a href="shop.html">Shop Parts</a>
-  <a href="about.html">About</a>
-  <a class="active" href="contact.html">Contact & Chat</a>
-  <a class="nav-cta" href="shop.html">Shop Parts →</a>
+<div class="nav-mobile" id="mobileNav"><a class="" href="index.html">Home</a><a class="" href="shop.html">Shop Parts</a><a class="" href="about.html">About</a><a class=" active" href="contact.html">Contact</a><a class="nav-cta" href="shop.html">Shop Now &rarr;</a></div>
+<div class="ch"><div class="rev"><div class="label" style="justify-content:center">Get In Touch</div><h1 class="h1 ch-h">Contact &amp; Live Chat</h1><p class="ch-sub">Ask about parts, confirm availability, or get directions. Our bot answers instantly.</p></div></div>
+<div class="cl">
+<div class="ic rev">
+<div class="icard"><div class="icard-icon">&#128205;</div><div class="icard-title">Our Location</div><div class="icard-text"><strong>36 Grants Pen Road, Kingston 8</strong><br>Corner of Shortwood Road and Grants Pen Road. Entrance on Shortwood Rd. Secure parking available.</div><button class="wa-btn" onclick="showToast('Opening Maps… 36 Grants Pen Rd, Kingston 8')">&#128205; Get Directions on Google Maps</button></div>
+<div class="icard"><div class="icard-icon">&#128222;</div><div class="icard-title">Call or WhatsApp Us</div><div class="icard-text"><strong>(876) 630-8639</strong> &mdash; Main line<br><strong>(876) 333-6937</strong> &mdash; Alternate<br><strong>(876) 357-7749</strong> &mdash; WhatsApp only<br><br>Call before you drive over and we'll confirm your part is in stock.</div><button class="wa-btn" onclick="showToast('Opening WhatsApp… (876) 357-7749')">💬 Open WhatsApp Now</button></div>
+<div class="icard"><div class="icard-icon">&#128336;</div><div class="icard-title">Opening Hours</div><table class="htable"><tr><td>Monday</td><td>11AM &ndash; 12 Midnight</td></tr><tr><td>Tuesday</td><td>11AM &ndash; 12 Midnight</td></tr><tr><td>Wednesday</td><td>11AM &ndash; 12 Midnight</td></tr><tr><td>Thursday</td><td>11AM &ndash; 12 Midnight</td></tr><tr><td>Friday</td><td>11AM &ndash; 12 Midnight</td></tr><tr><td>Saturday</td><td>11AM &ndash; 12 Midnight</td></tr><tr><td>Sunday</td><td>11AM &ndash; 12 Midnight</td></tr><tr><td>Public Holidays</td><td>11AM &ndash; 12 Midnight</td></tr></table></div>
 </div>
-
-<div class="contact-hero">
-  <div class="rev">
-    <div class="label" style="justify-content:center">Get In Touch</div>
-    <h1 class="h1 contact-hero-h">Contact & Live Chat</h1>
-    <p class="contact-hero-sub">Ask about parts, confirm availability, or just get directions. Our bot answers instantly — your team answers fast.</p>
-  </div>
+<div class="chat-col rev rev-d2">
+<div class="chat-lbl">Try Our 24/7 WhatsApp Bot</div>
+<div class="chat-ui">
+<div class="chat-head"><div class="chat-av">&#129302;</div><div><div class="chat-info-name">Big J's Auto Bot</div><div class="chat-info-status"><div class="pulse"></div> Online &middot; Replies instantly</div></div></div>
+<div class="msgs" id="msgs"><div class="msg msg-b"><div class="mbub">&#128075;&#127998; Welcome to Big J's Auto Parts &mdash; Jamaica's only midnight auto store!<br><br>Ask me about parts, pricing, availability, or directions. I reply instantly, any hour.</div><div class="mtime">Just now</div></div></div>
+<div class="qrs">
+<button class="qr" onclick="qc('Do you have brake pads for a Toyota Axio?')">Brake pads Axio</button>
+<button class="qr" onclick="qc('Are you open right now?')">Are you open?</button>
+<button class="qr" onclick="qc('Where are you located?')">Location</button>
+<button class="qr" onclick="qc('What tyres do you have in 185/65R15?')">Tyres</button>
+<button class="qr" onclick="qc('Do you have a 12V battery?')">Battery</button>
+<button class="qr" onclick="qc('Do you have a water pump for a Corolla 2016?')">Water pump</button>
 </div>
-
-<div class="contact-layout">
-  <!-- INFO -->
-  <div class="info-col rev">
-    <div class="info-card">
-      <div class="info-icon">📍</div>
-      <div class="info-title">Our Location</div>
-      <div class="info-text">
-        <strong>36 Grants Pen Road, Kingston 8</strong><br>
-        Corner of Shortwood Road and Grants Pen Road.<br>
-        Entrance on Shortwood Rd. Secure parking available.
-      </div>
-      <button class="wa-btn" onclick="showToast('Opening maps… 36 Grants Pen Rd, Kingston 8')">📍 Get Directions on Google Maps</button>
-    </div>
-
-    <div class="info-card">
-      <div class="info-icon">📞</div>
-      <div class="info-title">Call or WhatsApp Us</div>
-      <div class="info-text">
-        <strong>(876) 630-8639</strong> — Main line<br>
-        <strong>(876) 333-6937</strong> — Alternate<br>
-        <strong>(876) 357-7749</strong> — WhatsApp only<br><br>
-        Call before you drive over and we'll confirm your part is in stock.
-      </div>
-      <button class="wa-btn" onclick="showToast('Opening WhatsApp… (876) 357-7749')">💬 Open WhatsApp Now</button>
-    </div>
-
-    <div class="info-card">
-      <div class="info-icon">🕐</div>
-      <div class="info-title">Opening Hours</div>
-      <table class="hours-table">
-        <tr><td>Monday</td><td>11AM – 12 Midnight</td></tr>
-        <tr><td>Tuesday</td><td>11AM – 12 Midnight</td></tr>
-        <tr><td>Wednesday</td><td>11AM – 12 Midnight</td></tr>
-        <tr><td>Thursday</td><td>11AM – 12 Midnight</td></tr>
-        <tr><td>Friday</td><td>11AM – 12 Midnight</td></tr>
-        <tr><td>Saturday</td><td>11AM – 12 Midnight</td></tr>
-        <tr><td>Sunday</td><td>11AM – 12 Midnight</td></tr>
-        <tr><td>Public Holidays</td><td>11AM – 12 Midnight</td></tr>
-      </table>
-    </div>
-  </div>
-
-  <!-- CHAT -->
-  <div class="chat-col rev rev-d2">
-    <div class="chat-header-label">Try Our 24/7 WhatsApp Bot</div>
-    <div class="chat-ui">
-      <div class="chat-head">
-        <div class="chat-av">🤖</div>
-        <div>
-          <div class="chat-info-name">Big J's Auto Bot</div>
-          <div class="chat-info-status"><div class="pulse"></div> Online · Replies instantly</div>
-        </div>
-      </div>
-      <div class="chat-msgs" id="chatMsgs">
-        <div class="msg msg-bot">
-          <div class="msg-bub">👋 Welcome to Big J's Auto Parts — Jamaica's only midnight auto store!<br><br>Ask me about parts, pricing, availability, or how to find us. I'll reply instantly.</div>
-          <div class="msg-time">Just now</div>
-        </div>
-      </div>
-      <div class="quick-replies">
-        <button class="qr" onclick="qChat('Do you have brake pads for a Toyota Axio?')">Brake pads Axio</button>
-        <button class="qr" onclick="qChat('Are you open right now?')">Are you open?</button>
-        <button class="qr" onclick="qChat('Where are you located?')">Location</button>
-        <button class="qr" onclick="qChat('What tyres do you have in 185/65R15?')">Tyres</button>
-        <button class="qr" onclick="qChat('Do you have a 12V battery?')">Battery price</button>
-        <button class="qr" onclick="qChat('Do you have a water pump for a Corolla 2016?')">Water pump</button>
-      </div>
-      <div class="chat-inp-area">
-        <input class="chat-inp" id="chatIn" type="text" placeholder="Ask about a part or our hours..." onkeydown="if(event.key==='Enter')sendMsg()"/>
-        <button class="chat-send" onclick="sendMsg()">➤</button>
-      </div>
-    </div>
-    <p style="font-size:.75rem;color:var(--muted);margin-top:.75rem;line-height:1.6">This is a demo of the real WhatsApp chatbot that would be built for Big J's — answering customers automatically, 24/7, even at midnight.</p>
-  </div>
+<div class="cinp-row"><input class="cinp" id="ci" type="text" placeholder="Ask about a part or our hours..." onkeydown="if(event.key==='Enter')sm()"/><button class="csend" onclick="sm()">&#9658;</button></div>
 </div>
-
-<!-- MAP -->
-<div class="map-sec">
-  <div class="map-inner">
-    <div class="rev">
-      <div class="label">Find Us</div>
-      <h2 class="h2" style="font-size:clamp(2rem,4vw,3rem);margin-bottom:1rem">36 Grants Pen Road,<br>Kingston 8</h2>
-      <p style="color:var(--muted);font-size:.9375rem;line-height:1.8;margin-bottom:1.5rem">Corner of Shortwood Road and Grants Pen Road. Entrance on Shortwood Rd. Secure parking available on site.</p>
-      <div style="display:flex;flex-direction:column;gap:.625rem">
-        <div style="display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--muted)">📞 <strong style="color:var(--txt)">(876) 630-8639</strong></div>
-        <div style="display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--muted)">💬 <strong style="color:var(--txt)">WhatsApp: (876) 357-7749</strong></div>
-        <div style="display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--muted)">🕐 <strong style="color:var(--gl)">Open 11AM – 12 Midnight Daily</strong></div>
-      </div>
-    </div>
-    <div class="map-placeholder rev rev-d1" onclick="showToast('Opening Google Maps for Big J\'s Auto Parts')">
-      <div class="map-pin">📍</div>
-      <div class="map-address"><strong>Big J's Auto Parts</strong><br>36 Grants Pen Rd<br>Kingston 8, Jamaica</div>
-      <div class="map-cta">Tap to open in Google Maps →</div>
-    </div>
-  </div>
+<p style="font-size:.75rem;color:var(--muted);margin-top:.75rem;line-height:1.6">This is a working demo of the WhatsApp chatbot that would be built for Big J's &mdash; answering customers automatically, 24/7.</p>
 </div>
-
-<footer>
-  <div class="footer-min">© 2025 Big J's Auto Parts · Demo by <a href="https://j-commerce.online" target="_blank">Jcommerce</a> — j-commerce.online · <a href="index.html">← Home</a> · <a href="shop.html">Shop Parts</a></div>
-</footer>
-
-<div class="toast" id="toast"></div>
-<button class="float-wa" id="floatWa">💬</button>
-<div class="overlay" id="tourOverlay"><div class="modal-box" style="position:relative"><button class="modal-close-x" onclick="closeTour()">✕</button><div class="modal-inner"><div class="modal-prog" id="tourProg"></div><div class="modal-step-lbl" id="tourStep"></div><div class="modal-h" id="tourH"></div><div class="modal-body-text" id="tourBody"></div><img id="tourImg" class="modal-img" src="" alt="" style="display:none;border-radius:.5rem"/></div><div class="modal-foot"><button class="modal-btn-skip" onclick="closeTour()">Skip Tour</button><button class="modal-btn-next" id="tourNext" onclick="nextTourStep()">Next →</button></div></div></div>
+</div>
+<div class="map-sec"><div class="map-inner">
+<div class="rev"><div class="label">Find Us</div><h2 class="h2" style="font-size:clamp(2rem,4vw,3rem);margin-bottom:1rem">36 Grants Pen Road,<br>Kingston 8</h2><p style="color:var(--muted);font-size:.9375rem;line-height:1.8;margin-bottom:1.5rem">Corner of Shortwood Road and Grants Pen Road. Entrance on Shortwood Rd. Secure parking on site.</p><div style="display:flex;flex-direction:column;gap:.625rem"><div style="display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--muted)">&#128222; <strong style="color:var(--txt)">(876) 630-8639</strong></div><div style="display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--muted)">💬 <strong style="color:var(--txt)">WhatsApp: (876) 357-7749</strong></div><div style="display:flex;align-items:center;gap:.625rem;font-size:.875rem;color:var(--muted)">&#128336; <strong style="color:var(--gl)">Open 11AM &ndash; 12 Midnight Daily</strong></div></div></div>
+<div class="map-box rev rev-d1" onclick="showToast('Opening Google Maps for Big J's Auto Parts')"><div class="map-pin">&#128205;</div><div class="map-addr"><strong>Big J's Auto Parts</strong><br>36 Grants Pen Rd<br>Kingston 8, Jamaica</div><div class="map-cta">Tap to open in Google Maps &rarr;</div></div>
+</div></div>
+<div class="mini-footer">&copy; 2025 Big J's Auto Parts &nbsp;&middot;&nbsp; Demo by <a href="https://j-commerce.online" target="_blank">Jcommerce</a> &nbsp;&middot;&nbsp; <a href="index.html">&larr; Home</a> &nbsp;&middot;&nbsp; <a href="shop.html">Shop Parts</a></div>
+<div class="toast" id="toast"></div><button class="float-wa" id="floatWa" aria-label="WhatsApp">💬</button>
+<div class="overlay" id="tourOverlay"><div class="modal-box"><button class="modal-close-x" onclick="closeTour()">&#x2715;</button><div class="modal-inner"><div class="modal-prog" id="tourProg"></div><div class="modal-step-lbl" id="tourStep"></div><div class="modal-h" id="tourH"></div><div class="modal-body-text" id="tourBody"></div><img id="tourImg" class="modal-img" src="" alt="" style="display:none;border-radius:.5rem"/></div><div class="modal-foot"><button class="modal-btn-skip" onclick="closeTour()">Skip Tour</button><button class="modal-btn-next" id="tourNext" onclick="nextTourStep()">Next &rarr;</button></div></div></div>
+<script>
+const bReplies={brake:"&#9989; Yes! Front disc brake pads for Toyota Axio, Corolla &amp; Fielder &mdash; <strong>JMD $3,500/set</strong>. In stock now. Open until midnight! &#128205; 36 Grants Pen Rd, Kingston 8.",battery:"&#128267; 12V 45Ah battery &mdash; <strong>JMD $12,000</strong>. In stock, installation included. Also carry 65Ah heavy-duty. Open until midnight!",tyre:"&#128247; 185/65R15 tyres in stock &mdash; <strong>JMD $8,500 each</strong>. Multiple sizes available. Tell me your size and I'll confirm. Open until midnight!",water:"&#9989; Water pump for Toyota Corolla (2006&ndash;2019) &mdash; <strong>JMD $5,500</strong>. Same for Axio and Fielder. In stock. Open until midnight at 36 Grants Pen Rd.",oil:"&#128167; 10W-40 engine oil (4L) &mdash; <strong>JMD $4,200</strong>. Also carry 5W-30. In stock every day.",open:"&#127769; Yes, we are open <strong>right now!</strong> Big J's is open <strong>11AM to 12 MIDNIGHT every day</strong> &mdash; Sundays and ALL public holidays included. &#128205; 36 Grants Pen Rd.",loc:"&#128205; We're at <strong>36 Grants Pen Road, Kingston 8</strong> &mdash; corner of Shortwood Road and Grants Pen Road, entrance on Shortwood Rd. Open 11AM&ndash;Midnight daily.",def:"Thanks for your message! WhatsApp us at <strong>(876) 357-7749</strong> and we'll confirm price and availability right away. We're open until midnight! &#127769;"};
+function getR(m){m=m.toLowerCase();if(m.match(/brake|pad|disc/))return bReplies.brake;if(m.match(/battery|batt/))return bReplies.battery;if(m.match(/tyre|tire/))return bReplies.tyre;if(m.match(/water.?pump/))return bReplies.water;if(m.match(/oil|lubric/))return bReplies.oil;if(m.match(/open|close|midnight|now|hour|time/))return bReplies.open;if(m.match(/where|location|address|direction|find/))return bReplies.loc;return bReplies.def}
+function addM(text,who){const c=document.getElementById('msgs'),d=document.createElement('div');d.className='msg msg-'+who;d.innerHTML='<div class="mbub">'+text+'</div><div class="mtime">Just now</div>';c.appendChild(d);c.scrollTop=c.scrollHeight;return d}
+function sm(){const inp=document.getElementById('ci'),txt=inp.value.trim();if(!txt)return;addM(txt,'u');inp.value='';const c=document.getElementById('msgs'),typing=document.createElement('div');typing.className='msg msg-b';typing.innerHTML='<div class="mbub"><span class="tdot"></span><span class="tdot"></span><span class="tdot"></span></div>';c.appendChild(typing);c.scrollTop=c.scrollHeight;setTimeout(()=>{typing.innerHTML='<div class="mbub">'+getR(txt)+'</div><div class="mtime">Just now</div>';document.getElementById('msgs').scrollTop=9999},1000)}
+function qc(txt){document.getElementById('ci').value=txt;sm()}
+</script>
 
 <script>
-const botReplies = {
-  brake: "✅ Yes! Front disc brake pads for Toyota Axio, Corolla & Fielder — <strong>JMD $3,500/set</strong>. In stock right now. Come in anytime until midnight! 📍 36 Grants Pen Rd, Kingston 8.",
-  battery: "🔋 12V 45Ah battery — <strong>JMD $12,000</strong>. We also have 65Ah heavy-duty for trucks. In stock, installation included. Open until midnight — (876) 630-8639.",
-  tyre: "🛞 185/65R15 tyres in stock — <strong>JMD $8,500 each</strong>. We carry multiple sizes. Tell me your tyre size and I'll confirm availability. Open until midnight!",
-  water: "✅ Water pump for Toyota Corolla (2006–2019) — <strong>JMD $5,500</strong>. Same for Axio and Fielder. In stock now. Come in until midnight at 36 Grants Pen Rd.",
-  oil: "💧 10W-40 engine oil (4L) — <strong>JMD $4,200</strong>. Also carry 5W-30. In stock. Open until midnight every day.",
-  open: "🌙 Yes, we are open <strong>right now</strong>! Big J's is open <strong>11AM to 12 MIDNIGHT every day</strong> — including Sundays and ALL public holidays. Come in! 📍 36 Grants Pen Rd.",
-  loc: "📍 We're at <strong>36 Grants Pen Road, Kingston 8</strong> — corner of Shortwood Road and Grants Pen Road, entrance on Shortwood Rd. Open 11AM–Midnight daily. Call (876) 630-8639.",
-  hours: "🕐 Open <strong>11AM to 12 MIDNIGHT, 7 days a week</strong> — including ALL public holidays. Jamaica's only midnight auto parts store! 🇯🇲",
-  default: "Thanks for your message! For that specific part, WhatsApp us at <strong>(876) 357-7749</strong> and we'll confirm price and availability right away. We're open until midnight! 🌙"
-};
-
-function getBotReply(m) {
-  m = m.toLowerCase();
-  if (m.match(/brake|pad|disc/)) return botReplies.brake;
-  if (m.match(/battery|batt/)) return botReplies.battery;
-  if (m.match(/tyre|tire/)) return botReplies.tyre;
-  if (m.match(/water.?pump/)) return botReplies.water;
-  if (m.match(/oil|lubric/)) return botReplies.oil;
-  if (m.match(/open|close|midnight|now|hour|time/)) return botReplies.open;
-  if (m.match(/where|location|address|direction|find/)) return botReplies.loc;
-  return botReplies.default;
-}
-
-function addMsg(text, who) {
-  const c = document.getElementById('chatMsgs');
-  const d = document.createElement('div');
-  d.className = 'msg msg-' + who;
-  d.innerHTML = `<div class="msg-bub">${text}</div><div class="msg-time">Just now</div>`;
-  c.appendChild(d);
-  c.scrollTop = c.scrollHeight;
-  return d;
-}
-
-function sendMsg() {
-  const inp = document.getElementById('chatIn');
-  const txt = inp.value.trim();
-  if (!txt) return;
-  addMsg(txt, 'user');
-  inp.value = '';
-  const typing = document.createElement('div');
-  typing.className = 'msg msg-bot';
-  typing.innerHTML = '<div class="msg-bub"><div class="typing-bub"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div></div>';
-  document.getElementById('chatMsgs').appendChild(typing);
-  document.getElementById('chatMsgs').scrollTop = 9999;
-  setTimeout(() => {
-    typing.innerHTML = `<div class="msg-bub">${getBotReply(txt)}</div><div class="msg-time">Just now</div>`;
-    document.getElementById('chatMsgs').scrollTop = 9999;
-  }, 1000);
-}
-
-function qChat(txt) {
-  document.getElementById('chatIn').value = txt;
-  sendMsg();
-}
+// Reveal
+const _ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');_ro.unobserve(e.target)}})},{threshold:0.07});
+document.querySelectorAll('.rev').forEach(el=>_ro.observe(el));
+// Mobile nav
+const _bg=document.getElementById('burger'),_mn=document.getElementById('mobileNav');
+if(_bg&&_mn){_bg.addEventListener('click',()=>{_bg.classList.toggle('open');_mn.classList.toggle('open')});_mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{_bg.classList.remove('open');_mn.classList.remove('open')}))}
+// Toast
+function showToast(msg){const t=document.getElementById('toast');if(!t)return;t.innerHTML='&#x2705; '+msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3500)}
+// WhatsApp
+const _wa=document.getElementById('floatWa');if(_wa)_wa.addEventListener('click',()=>showToast('Opening WhatsApp… (876) 357-7749'));
+// Clock
+function _clk(){const el=document.getElementById('liveClock');if(!el)return;el.textContent=new Date().toLocaleTimeString('en-JM',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'America/Jamaica'})}
+_clk();setInterval(_clk,1000);
+// Tour
+let _ts=0;
+const _steps=[
+{step:'Welcome · 1 of 5',title:'THIS IS YOUR WEBSITE',body:'This is a fully working demo of what <strong>Big J's Auto Parts</strong> would look like as a real web system built by Jcommerce.<br><br>This is <strong>not advertising.</strong> This is your own corner of the internet — a system you own, that works for your business 24 hours a day, 7 days a week.',img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&q=80'},
+{step:'Feature · 2 of 5',title:'CUSTOMERS FIND YOU AT MIDNIGHT',body:'Right now, someone searching for auto parts at 10pm in Kingston finds <strong>nothing from Big J's</strong>.<br><br>With this system, they Google "auto parts Kingston open late" — Big J's shows up first. <strong>That's a sale you lose every single night.</strong>',img:'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=700&q=80'},
+{step:'Feature · 3 of 5',title:'THE WHATSAPP BOT',body:'Go to the <strong>Contact page</strong> and try the live chatbot. Type "do you have brake pads for a Corolla?"<br><br>It replies instantly — stock, price, location. <strong>Your staff handles nothing until the customer walks in ready to buy.</strong>',img:''},
+{step:'Feature · 4 of 5',title:'PARTS CATALOGUE',body:'The <strong>Shop page</strong> lets customers browse by category, filter, check availability and add items to an enquiry list before they drive over.<br><br><strong>Fewer wasted trips. More confident buyers at your door.</strong>',img:''},
+{step:'Ready · 5 of 5',title:'LIVE IN 14 DAYS',body:'Everything you've seen — website, chatbot, parts catalogue — <strong>live for Big J's in 14 days.</strong><br><br>Setup: <strong>JMD 75,000</strong> · Monthly: <strong>8,000/month</strong><br><br>WhatsApp Jadan: <strong>876-817-0095</strong><br><a href="https://j-commerce.online" target="_blank">j-commerce.online</a>',img:''}
+];
+function openTour(i){_ts=i||0;_renderTour();const ov=document.getElementById('tourOverlay');if(ov)ov.classList.add('open')}
+function _renderTour(){const s=_steps[_ts],g=id=>document.getElementById(id);if(!g('tourH'))return;g('tourStep').textContent=s.step;g('tourH').textContent=s.title;g('tourBody').innerHTML=s.body;g('tourNext').textContent=_ts<_steps.length-1?'Next →':'Got It ✓';g('tourProg').innerHTML=_steps.map((_,i)=>'<div class="mprog-dot'+(i<=_ts?' done':'')+'"></div>').join('');const img=g('tourImg');if(s.img){img.src=s.img;img.style.display='block'}else img.style.display='none'}
+function nextTourStep(){if(_ts<_steps.length-1){_ts++;_renderTour()}else closeTour()}
+function closeTour(){const ov=document.getElementById('tourOverlay');if(ov)ov.classList.remove('open')}
+window.addEventListener('click',e=>{const ov=document.getElementById('tourOverlay');if(ov&&e.target===ov)closeTour()});
+const _enq=[];
+function addEnquiry(name){if(!_enq.includes(name))_enq.push(name);showToast(name+' added to enquiry')}
+if(!sessionStorage.getItem('tourSeen')){setTimeout(()=>{openTour(0);sessionStorage.setItem('tourSeen','1')},1600)}
 </script>
-<script src="app.js"></script>
-</body>
-</html>
+
+</body></html>

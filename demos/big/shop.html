@@ -1,307 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shop Parts — Big J's Auto Parts</title>
-<link rel="stylesheet" href="style.css">
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Shop Parts &mdash; Big J's Auto Parts</title>
+
 <style>
-.shop-hero { background:var(--black); padding:4rem 2rem 3rem; border-bottom:1px solid var(--bdr); }
-.shop-hero-inner { max-width:75rem; margin:0 auto; }
-.shop-hero-h { font-size:clamp(2.25rem,5vw,4rem); margin-bottom:.75rem; }
-.shop-hero-sub { font-size:.9375rem; color:var(--muted); max-width:36rem; line-height:1.7; }
+@import url('https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,600;0,700;0,800;0,900;1,800&family=Inter:wght@300;400;500;600;700&display=swap');
+:root{--y:#FFD100;--yd:#C9A800;--yl:rgba(255,209,0,0.10);--g:#1B6B2A;--gm:#22913A;--gl:#3EC45A;--black:#080C08;--dark:#0D120D;--surf:#131A13;--card:#182018;--card2:#1D271D;--bdr:#243024;--bdr2:#2C3C2C;--txt:#EDEEED;--muted:#7A8C7A;--dim:#4A5A4A;--r:0.75rem;--r2:0.5rem;--nav-h:4rem;--top-h:2.25rem}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;font-size:16px;-webkit-text-size-adjust:100%}
+body{font-family:'Inter',sans-serif;background:var(--dark);color:var(--txt);overflow-x:hidden;-webkit-font-smoothing:antialiased;line-height:1.5}
+img{display:block;max-width:100%}
+a{text-decoration:none;color:inherit}
+button{font-family:'Inter',sans-serif;cursor:pointer}
+input,textarea{font-family:'Inter',sans-serif}
+::-webkit-scrollbar{width:0.375rem}::-webkit-scrollbar-track{background:var(--dark)}::-webkit-scrollbar-thumb{background:var(--g);border-radius:0.1875rem}
+.topbar{height:var(--top-h);background:var(--g);color:#fff;font-size:0.7rem;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;display:flex;align-items:center;gap:0.5rem;padding:0 1rem;overflow:hidden;white-space:nowrap}
+.topbar-scroll{animation:marquee 30s linear infinite;white-space:nowrap;flex-shrink:0}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.pulse{width:0.45rem;height:0.45rem;background:#4AFF6E;border-radius:50%;animation:pulse 1.5s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.6)}}
+nav{position:sticky;top:0;z-index:200;height:var(--nav-h);background:rgba(8,12,8,0.97);backdrop-filter:blur(1.25rem);border-bottom:1px solid var(--bdr);display:flex;align-items:center;padding:0 2rem;gap:1.5rem}
+.nav-logo{display:flex;align-items:center;gap:0.75rem;margin-right:auto;text-decoration:none}
+.nav-mark{width:2.5rem;height:2.5rem;background:var(--y);border-radius:0.5rem;display:flex;align-items:center;justify-content:center;font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.25rem;color:var(--black);flex-shrink:0;letter-spacing:-0.05em}
+.nav-name{font-family:'Barlow Condensed',sans-serif;font-weight:800;font-size:1.3rem;color:var(--y);line-height:1}
+.nav-tagline{font-size:0.65rem;color:var(--muted);font-weight:500;letter-spacing:0.02em}
+.nav-link{color:var(--muted);font-size:0.8125rem;font-weight:500;transition:color .2s;white-space:nowrap}
+.nav-link:hover,.nav-link.active{color:var(--y)}
+.nav-sep{width:1px;height:1.25rem;background:var(--bdr);flex-shrink:0}
+.nav-open-pill{display:flex;align-items:center;gap:0.375rem;background:rgba(46,196,90,0.12);border:1px solid rgba(46,196,90,0.25);color:var(--gl);font-size:0.6875rem;font-weight:700;padding:0.3125rem 0.75rem;border-radius:99rem;white-space:nowrap}
+.nav-cta{background:var(--y);color:var(--black);font-weight:700;font-size:0.8125rem;padding:0.5625rem 1.25rem;border-radius:var(--r2);transition:all .2s;white-space:nowrap;flex-shrink:0;border:none;text-decoration:none;display:inline-block}
+.nav-cta:hover{background:var(--yd);transform:translateY(-1px)}
+.nav-burger{display:none;flex-direction:column;gap:0.3125rem;background:none;border:none;padding:0.25rem;margin-left:auto}
+.nav-burger span{display:block;width:1.375rem;height:2px;background:var(--txt);border-radius:1px;transition:all .25s}
+.nav-burger.open span:nth-child(1){transform:translateY(0.4375rem) rotate(45deg)}
+.nav-burger.open span:nth-child(2){opacity:0}
+.nav-burger.open span:nth-child(3){transform:translateY(-0.4375rem) rotate(-45deg)}
+.nav-mobile{display:none;position:fixed;top:calc(var(--top-h) + var(--nav-h));left:0;right:0;background:rgba(8,12,8,0.99);border-bottom:1px solid var(--bdr);padding:1.5rem 2rem;flex-direction:column;gap:0.25rem;z-index:199}
+.nav-mobile.open{display:flex}
+.nav-mobile a{font-size:1rem;font-weight:600;color:var(--muted);padding:0.75rem 0;border-bottom:1px solid var(--bdr);transition:color .2s}
+.nav-mobile a:hover,.nav-mobile a.active{color:var(--y)}
+.nav-mobile .nav-cta{margin-top:1rem;display:block;text-align:center}
+.sec{padding:5rem 2rem}
+.sec-inner{max-width:75rem;margin:0 auto}
+.label{display:inline-flex;align-items:center;gap:0.5rem;font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--y);margin-bottom:0.625rem}
+.label::before{content:'';width:1rem;height:2px;background:var(--y);display:block}
+.h1{font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:.92;text-transform:uppercase}
+.h2{font-family:'Barlow Condensed',sans-serif;font-weight:900;line-height:1;text-transform:uppercase}
+.h3{font-family:'Barlow Condensed',sans-serif;font-weight:800;line-height:1.1;text-transform:uppercase}
+.btn{display:inline-flex;align-items:center;gap:0.5rem;font-weight:700;font-size:0.875rem;padding:0.875rem 1.75rem;border-radius:var(--r2);border:none;cursor:pointer;transition:all .2s;white-space:nowrap;text-decoration:none}
+.btn-y{background:var(--y);color:var(--black)}
+.btn-y:hover{background:var(--yd);transform:translateY(-2px);box-shadow:0 0.75rem 2rem rgba(255,209,0,.2)}
+.btn-outline{background:transparent;color:var(--txt);border:1.5px solid var(--bdr2)}
+.btn-outline:hover{border-color:var(--y);color:var(--y)}
+.btn-sm{padding:0.625rem 1.25rem;font-size:0.8125rem}
+.pill{display:inline-flex;align-items:center;gap:0.3rem;font-size:0.6875rem;font-weight:700;padding:0.25rem 0.625rem;border-radius:99rem}
+.pill-green{background:rgba(46,196,90,.12);color:var(--gl);border:1px solid rgba(46,196,90,.2)}
+.pill-orange{background:rgba(255,150,0,.12);color:#FF9600;border:1px solid rgba(255,150,0,.2)}
+.pill-red{background:rgba(255,68,68,.12);color:#FF4444;border:1px solid rgba(255,68,68,.2)}
+.toast{position:fixed;bottom:5.5rem;right:1.5rem;z-index:900;background:var(--g);color:#fff;padding:0.875rem 1.25rem;border-radius:var(--r);font-size:0.8125rem;font-weight:600;box-shadow:0 0.75rem 2.5rem rgba(0,0,0,.5);transform:translateY(2rem) scale(.95);opacity:0;transition:all .3s cubic-bezier(.25,.46,.45,.94);pointer-events:none;max-width:18rem;border:1px solid rgba(255,255,255,.08)}
+.toast.show{transform:translateY(0) scale(1);opacity:1}
+.float-wa{position:fixed;bottom:1.5rem;right:1.5rem;z-index:800;width:3.5rem;height:3.5rem;background:#25D366;border-radius:50%;border:none;display:flex;align-items:center;justify-content:center;font-size:1.625rem;box-shadow:0 0.5rem 2rem rgba(37,211,102,.4);animation:floatUp 3s ease-in-out infinite;cursor:pointer}
+@keyframes floatUp{0%,100%{transform:translateY(0)}50%{transform:translateY(-0.5rem)}}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:700;display:flex;align-items:center;justify-content:center;padding:1.25rem;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.open{opacity:1;pointer-events:all}
+.modal-box{background:var(--surf);border:1px solid var(--bdr2);border-radius:1.25rem;max-width:36rem;width:100%;transform:translateY(1.5rem) scale(.97);transition:all .35s cubic-bezier(.25,.46,.45,.94);position:relative;max-height:90vh;overflow-y:auto}
+.overlay.open .modal-box{transform:translateY(0) scale(1)}
+.modal-inner{padding:2rem}
+.modal-prog{display:flex;gap:0.375rem;margin-bottom:1.75rem}
+.mprog-dot{flex:1;height:0.1875rem;border-radius:0.125rem;background:var(--bdr2);transition:background .3s}
+.mprog-dot.done{background:var(--y)}
+.modal-step-lbl{font-size:0.625rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--y);margin-bottom:0.625rem}
+.modal-h{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;text-transform:uppercase;line-height:1;margin-bottom:0.875rem}
+.modal-body-text{font-size:0.875rem;color:var(--muted);line-height:1.8}
+.modal-body-text strong{color:var(--txt)}
+.modal-body-text a{color:var(--y)}
+.modal-img{width:100%;height:11rem;object-fit:cover;margin-top:1.5rem}
+.modal-foot{padding:1.5rem 2rem;border-top:1px solid var(--bdr);display:flex;gap:0.75rem}
+.modal-close-x{position:absolute;top:1.25rem;right:1.25rem;width:2rem;height:2rem;background:var(--card2);border:1px solid var(--bdr);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--muted);font-size:0.875rem;transition:all .2s;line-height:1}
+.modal-close-x:hover{border-color:var(--y);color:var(--y)}
+.modal-btn-next{flex:1;background:var(--y);color:var(--black);font-weight:700;font-size:0.875rem;padding:0.8125rem;border-radius:var(--r2);border:none;cursor:pointer;transition:background .2s}
+.modal-btn-next:hover{background:var(--yd)}
+.modal-btn-skip{background:transparent;color:var(--muted);font-size:0.875rem;padding:0.8125rem 1.25rem;border-radius:var(--r2);border:1px solid var(--bdr);cursor:pointer;transition:all .2s}
+.modal-btn-skip:hover{color:var(--txt);border-color:var(--bdr2)}
+.rev{opacity:0;transform:translateY(1.75rem);transition:opacity .55s ease,transform .55s ease}
+.rev.in{opacity:1;transform:translateY(0)}
+.rev-d1{transition-delay:.1s}
+.rev-d2{transition-delay:.2s}
+.bg-dark{background:var(--dark)}
+.bg-black{background:var(--black)}
+.bg-surf{background:var(--surf)}
+footer.main-footer{background:var(--black);border-top:2px solid var(--y);padding:3.25rem 2rem 2rem}
+.footer-grid{max-width:75rem;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:2.5rem}
+.footer-brand{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:2rem;color:var(--y);margin-bottom:0.625rem}
+.footer-desc{font-size:0.8125rem;color:var(--muted);line-height:1.7;margin-bottom:1.25rem}
+.footer-contacts a{display:flex;align-items:center;gap:0.5rem;font-size:0.8125rem;color:var(--muted);margin-bottom:0.5rem;transition:color .2s}
+.footer-contacts a:hover{color:var(--y)}
+.footer-col-h{font-size:0.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:var(--y);margin-bottom:1rem}
+.footer-col a{display:block;font-size:0.8125rem;color:var(--muted);margin-bottom:0.625rem;transition:color .2s}
+.footer-col a:hover{color:var(--txt)}
+.footer-bottom{max-width:75rem;margin:0 auto;border-top:1px solid var(--bdr);padding-top:1.5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:0.75rem}
+.footer-copy{font-size:0.75rem;color:var(--dim)}
+.footer-copy a{color:var(--y)}
+.footer-open-pill{display:flex;align-items:center;gap:0.375rem;background:rgba(46,196,90,.12);border:1px solid rgba(46,196,90,.25);color:var(--gl);font-size:0.6875rem;font-weight:700;padding:0.375rem 1rem;border-radius:99rem}
+@media(max-width:56rem){nav{padding:0 1.25rem}.nav-link,.nav-sep,.nav-open-pill,.nav-cta{display:none}.nav-burger{display:flex}.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:36rem){.sec{padding:3.5rem 1.25rem}.footer-grid{grid-template-columns:1fr;gap:2rem}}
+</style>
 
-.search-bar-wrap { max-width:75rem; margin:0 auto; padding:2rem; background:var(--surf); border-bottom:1px solid var(--bdr); }
-.search-bar { display:flex; background:var(--card); border:2px solid var(--bdr2); border-radius:var(--r); overflow:hidden; transition:border-color .2s; }
-.search-bar:focus-within { border-color:var(--y); }
-.search-icon { padding:0 1rem; display:flex; align-items:center; font-size:1.125rem; color:var(--muted); }
-.search-bar input { flex:1; background:transparent; border:none; padding:.9375rem 0; color:var(--txt); font-size:.9375rem; outline:none; font-family:'Inter',sans-serif; }
-.search-bar input::placeholder { color:var(--dim); }
-.search-bar button { background:var(--y); border:none; padding:0 1.75rem; font-weight:700; font-size:.875rem; color:var(--black); cursor:pointer; transition:background .2s; font-family:'Inter',sans-serif; }
-.search-bar button:hover { background:var(--yd); }
-.search-tags { display:flex; gap:.5rem; flex-wrap:wrap; margin-top:.875rem; }
-.stag { background:var(--card2); border:1px solid var(--bdr); border-radius:99rem; padding:.3125rem .875rem; font-size:.75rem; color:var(--muted); cursor:pointer; transition:all .2s; }
-.stag:hover { border-color:var(--y); color:var(--y); }
-
-.shop-layout { max-width:75rem; margin:0 auto; padding:2.5rem 2rem; display:grid; grid-template-columns:14rem 1fr; gap:2.5rem; }
-
-/* SIDEBAR */
-.sidebar { }
-.sidebar-sec { background:var(--card); border:1px solid var(--bdr); border-radius:var(--r); padding:1.25rem; margin-bottom:1rem; }
-.sidebar-title { font-size:.6875rem; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--y); margin-bottom:1rem; }
-.filter-opt { display:flex; align-items:center; gap:.625rem; padding:.5rem 0; cursor:pointer; transition:all .2s; }
-.filter-opt:hover .filter-lbl { color:var(--txt); }
-.filter-radio { width:1rem; height:1rem; border-radius:50%; border:2px solid var(--bdr2); display:flex; align-items:center; justify-content:center; transition:all .2s; flex-shrink:0; }
-.filter-opt.active .filter-radio { border-color:var(--y); background:var(--y); }
-.filter-opt.active .filter-radio::after { content:''; width:.375rem; height:.375rem; background:var(--black); border-radius:50%; }
-.filter-lbl { font-size:.8125rem; color:var(--muted); transition:color .2s; }
-.filter-opt.active .filter-lbl { color:var(--y); font-weight:600; }
-.filter-count { font-size:.6875rem; color:var(--dim); margin-left:auto; }
-
-/* PRODUCT GRID */
-.prod-area { }
-.prod-toolbar { display:flex; align-items:center; justify-content:space-between; margin-bottom:1.5rem; flex-wrap:wrap; gap:.75rem; }
-.prod-count { font-size:.875rem; color:var(--muted); }
-.prod-count strong { color:var(--txt); }
-.sort-sel { background:var(--card); border:1px solid var(--bdr2); border-radius:var(--r2); padding:.5rem 1rem; color:var(--txt); font-size:.8125rem; outline:none; cursor:pointer; font-family:'Inter',sans-serif; }
-.prod-grid-main { display:grid; grid-template-columns:repeat(auto-fill,minmax(14rem,1fr)); gap:1rem; }
-.pc { background:var(--card); border:1px solid var(--bdr); border-radius:var(--r); overflow:hidden; transition:all .25s; cursor:pointer; }
-.pc:hover { border-color:var(--y); transform:translateY(-.25rem); box-shadow:0 .75rem 2.5rem rgba(0,0,0,.45); }
-.pc-img-wrap { height:10.5rem; overflow:hidden; background:#0E140E; position:relative; }
-.pc-img { width:100%; height:100%; object-fit:cover; transition:transform .4s; }
-.pc:hover .pc-img { transform:scale(1.06); }
-.pc-badge { position:absolute; top:.625rem; left:.625rem; font-size:.5625rem; font-weight:700; padding:.1875rem .5rem; border-radius:99rem; text-transform:uppercase; }
-.b-hot { background:var(--y); color:var(--black); }
-.b-new { background:var(--g); color:#fff; }
-.b-sale { background:#FF4444; color:#fff; }
-.pc-body { padding:1rem; }
-.pc-tag { font-size:.5625rem; font-weight:700; text-transform:uppercase; letter-spacing:.05em; color:var(--gl); margin-bottom:.3125rem; }
-.pc-name { font-size:.875rem; font-weight:600; line-height:1.35; margin-bottom:.25rem; }
-.pc-compat { font-size:.625rem; color:var(--muted); margin-bottom:.75rem; line-height:1.5; }
-.pc-row { display:flex; align-items:center; justify-content:space-between; margin-bottom:.625rem; }
-.pc-price { font-family:'Barlow Condensed',sans-serif; font-weight:900; font-size:1.5rem; color:var(--y); line-height:1; }
-.pc-old { font-size:.625rem; color:var(--dim); text-decoration:line-through; }
-.pc-btn { width:100%; background:var(--y); border:none; border-radius:var(--r2); padding:.625rem; font-weight:700; font-size:.75rem; color:var(--black); cursor:pointer; transition:all .2s; display:flex; align-items:center; justify-content:center; gap:.3125rem; font-family:'Inter',sans-serif; }
-.pc-btn:hover { background:var(--yd); }
-.pc-btn.done { background:var(--g); color:#fff; }
-
-/* FOOTER (minimal) */
-footer { background:var(--black); border-top:1px solid var(--bdr); padding:2rem; text-align:center; }
-.footer-min { font-size:.75rem; color:var(--dim); }
-.footer-min a { color:var(--y); }
-
-@media(max-width:48rem) {
-  .shop-layout { grid-template-columns:1fr; }
-  .sidebar { display:none; }
-}
-@media(max-width:36rem) {
-  .shop-hero { padding:2.5rem 1.25rem 2rem; }
-  .search-bar-wrap { padding:1.25rem; }
-  .shop-layout { padding:1.5rem 1.25rem; }
-}
+<style>
+.shop-hero{background:var(--black);padding:4rem 2rem 3rem;border-bottom:1px solid var(--bdr)}
+.shop-hero-inner{max-width:75rem;margin:0 auto}
+.shop-hero-h{font-size:clamp(2.25rem,5vw,4rem);margin-bottom:.75rem}
+.search-area{background:var(--surf);border-bottom:1px solid var(--bdr);padding:1.5rem 2rem}
+.search-area-inner{max-width:75rem;margin:0 auto}
+.sbar{display:flex;background:var(--card);border:2px solid var(--bdr2);border-radius:var(--r);overflow:hidden;transition:border-color .2s}
+.sbar:focus-within{border-color:var(--y)}
+.sbar-icon{padding:0 1rem;display:flex;align-items:center;font-size:1.125rem;color:var(--muted)}
+.sbar input{flex:1;background:transparent;border:none;padding:.9375rem 0;color:var(--txt);font-size:.9375rem;outline:none;font-family:'Inter',sans-serif}
+.sbar input::placeholder{color:var(--dim)}
+.sbar button{background:var(--y);border:none;padding:0 1.75rem;font-weight:700;font-size:.875rem;color:var(--black);cursor:pointer;transition:background .2s;font-family:'Inter',sans-serif;white-space:nowrap}
+.sbar button:hover{background:var(--yd)}
+.stags{display:flex;gap:.5rem;flex-wrap:wrap;margin-top:.875rem}
+.stag{background:var(--card2);border:1px solid var(--bdr);border-radius:99rem;padding:.3125rem .875rem;font-size:.75rem;color:var(--muted);cursor:pointer;transition:all .2s}
+.stag:hover{border-color:var(--y);color:var(--y)}
+.shop-body{max-width:75rem;margin:0 auto;padding:2.5rem 2rem;display:grid;grid-template-columns:14rem 1fr;gap:2.5rem;align-items:start}
+.sidebar{display:flex;flex-direction:column;gap:1rem}
+.sb-card{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);padding:1.25rem}
+.sb-title{font-size:.6875rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--y);margin-bottom:1rem}
+.fopt{display:flex;align-items:center;gap:.625rem;padding:.5rem 0;cursor:pointer;transition:all .2s}
+.fopt:hover .flbl{color:var(--txt)}
+.fradio{width:1rem;height:1rem;border-radius:50%;border:2px solid var(--bdr2);display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0}
+.fopt.active .fradio{border-color:var(--y);background:var(--y)}
+.fopt.active .fradio::after{content:'';width:.375rem;height:.375rem;background:var(--black);border-radius:50%}
+.flbl{font-size:.8125rem;color:var(--muted);transition:color .2s}
+.fopt.active .flbl{color:var(--y);font-weight:600}
+.fcnt{font-size:.6875rem;color:var(--dim);margin-left:auto}
+.prod-area{min-width:0}
+.toolbar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.5rem;flex-wrap:wrap;gap:.75rem}
+.toolbar-count{font-size:.875rem;color:var(--muted)}
+.toolbar-count strong{color:var(--txt)}
+.sort-sel{background:var(--card);border:1px solid var(--bdr2);border-radius:var(--r2);padding:.5rem 1rem;color:var(--txt);font-size:.8125rem;outline:none;cursor:pointer;font-family:'Inter',sans-serif}
+.prod-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(14rem,1fr));gap:1rem}
+.pc{background:var(--card);border:1px solid var(--bdr);border-radius:var(--r);overflow:hidden;transition:all .25s}
+.pc:hover{border-color:var(--y);transform:translateY(-.25rem);box-shadow:0 .75rem 2.5rem rgba(0,0,0,.45)}
+.pc-img-wrap{height:10.5rem;overflow:hidden;background:#0E140E;position:relative}
+.pc-img{width:100%;height:100%;object-fit:cover;transition:transform .4s}
+.pc:hover .pc-img{transform:scale(1.06)}
+.pc-badge{position:absolute;top:.625rem;left:.625rem;font-size:.5625rem;font-weight:700;padding:.1875rem .5rem;border-radius:99rem;text-transform:uppercase}
+.b-hot{background:var(--y);color:var(--black)}
+.b-new{background:var(--g);color:#fff}
+.b-sale{background:#FF4444;color:#fff}
+.pc-body{padding:1rem}
+.pc-tag{font-size:.5625rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--gl);margin-bottom:.3125rem}
+.pc-name{font-size:.875rem;font-weight:600;line-height:1.35;margin-bottom:.25rem}
+.pc-compat{font-size:.625rem;color:var(--muted);margin-bottom:.75rem;line-height:1.5}
+.pc-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:.625rem}
+.pc-price{font-family:'Barlow Condensed',sans-serif;font-weight:900;font-size:1.5rem;color:var(--y);line-height:1}
+.pc-old{font-size:.625rem;color:var(--dim);text-decoration:line-through}
+.pc-btn{width:100%;background:var(--y);border:none;border-radius:var(--r2);padding:.625rem;font-weight:700;font-size:.75rem;color:var(--black);cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:.3125rem;font-family:'Inter',sans-serif}
+.pc-btn:hover{background:var(--yd)}
+.pc-btn.done{background:var(--g);color:#fff}
+.mini-footer{background:var(--black);border-top:1px solid var(--bdr);padding:1.5rem 2rem;text-align:center;font-size:.75rem;color:var(--dim)}
+.mini-footer a{color:var(--y)}
+@media(max-width:48rem){.shop-body{grid-template-columns:1fr}.sidebar{display:none}}
+@media(max-width:36rem){.shop-hero{padding:2.5rem 1.25rem 2rem}.search-area{padding:1.25rem}.shop-body{padding:1.5rem 1.25rem}}
 </style>
 </head>
 <body>
-
-<div class="topbar">
-  <div class="pulse"></div>
-  <div class="topbar-scroll">OPEN RIGHT NOW · 11AM – 12 MIDNIGHT · EVERY DAY · 📍 36 GRANTS PEN RD, KINGSTON 8 · CALL (876) 630-8639 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OPEN RIGHT NOW · 11AM – 12 MIDNIGHT · EVERY DAY · 📍 36 GRANTS PEN RD, KINGSTON 8 · CALL (876) 630-8639</div>
-</div>
-
+<div class="topbar"><div class="pulse"></div><div class="topbar-scroll">OPEN RIGHT NOW &nbsp;·&nbsp; 11AM – 12 MIDNIGHT &nbsp;·&nbsp; EVERY DAY &nbsp;·&nbsp; INCLUDING SUNDAYS & PUBLIC HOLIDAYS &nbsp;·&nbsp; 📍 36 GRANTS PEN RD, KINGSTON 8 &nbsp;·&nbsp; CALL (876) 630-8639 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; OPEN RIGHT NOW &nbsp;·&nbsp; 11AM – 12 MIDNIGHT &nbsp;·&nbsp; EVERY DAY &nbsp;·&nbsp; INCLUDING SUNDAYS & PUBLIC HOLIDAYS &nbsp;·&nbsp; 📍 36 GRANTS PEN RD, KINGSTON 8 &nbsp;·&nbsp; CALL (876) 630-8639</div></div>
 <nav>
-  <a class="nav-logo" href="index.html">
-    <div class="nav-mark">BJ</div>
-    <div><div class="nav-name">Big J's Auto Parts</div><div class="nav-tagline">Jamaica's Only Midnight Auto Store</div></div>
-  </a>
-  <a class="nav-link" href="index.html">Home</a>
-  <div class="nav-sep"></div>
-  <a class="nav-link active" href="shop.html">Shop Parts</a>
-  <div class="nav-sep"></div>
-  <a class="nav-link" href="about.html">About</a>
-  <div class="nav-sep"></div>
-  <a class="nav-link" href="contact.html">Contact</a>
-  <div class="nav-sep"></div>
-  <div class="nav-open-pill"><div class="pulse"></div> Open Until Midnight</div>
-  <a class="nav-cta" href="contact.html">💬 WhatsApp Us</a>
-  <button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
+<a class="nav-logo" href="index.html"><div class="nav-mark">BJ</div><div><div class="nav-name">Big J's Auto Parts</div><div class="nav-tagline">Jamaica's Only Midnight Auto Store</div></div></a>
+<a class="nav-link" href="index.html">Home</a><div class="nav-sep"></div><a class="nav-link active" href="shop.html">Shop Parts</a><div class="nav-sep"></div><a class="nav-link" href="about.html">About</a><div class="nav-sep"></div><a class="nav-link" href="contact.html">Contact</a><div class="nav-sep"></div>
+<div class="nav-open-pill"><div class="pulse"></div> Open Until Midnight</div>
+<a class="nav-cta" href="contact.html">&hairsp;💬 WhatsApp Us</a>
+<button class="nav-burger" id="burger"><span></span><span></span><span></span></button>
 </nav>
-<div class="nav-mobile" id="mobileNav">
-  <a href="index.html">Home</a>
-  <a class="active" href="shop.html">Shop Parts</a>
-  <a href="about.html">About</a>
-  <a href="contact.html">Contact & Chat</a>
-  <a class="nav-cta" href="contact.html">💬 WhatsApp Us</a>
+<div class="nav-mobile" id="mobileNav"><a class="" href="index.html">Home</a><a class=" active" href="shop.html">Shop Parts</a><a class="" href="about.html">About</a><a class="" href="contact.html">Contact</a><a class="nav-cta" href="contact.html">&hairsp;💬 WhatsApp Us</a></div>
+<div class="shop-hero"><div class="shop-hero-inner rev"><div class="label">Parts Catalogue</div><h1 class="h1 shop-hero-h">Shop Auto Parts</h1><p style="color:var(--muted);font-size:.9375rem;max-width:36rem;line-height:1.7;margin-top:.5rem">Over 1,000 parts in stock. WhatsApp to confirm availability before you drive over &mdash; (876) 357-7749.</p></div></div>
+<div class="search-area"><div class="search-area-inner"><div class="sbar"><div class="sbar-icon">&#128269;</div><input type="text" id="sInput" placeholder="Search &mdash; e.g. brake pads Toyota Axio, 185/65R15 tyre, 12V battery..."/><button onclick="doSearch()">Search</button></div><div class="stags"><div class="stag" onclick="qf('Brakes')">Brake Pads</div><div class="stag" onclick="qf('Battery')">Battery</div><div class="stag" onclick="qf('Tyres')">Tyres</div><div class="stag" onclick="qf('Engine')">Engine Parts</div><div class="stag" onclick="qf('Lubricants')">Engine Oil</div><div class="stag" onclick="qf('Drivetrain')">CV Joints</div><div class="stag" onclick="qf('Bike')">Bike Parts</div><div class="stag" onclick="qf('All')">All Parts</div></div></div></div>
+<div class="shop-body">
+<div class="sidebar">
+<div class="sb-card"><div class="sb-title">Category</div>
+<div class="fopt active" onclick="sf(this,'All')"><div class="fradio"></div><div class="flbl">All Parts</div><div class="fcnt">12</div></div>
+<div class="fopt" onclick="sf(this,'Engine')"><div class="fradio"></div><div class="flbl">Engine Parts</div><div class="fcnt">3</div></div>
+<div class="fopt" onclick="sf(this,'Brakes')"><div class="fradio"></div><div class="flbl">Brake Parts</div><div class="fcnt">2</div></div>
+<div class="fopt" onclick="sf(this,'Tyres')"><div class="fradio"></div><div class="flbl">Tyres</div><div class="fcnt">2</div></div>
+<div class="fopt" onclick="sf(this,'Battery')"><div class="fradio"></div><div class="flbl">Batteries</div><div class="fcnt">2</div></div>
+<div class="fopt" onclick="sf(this,'Lubricants')"><div class="fradio"></div><div class="flbl">Lubricants</div><div class="fcnt">1</div></div>
+<div class="fopt" onclick="sf(this,'Drivetrain')"><div class="fradio"></div><div class="flbl">Drive Train</div><div class="fcnt">1</div></div>
+<div class="fopt" onclick="sf(this,'Bike')"><div class="fradio"></div><div class="flbl">Bike Parts</div><div class="fcnt">1</div></div>
 </div>
-
-<div class="shop-hero">
-  <div class="shop-hero-inner rev">
-    <div class="label">Parts Catalogue</div>
-    <h1 class="h1 shop-hero-h">Shop Auto Parts</h1>
-    <p class="shop-hero-sub">Over 1,000 parts in stock. WhatsApp to confirm availability before you drive over — (876) 357-7749.</p>
-  </div>
+<div class="sb-card"><div class="sb-title">Availability</div>
+<div class="fopt active" onclick="af(this,'all')"><div class="fradio"></div><div class="flbl">All Items</div></div>
+<div class="fopt" onclick="af(this,'in')"><div class="fradio"></div><div class="flbl">In Stock Only</div></div>
 </div>
-
-<div class="search-bar-wrap">
-  <div class="search-bar">
-    <div class="search-icon">🔍</div>
-    <input type="text" id="sInput" placeholder="Search parts — e.g. brake pads Toyota Axio, 185/65R15 tyre, 12V battery..."/>
-    <button onclick="doFilter()">Search</button>
-  </div>
-  <div class="search-tags">
-    <div class="stag" onclick="quickFilter('Brakes')">Brake Pads</div>
-    <div class="stag" onclick="quickFilter('Battery')">Battery</div>
-    <div class="stag" onclick="quickFilter('Tyres')">Tyres</div>
-    <div class="stag" onclick="quickFilter('Engine')">Engine Parts</div>
-    <div class="stag" onclick="quickFilter('Lubricants')">Engine Oil</div>
-    <div class="stag" onclick="quickFilter('Drivetrain')">CV Joints</div>
-    <div class="stag" onclick="quickFilter('Bike')">Bike Parts</div>
-  </div>
 </div>
-
-<div class="shop-layout">
-  <div class="sidebar">
-    <div class="sidebar-sec">
-      <div class="sidebar-title">Category</div>
-      <div class="filter-opt active" onclick="sideFilter(this,'All')"><div class="filter-radio"></div><div class="filter-lbl">All Parts</div><div class="filter-count">24</div></div>
-      <div class="filter-opt" onclick="sideFilter(this,'Engine')"><div class="filter-radio"></div><div class="filter-lbl">Engine Parts</div><div class="filter-count">6</div></div>
-      <div class="filter-opt" onclick="sideFilter(this,'Brakes')"><div class="filter-radio"></div><div class="filter-lbl">Brake Parts</div><div class="filter-count">4</div></div>
-      <div class="filter-opt" onclick="sideFilter(this,'Tyres')"><div class="filter-radio"></div><div class="filter-lbl">Tyres</div><div class="filter-count">4</div></div>
-      <div class="filter-opt" onclick="sideFilter(this,'Battery')"><div class="filter-radio"></div><div class="filter-lbl">Batteries</div><div class="filter-count">3</div></div>
-      <div class="filter-opt" onclick="sideFilter(this,'Lubricants')"><div class="filter-radio"></div><div class="filter-lbl">Lubricants</div><div class="filter-count">3</div></div>
-      <div class="filter-opt" onclick="sideFilter(this,'Drivetrain')"><div class="filter-radio"></div><div class="filter-lbl">Drive Train</div><div class="filter-count">2</div></div>
-      <div class="filter-opt" onclick="sideFilter(this,'Bike')"><div class="filter-radio"></div><div class="filter-lbl">Bike Parts</div><div class="filter-count">2</div></div>
-    </div>
-    <div class="sidebar-sec">
-      <div class="sidebar-title">Availability</div>
-      <div class="filter-opt active" onclick="availFilter(this,'all')"><div class="filter-radio"></div><div class="filter-lbl">All Items</div></div>
-      <div class="filter-opt" onclick="availFilter(this,'in')"><div class="filter-radio"></div><div class="filter-lbl">In Stock Only</div></div>
-    </div>
-    <div class="sidebar-sec">
-      <div class="sidebar-title">Vehicle Brand</div>
-      <div class="filter-opt active"><div class="filter-radio"></div><div class="filter-lbl">All Brands</div></div>
-      <div class="filter-opt"><div class="filter-radio"></div><div class="filter-lbl">Toyota</div></div>
-      <div class="filter-opt"><div class="filter-radio"></div><div class="filter-lbl">Honda</div></div>
-      <div class="filter-opt"><div class="filter-radio"></div><div class="filter-lbl">Nissan</div></div>
-      <div class="filter-opt"><div class="filter-radio"></div><div class="filter-lbl">Hyundai</div></div>
-      <div class="filter-opt"><div class="filter-radio"></div><div class="filter-lbl">Suzuki</div></div>
-    </div>
-  </div>
-
-  <div class="prod-area">
-    <div class="prod-toolbar">
-      <div class="prod-count"><strong id="prodCountNum">12</strong> parts found</div>
-      <select class="sort-sel" onchange="sortProds(this.value)">
-        <option value="default">Sort: Featured</option>
-        <option value="price-asc">Price: Low to High</option>
-        <option value="price-desc">Price: High to Low</option>
-        <option value="name">Name: A–Z</option>
-      </select>
-    </div>
-    <div class="prod-grid-main" id="prodGrid">
-      <!-- Products injected by JS -->
-    </div>
-  </div>
+<div class="prod-area">
+<div class="toolbar"><div class="toolbar-count"><strong id="pcount">12</strong> parts found</div><select class="sort-sel" onchange="sortP(this.value)"><option value="def">Sort: Featured</option><option value="asc">Price: Low to High</option><option value="desc">Price: High to Low</option><option value="az">Name: A&ndash;Z</option></select></div>
+<div class="prod-grid" id="pGrid"></div>
 </div>
-
-<footer>
-  <div class="footer-min">© 2025 Big J's Auto Parts · Demo by <a href="https://j-commerce.online" target="_blank">Jcommerce</a> · <a href="index.html">← Home</a> · <a href="contact.html">Contact & Chat →</a></div>
-</footer>
-
-<div class="toast" id="toast"></div>
-<button class="float-wa" id="floatWa" aria-label="WhatsApp">💬</button>
-
-<div class="overlay" id="tourOverlay">
-  <div class="modal-box" style="position:relative">
-    <button class="modal-close-x" onclick="closeTour()">✕</button>
-    <div class="modal-inner">
-      <div class="modal-prog" id="tourProg"></div>
-      <div class="modal-step-lbl" id="tourStep"></div>
-      <div class="modal-h" id="tourH"></div>
-      <div class="modal-body-text" id="tourBody"></div>
-      <img id="tourImg" class="modal-img" src="" alt="" style="display:none;border-radius:.5rem"/>
-    </div>
-    <div class="modal-foot">
-      <button class="modal-btn-skip" onclick="closeTour()">Skip Tour</button>
-      <button class="modal-btn-next" id="tourNext" onclick="nextTourStep()">Next →</button>
-    </div>
-  </div>
 </div>
+<div class="mini-footer">&copy; 2025 Big J's Auto Parts &nbsp;&middot;&nbsp; Demo by <a href="https://j-commerce.online" target="_blank">Jcommerce</a> &nbsp;&middot;&nbsp; <a href="index.html">&larr; Home</a> &nbsp;&middot;&nbsp; <a href="contact.html">Contact &amp; Chat &rarr;</a></div>
+<div class="toast" id="toast"></div><button class="float-wa" id="floatWa" aria-label="WhatsApp">💬</button>
+<div class="overlay" id="tourOverlay"><div class="modal-box"><button class="modal-close-x" onclick="closeTour()">&#x2715;</button><div class="modal-inner"><div class="modal-prog" id="tourProg"></div><div class="modal-step-lbl" id="tourStep"></div><div class="modal-h" id="tourH"></div><div class="modal-body-text" id="tourBody"></div><img id="tourImg" class="modal-img" src="" alt="" style="display:none;border-radius:.5rem"/></div><div class="modal-foot"><button class="modal-btn-skip" onclick="closeTour()">Skip Tour</button><button class="modal-btn-next" id="tourNext" onclick="nextTourStep()">Next &rarr;</button></div></div></div>
+<script>
+const prods=[
+{cat:'Brakes',name:'Front Disc Brake Pad Set',compat:'Toyota Axio · Fielder · Corolla 2012–2020',price:3500,old:4200,stock:'in',badge:'hot',img:'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=400&q=80',tag:'Brake Parts'},
+{cat:'Battery',name:'12V 45Ah Battery',compat:'Universal · All small-medium vehicles',price:12000,stock:'in',badge:'new',img:'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400&q=80',tag:'Batteries'},
+{cat:'Tyres',name:'185/65R15 All-Season Tyre',compat:'Honda Fit · Toyota Vitz · Nissan Tiida',price:8500,old:9800,stock:'low',badge:'sale',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',tag:'Tyres'},
+{cat:'Engine',name:'OEM Water Pump',compat:'Toyota Corolla · Axio · Fielder 2006–2019',price:5500,stock:'in',img:'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=400&q=80',tag:'Engine Parts'},
+{cat:'Lubricants',name:'10W-40 Engine Oil 4L',compat:'All Japanese & Korean petrol engines',price:4200,stock:'in',badge:'hot',img:'https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?w=400&q=80',tag:'Lubricants'},
+{cat:'Drivetrain',name:'Inner CV Joint Boot Kit',compat:'Toyota Vitz · Yaris · Platz 2002–2018',price:6800,stock:'in',img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&q=80',tag:'Drive Train'},
+{cat:'Engine',name:'Air Filter — OEM Quality',compat:'Honda Fit · Jazz · Civic 2008–2018',price:1800,stock:'in',img:'https://images.unsplash.com/photo-1620714223084-8fcacc2dfd4d?w=400&q=80',tag:'Engine Parts'},
+{cat:'Brakes',name:'Rear Drum Brake Shoe Set',compat:'Nissan AD Wagon · Tiida · Note',price:2800,stock:'in',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',tag:'Brake Parts'},
+{cat:'Battery',name:'12V 65Ah Heavy Duty Battery',compat:'SUVs · Hiace · Pickup trucks',price:16500,stock:'in',badge:'new',img:'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400&q=80',tag:'Batteries'},
+{cat:'Tyres',name:'205/65R15 Premium All-Season',compat:'Toyota Fielder · Allion · Premio',price:10500,stock:'in',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',tag:'Tyres'},
+{cat:'Engine',name:'Timing Belt Kit',compat:'Honda Civic · Stream 2001–2013',price:7500,stock:'low',img:'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=400&q=80',tag:'Engine Parts'},
+{cat:'Bike',name:'Motorcycle Disc Pad Set',compat:'125cc–250cc · Universal',price:1200,stock:'in',badge:'hot',img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',tag:'Bike Parts'}
+];
+let af='All',av='all';
+function render(list){
+  document.getElementById('pcount').textContent=list.length;
+  const g=document.getElementById('pGrid');
+  if(!list.length){g.innerHTML='<div style="grid-column:1/-1;text-align:center;padding:3rem 1rem;color:var(--muted)">No parts found. <a href="contact.html" style="color:var(--y)">WhatsApp us</a> — we can source it.</div>';return}
+  g.innerHTML=list.map(p=>`<div class="pc"><div class="pc-img-wrap"><img class="pc-img" src="${p.img}" alt="${p.name}" loading="lazy"/>${p.badge==='hot'?'<div class="pc-badge b-hot">?? Popular</div>':p.badge==='new'?'<div class="pc-badge b-new">New</div>':p.badge==='sale'?'<div class="pc-badge b-sale">Sale</div>':''}</div><div class="pc-body"><div class="pc-tag">${p.tag}</div><div class="pc-name">${p.name}</div><div class="pc-compat">${p.compat}</div><div class="pc-row"><div><div class="pc-price">$${p.price.toLocaleString()}</div>${p.old?`<div class="pc-old">Was $${p.old.toLocaleString()} JMD</div>`:''}</div><span class="pill ${p.stock==='in'?'pill-green':p.stock==='low'?'pill-orange':'pill-red'}">${p.stock==='in'?'✓ In Stock':p.stock==='low'?'⚠ Low Stock':'✗ Out'}</span></div><button class="pc-btn" onclick="btnC(this,'${p.name}')">&#128722; Add to Enquiry</button></div></div>`).join('');
+}
+function filtered(){return prods.filter(p=>(af==='All'||p.cat===af)&&(av==='all'||p.stock==='in'))}
+function doSearch(){const q=document.getElementById('sInput').value.toLowerCase();render(q?prods.filter(p=>(p.name+p.compat+p.tag).toLowerCase().includes(q)):filtered())}
+function qf(cat){af=cat;document.querySelectorAll('.fopt').forEach(o=>o.classList.remove('active'));render(filtered())}
+function sf(el,cat){af=cat;el.closest('.sb-card').querySelectorAll('.fopt').forEach(o=>o.classList.remove('active'));el.classList.add('active');render(filtered())}
+function af2(el,mode){av=mode;el.closest('.sb-card').querySelectorAll('.fopt').forEach(o=>o.classList.remove('active'));el.classList.add('active');render(filtered())}
+function sortP(v){let l=filtered();if(v==='asc')l.sort((a,b)=>a.price-b.price);else if(v==='desc')l.sort((a,b)=>b.price-a.price);else if(v==='az')l.sort((a,b)=>a.name.localeCompare(b.name));render(l)}
+function btnC(btn,name){addEnquiry(name);btn.textContent='✓ Added!';btn.classList.add('done');setTimeout(()=>{btn.textContent='&#128722; Add to Enquiry';btn.classList.remove('done')},2000)}
+document.querySelectorAll('.fopt').forEach(el=>{if(el.onclick&&el.onclick.toString().includes('af2'))el.addEventListener('click',function(){af2(this,this.querySelector('.flbl').textContent==='In Stock Only'?'in':'all')})  });
+render(prods);
+</script>
 
 <script>
-const products = [
-  { cat:'Brakes', name:'Front Disc Brake Pad Set', compat:'Toyota Axio · Fielder · Corolla 2012–2020', price:3500, oldPrice:4200, stock:'in', badge:'hot', img:'https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=400&q=80', tag:'Brake Parts' },
-  { cat:'Battery', name:'12V 45Ah Maintenance-Free Battery', compat:'Universal · All small-medium vehicles', price:12000, stock:'in', badge:'new', img:'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400&q=80', tag:'Batteries' },
-  { cat:'Tyres', name:'185/65R15 All-Season Tyre', compat:'Honda Fit · Toyota Vitz · Nissan Tiida', price:8500, oldPrice:9800, stock:'low', badge:'sale', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', tag:'Tyres' },
-  { cat:'Engine', name:'OEM Water Pump', compat:'Toyota Corolla · Axio · Fielder 2006–2019', price:5500, stock:'in', img:'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=400&q=80', tag:'Engine Parts' },
-  { cat:'Lubricants', name:'10W-40 Semi-Synthetic Engine Oil 4L', compat:'All Japanese & Korean petrol engines', price:4200, stock:'in', badge:'hot', img:'https://images.unsplash.com/photo-1637858868799-7f26a0640eb6?w=400&q=80', tag:'Lubricants' },
-  { cat:'Drivetrain', name:'Inner CV Joint Boot Kit', compat:'Toyota Vitz · Yaris · Platz 2002–2018', price:6800, stock:'in', img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=400&q=80', tag:'Drive Train' },
-  { cat:'Engine', name:'Air Filter — OEM Quality', compat:'Honda Fit · Jazz · Civic 2008–2018', price:1800, stock:'in', img:'https://images.unsplash.com/photo-1620714223084-8fcacc2dfd4d?w=400&q=80', tag:'Engine Parts' },
-  { cat:'Brakes', name:'Rear Drum Brake Shoe Set', compat:'Nissan AD Wagon · Tiida · Note', price:2800, stock:'in', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', tag:'Brake Parts' },
-  { cat:'Battery', name:'12V 65Ah Heavy Duty Battery', compat:'SUVs · Hiace · Pickup trucks', price:16500, stock:'in', badge:'new', img:'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400&q=80', tag:'Batteries' },
-  { cat:'Tyres', name:'205/65R15 Premium All-Season', compat:'Toyota Fielder · Allion · Premio', price:10500, stock:'in', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', tag:'Tyres' },
-  { cat:'Engine', name:'Timing Belt Kit', compat:'Honda Civic · Stream · 2001–2013', price:7500, stock:'low', img:'https://images.unsplash.com/photo-1601362840469-51e4d8d58785?w=400&q=80', tag:'Engine Parts' },
-  { cat:'Bike', name:'Motorcycle Disc Pad Set', compat:'125cc–250cc · Universal fitment', price:1200, stock:'in', badge:'hot', img:'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80', tag:'Bike Parts' },
+// Reveal
+const _ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');_ro.unobserve(e.target)}})},{threshold:0.07});
+document.querySelectorAll('.rev').forEach(el=>_ro.observe(el));
+// Mobile nav
+const _bg=document.getElementById('burger'),_mn=document.getElementById('mobileNav');
+if(_bg&&_mn){_bg.addEventListener('click',()=>{_bg.classList.toggle('open');_mn.classList.toggle('open')});_mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{_bg.classList.remove('open');_mn.classList.remove('open')}))}
+// Toast
+function showToast(msg){const t=document.getElementById('toast');if(!t)return;t.innerHTML='&#x2705; '+msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3500)}
+// WhatsApp
+const _wa=document.getElementById('floatWa');if(_wa)_wa.addEventListener('click',()=>showToast('Opening WhatsApp… (876) 357-7749'));
+// Clock
+function _clk(){const el=document.getElementById('liveClock');if(!el)return;el.textContent=new Date().toLocaleTimeString('en-JM',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'America/Jamaica'})}
+_clk();setInterval(_clk,1000);
+// Tour
+let _ts=0;
+const _steps=[
+{step:'Welcome · 1 of 5',title:'THIS IS YOUR WEBSITE',body:'This is a fully working demo of what <strong>Big J's Auto Parts</strong> would look like as a real web system built by Jcommerce.<br><br>This is <strong>not advertising.</strong> This is your own corner of the internet — a system you own, that works for your business 24 hours a day, 7 days a week.',img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&q=80'},
+{step:'Feature · 2 of 5',title:'CUSTOMERS FIND YOU AT MIDNIGHT',body:'Right now, someone searching for auto parts at 10pm in Kingston finds <strong>nothing from Big J's</strong>.<br><br>With this system, they Google "auto parts Kingston open late" — Big J's shows up first. <strong>That's a sale you lose every single night.</strong>',img:'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=700&q=80'},
+{step:'Feature · 3 of 5',title:'THE WHATSAPP BOT',body:'Go to the <strong>Contact page</strong> and try the live chatbot. Type "do you have brake pads for a Corolla?"<br><br>It replies instantly — stock, price, location. <strong>Your staff handles nothing until the customer walks in ready to buy.</strong>',img:''},
+{step:'Feature · 4 of 5',title:'PARTS CATALOGUE',body:'The <strong>Shop page</strong> lets customers browse by category, filter, check availability and add items to an enquiry list before they drive over.<br><br><strong>Fewer wasted trips. More confident buyers at your door.</strong>',img:''},
+{step:'Ready · 5 of 5',title:'LIVE IN 14 DAYS',body:'Everything you've seen — website, chatbot, parts catalogue — <strong>live for Big J's in 14 days.</strong><br><br>Setup: <strong>JMD 75,000</strong> · Monthly: <strong>8,000/month</strong><br><br>WhatsApp Jadan: <strong>876-817-0095</strong><br><a href="https://j-commerce.online" target="_blank">j-commerce.online</a>',img:''}
 ];
-
-let activeFilter = 'All';
-let availMode = 'all';
-
-function renderProds(list) {
-  const grid = document.getElementById('prodGrid');
-  document.getElementById('prodCountNum').textContent = list.length;
-  if (!list.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:3rem;color:var(--muted)">No parts found. <a href="contact.html" style="color:var(--y)">WhatsApp us</a> — we can source it.</div>'; return; }
-  grid.innerHTML = list.map(p => `
-    <div class="pc">
-      <div class="pc-img-wrap">
-        <img class="pc-img" src="${p.img}" alt="${p.name}" loading="lazy"/>
-        ${p.badge === 'hot' ? '<div class="pc-badge b-hot">🔥 Popular</div>' : p.badge === 'new' ? '<div class="pc-badge b-new">New</div>' : p.badge === 'sale' ? '<div class="pc-badge b-sale">Sale</div>' : ''}
-      </div>
-      <div class="pc-body">
-        <div class="pc-tag">${p.tag}</div>
-        <div class="pc-name">${p.name}</div>
-        <div class="pc-compat">${p.compat}</div>
-        <div class="pc-row">
-          <div><div class="pc-price">$${p.price.toLocaleString()}</div>${p.oldPrice ? `<div class="pc-old">Was $${p.oldPrice.toLocaleString()} JMD</div>` : ''}</div>
-          <span class="pill ${p.stock === 'in' ? 'pill-green' : p.stock === 'low' ? 'pill-orange' : 'pill-red'}">${p.stock === 'in' ? '✓ In Stock' : p.stock === 'low' ? '⚠ Low Stock' : '✗ Out of Stock'}</span>
-        </div>
-        <button class="pc-btn" onclick="btnCart(this,'${p.name}')">🛒 Add to Enquiry</button>
-      </div>
-    </div>
-  `).join('');
-  document.querySelectorAll('.rev').forEach(el => revObs.observe(el));
-}
-
-function getFiltered() {
-  return products.filter(p => {
-    const catOk = activeFilter === 'All' || p.cat === activeFilter;
-    const availOk = availMode === 'all' || p.stock === 'in';
-    return catOk && availOk;
-  });
-}
-
-function doFilter() {
-  const q = document.getElementById('sInput').value.toLowerCase();
-  const res = q ? products.filter(p => (p.name+p.compat+p.tag).toLowerCase().includes(q)) : getFiltered();
-  renderProds(res);
-}
-
-function quickFilter(cat) {
-  activeFilter = cat;
-  document.querySelectorAll('.filter-opt').forEach(o => o.classList.remove('active'));
-  renderProds(getFiltered());
-}
-
-function sideFilter(el, cat) {
-  activeFilter = cat;
-  el.closest('.sidebar-sec').querySelectorAll('.filter-opt').forEach(o => o.classList.remove('active'));
-  el.classList.add('active');
-  renderProds(getFiltered());
-}
-
-function availFilter(el, mode) {
-  availMode = mode;
-  el.closest('.sidebar-sec').querySelectorAll('.filter-opt').forEach(o => o.classList.remove('active'));
-  el.classList.add('active');
-  renderProds(getFiltered());
-}
-
-function sortProds(val) {
-  let list = getFiltered();
-  if (val === 'price-asc') list.sort((a,b) => a.price - b.price);
-  else if (val === 'price-desc') list.sort((a,b) => b.price - a.price);
-  else if (val === 'name') list.sort((a,b) => a.name.localeCompare(b.name));
-  renderProds(list);
-}
-
-function btnCart(btn, name) {
-  addEnquiry(name);
-  btn.textContent = '✓ Added!';
-  btn.classList.add('done');
-  setTimeout(() => { btn.textContent = '🛒 Add to Enquiry'; btn.classList.remove('done'); }, 2000);
-}
-
-renderProds(products);
+function openTour(i){_ts=i||0;_renderTour();const ov=document.getElementById('tourOverlay');if(ov)ov.classList.add('open')}
+function _renderTour(){const s=_steps[_ts],g=id=>document.getElementById(id);if(!g('tourH'))return;g('tourStep').textContent=s.step;g('tourH').textContent=s.title;g('tourBody').innerHTML=s.body;g('tourNext').textContent=_ts<_steps.length-1?'Next →':'Got It ✓';g('tourProg').innerHTML=_steps.map((_,i)=>'<div class="mprog-dot'+(i<=_ts?' done':'')+'"></div>').join('');const img=g('tourImg');if(s.img){img.src=s.img;img.style.display='block'}else img.style.display='none'}
+function nextTourStep(){if(_ts<_steps.length-1){_ts++;_renderTour()}else closeTour()}
+function closeTour(){const ov=document.getElementById('tourOverlay');if(ov)ov.classList.remove('open')}
+window.addEventListener('click',e=>{const ov=document.getElementById('tourOverlay');if(ov&&e.target===ov)closeTour()});
+const _enq=[];
+function addEnquiry(name){if(!_enq.includes(name))_enq.push(name);showToast(name+' added to enquiry')}
+if(!sessionStorage.getItem('tourSeen')){setTimeout(()=>{openTour(0);sessionStorage.setItem('tourSeen','1')},1600)}
 </script>
-<script src="app.js"></script>
-</body>
-</html>
+
+</body></html>
