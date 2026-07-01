@@ -295,36 +295,78 @@ function btnCart(btn,name){addEnquiry(name);btn.textContent='✓ Added!';btn.cla
 </script>
 
 <script>
-// Reveal
-const _ro=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');_ro.unobserve(e.target)}})},{threshold:0.07});
-document.querySelectorAll('.rev').forEach(el=>_ro.observe(el));
-// Mobile nav
-const _bg=document.getElementById('burger'),_mn=document.getElementById('mobileNav');
-if(_bg&&_mn){_bg.addEventListener('click',()=>{_bg.classList.toggle('open');_mn.classList.toggle('open')});_mn.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>{_bg.classList.remove('open');_mn.classList.remove('open')}))}
-// Toast
-function showToast(msg){const t=document.getElementById('toast');if(!t)return;t.innerHTML='&#x2705; '+msg;t.classList.add('show');clearTimeout(t._t);t._t=setTimeout(()=>t.classList.remove('show'),3500)}
-// WhatsApp
-const _wa=document.getElementById('floatWa');if(_wa)_wa.addEventListener('click',()=>showToast('Opening WhatsApp… (876) 357-7749'));
-// Clock
-function _clk(){const el=document.getElementById('liveClock');if(!el)return;el.textContent=new Date().toLocaleTimeString('en-JM',{hour:'2-digit',minute:'2-digit',hour12:true,timeZone:'America/Jamaica'})}
-_clk();setInterval(_clk,1000);
-// Tour
-let _ts=0;
-const _steps=[
-{step:'Welcome · 1 of 5',title:'THIS IS YOUR WEBSITE',body:'This is a fully working demo of what <strong>Big J's Auto Parts</strong> would look like as a real web system built by Jcommerce.<br><br>This is <strong>not advertising.</strong> This is your own corner of the internet — a system you own, that works for your business 24 hours a day, 7 days a week.',img:'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&q=80'},
-{step:'Feature · 2 of 5',title:'CUSTOMERS FIND YOU AT MIDNIGHT',body:'Right now, someone searching for auto parts at 10pm in Kingston finds <strong>nothing from Big J's</strong>.<br><br>With this system, they Google "auto parts Kingston open late" — Big J's shows up first. <strong>That's a sale you lose every single night.</strong>',img:'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=700&q=80'},
-{step:'Feature · 3 of 5',title:'THE WHATSAPP BOT',body:'Go to the <strong>Contact page</strong> and try the live chatbot. Type "do you have brake pads for a Corolla?"<br><br>It replies instantly — stock, price, location. <strong>Your staff handles nothing until the customer walks in ready to buy.</strong>',img:''},
-{step:'Feature · 4 of 5',title:'PARTS CATALOGUE',body:'The <strong>Shop page</strong> lets customers browse by category, filter, check availability and add items to an enquiry list before they drive over.<br><br><strong>Fewer wasted trips. More confident buyers at your door.</strong>',img:''},
-{step:'Ready · 5 of 5',title:'LIVE IN 14 DAYS',body:'Everything you've seen — website, chatbot, parts catalogue — <strong>live for Big J's in 14 days.</strong><br><br>Setup: <strong>JMD 75,000</strong> · Monthly: <strong>8,000/month</strong><br><br>WhatsApp Jadan: <strong>876-817-0095</strong><br><a href="https://j-commerce.online" target="_blank">j-commerce.online</a>',img:''}
+const _ro = new IntersectionObserver(entries => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); _ro.unobserve(e.target); } });
+}, { threshold: 0.07 });
+document.querySelectorAll('.rev').forEach(el => _ro.observe(el));
+
+const _bg = document.getElementById('burger');
+const _mn = document.getElementById('mobileNav');
+if (_bg && _mn) {
+  _bg.addEventListener('click', () => { _bg.classList.toggle('open'); _mn.classList.toggle('open'); });
+  _mn.querySelectorAll('a').forEach(a => a.addEventListener('click', () => { _bg.classList.remove('open'); _mn.classList.remove('open'); }));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  if (!t) return;
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 3500);
+}
+
+const _wa = document.getElementById('floatWa');
+if (_wa) _wa.addEventListener('click', () => showToast('WhatsApp: (876) 357-7749'));
+
+function _clk() {
+  const el = document.getElementById('liveClock');
+  if (!el) return;
+  el.textContent = new Date().toLocaleTimeString('en-JM', { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'America/Jamaica' });
+}
+_clk();
+setInterval(_clk, 1000);
+
+let _ts = 0;
+const _steps = [
+  { step: 'Welcome - 1 of 5', title: 'THIS IS YOUR WEBSITE', body: 'This is a working demo of what <strong>Big J\'s Auto Parts</strong> would look like as a real system built by Jcommerce.<br><br><strong>This is not advertising.</strong> This is your own website — a system you own, running 24 hours a day, 7 days a week.', img: 'https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=700&q=80' },
+  { step: 'Feature - 2 of 5', title: 'CUSTOMERS FIND YOU AT MIDNIGHT', body: 'Right now someone searching for auto parts at 10pm in Kingston finds <strong>nothing from Big J\'s</strong>.<br><br>With this system they Google "auto parts Kingston open late" and Big J\'s shows up first. <strong>That is a sale you are losing every single night.</strong>', img: 'https://images.unsplash.com/photo-1486262715619-67b85e0b08d3?w=700&q=80' },
+  { step: 'Feature - 3 of 5', title: 'THE WHATSAPP BOT', body: 'Go to the <strong>Contact page</strong> and try the live chatbot. Ask about a part. It replies instantly with stock, price and your location.<br><br><strong>Your staff handles nothing until the customer walks in ready to buy.</strong>', img: '' },
+  { step: 'Feature - 4 of 5', title: 'PARTS CATALOGUE', body: 'The <strong>Shop page</strong> lets customers browse by category, filter by part type, check availability and add items to an enquiry list before they drive over.<br><br><strong>Fewer wasted trips. More confident buyers at your door.</strong>', img: '' },
+  { step: 'Ready - 5 of 5', title: 'LIVE IN 14 DAYS', body: 'Website, chatbot, parts catalogue — <strong>all of this live for Big J\'s in 14 days.</strong><br><br>Setup: <strong>JMD 75,000</strong> &middot; Monthly: <strong>8,000/month</strong><br><br>WhatsApp Jadan: <strong>876-817-0095</strong><br><a href="https://j-commerce.online" target="_blank" style="color:var(--y)">j-commerce.online</a>', img: '' }
 ];
-function openTour(i){_ts=i||0;_renderTour();const ov=document.getElementById('tourOverlay');if(ov)ov.classList.add('open')}
-function _renderTour(){const s=_steps[_ts],g=id=>document.getElementById(id);if(!g('tourH'))return;g('tourStep').textContent=s.step;g('tourH').textContent=s.title;g('tourBody').innerHTML=s.body;g('tourNext').textContent=_ts<_steps.length-1?'Next →':'Got It ✓';g('tourProg').innerHTML=_steps.map((_,i)=>'<div class="mprog-dot'+(i<=_ts?' done':'')+'"></div>').join('');const img=g('tourImg');if(s.img){img.src=s.img;img.style.display='block'}else img.style.display='none'}
-function nextTourStep(){if(_ts<_steps.length-1){_ts++;_renderTour()}else closeTour()}
-function closeTour(){const ov=document.getElementById('tourOverlay');if(ov)ov.classList.remove('open')}
-window.addEventListener('click',e=>{const ov=document.getElementById('tourOverlay');if(ov&&e.target===ov)closeTour()});
-const _enq=[];
-function addEnquiry(name){if(!_enq.includes(name))_enq.push(name);showToast(name+' added to enquiry')}
-if(!sessionStorage.getItem('tourSeen')){setTimeout(()=>{openTour(0);sessionStorage.setItem('tourSeen','1')},1600)}
+
+function openTour(i) { _ts = i || 0; _rt(); const ov = document.getElementById('tourOverlay'); if (ov) ov.classList.add('open'); }
+function _rt() {
+  const s = _steps[_ts], g = id => document.getElementById(id);
+  if (!g('tourH')) return;
+  g('tourStep').textContent = s.step;
+  g('tourH').textContent = s.title;
+  g('tourBody').innerHTML = s.body;
+  g('tourNext').textContent = _ts < _steps.length - 1 ? 'Next' : 'Got It';
+  g('tourProg').innerHTML = _steps.map((_, i) => '<div class="mprog-dot' + (i <= _ts ? ' done' : '') + '"></div>').join('');
+  const img = g('tourImg');
+  if (s.img) { img.src = s.img; img.style.display = 'block'; } else { img.style.display = 'none'; }
+}
+function nextTourStep() { if (_ts < _steps.length - 1) { _ts++; _rt(); } else closeTour(); }
+function closeTour() { const ov = document.getElementById('tourOverlay'); if (ov) ov.classList.remove('open'); }
+window.addEventListener('click', e => { const ov = document.getElementById('tourOverlay'); if (ov && e.target === ov) closeTour(); });
+
+const _enq = [];
+function addEnquiry(name) {
+  if (!_enq.includes(name)) _enq.push(name);
+  showToast(name + ' added to enquiry');
+}
+function btnCart(btn, name) {
+  addEnquiry(name);
+  btn.textContent = 'Added!';
+  btn.classList.add('done');
+  setTimeout(() => { btn.textContent = 'Add to Enquiry'; btn.classList.remove('done'); }, 2000);
+}
+
+if (!sessionStorage.getItem('tourSeen')) {
+  setTimeout(() => { openTour(0); sessionStorage.setItem('tourSeen', '1'); }, 1600);
+}
 </script>
 
 </body></html>
